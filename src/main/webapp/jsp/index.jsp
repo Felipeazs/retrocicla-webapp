@@ -34,17 +34,16 @@
 		<!-- MENU SIDEBAR-->
 		<aside class="menu-sidebar d-none d-lg-block">
 			<div class="logo">
-				<a href="home.html"> <img src="assets/images/logo.png"
-					alt="luv2shop" class="img-responsive">
+				<a href="/"> <img src="assets/images/logo.png"
+					alt="logo-retrocicla" class="img-responsive">
 				</a>
 			</div>
 			<div class="menu-sidebar-content js-scrollbar1">
 				<nav class="navbar-sidebar">
 					<ul class="list-unstyled navbar-list">
-						<li><a href="#">Books</a></li>
-						<li><a href="#">Coffee Mugs</a></li>
-						<li><a href="#">Mouse Pads</a></li>
-						<li><a href="#">Luggage Tags</a></li>
+						<li><a href="#">Ropa</a></li>
+						<li><a href="#">Telas</a></li>
+						<li><a href="/addproductpage">Agregar</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -61,7 +60,7 @@
 							<form class="form-header" onsubmit="return false;" method="GET">
 								<input class="au-input au-input-xl" type="text" name="search"
 									placeholder="Search for data ..." />
-								<button class="au-btn-submit" type="submit">Search</button>
+								<button class="au-btn-submit" type="submit">Buscar</button>
 							</form>
 							<div class="cart-area d-n">
 								<a href="shopping-detail.html">
@@ -85,15 +84,22 @@
 
 							<div class="col-md-3">
 								<div class="product-box">
-									<a href="product-detail.html"> <img
-										src="assets/images/products/placeholder.png"
-										class="img-responsive">
-									</a> <a href="product-detail.html">
-										<h1>Lorem ipsum dolor sit amet</h1>
-									</a>
-									<h2>Duis aute irure dolor in reprehenderit in voluptate</h2>
-									<div class="price">19.22 $</div>
-									<a href="#" class="primary-btn">Add to cart</a>
+									<c:forEach items="${ product }" var="p">
+										<a href=""> 
+											<img src=${ p.image_url} class="img-responsive"> 
+										</a>
+										<h1>${ p.description }</h1>	
+										<h2>Prenda: ${ p.wear }</h2>									
+										<h2>Tamaño: ${ p.size }</h2>
+										<h2>Estilo: ${ p.style }</h2>
+										<h2>Género: ${ p.genre }</h2>
+										<h2>Color: ${ p.color }</h2>
+										<h2>Temporada: ${ p.season }</h2>
+										<h2>Composición: ${ p.cotton }% algodón ${ p.spandex }% spandex</h2>
+										<h2>Hecho en: ${ p.made_in }</h2>
+										<div class="price">$${ p.price }</div>
+										<a href="#" class="primary-btn">Agregar al carrito</a>
+									</c:forEach>
 								</div>
 							</div>
 

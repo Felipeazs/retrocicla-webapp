@@ -1,7 +1,13 @@
 package com.retrocicla.felipeazs.controller;
 
+import java.util.List;
+
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 
@@ -13,34 +19,65 @@ import com.retrocicla.felipeazs.service.ProductService;
 @Controller
 public class WebController {
 
-    @Autowired
-    private ClientService clientService;
+	@Autowired
+	private ClientService clientService;
 
-    @Autowired
-    private ProductService productService;
+	@Autowired
+	private ProductService productService;
 
-    @ModelAttribute("client")
-    private Client setClient(){
-        return new Client();
-    }
+	@ModelAttribute("client")
+	private Client setClient() {
+		return new Client();
+	}
 
-    @ModelAttribute("product")
-    private Product setProduct(){
-        return new Product();
-    }
+	@ModelAttribute("product")
+	private Product setProduct() {
+		return new Product();
+	}
 
-    @GetMapping("/login")
-    public String getLogin(){
-        return "login";
-    }
+	@GetMapping("/login")
+	public String getLogin() {
+		return "login";
+	}
 
-    @GetMapping("logout")
-    public String getLogout(){
-        return "logout";
-    }
+	@GetMapping("logout")
+	public String getLogout() {
+		return "logout";
+	}
 
-    @GetMapping("/")
-    public String getIndex(){
-        return "index";
-    }
+	@GetMapping("/")
+	public String getIndex(Model model) {
+
+		List<Product> product = productService.list();
+		model.addAttribute("product", product);
+
+		return "index";
+	}
+
+	@GetMapping("/addproductpage")
+	public String getAddProductPage(@ModelAttribute("product") Product product, Model model) {
+		
+		model.addAttribute("wear", product.listingWears());
+		model.addAttribute("styles", product.listingStyles());
+
+		return "addproduct";
+	}
+	
+	@GetMapping("/addproductdb")
+	public String getAddProductdv(@Valid @ModelAttribute("product") Product product, BindingResult br, Model model) {
+
+		if (br.hasErrors()) {
+			System.out.println(br.toString());
+			return "index";
+		}
+		
+		System.out.println(product.getColor());
+		
+		productService.add(product);
+		
+		return getAddProductPage(product, model);
+	}
+	
+	// FUNCIONES Y MÉTODOS
+	
 }
