@@ -79,9 +79,20 @@
 			<div class="main-content page-m">
 				<div class="section-content section-content-p30 e-spc">
 					<div class="container-fluid">
-
-						<div class="form-area">
+						<div class="form-area">													
 							<h3>Agregar producto</h3>
+							<div class="row">
+								<div class="col-md-2"><label>Tipo</label></div>	
+									<div class="col-md-4">
+										<div class="input-space">
+											<select id="tipoprenda">
+												<option value="prenda">Prenda</option>
+												<option value="tela">Tela</option>
+											</select>
+										</div>
+									</div>								
+							</div>
+							<div id="formularioprenda">
 							<form:form 
 								method="get" 
 								modelAttribute="product"
@@ -214,7 +225,7 @@
 										</div>
 									</div>
 									<div class="clearfix"></div>
-									<div class="alert alert-danger mt-1" id="message">
+									<div class="alert alert-danger mt-1" id="messageError">
 										Por favor, agregue todos los campos
 									</div>								
 								</div>
@@ -222,6 +233,7 @@
 									<form:button type="button" id="agregarbutton" class="btn btn-info">Agregar</form:button>
 								</div>
 							</form:form>
+							</div>
 						</div>
 					</div>
 				</div>

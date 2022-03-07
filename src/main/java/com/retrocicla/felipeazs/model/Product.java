@@ -175,6 +175,7 @@ public class Product implements Serializable {
 		ArrayList<String> wears = new ArrayList<>();
 		wears.add("polera");
 		wears.add("parka");
+		wears.add("camisa");
 		wears.add("pantalón");
 		return  wears;
 	}

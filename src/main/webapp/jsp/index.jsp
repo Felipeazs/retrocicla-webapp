@@ -80,6 +80,9 @@
 			<div class="main-content">
 				<div class="section-content section-content-p30">
 					<div class="container-fluid">
+					<div class="alert alert-danger mt-1" id="messageSuccess">
+										Elemento agregado correctamente
+									</div>
 						<div class="row">
 							<c:forEach items="${ product }" var="p">
 								<div class="col-md-3">

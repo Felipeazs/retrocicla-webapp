@@ -1,6 +1,19 @@
 $(document).ready(function () {	
 	
-	$('#message').hide();
+	$('#tipoprenda').change(function(){
+		if ($('#tipoprenda').val() == 'prenda'){
+		$('#formularioprenda').show();
+		console.log("mostrar");
+		} else {
+			$('#formularioprenda').hide();
+			console.log("esconder");
+		}
+	});
+	
+		
+	// Formulario agregar prenda	
+	$('#messageError').hide();
+	$('#messageSuccess').hide();
 	
 	$('#agregarbutton').click(function(){
 		
@@ -17,12 +30,12 @@ $(document).ready(function () {
 			!$('#price').val() ||
 			!$('#image').val()){
 							
-			$('#message').show();
-			
-			console.log($('#season').val());
+			$('#messageError').show();			
 			
 		} else {
 			$('#agregarproductsubmit').submit();
+			console.log("Success!");
+			$('#messageSuccess').show();	
 		}
 	})
 	

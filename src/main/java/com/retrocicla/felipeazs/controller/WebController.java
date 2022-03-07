@@ -1,8 +1,6 @@
 package com.retrocicla.felipeazs.controller;
 
-import java.text.NumberFormat;
 import java.util.List;
-import java.util.Locale;
 
 import javax.validation.Valid;
 
@@ -60,9 +58,7 @@ public class WebController {
 	@GetMapping("/addproductpage")
 	public String getAddProductPage(@ModelAttribute("product") Product product, Model model) {
 		
-		model.addAttribute("wear", product.listingWears());
-		model.addAttribute("styles", product.listingStyles());
-		model.addAttribute("seasons", product.listingSeasons());
+		modelMultipleSelect(product, model);
 
 		return "addproduct";
 	}
@@ -75,11 +71,17 @@ public class WebController {
 			return "index";
 		}
 		
-		productService.add(product);
+		productService.add(product);		
 		
-		return getAddProductPage(product, model);
+		return getIndex(model);
 	}
 	
 	// FUNCIONES Y MÉTODOS
+	
+	private void modelMultipleSelect(Product product, Model model) {
+		model.addAttribute("wear", product.listingWears());
+		model.addAttribute("styles", product.listingStyles());
+		model.addAttribute("seasons", product.listingSeasons());
+	}
 	
 }
