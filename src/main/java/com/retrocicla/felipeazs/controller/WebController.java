@@ -79,6 +79,22 @@ public class WebController {
 		return getIndex(model);
 	}
 	
+	@GetMapping("/ropaspage")
+	public String getRopasPage(Model model) {
+		
+		model.addAttribute("products", productService.searchBy("prenda"));
+		
+		return "listadoproductos";
+	}
+	
+	@GetMapping("/telaspage")
+	public String getTelasPage(Model model) {
+		
+		model.addAttribute("products", productService.searchBy("tela"));
+		
+		return "listadoproductos";
+	}
+	
 	// FUNCIONES Y MÉTODOS
 	
 	private void modelMultipleSelect(Product product, Model model) {

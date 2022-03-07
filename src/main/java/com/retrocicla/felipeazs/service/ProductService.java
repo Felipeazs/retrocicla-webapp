@@ -10,4 +10,6 @@ public interface ProductService {
 
 	public void add(Product product);
 
+	public List<Product> searchBy(String productType);
+
 }

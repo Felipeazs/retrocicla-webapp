@@ -62,4 +62,10 @@ public class ProductServiceImpl implements ProductService {
 			
 		
 	}
+
+	@Override
+	public List<Product> searchBy(String productType) {
+		
+		return repo.findAllByTypeOrderByWearAsc(productType);
+	}
 }

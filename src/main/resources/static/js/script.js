@@ -15,16 +15,12 @@ $(document).ready(function () {
 			$('#formularioprenda').show();
 			$('#typeropa').val('prenda');
 			$('#formulariotela').hide();
-			
-			console.log("prenda: " + $('#typeropa').val());
-			
-		} else {
+						
+		} else {			
 			$('#formulariotela').show();
 			$('#typetela').val('tela');
 			$('#formularioprenda').hide();
 			
-			console.log("prenda: " + $('#typetela').val());
-
 		}
 	});
 			
@@ -46,7 +42,7 @@ $(document).ready(function () {
 							
 			$('#messageerrorprenda').show();			
 			
-		} else {
+		} else {			
 			$('#agregarprendasubmit').submit();
 			$('#messageSuccess').show();	
 		}
@@ -66,7 +62,7 @@ $(document).ready(function () {
 							
 			$('#messageerrortela').show();			
 			
-		} else {
+		} else {			
 			$('#agregartelasubmit').submit();
 			$('#messageSuccess').show();	
 		}
