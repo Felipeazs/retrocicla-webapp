@@ -1,6 +1,8 @@
 package com.retrocicla.felipeazs.controller;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
@@ -48,8 +50,9 @@ public class WebController {
 	@GetMapping("/")
 	public String getIndex(Model model) {
 
-		List<Product> product = productService.list();
-		model.addAttribute("product", product);
+		List<Product> products = productService.list();		
+						
+		model.addAttribute("product", products);
 
 		return "index";
 	}
@@ -59,6 +62,7 @@ public class WebController {
 		
 		model.addAttribute("wear", product.listingWears());
 		model.addAttribute("styles", product.listingStyles());
+		model.addAttribute("seasons", product.listingSeasons());
 
 		return "addproduct";
 	}
@@ -70,8 +74,6 @@ public class WebController {
 			System.out.println(br.toString());
 			return "index";
 		}
-		
-		System.out.println(product.getColor());
 		
 		productService.add(product);
 		

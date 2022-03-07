@@ -4,12 +4,22 @@ $(document).ready(function () {
 	
 	$('#agregarbutton').click(function(){
 		
-		if (!$('#description').val()){
+		if (!$('#description').val() ||
+			!$('#size').val() ||
+			!$('#wear').val() ||
+			!$('#style').val() ||
+			!$('#color').val() ||
+			!$('#genre').val() ||
+			!$('#season').val() ||
+			!$('#cotton').val() ||
+			!$('#spandex').val() ||
+			!$('#madeIn').val() ||
+			!$('#price').val() ||
+			!$('#image').val()){
 							
 			$('#message').show();
 			
-			console.log($('#description').val());
-			console.log($('#style').val());
+			console.log($('#season').val());
 			
 		} else {
 			$('#agregarproductsubmit').submit();
@@ -17,17 +27,3 @@ $(document).ready(function () {
 	})
 	
 })
-
- 
-/*||
-			$.trim($('#size').html())=='' ||
-			$.trim($('#wear').html())=='' ||
-			$.trim($('#style').html())=='' ||
-			$.trim($('#color').html())=='' ||
-			$.trim($('#genre').html())=='' ||
-			$.trim($('#season').html())=='' ||
-			$.trim($('#cotton').html())=='' ||
-			$.trim($('#spandex').html())=='' ||
-			$.trim($('#madeIn').html())=='' ||
-			$.trim($('#price').html())=='' ||
-			$.trim($('#image').html())==''*/

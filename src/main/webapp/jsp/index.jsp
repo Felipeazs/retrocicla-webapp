@@ -81,26 +81,34 @@
 				<div class="section-content section-content-p30">
 					<div class="container-fluid">
 						<div class="row">
-
-							<div class="col-md-3">
-								<div class="product-box">
-									<c:forEach items="${ product }" var="p">
-										<a href=""> 
-											<img src=${ p.image_url} class="img-responsive"> 
-										</a>
-										<h1>${ p.description }</h1>	
-										<h2>Prenda: ${ p.wear }</h2>									
-										<h2>Tamaño: ${ p.size }</h2>
-										<h2>Estilo: ${ p.style }</h2>
-										<h2>Género: ${ p.genre }</h2>
-										<h2>Color: ${ p.color }</h2>
-										<h2>Temporada: ${ p.season }</h2>
-										<h2>Composición: ${ p.cotton }% algodón ${ p.spandex }% spandex</h2>
-										<h2>Hecho en: ${ p.made_in }</h2>
-										<div class="price">$${ p.price }</div>
-										<a href="#" class="primary-btn">Agregar al carrito</a>
-									</c:forEach>
-								</div>
+							<c:forEach items="${ product }" var="p">
+								<div class="col-md-3">
+									<div class="product-box">										
+											<a href=""> 
+												<img src=${ p.image_url} class="img-responsive"> 
+											</a>
+											<h1>${ p.description }</h1>	
+											<h2>Prenda: ${ p.wear }</h2>									
+											<h2>Tamaño: ${ p.size }</h2>
+											<h2>Estilo: ${ p.style }</h2>
+											<h2>Género: ${ p.genre }</h2>
+											<h2>Color: ${ p.color }</h2>
+											<h2>Temporada: ${ p.season }</h2>
+											<h2>Composición:</h2>
+											<c:if test="${ p.cotton > 0 }">
+												<h2 class="comp">${ p.cotton }% algodón</h2>
+											</c:if>
+											<c:if test="${ p.spandex > 0 }">
+												<h2 class="comp">${ p.spandex }% spandex</h2>
+											</c:if>
+											<h2>Hecho en ${ p.made_in }</h2>											
+											<div class="price">
+												<h2>Precio:</h2>
+												${ p.formatted_price }</div>
+											<a href="#" class="primary-btn">Agregar al carrito</a>
+										</div>										
+									</div>
+								</c:forEach>
 							</div>
 
 
@@ -113,7 +121,7 @@
 
 			</div>
 		</div>
-	</div>
+	
 
 	<!-- END PAGE CONTAINER-->
 

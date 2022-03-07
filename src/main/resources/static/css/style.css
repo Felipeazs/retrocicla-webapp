@@ -525,6 +525,8 @@ input.au-input.au-input-xl{
 
 .product-box img {
     width: 150px;
+    height: 150px;
+    object-fit: cover;
 }
 
 .items select {
@@ -557,6 +559,9 @@ input.au-input.au-input-xl{
     padding-bottom:0;
     font-weight:500;
     color:#585858
+}
+.product-box .comp {
+	padding-left:20px;
 }
 
 /* 

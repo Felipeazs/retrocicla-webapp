@@ -9,6 +9,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "product")
@@ -23,40 +24,43 @@ public class Product implements Serializable {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private int id;
 	
-	@Column(name = "description")
+	@Column(name = "description", nullable=false)
     private String description;
 	
-	@Column(name = "wear")
+	@Column(name = "wear", nullable=false)
     private String wear;
 
-    @Column(name = "size")
+    @Column(name = "size", nullable=false)
     private String size;
     
-    @Column(name = "style")
+    @Column(name = "style", nullable=false)
     private String style;
     
-    @Column(name = "color")
+    @Column(name = "color", nullable=false)
     private String color;  
     
-    @Column(name = "genre")
+    @Column(name = "genre", nullable=false)
     private String genre;
-
-    @Column(name = "price")
-    private Double price;
     
-    @Column(name = "imageUrl")
+    @Transient
+    private int price;
+    
+    @Column(name="price", nullable=false)
+    private String formatted_price;
+        
+    @Column(name = "imageUrl", nullable=false)
     private String image_url;
     
-    @Column(name = "madeIn")
+    @Column(name = "madeIn", nullable=false)
     private String made_in;
     
-    @Column(name = "cotton")
+    @Column(name = "cotton", nullable=false)
     private int cotton;
     
-    @Column(name = "spandex")
+    @Column(name = "spandex", nullable=false)
     private int spandex;
     
-    @Column(name = "season")
+    @Column(name = "season", nullable=false)
     private String season;
 
     
@@ -77,13 +81,22 @@ public class Product implements Serializable {
         this.size = size;
     }
 
-    public Double getPrice() {
+    public int getPrice() {
         return price;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(int price) {
         this.price = price;
-    }
+    }   
+    
+
+	public String getFormatted_price() {
+		return formatted_price;
+	}
+
+	public void setFormatted_price(String formatted_price) {
+		this.formatted_price = formatted_price;
+	}
 
 	public String getImage_url() {
 		return image_url;
@@ -157,17 +170,27 @@ public class Product implements Serializable {
 		this.season = season;
 	}
 	
+
 	public ArrayList<String> listingWears(){
 		ArrayList<String> wears = new ArrayList<>();
 		wears.add("polera");
+		wears.add("parka");
 		wears.add("pantalón");
 		return  wears;
 	}
 	
 	public ArrayList<String> listingStyles(){
 		ArrayList<String> styles = new ArrayList<>();
-		styles.add("Deportivo");
-		styles.add("Casual");
+		styles.add("deportivo");
+		styles.add("casual");
+		styles.add("outdoor");
+		return  styles;
+	}
+	
+	public ArrayList<String> listingSeasons(){
+		ArrayList<String> styles = new ArrayList<>();
+		styles.add("otoño-invierno");
+		styles.add("primavera-verano");
 		return  styles;
 	}
 	

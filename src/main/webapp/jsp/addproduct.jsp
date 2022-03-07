@@ -124,7 +124,7 @@
 									<div class="col-md-4">
 										<div class="input-space">
 											<form:select 
-												path="wear" 
+												path="style" 
 												type="text" 
 												id="style">
 												<form:options items="${ styles }"/>
@@ -155,10 +155,12 @@
 									<div class="col-md-2"><label>Temporada</label></div>
 									<div class="col-md-4">
 										<div class="input-space">
-											<form:input 
-												path="season"
-												type="text"
-												id="season"/>
+											<form:select 
+												path="season" 
+												type="text" 
+												id="season">
+												<form:options items="${ seasons }"/>
+											</form:select>
 										</div>
 									</div>
 									<div class="clearfix"></div>
