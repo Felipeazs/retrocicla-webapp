@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.retrocicla.felipeazs.model.Client;
 import com.retrocicla.felipeazs.model.Product;
@@ -70,6 +71,8 @@ public class WebController {
 			System.out.println(br.toString());
 			return "index";
 		}
+		
+		System.out.println("type: " + product.getType());
 		
 		productService.add(product);		
 		

@@ -27,19 +27,19 @@ public class Product implements Serializable {
 	@Column(name = "description", nullable=false)
     private String description;
 	
-	@Column(name = "wear", nullable=false)
+	@Column(name = "wear", nullable=true)
     private String wear;
 
     @Column(name = "size", nullable=false)
     private String size;
     
-    @Column(name = "style", nullable=false)
+    @Column(name = "style", nullable=true)
     private String style;
     
     @Column(name = "color", nullable=false)
     private String color;  
     
-    @Column(name = "genre", nullable=false)
+    @Column(name = "genre", nullable=true)
     private String genre;
     
     @Transient
@@ -60,10 +60,11 @@ public class Product implements Serializable {
     @Column(name = "spandex", nullable=false)
     private int spandex;
     
-    @Column(name = "season", nullable=false)
+    @Column(name = "season", nullable=true)
     private String season;
-
     
+    @Column(name = "type", nullable=false)
+    private String type;
 
     public String getWear() {
 		return wear;
@@ -168,8 +169,15 @@ public class Product implements Serializable {
 
 	public void setSeason(String season) {
 		this.season = season;
+	}	
+
+	public String getType() {
+		return type;
 	}
-	
+
+	public void setType(String type) {
+		this.type = type;
+	}
 
 	public ArrayList<String> listingWears(){
 		ArrayList<String> wears = new ArrayList<>();

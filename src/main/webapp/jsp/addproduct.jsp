@@ -85,154 +85,265 @@
 								<div class="col-md-2"><label>Tipo</label></div>	
 									<div class="col-md-4">
 										<div class="input-space">
-											<select id="tipoprenda">
+											<select id="selecttipoprenda" name="tipoprenda">
 												<option value="prenda">Prenda</option>
 												<option value="tela">Tela</option>
 											</select>
 										</div>
-									</div>								
-							</div>
-							<div id="formularioprenda">
+									</div>	
+							</div>					
+								<div id="formularioprenda">
+								<form:form 
+								method="get" 
+								modelAttribute="product"
+								action="/addproductdb" 
+								id="agregarprendasubmit">								
+								<form:input 
+									path="type" 
+									type="hidden"
+									id="typeropa"
+									/>
+									<div class="row">									
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Descripción</label></div>
+										<div class="col-md-8">
+											<div class="input-space">
+												<form:input 
+													path="description" 
+													type="text"
+													id="descriptionropa"/>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Tamaño</label></div>
+										<div class="col-md-3">
+											<div class="input-space">
+												<form:input 
+													path="size" 
+													type="text"
+													id="sizeropa"/>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Prenda</label></div>
+										<div class="col-md-4">
+											<div class="input-space">
+												<form:select 
+													path="wear" 
+													type="text"
+													id="wearropa">
+													<form:options items="${ wear }"/>
+												</form:select>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Estilo</label></div>
+										<div class="col-md-4">
+											<div class="input-space">
+												<form:select 
+													path="style" 
+													type="text" 
+													id="styleropa">
+													<form:options items="${ styles }"/>
+												</form:select>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Color</label></div>
+										<div class="col-md-3">
+											<div class="input-space">
+												<form:input 
+													path="color" 
+													type="text"
+													id="colorropa"/>
+											</div>
+										</div>	
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Género</label></div>
+										<div class="col-md-3">
+											<div class="input-space">
+												<form:input 
+													path="genre" 
+													type="text"
+													id="genreropa"/>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Temporada</label></div>
+										<div class="col-md-4">
+											<div class="input-space">
+												<form:select 
+													path="season" 
+													type="text" 
+													id="seasonropa">
+													<form:options items="${ seasons }"/>
+												</form:select>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>%Algodón</label></div>
+										<div class="col-md-3">
+											<div class="input-space">
+												<form:input 
+													path="cotton" 
+													type="text"
+													id="cottonropa"/>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>%Spandex</label></div>
+										<div class="col-md-3">
+											<div class="input-space">
+												<form:input 
+													path="spandex" 
+													type="text"
+													id="spandexropa"/>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Hecho en</label></div>
+										<div class="col-md-3">
+											<div class="input-space">
+												<form:input 
+													path="made_in" 
+													type="text"
+													id="madeInropa"/>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Precio</label></div>
+										<div class="col-md-3">
+											<div class="input-space">
+												<form:input 
+													path="price" 
+													type="text"
+													id="priceropa"/>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Imágen Url</label></div>
+										<div class="col-md-12">
+											<div class="input-space">
+												<form:input 
+													path="image_url" 
+													type="text"
+													id="imageropa"/>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="alert alert-danger mt-1" id="messageerrorprenda">
+											Por favor, agregue todos los campos
+										</div>								
+									</div>
+									<div class="text-center">
+										<form:button type="button" id="agregarprendabutton" class="btn btn-info">Agregar</form:button>
+									</div>
+									</form:form>
+								</div>								
+							
+							
+							<div id="formulariotela">
 							<form:form 
 								method="get" 
 								modelAttribute="product"
 								action="/addproductdb" 
-								id="agregarproductsubmit">
-								<div class="row">
-									<div class="col-md-2"><label>Descripción</label></div>
-									<div class="col-md-8">
-										<div class="input-space">
-											<form:input 
-												path="description" 
-												type="text"
-												id="description"/>
+								id="agregartelasubmit">								
+								<form:input 
+									path="type" 
+									type="hidden"
+									id="typetela"
+									/>
+									<div class="row">									
+										<div class="col-md-2"><label>Descripción</label></div>
+										<div class="col-md-8">
+											<div class="input-space">
+												<form:input 
+													path="description" 
+													type="text"
+													id="descriptiontela"/>
+											</div>
 										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Tamaño</label></div>
+										<div class="col-md-3">
+											<div class="input-space">
+												<form:input 
+													path="size" 
+													type="text"
+													id="sizetela"/>
+											</div>
+										</div>		
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Color</label></div>
+										<div class="col-md-3">
+											<div class="input-space">
+												<form:input 
+													path="color" 
+													type="text"
+													id="colortela"/>
+											</div>
+										</div>				
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>%Algodón</label></div>
+										<div class="col-md-3">
+											<div class="input-space">
+												<form:input 
+													path="cotton" 
+													type="text"
+													id="cottontela"/>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>%Spandex</label></div>
+										<div class="col-md-3">
+											<div class="input-space">
+												<form:input 
+													path="spandex" 
+													type="text"
+													id="spandextela"/>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Hecho en</label></div>
+										<div class="col-md-3">
+											<div class="input-space">
+												<form:input 
+													path="made_in" 
+													type="text"
+													id="madeIntela"/>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Precio</label></div>
+										<div class="col-md-3">
+											<div class="input-space">
+												<form:input 
+													path="price" 
+													type="text"
+													id="pricetela"/>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="col-md-2"><label>Imágen Url</label></div>
+										<div class="col-md-12">
+											<div class="input-space">
+												<form:input 
+													path="image_url" 
+													type="text"
+													id="imagetela"/>
+											</div>
+										</div>
+										<div class="clearfix"></div>
+										<div class="alert alert-danger mt-1" id="messageerrortela">
+											Por favor, agregue todos los campos
+										</div>
+										<div class="text-center">
+											<form:button type="button" id="agregartelabutton" class="btn btn-info">Agregar</form:button>
+										</div>								
 									</div>
-									<div class="clearfix"></div>
-									<div class="col-md-2"><label>Tamaño</label></div>
-									<div class="col-md-3">
-										<div class="input-space">
-											<form:input 
-												path="size" 
-												type="text"
-												id="size"/>
-										</div>
-									</div>
-									<div class="clearfix"></div>
-									<div class="col-md-2"><label>Prenda</label></div>
-									<div class="col-md-4">
-										<div class="input-space">
-											<form:select 
-												path="wear" 
-												type="text"
-												id="wear">
-												<form:options items="${ wear }"/>
-											</form:select>
-										</div>
-									</div>
-									<div class="clearfix"></div>
-									<div class="col-md-2"><label>Estilo</label></div>
-									<div class="col-md-4">
-										<div class="input-space">
-											<form:select 
-												path="style" 
-												type="text" 
-												id="style">
-												<form:options items="${ styles }"/>
-											</form:select>
-										</div>
-									</div>
-									<div class="clearfix"></div>
-									<div class="col-md-2"><label>Color</label></div>
-									<div class="col-md-3">
-										<div class="input-space">
-											<form:input 
-												path="color" 
-												type="text"
-												id="color"/>
-										</div>
-									</div>	
-									<div class="clearfix"></div>
-									<div class="col-md-2"><label>Género</label></div>
-									<div class="col-md-3">
-										<div class="input-space">
-											<form:input 
-												path="genre" 
-												type="text"
-												id="genre"/>
-										</div>
-									</div>
-									<div class="clearfix"></div>
-									<div class="col-md-2"><label>Temporada</label></div>
-									<div class="col-md-4">
-										<div class="input-space">
-											<form:select 
-												path="season" 
-												type="text" 
-												id="season">
-												<form:options items="${ seasons }"/>
-											</form:select>
-										</div>
-									</div>
-									<div class="clearfix"></div>
-									<div class="col-md-2"><label>%Algodón</label></div>
-									<div class="col-md-3">
-										<div class="input-space">
-											<form:input 
-												path="cotton" 
-												type="text"
-												id="cotton"/>
-										</div>
-									</div>
-									<div class="clearfix"></div>
-									<div class="col-md-2"><label>%Spandex</label></div>
-									<div class="col-md-3">
-										<div class="input-space">
-											<form:input 
-												path="spandex" 
-												type="text"
-												id="spandex"/>
-										</div>
-									</div>
-									<div class="clearfix"></div>
-									<div class="col-md-2"><label>Hecho en</label></div>
-									<div class="col-md-3">
-										<div class="input-space">
-											<form:input 
-												path="made_in" 
-												type="text"
-												id="madeIn"/>
-										</div>
-									</div>
-									<div class="clearfix"></div>
-									<div class="col-md-2"><label>Precio</label></div>
-									<div class="col-md-3">
-										<div class="input-space">
-											<form:input 
-												path="price" 
-												type="text"
-												id="price"/>
-										</div>
-									</div>
-									<div class="clearfix"></div>
-									<div class="col-md-2"><label>Imágen Url</label></div>
-									<div class="col-md-12">
-										<div class="input-space">
-											<form:input 
-												path="image_url" 
-												type="text"
-												id="image"/>
-										</div>
-									</div>
-									<div class="clearfix"></div>
-									<div class="alert alert-danger mt-1" id="messageError">
-										Por favor, agregue todos los campos
-									</div>								
+									</form:form>
 								</div>
-								<div class="text-center">
-									<form:button type="button" id="agregarbutton" class="btn btn-info">Agregar</form:button>
-								</div>
-							</form:form>
+								
 							</div>
 						</div>
 					</div>

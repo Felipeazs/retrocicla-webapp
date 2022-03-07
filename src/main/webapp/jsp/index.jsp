@@ -90,13 +90,21 @@
 											<a href=""> 
 												<img src=${ p.image_url} class="img-responsive"> 
 											</a>
-											<h1>${ p.description }</h1>	
-											<h2>Prenda: ${ p.wear }</h2>									
+											<h1>${ p.description }</h1>
+											<c:if test="${ p.wear ne 'indefinido' }">
+												<h2>Prenda: ${ p.wear }</h2>	
+											</c:if>																				
 											<h2>Tamaño: ${ p.size }</h2>
-											<h2>Estilo: ${ p.style }</h2>
-											<h2>Género: ${ p.genre }</h2>
+											<c:if test="${ p.style ne 'indefinido' }">
+												<h2>Estilo: ${ p.style }</h2>
+											</c:if>
+											<c:if test="${ p.genre ne 'indefinido' }">
+												<h2>Género: ${ p.genre }</h2>
+											</c:if>
 											<h2>Color: ${ p.color }</h2>
-											<h2>Temporada: ${ p.season }</h2>
+											<c:if test="${ p.season ne 'indefinido' }">
+												<h2>Temporada: ${ p.season }</h2>
+											</c:if>
 											<h2>Composición:</h2>
 											<c:if test="${ p.cotton > 0 }">
 												<h2 class="comp">${ p.cotton }% algodón</h2>
