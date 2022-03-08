@@ -47,11 +47,9 @@ public class WebController {
 	}
 
 	@GetMapping("/")
-	public String getIndex(Model model) {
-
-		List<Product> products = productService.list();		
+	public String getIndex(Product product, Model model) {			
 						
-		model.addAttribute("product", products);
+		modelMultipleSelect(product, model);
 
 		return "index";
 	}
@@ -76,7 +74,7 @@ public class WebController {
 		
 		productService.add(product);		
 		
-		return getIndex(model);
+		return getIndex(product, model);
 	}
 	
 	@GetMapping("/ropaspage")
@@ -95,12 +93,27 @@ public class WebController {
 		return "listadoproductos";
 	}
 	
+	@GetMapping("/searchproduct")
+	public String getSearchProduct(@Valid @ModelAttribute("product") Product product, BindingResult br, Model model) {
+		
+		if (br.hasErrors()) {
+			System.out.println(br.toString());
+			return "index";
+		}
+		
+		return null;
+	}
+	
 	// FUNCIONES Y MÉTODOS
 	
 	private void modelMultipleSelect(Product product, Model model) {
 		model.addAttribute("wear", product.listingWears());
 		model.addAttribute("styles", product.listingStyles());
 		model.addAttribute("seasons", product.listingSeasons());
+		model.addAttribute("materials", product.listingMaterials());
+		model.addAttribute("types", product.listingTypes());
+		model.addAttribute("colors", product.listingColors());
+		model.addAttribute("genres", product.listingGenres());
 	}
 	
 }

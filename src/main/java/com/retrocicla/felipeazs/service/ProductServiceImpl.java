@@ -39,6 +39,12 @@ public class ProductServiceImpl implements ProductService {
 			
 		}
 		
+		if (product.getCotton() > product.getSpandex()) {
+			product.setMaterial("algodón");
+		} else {
+			product.setMaterial("spandex");
+		}
+		
 
 		String size = product.getSize().toUpperCase();
 		product.setSize(size);

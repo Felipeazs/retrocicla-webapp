@@ -60,6 +60,9 @@ public class Product implements Serializable {
     @Column(name = "spandex", nullable=false)
     private int spandex;
     
+    @Column(name="material")
+    private String material;
+    
     @Column(name = "season", nullable=true)
     private String season;
     
@@ -141,6 +144,14 @@ public class Product implements Serializable {
 
 	public String getStyle() {
 		return style;
+	}	
+
+	public String getMaterial() {
+		return material;
+	}
+
+	public void setMaterial(String material) {
+		this.material = material;
 	}
 
 	public void setStyle(String style) {
@@ -202,7 +213,34 @@ public class Product implements Serializable {
 		styles.add("primavera-verano");
 		return  styles;
 	}
+
+	public ArrayList<String> listingMaterials(){
+		ArrayList<String> materials = new ArrayList<>();
+		materials.add("algodón");
+		materials.add("spandex");
+		return  materials;
+	}
 	
+	public ArrayList<String> listingTypes(){
+		ArrayList<String> types = new ArrayList<>();
+		types.add("ropa");
+		types.add("tela");
+		return  types;
+	}
+
+	public ArrayList<String> listingColors(){
+		ArrayList<String> colors = new ArrayList<>();
+		colors.add("negro");
+		colors.add("azul");
+		return  colors;
+	}
 	
+	public ArrayList<String> listingGenres(){
+		ArrayList<String> genres = new ArrayList<>();
+		genres.add("masculino");
+		genres.add("femenino");
+		genres.add("unisex");
+		return  genres;
+	}	
 	    
 }

@@ -22,6 +22,7 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
+<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
 
 <link rel="stylesheet" href="css/style.css" />
 <script src="js/script.js"></script>
@@ -84,7 +85,11 @@
 									</div>
 						<div class="row">
 							<div class="s007">
-						      <form>
+						      <form:form
+						      	method="get" 
+								modelAttribute="product"
+								action="/searchproduct" 
+								id="">
 						        <div class="inner-form">
 						          <div class="basic-search">
 						            <div class="input-field">
@@ -93,86 +98,118 @@
 						                  <path d="M18.869 19.162l-5.943-6.484c1.339-1.401 2.075-3.233 2.075-5.178 0-2.003-0.78-3.887-2.197-5.303s-3.3-2.197-5.303-2.197-3.887 0.78-5.303 2.197-2.197 3.3-2.197 5.303 0.78 3.887 2.197 5.303 3.3 2.197 5.303 2.197c1.726 0 3.362-0.579 4.688-1.645l5.943 6.483c0.099 0.108 0.233 0.162 0.369 0.162 0.121 0 0.242-0.043 0.338-0.131 0.204-0.187 0.217-0.503 0.031-0.706zM1 7.5c0-3.584 2.916-6.5 6.5-6.5s6.5 2.916 6.5 6.5-2.916 6.5-6.5 6.5-6.5-2.916-6.5-6.5z"></path>
 						                </svg>
 						              </div>
-						              <input id="search" type="text" placeholder="Search..." />
+						              <input id="search" type="text" placeholder="Buscar..." />
 						              <div class="result-count">
 						                <span>108 </span>results</div>
 						            </div>
 						          </div>
 						          <div class="advance-search">
-						            <span class="desc">Advanced Search</span>
+						            <span class="desc">Búsqueda avanzada</span>
 						            <div class="row">
 						              <div class="input-field">
+						              <div><label>Tela/Ropa</label></div>
 						                <div class="input-select">
-						                  <select data-trigger="" name="choices-single-defaul">
-						                    <option value="">ACCESSORIES</option>
-						                    <option>ACCESSORIES</option>
-						                    <option>SUBJECT B</option>
-						                    <option>SUBJECT C</option>
-						                  </select>
+						                  <form:select 
+						                  	class="form-select"
+						                  	path="style">						                    
+							                    <form:options items="${ types }"/>						                   
+						                  </form:select>
 						                </div>
 						              </div>
 						              <div class="input-field">
+						              <div><label>Material</label></div>
 						                <div class="input-select">
-						                  <select data-trigger="" name="choices-single-defaul">
-						                    <option value="">COLOR</option>
-						                    <option>GREEN</option>
-						                    <option>SUBJECT B</option>
-						                    <option>SUBJECT C</option>
-						                  </select>
+						                  <form:select 
+						                  	class="form-select" 
+						                  	path="material"
+						                  	type="text">
+						                    	<form:options items="${ materials }"/>						                    
+						                  </form:select>
 						                </div>
 						              </div>
 						              <div class="input-field">
+						              <div><label>Prenda</label></div>
 						                <div class="input-select">
-						                  <select data-trigger="" name="choices-single-defaul">
-						                    <option value="">SIZE</option>
-						                    <option>SIZE</option>
-						                    <option>SUBJECT B</option>
-						                    <option>SUBJECT C</option>
-						                  </select>
+						                  <form:select 
+						                  	class="form-select"
+						                  	path="wear">
+						                    	<form:options items="${ wear }"/>
+						                  </form:select>
 						                </div>
-						              </div>
+						              </div>						              						              
 						            </div>
-						            <div class="row second">
+						            <div class="row second">	
+						            <div class="input-field">
+						              	<div><label>Color</label></div>
+							                <div class="input-select">
+						                  <form:select 
+						                  	class="form-select"
+						                  	path="color">
+						                    	<form:options items="${ colors }"/>
+						                  </form:select>
+						                </div>
+						              </div>					            	
 						              <div class="input-field">
+						              <div><label>Tamaño</label></div>
 						                <div class="input-select">
-						                  <select data-trigger="" name="choices-single-defaul">
-						                    <option value="">SALE</option>
-						                    <option>SALE</option>
-						                    <option>SUBJECT B</option>
-						                    <option>SUBJECT C</option>
-						                  </select>
+							                 <div>
+							                  	<form:input 
+							                  		type="text" 
+							                  		class="form-control"
+							                  		path="size"/>						                    
+							              	</div>
 						                </div>
 						              </div>
 						              <div class="input-field">
+						                <div><label>Estilo</label></div>
 						                <div class="input-select">
-						                  <select data-trigger="" name="choices-single-defaul">
-						                    <option value="">TIME</option>
-						                    <option>THIS WEEK</option>
-						                    <option>SUBJECT B</option>
-						                    <option>SUBJECT C</option>
-						                  </select>
+						                  <form:select 
+						                  	class="form-select"
+						                  	path="style">
+						                    	<form:options items="${ styles }"/>
+						                  </form:select>
 						                </div>
 						              </div>
-						              <div class="input-field">
-						                <div class="input-select">
-						                  <select data-trigger="" name="choices-single-defaul">
-						                    <option value="">TYPE</option>
-						                    <option>TYPE</option>
-						                    <option>SUBJECT B</option>
-						                    <option>SUBJECT C</option>
-						                  </select>
-						                </div>
 						              </div>
-						            </div>
 						            <div class="row third">
-						              <div class="input-field">
-						                <button class="btn-search">Search</button>
-						                <button class="btn-delete" id="delete">Delete</button>
+							            <div class="input-field">
+							                <div><label>Género</label></div>
+							                <div class="input-select">
+							                <form:select 
+							                  	class="form-select"
+							                  	path="genre">
+							                    	<form:options items="${ genres }"/>
+							                  </form:select>
+							                </div>
 						              </div>
+							            <div class="input-field">
+							                <div><label>Temporada</label></div>
+							                <div class="input-select">
+							                   <form:select 
+								                  class="form-select"
+								                  path="season">
+								                    <form:options items="${ seasons }"/>
+								               </form:select>
+							                </div>
+							                </div>
+							              </div>
+							             <div class="input-field">
+							                <div><label>Hecho en</label></div>
+							                <div class="input-select">
+							                  <select class="form-select">
+							                    <option>China</option>
+							                    <option>Chile</option>					                    
+							                  </select>
+							                </div>
+							              </div>						              
 						            </div>
-						          </div>
-						        </div>
-						      </form>
+						            <div class="row">
+						            	<div class="input-field">
+						                	<button class="btn btn-success">Buscar</button>						             
+						              	</div>
+						            </div>
+						          </div>						        
+						      </form:form>
 						    </div>
 							</div>
 						</div>
