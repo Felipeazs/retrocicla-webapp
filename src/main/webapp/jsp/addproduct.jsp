@@ -128,24 +128,20 @@
 										<div class="col-md-2"><label>Prenda</label></div>
 										<div class="col-md-4">
 											<div class="input-space">
-												<form:select 
+												<form:input 
 													path="wear" 
 													type="text"
-													id="wearropa">
-													<form:options items="${ wear }"/>
-												</form:select>
+													id="wearropa"/>
 											</div>
 										</div>
 										<div class="clearfix"></div>
 										<div class="col-md-2"><label>Estilo</label></div>
 										<div class="col-md-4">
 											<div class="input-space">
-												<form:select 
+												<form:input 
 													path="style" 
-													type="text" 
-													id="styleropa">
-													<form:options items="${ styles }"/>
-												</form:select>
+													type="text"
+													id="styleropa"/>
 											</div>
 										</div>
 										<div class="clearfix"></div>
@@ -176,7 +172,8 @@
 													path="season" 
 													type="text" 
 													id="seasonropa">
-													<form:options items="${ seasons }"/>
+													<form:option value="otoño-inviero"/>
+													<form:option value="primavera-verano"/>
 												</form:select>
 											</div>
 										</div>
@@ -205,7 +202,7 @@
 										<div class="col-md-3">
 											<div class="input-space">
 												<form:input 
-													path="made_in" 
+													path="made" 
 													type="text"
 													id="madeInropa"/>
 											</div>
@@ -239,9 +236,7 @@
 										<form:button type="button" id="agregarprendabutton" class="btn btn-info">Agregar</form:button>
 									</div>
 									</form:form>
-								</div>								
-							
-							
+								</div>	
 							<div id="formulariotela">
 							<form:form 
 								method="get" 
@@ -308,7 +303,7 @@
 										<div class="col-md-3">
 											<div class="input-space">
 												<form:input 
-													path="made_in" 
+													path="made" 
 													type="text"
 													id="madeIntela"/>
 											</div>

@@ -22,18 +22,19 @@ public class Product implements Serializable {
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+	@Column(name = "id")
     private int id;
 	
 	@Column(name = "description", nullable=false)
     private String description;
 	
-	@Column(name = "wear", nullable=true)
+	@Column(name = "wear", nullable=false)
     private String wear;
 
     @Column(name = "size", nullable=false)
     private String size;
     
-    @Column(name = "style", nullable=true)
+    @Column(name = "style", nullable=false)
     private String style;
     
     @Column(name = "color", nullable=false)
@@ -48,11 +49,11 @@ public class Product implements Serializable {
     @Column(name="price", nullable=false)
     private String formatted_price;
         
-    @Column(name = "imageUrl", nullable=false)
-    private String image_url;
+    @Column(name = "image_url", nullable=false)
+    private String imageUrl;
     
-    @Column(name = "madeIn", nullable=false)
-    private String made_in;
+    @Column(name = "made_in", nullable=false)
+    private String made;
     
     @Column(name = "cotton", nullable=false)
     private int cotton;
@@ -63,7 +64,7 @@ public class Product implements Serializable {
     @Column(name="material")
     private String material;
     
-    @Column(name = "season", nullable=true)
+    @Column(name = "season", nullable=false)
     private String season;
     
     @Column(name = "type", nullable=false)
@@ -102,12 +103,12 @@ public class Product implements Serializable {
 		this.formatted_price = formatted_price;
 	}
 
-	public String getImage_url() {
-		return image_url;
+	public String getImageUrl() {
+		return imageUrl;
 	}
 
-	public void setImage_url(String image_url) {
-		this.image_url = image_url;
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
 	}
 
 	public String getDescription() {
@@ -118,12 +119,12 @@ public class Product implements Serializable {
 		this.description = description;
 	}
 
-	public String getMade_in() {
-		return made_in;
+	public String getMade() {
+		return made;
 	}
 
-	public void setMade_in(String made_in) {
-		this.made_in = made_in;
+	public void setMade(String made) {
+		this.made = made;
 	}
 
 	public int getCotton() {
@@ -190,57 +191,6 @@ public class Product implements Serializable {
 		this.type = type;
 	}
 
-	public ArrayList<String> listingWears(){
-		ArrayList<String> wears = new ArrayList<>();
-		wears.add("polera");
-		wears.add("parka");
-		wears.add("camisa");
-		wears.add("pantalón");
-		return  wears;
-	}
 	
-	public ArrayList<String> listingStyles(){
-		ArrayList<String> styles = new ArrayList<>();
-		styles.add("deportivo");
-		styles.add("casual");
-		styles.add("outdoor");
-		return  styles;
-	}
-	
-	public ArrayList<String> listingSeasons(){
-		ArrayList<String> styles = new ArrayList<>();
-		styles.add("otoño-invierno");
-		styles.add("primavera-verano");
-		return  styles;
-	}
-
-	public ArrayList<String> listingMaterials(){
-		ArrayList<String> materials = new ArrayList<>();
-		materials.add("algodón");
-		materials.add("spandex");
-		return  materials;
-	}
-	
-	public ArrayList<String> listingTypes(){
-		ArrayList<String> types = new ArrayList<>();
-		types.add("ropa");
-		types.add("tela");
-		return  types;
-	}
-
-	public ArrayList<String> listingColors(){
-		ArrayList<String> colors = new ArrayList<>();
-		colors.add("negro");
-		colors.add("azul");
-		return  colors;
-	}
-	
-	public ArrayList<String> listingGenres(){
-		ArrayList<String> genres = new ArrayList<>();
-		genres.add("masculino");
-		genres.add("femenino");
-		genres.add("unisex");
-		return  genres;
-	}	
 	    
 }

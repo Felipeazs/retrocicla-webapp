@@ -23,17 +23,14 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public void add(Product product) {
+	public Product add(Product product) {
 		
-		if (product.getType().equals("tela")) {
-			
+		if (product.getType().equals("tela")) {			
 			product.setGenre("indefinido");
 			product.setStyle("indefinido");
 			product.setSeason("indefinido");
-			product.setWear("indefinido");
-			
-		} else {
-			
+			product.setWear("indefinido");			
+		} else {			
 			String genre = product.getGenre().toLowerCase();
 			product.setGenre(genre);			
 			
@@ -49,8 +46,8 @@ public class ProductServiceImpl implements ProductService {
 		String size = product.getSize().toUpperCase();
 		product.setSize(size);
 			
-		String madeIn = product.getMade_in().substring(0, 1).toUpperCase() + product.getMade_in().substring(1);
-		product.setMade_in(madeIn);
+		String madeIn = product.getMade().substring(0, 1).toUpperCase() + product.getMade().substring(1);
+		product.setMade(madeIn);
 
 		String color = product.getColor().toLowerCase();
 		product.setColor(color);
@@ -66,6 +63,7 @@ public class ProductServiceImpl implements ProductService {
 
 		repo.save(product);
 			
+		return product;
 		
 	}
 
@@ -74,4 +72,90 @@ public class ProductServiceImpl implements ProductService {
 		
 		return repo.findAllByTypeOrderByWearAsc(productType);
 	}
+
+	@Override
+	public List<String> getDistinctByWear() {
+		
+		return repo.getDistinctByWear();
+	}
+
+	@Override
+	public List<String> getDistinctByStyle() {
+		
+		return repo.getDistinctByStyle();
+	}
+
+	@Override
+	public List<String> getDistinctByGenre() {
+		
+		return repo.getDistinctByGenre();
+	}
+
+	@Override
+	public List<String> getDistinctByType() {
+		
+		return repo.getDistinctByType();
+	}
+
+	@Override
+	public List<String> getDistinctByMaterial() {
+		
+		return repo.getDistinctByMaterial();
+	}
+
+	@Override
+	public List<String> getDistinctByColor() {
+		
+		return repo.getDistinctByColor();
+	}
+
+	@Override
+	public List<String> getDistinctByRopaSize() {
+		
+		return repo.getDistinctByRopaSize();
+	}
+
+	@Override
+	public List<String> getDistinctByTelaSize() {
+		
+		return repo.getDistinctByTelaSize();
+	}
+
+	@Override
+	public List<String> getDistinctByMadeIn() {
+		
+		return repo.getDistinctByMadeIn();
+	}
+
+	@Override
+	public List<Product> findProducts(Product product) {
+		
+		if (product.getType().equals("tela")) {					
+			product.setGenre("indefinido");
+			product.setStyle("indefinido");
+		    product.setSeason("indefinido");
+			product.setWear("indefinido");
+			product.setSize(product.getSize().substring(2));
+		} else {
+			product.setSize(product.getSize().substring(0,1));
+		}
+		
+		System.out.println(product.getSize());
+		
+		String type = product.getType();
+		String material = product.getMaterial();		
+		String wear = product.getWear();
+		String color = product.getColor();
+		String size = product.getSize();
+		String style = product.getStyle();
+		String genre = product.getGenre();
+		String season = product.getSeason();
+		String madeIn = product.getMade();
+		
+		System.out.println("Buscando: " + type + material + wear + color + size + style + genre + madeIn);
+		
+		return repo.findByTypeAndMaterialAndWearAndColorAndSizeAndStyleAndGenreAndSeasonAndMade(type, material, wear, color, size, style, genre, season, madeIn);
+	}
+
+	
 }

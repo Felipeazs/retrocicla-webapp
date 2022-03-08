@@ -80,15 +80,22 @@
 			<div class="main-content">
 				<div class="section-content section-content-p30">
 					<div class="container-fluid">
-					<div class="alert alert-danger mt-1" id="messageSuccess">
-										Elemento agregado correctamente
-									</div>
+						<c:if test="${ not empty addProduct }">
+							<div class="alert alert-danger mt-1" id="messageSuccess">
+								Elemento agregado correctamente
+							</div>
+						</c:if>
+						<c:if test="${ empty products }">
+							<div class="alert alert-danger mt-1" id="messageError">
+								No se encontró ningún producto con esas características
+							</div>
+						</c:if>
 						<div class="row">
 							<c:forEach items="${ products }" var="p">
 								<div class="col-md-2">
 									<div class="product-box">										
 											<a href=""> 
-												<img src=${ p.image_url} class="img-responsive"> 
+												<img src=${ p.imageUrl} class="img-responsive"> 
 											</a>
 											<h1>${ p.description }</h1>
 											<c:if test="${ p.wear ne 'indefinido' }">
@@ -112,7 +119,7 @@
 											<c:if test="${ p.spandex > 0 }">
 												<h2 class="comp">${ p.spandex }% spandex</h2>
 											</c:if>
-											<h2>Hecho en ${ p.made_in }</h2>											
+											<h2>Hecho en ${ p.madeIn }</h2>											
 											<div class="price">
 												<h2>Precio:</h2>
 												${ p.formatted_price }</div>

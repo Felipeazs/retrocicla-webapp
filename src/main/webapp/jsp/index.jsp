@@ -111,7 +111,8 @@
 						                <div class="input-select">
 						                  <form:select 
 						                  	class="form-select"
-						                  	path="style">						                    
+						                  	path="type"
+						                  	id="types">						                    
 							                    <form:options items="${ types }"/>						                   
 						                  </form:select>
 						                </div>
@@ -132,7 +133,8 @@
 						                <div class="input-select">
 						                  <form:select 
 						                  	class="form-select"
-						                  	path="wear">
+						                  	path="wear"
+						                  	id="wear">
 						                    	<form:options items="${ wear }"/>
 						                  </form:select>
 						                </div>
@@ -151,13 +153,21 @@
 						              </div>					            	
 						              <div class="input-field">
 						              <div><label>Tamaño</label></div>
-						                <div class="input-select">
-							                 <div>
-							                  	<form:input 
-							                  		type="text" 
-							                  		class="form-control"
-							                  		path="size"/>						                    
-							              	</div>
+						                <div class="input-select">						                	
+								        	<div id="sizeropa">
+								            	<form:select 
+									            	class="form-select"
+									                path="size">
+									                <form:options items="${ ropasizes }"/>
+									            </form:select>					                    
+								            </div>
+								            <div id="sizetelas">
+								            	<form:select 
+									            	class="form-select"
+									                path="size">
+									                <form:options items="${ telasizes }"/>
+									            </form:select>					                    
+								            </div>							              	
 						                </div>
 						              </div>
 						              <div class="input-field">
@@ -165,7 +175,8 @@
 						                <div class="input-select">
 						                  <form:select 
 						                  	class="form-select"
-						                  	path="style">
+						                  	path="style"
+						                  	id="style">
 						                    	<form:options items="${ styles }"/>
 						                  </form:select>
 						                </div>
@@ -175,11 +186,12 @@
 							            <div class="input-field">
 							                <div><label>Género</label></div>
 							                <div class="input-select">
-							                <form:select 
-							                  	class="form-select"
-							                  	path="genre">
-							                    	<form:options items="${ genres }"/>
-							                  </form:select>
+							                	<form:select 
+								                	class="form-select"
+								                  	path="genre"
+								                  	id="genre">
+								                    	<form:options items="${ genres }"/>
+								                </form:select>
 							                </div>
 						              </div>
 							            <div class="input-field">
@@ -187,27 +199,31 @@
 							                <div class="input-select">
 							                   <form:select 
 								                  class="form-select"
-								                  path="season">
-								                    <form:options items="${ seasons }"/>
+								                  path="season"
+								                  id="season">
+								                    <form:option value="otoño-inviero"/>
+													<form:option value="primavera-verano"/>
 								               </form:select>
 							                </div>
 							                </div>
-							              </div>
-							             <div class="input-field">
+							            <div class="input-field">
 							                <div><label>Hecho en</label></div>
 							                <div class="input-select">
-							                  <select class="form-select">
-							                    <option>China</option>
-							                    <option>Chile</option>					                    
-							                  </select>
+							                  	<form:select 
+								                	class="form-select"
+								                  	path="made">
+								                    	<form:options items="${ madeIn }"/>
+								                </form:select>
 							                </div>
-							              </div>						              
-						            </div>
-						            <div class="row">
+							              </div>
+							            </div>	
+							            <div class="row">
 						            	<div class="input-field">
 						                	<button class="btn btn-success">Buscar</button>						             
 						              	</div>
+						            </div>						             						              
 						            </div>
+						            
 						          </div>						        
 						      </form:form>
 						    </div>

@@ -49,16 +49,14 @@ public class WebController {
 	@GetMapping("/")
 	public String getIndex(Product product, Model model) {			
 						
-		modelMultipleSelect(product, model);
+		modelMultipleSelection(model); 
 
 		return "index";
 	}
 
 	@GetMapping("/addproductpage")
-	public String getAddProductPage(@ModelAttribute("product") Product product, Model model) {
+	public String getAddProductPage() {
 		
-		modelMultipleSelect(product, model);
-
 		return "addproduct";
 	}
 	
@@ -70,9 +68,9 @@ public class WebController {
 			return "index";
 		}
 		
-		System.out.println("type: " + product.getType());
+		Product add_product = productService.add(product);
 		
-		productService.add(product);		
+		model.addAttribute("addProduct", add_product);		
 		
 		return getIndex(product, model);
 	}
@@ -101,19 +99,24 @@ public class WebController {
 			return "index";
 		}
 		
-		return null;
+		model.addAttribute("products", productService.findProducts(product));
+				
+		return "listadoproductos";
 	}
 	
 	// FUNCIONES Y MÉTODOS
 	
-	private void modelMultipleSelect(Product product, Model model) {
-		model.addAttribute("wear", product.listingWears());
-		model.addAttribute("styles", product.listingStyles());
-		model.addAttribute("seasons", product.listingSeasons());
-		model.addAttribute("materials", product.listingMaterials());
-		model.addAttribute("types", product.listingTypes());
-		model.addAttribute("colors", product.listingColors());
-		model.addAttribute("genres", product.listingGenres());
+	private void modelMultipleSelection(Model model) {
+		model.addAttribute("types", productService.getDistinctByType());
+		model.addAttribute("materials", productService.getDistinctByMaterial());
+		model.addAttribute("colors", productService.getDistinctByColor());
+		model.addAttribute("ropasizes", productService.getDistinctByRopaSize());
+		model.addAttribute("telasizes", productService.getDistinctByTelaSize());
+		model.addAttribute("wear", productService.getDistinctByWear()); 
+		model.addAttribute("styles", productService.getDistinctByStyle());
+		model.addAttribute("genres", productService.getDistinctByGenre());
+		model.addAttribute("madeIn", productService.getDistinctByMadeIn());
+		
 	}
 	
 }

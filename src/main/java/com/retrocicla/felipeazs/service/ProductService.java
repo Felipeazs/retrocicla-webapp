@@ -8,8 +8,30 @@ public interface ProductService {
 	
 	public List<Product> list();
 
-	public void add(Product product);
+	public Product add(Product product);
 
 	public List<Product> searchBy(String productType);
+
+	public List<String> getDistinctByWear();
+
+	public List<String> getDistinctByStyle();
+
+	public List<String> getDistinctByGenre();
+
+	public List<String> getDistinctByType();
+
+	public List<String> getDistinctByMaterial();
+
+	public List<String> getDistinctByColor();
+
+	public List<String> getDistinctByRopaSize();
+
+	public List<String> getDistinctByTelaSize();
+
+	public List<String> getDistinctByMadeIn();
+
+	public List<Product> findProducts(Product product);
+	
+	
 
 }
