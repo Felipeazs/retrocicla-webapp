@@ -99,7 +99,9 @@ public class WebController {
 			return "index";
 		}
 		
-		model.addAttribute("products", productService.findProducts(product));
+		List<Product> products = productService.findProducts(product);
+		model.addAttribute("products", products);
+		model.addAttribute("productssize", products.size());
 				
 		return "listadoproductos";
 	}

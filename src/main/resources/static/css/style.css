@@ -1587,28 +1587,6 @@ legend {
   fill: #ccc;
 }
 
-.s007 form .inner-form .basic-search .input-field .result-count {
-  display: -ms-flexbox;
-  display: flex;
-  -ms-flex-pack: start;
-      justify-content: flex-start;
-  -ms-flex-align: center;
-      align-items: center;
-  width: 110px;
-  top: 0;
-  right: 0;
-  position: absolute;
-  font-weight: bold;
-  color: #555;
-  height: 100%;
-  font-size: 14px;
-}
-
-.s007 form .inner-form .basic-search .input-field .result-count span {
-  color: #57b846;
-  padding-right: 5px;
-}
-
 .s007 form .inner-form .advance-search {
   background: #fff;
   padding: 40px;

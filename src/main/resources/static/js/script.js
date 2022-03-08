@@ -2,7 +2,6 @@ $(document).ready(function () {
 	
 	$('#messageerrorprenda').hide();
 	$('#messageerrortela').hide();
-	$('#messageSuccess').hide();
 	$('#typeropa').val('prenda');
 	$('#sizetelas').hide();
 	
@@ -50,8 +49,7 @@ $(document).ready(function () {
 			$('#messageerrorprenda').show();			
 			
 		} else {			
-			$('#agregarprendasubmit').submit();
-			$('#messageSuccess').show();	
+			$('#agregarprendasubmit').submit();	
 		}
 	})
 	
@@ -70,8 +68,7 @@ $(document).ready(function () {
 			$('#messageerrortela').show();			
 			
 		} else {			
-			$('#agregartelasubmit').submit();
-			$('#messageSuccess').show();	
+			$('#agregartelasubmit').submit();	
 		}
 	})	
 	

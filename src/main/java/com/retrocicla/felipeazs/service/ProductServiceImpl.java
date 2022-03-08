@@ -130,18 +130,19 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<Product> findProducts(Product product) {
 		
+				
+		int sizeIndex = product.getSize().indexOf(',');		
+				
 		if (product.getType().equals("tela")) {					
 			product.setGenre("indefinido");
 			product.setStyle("indefinido");
 		    product.setSeason("indefinido");
 			product.setWear("indefinido");
-			product.setSize(product.getSize().substring(2));
+			product.setSize(product.getSize().substring(sizeIndex + 1));
 		} else {
-			product.setSize(product.getSize().substring(0,1));
+			product.setSize(product.getSize().substring(0, sizeIndex));
 		}
-		
-		System.out.println(product.getSize());
-		
+				
 		String type = product.getType();
 		String material = product.getMaterial();		
 		String wear = product.getWear();
@@ -151,9 +152,7 @@ public class ProductServiceImpl implements ProductService {
 		String genre = product.getGenre();
 		String season = product.getSeason();
 		String madeIn = product.getMade();
-		
-		System.out.println("Buscando: " + type + material + wear + color + size + style + genre + madeIn);
-		
+				
 		return repo.findByTypeAndMaterialAndWearAndColorAndSizeAndStyleAndGenreAndSeasonAndMade(type, material, wear, color, size, style, genre, season, madeIn);
 	}
 

@@ -41,8 +41,9 @@
 			<div class="menu-sidebar-content js-scrollbar1">
 				<nav class="navbar-sidebar">
 					<ul class="list-unstyled navbar-list">
-						<li><a href="#">Ropa</a></li>
-						<li><a href="#">Telas</a></li>
+						<li><a href="/ropaspage">Ropa</a></li>
+						<li><a href="/telaspage">Telas</a></li>
+						<li><a href="/addproductpage">Agregar producto</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -222,7 +223,7 @@
 										<div class="col-md-12">
 											<div class="input-space">
 												<form:input 
-													path="image_url" 
+													path="imageUrl" 
 													type="text"
 													id="imageropa"/>
 											</div>
@@ -323,7 +324,7 @@
 										<div class="col-md-12">
 											<div class="input-space">
 												<form:input 
-													path="image_url" 
+													path="imageUrl" 
 													type="text"
 													id="imagetela"/>
 											</div>

@@ -43,7 +43,7 @@
 					<ul class="list-unstyled navbar-list">
 						<li><a href="/ropaspage">Ropa</a></li>
 						<li><a href="/telaspage">Telas</a></li>
-						<li><a href="/addproductpage">Agregar</a></li>
+						<li><a href="/addproductpage">Agregar producto</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -80,13 +80,20 @@
 			<div class="main-content">
 				<div class="section-content section-content-p30">
 					<div class="container-fluid">
-						<c:if test="${ not empty addProduct }">
-							<div class="alert alert-danger mt-1" id="messageSuccess">
-								Elemento agregado correctamente
+						<c:if test="${ not empty productssize }">
+							<div class="alert alert-danger">
+								<c:choose>
+									<c:when test="${ productssize > 1}">
+										${ productssize } elementos fueron encontrados
+									</c:when>
+									<c:otherwise>
+										${ productssize } elemento fue encontrado
+									</c:otherwise>
+								</c:choose>	
 							</div>
 						</c:if>
 						<c:if test="${ empty products }">
-							<div class="alert alert-danger mt-1" id="messageError">
+							<div class="alert alert-danger" id="messageError">
 								No se encontró ningún producto con esas características
 							</div>
 						</c:if>
@@ -119,7 +126,7 @@
 											<c:if test="${ p.spandex > 0 }">
 												<h2 class="comp">${ p.spandex }% spandex</h2>
 											</c:if>
-											<h2>Hecho en ${ p.madeIn }</h2>											
+											<h2>Hecho en ${ p.made }</h2>											
 											<div class="price">
 												<h2>Precio:</h2>
 												${ p.formatted_price }</div>
@@ -128,10 +135,7 @@
 									</div>
 								</c:forEach>								
 						</div>
-
-
-
-						</div>
+					</div>
 					</div>
 				</div>
 
