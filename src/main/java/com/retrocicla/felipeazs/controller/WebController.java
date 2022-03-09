@@ -68,8 +68,7 @@ public class WebController {
 			return "index";
 		}
 		
-		Product add_product = productService.add(product);
-		
+		Product add_product = productService.add(product);		
 		model.addAttribute("addProduct", add_product);		
 		
 		return getIndex(product, model);
@@ -104,6 +103,21 @@ public class WebController {
 		model.addAttribute("productssize", products.size());
 				
 		return "listadoproductos";
+	}
+	
+	@GetMapping("/productdetails")
+	public String getProductDetailsPage(@Valid @ModelAttribute("product") Product product, BindingResult br, Model model) {
+		
+		if (br.hasErrors()) {
+			System.out.println(br.toString());
+			return "index";
+		}
+		
+		Product pro = productService.findProductById(product.getId());
+		
+		model.addAttribute("product", pro);
+		
+		return "productdetails";
 	}
 	
 	// FUNCIONES Y MÉTODOS

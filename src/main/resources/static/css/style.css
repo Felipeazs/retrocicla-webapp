@@ -526,7 +526,7 @@ input.au-input.au-input-xl{
  * ----------------------------
  */
 
-.product-box img {
+.product-box input {
     width: 150px;
     height: 150px;
     object-fit: cover;
@@ -723,13 +723,33 @@ table.table.table-bordered th{
  */
 
  .price{
-    margin:15px 0 0;
+    margin:0 0 0 15px;
     font-weight:800;
     color:#0da8e4
 }
 .detail-section{
-    margin-top:60px
+    margin-top:30px
 }
+
+.detail-section img{
+    height:260px
+}
+
+.detail-section h2{
+    font-size:15px;
+    padding-bottom:0;
+    font-weight:500;
+    color:#585858
+}
+
+.detail-section h3{
+    margin-bottom:30px
+}
+
+.detail-section .comp {
+	padding-left:20px;
+}
+
 /**/
 
 /* 

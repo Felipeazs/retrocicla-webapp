@@ -69,8 +69,18 @@ public class Product implements Serializable {
     
     @Column(name = "type", nullable=false)
     private String type;
+    
+    
 
-    public String getWear() {
+    public int getId() {
+		return id;
+	}
+
+	public void setId(int id) {
+		this.id = id;
+	}
+
+	public String getWear() {
 		return wear;
 	}
 

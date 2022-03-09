@@ -143,8 +143,6 @@ public class ProductServiceImpl implements ProductService {
 			product.setSize(product.getSize().substring(0, sizeIndex));
 		}
 		
-		System.out.println(product.getSize());
-		
 				
 		String type = product.getType();
 		String material = product.getMaterial();		
@@ -157,6 +155,12 @@ public class ProductServiceImpl implements ProductService {
 		String madeIn = product.getMade();
 				
 		return repo.findByTypeAndMaterialAndWearAndColorAndSizeAndStyleAndGenreAndSeasonAndMade(type, material, wear, color, size, style, genre, season, madeIn);
+	}
+
+	@Override
+	public Product findProductById(int id) {
+		
+		return repo.findById(id);
 	}
 
 	

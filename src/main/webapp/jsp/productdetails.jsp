@@ -26,6 +26,8 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<!-- Bootstrap icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 <link rel="stylesheet" href="css/style.css" />
 <script src="js/script.js"></script>
@@ -34,7 +36,6 @@
 </head>
 <body>
 	<div class="page-wrapper">
-
 		<!-- MENU SIDEBAR-->
 		<aside class="menu-sidebar d-none d-lg-block">
 			<div class="logo">
@@ -58,7 +59,7 @@
 		<div class="page-container">
 			<!-- HEADER DESKTOP-->
 			<header class="header-desktop">
-				<div class="section-content section-content-p30">
+				<div class="section-content section-content-p30">					
 					<nav class="navbar navbar-expand-lg navbar-dark">
 					  <div class="container-fluid">					    
 					    <div class="collapse navbar-collapse" id="navbarNav">
@@ -91,93 +92,46 @@
 
 			<!-- MAIN CONTENT-->
 			<div class="main-content">
-				<div class="section-content section-content-p30">
-					<div class="container-fluid">
-						<c:if test="${ not empty productssize }">
-							<div class="alert alert-success">
-								<c:choose>
-									<c:when test="${ productssize > 1}">
-										${ productssize } elementos fueron encontrados
-									</c:when>
-									<c:when test="${ productssize eq 0}">
-										Ningún elemento fue encontrado
-									</c:when>
-									<c:otherwise>
-										${ productssize } elemento fue encontrado
-									</c:otherwise>
-								</c:choose>	
-							</div>
-						</c:if>
-						<c:if test="${ empty products }">
-							<div class="alert alert-danger">
-								No se encontró ningún producto con esas características
-							</div>
-						</c:if>
-						<div class="row">
-							<c:forEach items="${ products }" var="p">
-								<div class="col-md-2">
-									<div class="product-box">										
-										<form:form
-											method="get" 
-											modelAttribute="product"
-											action="/productdetails" 
-											id="">
-											<form:input 
-												path="imageUrl" 
-												type="image"
-												id=""
-												src="${ p.imageUrl }"
-												class="img-responsive"/>
-											<form:input 
-												path="id" 
-												type="hidden"
-												value="${ p.id }"/>											
-											</form:form>
-										<h1>${ p.description }</h1>
-										<c:if test="${ p.wear ne 'indefinido' }">
-											<h2>Prenda: ${ p.wear }</h2>	
-										</c:if>																				
-										<h2>Tamaño: ${ p.size }</h2>
-										<c:if test="${ p.style ne 'indefinido' }">
-											<h2>Estilo: ${ p.style }</h2>
-										</c:if>
-										<c:if test="${ p.genre ne 'indefinido' }">
-											<h2>Género: ${ p.genre }</h2>
-										</c:if>
-										<h2>Color: ${ p.color }</h2>
-										<c:if test="${ p.season ne 'indefinido' }">
-											<h2>Temporada: ${ p.season }</h2>
-										</c:if>
-										<h2>Composición:</h2>
-										<c:if test="${ p.cotton > 0 }">
-											<h2 class="comp">${ p.cotton }% algodón</h2>
-										</c:if>
-										<c:if test="${ p.spandex > 0 }">
-											<h2 class="comp">${ p.spandex }% spandex</h2>
-										</c:if>
-										<h2>Hecho en ${ p.made }</h2>											
-										<div class="price">
-											<h2>Precio:</h2>
-											${ p.formatted_price }
-										</div>
-										<a href="#" class="primary-btn">Agregar al carrito</a>
-									</div>										
-								</div>
-							</c:forEach>								
-						</div>
-					</div>
-					</div>
+				<div class="row">
+				<div class="section-content section-content-p30">					
+						<div class="detail-section">
+						  <div class="container-fluid">
+						    <img src="${ product.imageUrl }" class="img-responsive" alt="image product" />
+							<h3>${ product.description } (Nombre del producto)</h3>
+							<h2>Precio:</h2>
+							<div class="price">${ product.formatted_price }</div>
+							<button class="btn btn-primary btn-sm">
+							      Agregar al carrito
+							</button>
+							<hr />
+							<c:choose>
+								<c:when test="${ product.wear eq 'indefinido' }">
+									<h4>Tipo: tela</h4>
+								</c:when>
+								<c:otherwise>
+									<h4>Tipo: ${ product.wear }</h4>
+								</c:otherwise>
+							</c:choose>
+							
+							<p>Descripcion del producto</p>
+							
+							<h2>Materiales:</h2>
+							<h2 class="comp">${ product.cotton }% Algodón </h2>
+							<h2 class="comp">${ product.spandex }% Spandex </h2>
+							<h2 class="comp">etc...</h2>
+							<h2></h2>
+						    <a href="" class="mt-5">Volver</a>
+						  </div>
+						</div>					
 				</div>
+				</div>
+			</div>
 
 				<!-- END MAIN CONTENT-->
 
 			</div>
-		</div>
-	
-
+		</div>	
 	<!-- END PAGE CONTAINER-->
-
-
 	<footer>
 		<ul>
 			<li><a href="#">About Us</a></li>

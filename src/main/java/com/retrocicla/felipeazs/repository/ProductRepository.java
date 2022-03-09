@@ -40,5 +40,7 @@ public interface ProductRepository extends JpaRepository<Product, Integer> {
 
 	List<Product> findByTypeAndMaterialAndWearAndColorAndSizeAndStyleAndGenreAndSeasonAndMade(String type, String material, String wear, String color, String 
 			size, String style, String genre, String season, String madeIn);
+
+	Product findById(int id);
 	
 }
