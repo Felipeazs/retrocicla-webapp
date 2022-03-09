@@ -22,7 +22,12 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
-<link href="https://fonts.googleapis.com/css?family=Roboto:400,700" rel="stylesheet" />
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+<!-- Bootstrap icons -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
 
 <link rel="stylesheet" href="css/style.css" />
 <script src="js/script.js"></script>
@@ -34,7 +39,7 @@
 		<!-- MENU SIDEBAR-->
 		<aside class="menu-sidebar d-none d-lg-block">
 			<div class="logo">
-				<a href="/"> <img src="assets/images/logo.png"
+				<a href="/"> <img src="img/logo1.png"
 					alt="logo-retrocicla" class="img-responsive">
 				</a>
 			</div>
@@ -54,24 +59,33 @@
 		<div class="page-container">
 			<!-- HEADER DESKTOP-->
 			<header class="header-desktop">
-				<div class="section-content section-content-p30">
-					<div class="container-fluid">
-						<div class="header-wrap">
-							<form class="form-header" onsubmit="return false;" method="GET">
-								<input class="au-input au-input-xl" type="text" name="search"
-									placeholder="Search for data ..." />
-								<button class="au-btn-submit" type="submit">Buscar</button>
-							</form>
-							<div class="cart-area d-n">
-								<a href="shopping-detail.html">
-									<div class="total">
-										0 <span> 0</span>
-									</div> <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-								</a>
-							</div>
-						</div>
-						<div class="account-wrap"></div>
-					</div>
+				<div class="section-content section-content-p30">					
+					<nav class="navbar navbar-expand-lg navbar-dark">
+					  <div class="container-fluid">					    
+					    <div class="collapse navbar-collapse" id="navbarNav">
+					      <ul class="navbar-nav">
+					        <li class="nav-item">
+					          <a class="nav-link active text-decoration-underline" aria-current="page" href="/">Home</a>
+					        </li>
+					        <li class="nav-item">
+					          <a class="nav-link" href="#">Tienda</a>
+					        </li>
+					        <li class="nav-item">
+					          <a class="nav-link" href="#">Quienes somos</a>
+					        </li>
+					        <li class="nav-item">
+					          <a class="nav-link" href="#">Blog</a>					        </li>
+					        
+					        <li class="nav-item">
+					          <a class="nav-link" href="#">Nuestros clientes</a>
+					        </li>
+					        <li class="nav-item">
+					          <a class="nav-link" href="#">Quieres donar?</a>
+					        </li>
+					      </ul>
+					    </div>
+					  </div>
+					</nav>
 				</div>
 			</header>
 			<!-- END HEADER DESKTOP-->
@@ -109,7 +123,9 @@
 						                </div>
 						              </div>
 						              <div class="input-field">
-						              <div><label>Material</label></div>
+						              <div><label>Material 
+						              	<i class="bi bi-info-circle" data-bs-toggle="tooltip" data-bs-placement="top" title="El material más prevalente"></i>
+						              	</label></div>
 						                <div class="input-select">
 						                  <form:select 
 						                  	class="form-select" 
@@ -210,7 +226,7 @@
 							            </div>	
 							            <div class="row">
 						            	<div class="input-field">
-						                	<button class="btn btn-success">Buscar</button>						             
+						                	<button class="btn btn-success">Buscar</button>						                	
 						              	</div>
 						            </div>						             						              
 						            </div>

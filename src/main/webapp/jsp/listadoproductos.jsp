@@ -22,6 +22,10 @@
 	src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
 	integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
 	crossorigin="anonymous"></script>
+<!-- Google Fonts -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
 
 <link rel="stylesheet" href="css/style.css" />
 <script src="js/script.js"></script>
@@ -34,7 +38,7 @@
 		<!-- MENU SIDEBAR-->
 		<aside class="menu-sidebar d-none d-lg-block">
 			<div class="logo">
-				<a href="/"> <img src="assets/images/logo.png"
+				<a href="/"> <img src="img/logo1.png"
 					alt="logo-retrocicla" class="img-responsive">
 				</a>
 			</div>
@@ -55,23 +59,32 @@
 			<!-- HEADER DESKTOP-->
 			<header class="header-desktop">
 				<div class="section-content section-content-p30">
-					<div class="container-fluid">
-						<div class="header-wrap">
-							<form class="form-header" onsubmit="return false;" method="GET">
-								<input class="au-input au-input-xl" type="text" name="search"
-									placeholder="Search for data ..." />
-								<button class="au-btn-submit" type="submit">Buscar</button>
-							</form>
-							<div class="cart-area d-n">
-								<a href="shopping-detail.html">
-									<div class="total">
-										0 <span> 0</span>
-									</div> <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-								</a>
-							</div>
-						</div>
-						<div class="account-wrap"></div>
-					</div>
+					<nav class="navbar navbar-expand-lg navbar-dark">
+					  <div class="container-fluid">					    
+					    <div class="collapse navbar-collapse" id="navbarNav">
+					      <ul class="navbar-nav">
+					        <li class="nav-item">
+					          <a class="nav-link active text-decoration-underline" aria-current="page" href="/">Home</a>
+					        </li>
+					        <li class="nav-item">
+					          <a class="nav-link" href="#">Tienda</a>
+					        </li>
+					        <li class="nav-item">
+					          <a class="nav-link" href="#">Quienes somos</a>
+					        </li>
+					        <li class="nav-item">
+					          <a class="nav-link" href="#">Blog</a>					        </li>
+					        
+					        <li class="nav-item">
+					          <a class="nav-link" href="#">Nuestros clientes</a>
+					        </li>
+					        <li class="nav-item">
+					          <a class="nav-link" href="#">Quieres donar?</a>
+					        </li>
+					      </ul>
+					    </div>
+					  </div>
+					</nav>
 				</div>
 			</header>
 			<!-- END HEADER DESKTOP-->
@@ -81,19 +94,22 @@
 				<div class="section-content section-content-p30">
 					<div class="container-fluid">
 						<c:if test="${ not empty productssize }">
-							<div class="alert alert-danger">
+							<div class="alert alert-success">
 								<c:choose>
 									<c:when test="${ productssize > 1}">
 										${ productssize } elementos fueron encontrados
 									</c:when>
+									<c:when test="${ productssize eq 0}">
+										Ningún elemento fue encontrado
+									</c:when>
 									<c:otherwise>
-										${ productssize } elemento fue encontrado
+										${ productssize == 1} elemento fue encontrado
 									</c:otherwise>
 								</c:choose>	
 							</div>
 						</c:if>
 						<c:if test="${ empty products }">
-							<div class="alert alert-danger" id="messageError">
+							<div class="alert alert-danger">
 								No se encontró ningún producto con esas características
 							</div>
 						</c:if>

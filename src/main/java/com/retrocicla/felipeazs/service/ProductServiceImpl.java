@@ -142,6 +142,9 @@ public class ProductServiceImpl implements ProductService {
 		} else {
 			product.setSize(product.getSize().substring(0, sizeIndex));
 		}
+		
+		System.out.println(product.getSize());
+		
 				
 		String type = product.getType();
 		String material = product.getMaterial();		

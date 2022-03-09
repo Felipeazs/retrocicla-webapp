@@ -13,7 +13,7 @@
 }
 
 body{
-    font-family:Poppins,sans-serif;
+    
     font-weight:400;
     font-size:16px;
     line-height:1.625;
@@ -36,6 +36,9 @@ button:focus,input:focus{
 
 input{
     border:none
+}
+select {
+	font-family: 'Roboto', sans-serif;
 }
 
 button{
@@ -117,7 +120,7 @@ a,a:hover{
 
 .main-content{
     padding-top:116px;
-    min-height:100vh
+    min-height:100vh;
 }
 
 aside.menu-sidebar.d-none.d-lg-block.clr{
@@ -143,7 +146,7 @@ aside.menu-sidebar.d-none.d-lg-block.clr{
     right:0;
     left:200px;
     height:75px;
-    z-index:3
+    z-index:3;
 }
 
 .header-desktop .section-content{
@@ -156,7 +159,7 @@ aside.menu-sidebar.d-none.d-lg-block.clr{
     -moz-transform:translateY(-50%);
     -ms-transform:translateY(-50%);
     -o-transform:translateY(-50%);
-    transform:translateY(-50%)
+    transform:translateY(-50%);
 }
 
 .header-wrap{
@@ -1118,7 +1121,7 @@ hr {
  * 2. Correct the odd `em` font sizing in all browsers.
  */
 pre {
-  font-family: monospace, monospace;
+  font-family: 'Roboto', sans-serif;
   /* 1 */
   font-size: 1em;
   /* 2 */
@@ -1173,7 +1176,7 @@ strong {
 code,
 kbd,
 samp {
-  font-family: monospace, monospace;
+  font-family: 'Roboto', sans-serif;
   /* 1 */
   font-size: 1em;
   /* 2 */
@@ -1264,7 +1267,7 @@ input,
 optgroup,
 select,
 textarea {
-  font-family: sans-serif;
+  font-family: 'Roboto', sans-serif;
   /* 1 */
   font-size: 100%;
   /* 1 */
@@ -1505,7 +1508,7 @@ legend {
       align-items: center;
   background: #00b5e9;
   padding: 15px;
-  font-family: 'Roboto', sans-serif;
+  
 }
 
 .s007 form {
