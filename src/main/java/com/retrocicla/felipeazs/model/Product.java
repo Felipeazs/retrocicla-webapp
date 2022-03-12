@@ -68,7 +68,8 @@ public class Product implements Serializable {
     @Column(name = "type", nullable=false)
     private String type;
     
-    
+    @Column(name = "stock", nullable=false)
+    private int stock;    
 
     public int getId() {
 		return id;
@@ -197,9 +198,13 @@ public class Product implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
-	
-	
 
-	
-	    
+	public int getStock() {
+		return stock;
+	}
+
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+		    
 }

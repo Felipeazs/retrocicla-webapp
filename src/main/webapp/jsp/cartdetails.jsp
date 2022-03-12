@@ -132,89 +132,97 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				<div class="main-content">
 					  <div class="section-content section-content-p30">
 					    <div class="conteiner-fluid">
-					      <div>
-					        <table class="table table-bordered">
-					          <tr>
-					            <th width="20%">Product Image</th>
-					            <th width="50%">Product Detail</th>
-					            <th width="30%"></th>
-					          </tr>
-					          <c:forEach items="${ cartitems }" var="ci">
-					          <tr>
-					            <td>
-					              <img
-					                src="${ ci.product.imageUrl }"
-					                alt=""
-					                class="img-responsive"
-					                width="150px"
-					              />
-					            </td>
-					            <td>
-					              <p>${ ci.product.description }</p>
-					              <p>${ ci.product.formatted_price}</p>
-					            </td>
-					            <td>
-					              <div class="items">
-					                <label>Quantity:</label>
-					                <div class="row no-gutters">
-					                  <div class="col">
-					                  	<input name="productid" value="${ ci.product.id }" type="hidden"/>
-					                    <button
-					                      onclick="addcartproduct(${ ci.product.id })"
-					                      class="btn btn-primary btn-sm"
-					                      title="a"
-					                    >
-					                      <i class="fas fa-plus"></i>
-					                    </button>
-					                  </div>					                  
-					                  <div class="col ml-4 mr-2">
-					                    <p id="feedback-quantity${ ci.id }">${ ci.quantity }</p>
-					                  </div>
-					                  <div class="col">
-					                    <button
-					                      onclick="removecartproduct(${ ci.product.id })"
-					                      class="btn btn-primary btn-sm"
-					                      type="button"
-					                    >
-					                      <i class="fas fa-minus"></i>
-					                    </button>
-					                  </div>
-					                  <div class="col-8"></div>
-					                </div>
-					              </div>
-					              <div>
-					                <button
-					                  (click)="remove(cartItem)"
-					                  class="btn btn-primary btn-sm mt-2"
-					                  type="button"
-					                >
-					                  Remove
-					                </button>
-					              </div>
-					              Subtotal:
-					              <p class="mt-2" id="feedback-price${ ci.id }">					                
-					                ${ ci.totalPrice }
-					              </p>
-					            </td>
-					          </tr>
-					          </c:forEach>
-					          <tr>
-					            <td colspan="2"></td>
-					            <td style="font-weight: bold">					           	
-					            <fmt:setLocale value="es-CL"/>					             			            					          				           					           
-					            Total: <strong name="feedback-totalprice"> ${ totalamount } </strong>					            		              
-					              <div>
-					                <a ="/checkout" class="btn btn-primary">Checkout</a>
-					              </div>
-					            </td>					            
-					          </tr>
-					        </table>
-					      </div>					      
-					      <c:if test="${ caritems.length == 0 }">
-					      <div>					       
-					        Tu carrito está vacío
-					      </div>
-					      </c:if>
+					      
+					      <c:choose>
+						      <c:when test="${ fn:length(cartitems) == 0 }">
+							  	<div class="alert alert-danger">					       
+							        Tu carrito está vacío
+							     </div>
+						      </c:when>
+						      <c:otherwise>
+						      	<div>
+							        <table class="table table-bordered">
+							          <tr>
+							            <th width="20%">Product Image</th>
+							            <th width="50%">Product Detail</th>
+							            <th width="30%"></th>
+							          </tr>
+							          <c:forEach items="${ cartitems }" var="ci">
+							          <tr>
+							            <td>
+							              <img
+							                src="${ ci.product.imageUrl }"
+							                alt=""
+							                class="img-responsive"
+							                width="150px"
+							              />
+							            </td>
+							            <td>
+							              <p>${ ci.product.description }</p>
+							              <p>${ ci.product.formatted_price}</p>
+							            </td>
+							            <td>
+							              <div class="items">
+							                <label>Quantity:</label>
+							                <div class="row no-gutters">
+							                  <div class="col">
+							                  	<input name="productid" value="${ ci.product.id }" type="hidden"/>
+							                    <button
+							                      onclick="addcartproduct(${ ci.product.id })"
+							                      class="btn btn-primary btn-sm"
+							                      title="a"
+							                      id="addcartbutton${ ci.product.id }"
+							                    >
+							                      <i class="fas fa-plus"></i>
+							                    </button>
+							                  </div>							                  
+							                  	<div class="col ml-4 mr-2">								  
+									                <p id="feedback-quantity${ ci.id }"> ${ ci.quantity }</p>
+									            </div>	
+							                  <div class="col">
+							                    <button
+							                      onclick="removecartproduct(${ ci.product.id })"
+							                      class="btn btn-primary btn-sm"
+							                      type="button"
+							                      id="removecartbutton${ ci.product.id }"
+							                    >
+							                      <i class="fas fa-minus"></i>
+							                    </button>
+							                  </div>
+							                  <div class="col-8"></div>
+							                </div>
+							              </div>
+							              <div>
+							                <button
+							                  onclick="deletecartproduct(${ ci.product.id })"
+							                  class="btn btn-primary btn-sm mt-2"
+							                  type="button"
+							                >
+							                  Eliminar
+							                </button>
+							              </div>
+							              Subtotal:
+							              <p class="mt-2" id="feedback-price${ ci.id }">					                
+							                ${ ci.totalPrice }
+							              </p>
+							            </td>
+							          </tr>
+							          </c:forEach>
+							          <tr>
+							            <td colspan="2"></td>
+							            <td style="font-weight: bold">					           	
+							            <fmt:setLocale value="es-CL"/>					             			            					          				           					           
+							            Total: <strong name="feedback-totalprice"> ${ totalamount } </strong>					            		              
+							              <div>
+							                <a ="/checkout" class="btn btn-primary">Checkout</a>
+							              </div>
+							            </td>					            
+							          </tr>
+							        </table>
+							      </div>
+						      </c:otherwise>
+					      </c:choose>					      
+					      
 					    </div>
 					  </div>
 				</div>

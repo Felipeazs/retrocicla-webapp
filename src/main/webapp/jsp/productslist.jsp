@@ -216,16 +216,15 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 											<div class="price">
 												<h2>Precio:</h2>
 												${ p.formatted_price }
-											</div>
-											<form id="addtocartform" enctype="multipart/form-data">
+											</div>											
 												<button
 													class="btn btn-primary btn-sm"
 													type="button"
 													onclick="addproducttocart(${ p.id })"
+													id="addproducttocartbutton"
 												>
 													Agregar al carrito
 												</button>
-											</form>
 										</div>
 									</div>
 								</c:forEach>

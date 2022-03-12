@@ -71,5 +71,13 @@ public class ApiRestController {
 		
 		return cart;
 	}
+	
+	@GetMapping(path = "/product/delete/{productid}")
+	public void deleteCartProduct(@PathVariable String productid, Model model) {
+			
+		int id = Integer.parseInt(productid);		
+		cartService.deleteProduct(id);		
+		
+	}
 
 }

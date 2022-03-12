@@ -136,7 +136,7 @@ public class WebController {
 	public String getProductDetails(Model model) {
 		
 		model.addAttribute("cartitems", cartService.list());
-	
+			
 		setTotalAmountAndQuantityProducts(model, cartService.list());
 		
 		return "cartdetails";

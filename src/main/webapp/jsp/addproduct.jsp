@@ -303,6 +303,19 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 											</div>
 											<div class="clearfix"></div>
 											<div class="col-md-2">
+												<label>Stock</label>
+											</div>
+											<div class="col-md-3">
+												<div class="input-space">
+													<form:input
+														path="stock"
+														type="text"
+														id="stockropa"
+													/>
+												</div>
+											</div>
+											<div class="clearfix"></div>
+											<div class="col-md-2">
 												<label>Imagen Url</label>
 											</div>
 											<div class="col-md-12">

@@ -114,19 +114,35 @@ function addproducttocart(id) {
 		data: {
 			id: id
 		},
+		statusCode: {
+			200: function(){
+				console.log("http status code 200: succesful request")
+			},
+			404: function() {
+				console.log("http status code 404: page not found");
+			},
+			500: function() {
+				console.log("http status code 500: error interno del servidor");
+			}
+		},
 		success: function(data) {
-			console.log('SUCCESS: ', data);
-
+									
 			var totalAmount = 0;
 			var totalQuantity = 0;
-
-			data.forEach(function(producto) {
-				totalAmount = totalAmount + (producto.product.price * producto.quantity);
-				totalQuantity = totalQuantity + producto.quantity;
+	
+			data.forEach(function(data) {
+				if (data.quantity >= data.product.stock){
+					$('#addproducttocartbutton').prop('disabled', true);
+				} 
+				
+				totalAmount = totalAmount + (data.product.price * data.quantity);
+				totalQuantity = totalQuantity + data.quantity;				
 			});
-
+	
 			$('[name=feedback-totalprice]').html(formatter.format(totalAmount));
 			$('#feedback-totalquantity').html(totalQuantity);
+			
+			
 		},
 		error: function() {
 			console.log('ERROR: ', data);
@@ -145,9 +161,27 @@ function addcartproduct(id) {
 		data: {
 			id: id
 		},
+		statusCode: {
+			200: function(){
+				console.log("http status code 200: succesful request")
+			},
+			404: function() {
+				console.log("http status code 404: page not found");
+			},
+			500: function() {
+				console.log("http status code 500: server error");
+			}
+		},
 		success: function(data) {
-			console.log('SUCCESS: ', data);
-
+			
+			if (data.quantity > 1) {
+				$('#removecartbutton' + data.product.id).prop('disabled', false);
+			}
+			
+			if (data.quantity >= data.product.stock){
+				$('#addcartbutton' + data.product.id).prop('disabled', true);
+			}	
+			
 			var totalAmount = data.totalPrice;
 			var totalQuantity = data.quantity;
 			var itemid = data.id;
@@ -164,17 +198,24 @@ function addcartproduct(id) {
 
 function removecartproducts(id) {
 
-	console.log(id);
-
 	$.ajax({
 		type: 'GET',
 		url: '/api/products/remove/' + id,
 		data: {
 			id: id
 		},
+		statusCode: {
+			200: function(){
+				console.log("http status code 200: succesful request")
+			},
+			404: function() {
+				console.log("http status code 404: page not found");
+			},
+			500: function() {
+				console.log("http status code 500: server error");
+			}
+		},
 		success: function(data) {
-			console.log('SUCCESS: ', data);
-
 			var totalAmount = 0;
 			var totalQuantity = 0;
 
@@ -186,16 +227,15 @@ function removecartproducts(id) {
 			$('[name=feedback-totalprice]').html(formatter.format(totalAmount));
 			$('#feedback-totalquantity').html(totalQuantity);
 		},
-		error: function() {
+		error: function(data) {
 			console.log('ERROR: ', data);
+			location.reload();
 		},
 	});
 
 }
 
 function removecartproduct(id) {
-
-	console.log(id);
 
 	removecartproducts(id);
 
@@ -205,21 +245,72 @@ function removecartproduct(id) {
 		data: {
 			id: id
 		},
+		statusCode: {
+			200: function(){
+				console.log("http status code 200: succesful request")
+			},
+			404: function() {
+				console.log("http status code 404: page not found");
+			},
+			500: function() {
+				console.log("http status code 500: server error");
+			}
+		},
 		success: function(data) {
-			console.log('SUCCESS: ', data);
-
+				
+			if (data.quantity <= 1){
+				$('#removecartbutton' + data.product.id).prop('disabled', true);
+			} 
+			
+			if (data.quantity <= data.product.stock){
+				$('#addcartbutton' + data.product.id).prop('disabled', false);
+			}
+						
 			var totalAmount = data.totalPrice;
 			var totalQuantity = data.quantity;
 			var itemid = data.id;
 
 			$('#feedback-price' + itemid).html(totalAmount);
 			$('#feedback-quantity' + itemid).html(totalQuantity);
-
 		},
-		error: function() {
+		error: function(data) {
 			console.log('ERROR: ', data);
+			location.reload();
 		},
 	});
+}
+
+function deletecartproduct(id){
+	
+	$.ajax({
+		type: 'GET',
+		url: '/api/product/delete/' + id,
+		data: {
+			id: id
+		},
+		statusCode: {
+			200: function(){
+				console.log("http status code 200: succesful request")
+			},
+			404: function() {
+				console.log("http status code 404: page not found");
+			},
+			500: function() {
+				console.log("http status code 500: server error");
+			}
+		},
+		success: function() {			
+			if(window.confirm("Está seguro que desea eliminar este producto de su carrito?")){
+				location.reload();
+			}
+			
+		},
+		error: function(id) {
+			console.log('ERROR: ', id);
+			location.reload();
+		},
+	});
+	
 }
 
 var formatter = new Intl.NumberFormat('es-CL', {
