@@ -1,39 +1,35 @@
-$(document).ready(function () {	
-	
+$(document).ready(function() {
 	$('#messageerrorprenda').hide();
 	$('#messageerrortela').hide();
 	$('#typeropa').val('prenda');
 	$('#sizetelas').hide();
-	
+
 	var sizetelas = $('#sizetelas').val();
 	var sizeropa = $('#sizeropa').val();
 	var wear = $('#wear').val();
 	var style = $('#style').val();
 	var genre = $('#genre').val();
 	var season = $('#season').val();
-	
+
 	// Selección de formulario para agrgar prenda o tela
 	$('#formulariotela').hide();
-	
-	$('#selecttipoprenda').change(function(){		
-		
-		if ($('#selecttipoprenda').val() == 'prenda'){
+
+	$('#selecttipoprenda').change(function() {
+		if ($('#selecttipoprenda').val() == 'prenda') {
 			$('#formularioprenda').show();
 			$('#typeropa').val('prenda');
 			$('#formulariotela').hide();
-						
-		} else {			
+		} else {
 			$('#formulariotela').show();
 			$('#typetela').val('tela');
 			$('#formularioprenda').hide();
-			
 		}
 	});
-			
-	// Formulario agregar prenda		
-	$('#agregarprendabutton').click(function(){
-		
-		if (!$('#descriptionropa').val() ||
+
+	// Formulario agregar prenda
+	$('#agregarprendabutton').click(function() {
+		if (
+			!$('#descriptionropa').val() ||
 			!$('#sizeropa').val() ||
 			!$('#wearropa').val() ||
 			!$('#styleropa').val() ||
@@ -44,42 +40,39 @@ $(document).ready(function () {
 			!$('#spandexropa').val() ||
 			!$('#madeInropa').val() ||
 			!$('#priceropa').val() ||
-			!$('#imageropa').val()){
-							
-			$('#messageerrorprenda').show();			
-			
-		} else {			
-			$('#agregarprendasubmit').submit();	
+			!$('#imageropa').val()
+		) {
+			$('#messageerrorprenda').show();
+		} else {
+			$('#agregarprendasubmit').submit();
 		}
-	})
-	
+	});
+
 	// Formulario agregar tela
-	$('#agregartelabutton').click(function(){
-		
-		if (!$('#descriptiontela').val() ||
+	$('#agregartelabutton').click(function() {
+		if (
+			!$('#descriptiontela').val() ||
 			!$('#sizetela').val() ||
 			!$('#colortela').val() ||
 			!$('#cottontela').val() ||
 			!$('#spandextela').val() ||
 			!$('#madeIntela').val() ||
 			!$('#pricetela').val() ||
-			!$('#imagetela').val()){
-							
-			$('#messageerrortela').show();			
-			
-		} else {			
-			$('#agregartelasubmit').submit();	
+			!$('#imagetela').val()
+		) {
+			$('#messageerrortela').show();
+		} else {
+			$('#agregartelasubmit').submit();
 		}
-	})	
-	
+	});
+
 	// Seleccion de tipos en búsqueda avanzada
-	$('#types').change(function(){	
-		
-		if ($('#types').val() == 'prenda'){
+	$('#types').change(function() {
+		if ($('#types').val() == 'prenda') {
 			$('#sizeropa').show();
 			$('#sizetelas').hide();
 			$('#sizetelas').val('');
-			$('#sizeropa').val(sizeropa);			
+			$('#sizeropa').val(sizeropa);
 			$('#wear').attr('disabled', false);
 			$('#wear').val(wear);
 			$('#genre').attr('disabled', false);
@@ -102,28 +95,135 @@ $(document).ready(function () {
 			$('#wear').attr('disabled', true);
 			$('#wear').val('');
 		}
-	})
-	
+	});
+
 	// Tootltips
 	var tooltipTriggerList = [].slice.call(
-		document.querySelectorAll('[data-bs-toggle="tooltip"]'))
-	var tooltipList = tooltipTriggerList.map(function (tooltipTriggerEl) {
-  		return new bootstrap.Tooltip(tooltipTriggerEl)
-  	})
-	
-})
+		document.querySelectorAll('[data-bs-toggle="tooltip"]')
+	);
+	var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+		return new bootstrap.Tooltip(tooltipTriggerEl);
+	});
+});
 
+function addproducttocart(id) {
 
+	$.ajax({
+		type: 'GET',
+		url: '/api/products/add/' + id,
+		data: {
+			id: id
+		},
+		success: function(data) {
+			console.log('SUCCESS: ', data);
 
+			var totalAmount = 0;
+			var totalQuantity = 0;
 
+			data.forEach(function(producto) {
+				totalAmount = totalAmount + (producto.product.price * producto.quantity);
+				totalQuantity = totalQuantity + producto.quantity;
+			});
 
+			$('[name=feedback-totalprice]').html(formatter.format(totalAmount));
+			$('#feedback-totalquantity').html(totalQuantity);
+		},
+		error: function() {
+			console.log('ERROR: ', data);
+		},
+	});
 
+}
 
+function addcartproduct(id) {
 
+	addproducttocart(id);
 
+	$.ajax({
+		type: 'GET',
+		url: '/api/product/add/' + id,
+		data: {
+			id: id
+		},
+		success: function(data) {
+			console.log('SUCCESS: ', data);
 
+			var totalAmount = data.totalPrice;
+			var totalQuantity = data.quantity;
+			var itemid = data.id;
 
+			$('#feedback-price' + itemid).html(totalAmount);
+			$('#feedback-quantity' + itemid).html(totalQuantity);
+		},
+		error: function() {
+			console.log('ERROR: ', id);
+		},
+	});
 
+}
 
+function removecartproducts(id) {
 
+	console.log(id);
 
+	$.ajax({
+		type: 'GET',
+		url: '/api/products/remove/' + id,
+		data: {
+			id: id
+		},
+		success: function(data) {
+			console.log('SUCCESS: ', data);
+
+			var totalAmount = 0;
+			var totalQuantity = 0;
+
+			data.forEach(function(producto) {
+				totalAmount = totalAmount + (producto.product.price * producto.quantity);
+				totalQuantity = totalQuantity + producto.quantity;
+			});
+
+			$('[name=feedback-totalprice]').html(formatter.format(totalAmount));
+			$('#feedback-totalquantity').html(totalQuantity);
+		},
+		error: function() {
+			console.log('ERROR: ', data);
+		},
+	});
+
+}
+
+function removecartproduct(id) {
+
+	console.log(id);
+
+	removecartproducts(id);
+
+	$.ajax({
+		type: 'GET',
+		url: '/api/product/remove/' + id,
+		data: {
+			id: id
+		},
+		success: function(data) {
+			console.log('SUCCESS: ', data);
+
+			var totalAmount = data.totalPrice;
+			var totalQuantity = data.quantity;
+			var itemid = data.id;
+
+			$('#feedback-price' + itemid).html(totalAmount);
+			$('#feedback-quantity' + itemid).html(totalQuantity);
+
+		},
+		error: function() {
+			console.log('ERROR: ', data);
+		},
+	});
+}
+
+var formatter = new Intl.NumberFormat('es-CL', {
+	style: 'currency',
+	currency: 'CLP',
+	maximumFractionDigits: 0
+});

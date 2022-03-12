@@ -1,19 +1,25 @@
 package com.retrocicla.felipeazs.controller;
 
+import java.text.NumberFormat;
 import java.util.List;
+import java.util.Locale;
 
 import javax.validation.Valid;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.retrocicla.felipeazs.model.Cart;
 import com.retrocicla.felipeazs.model.Client;
 import com.retrocicla.felipeazs.model.Product;
+import com.retrocicla.felipeazs.service.CartService;
 import com.retrocicla.felipeazs.service.ClientService;
 import com.retrocicla.felipeazs.service.ProductService;
 
@@ -25,6 +31,9 @@ public class WebController {
 
 	@Autowired
 	private ProductService productService;
+	
+	@Autowired
+	private CartService cartService;
 
 	@ModelAttribute("client")
 	private Client setClient() {
@@ -79,7 +88,9 @@ public class WebController {
 		
 		model.addAttribute("products", productService.searchBy("prenda"));
 		
-		return "listadoproductos";
+		setTotalAmountAndQuantityProducts(model, cartService.list());
+		
+		return "productslist";
 	}
 	
 	@GetMapping("/telaspage")
@@ -87,7 +98,9 @@ public class WebController {
 		
 		model.addAttribute("products", productService.searchBy("tela"));
 		
-		return "listadoproductos";
+		setTotalAmountAndQuantityProducts(model, cartService.list());
+		
+		return "productslist";
 	}
 	
 	@GetMapping("/searchproduct")
@@ -98,11 +111,11 @@ public class WebController {
 			return "index";
 		}
 		
-		List<Product> products = productService.findProducts(product);
+		List<Product> products = productService.searchProducts(product);
 		model.addAttribute("products", products);
 		model.addAttribute("productssize", products.size());
 				
-		return "listadoproductos";
+		return "productslist";
 	}
 	
 	@GetMapping("/productdetails")
@@ -113,14 +126,40 @@ public class WebController {
 			return "index";
 		}
 		
-		Product pro = productService.findProductById(product.getId());
-		
+		Product pro = productService.findProductById(product.getId());	
 		model.addAttribute("product", pro);
 		
 		return "productdetails";
 	}
 	
+	@GetMapping("/cartdetails")
+	public String getProductDetails(Model model) {
+		
+		model.addAttribute("cartitems", cartService.list());
+	
+		setTotalAmountAndQuantityProducts(model, cartService.list());
+		
+		return "cartdetails";
+	}
+	
 	// FUNCIONES Y MÉTODOS
+	
+	private void setTotalAmountAndQuantityProducts(Model model, List<Cart> cartitems) {
+		
+		int totalAmount = 0;
+		int totalQuantity = 0;
+		for (Cart cartitem : cartitems) {
+			totalQuantity = totalQuantity + cartitem.getQuantity();	
+			totalAmount = totalAmount + (cartitem.getPrice() * cartitem.getQuantity());
+		}
+		
+		Locale clp = new Locale("es", "CL");
+		NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
+		String totalprice = nf.format(totalAmount);	
+				
+		model.addAttribute("totalquantity", totalQuantity);
+		model.addAttribute("totalamount", totalprice);
+	}
 	
 	private void modelMultipleSelection(Model model) {
 		model.addAttribute("types", productService.getDistinctByType());

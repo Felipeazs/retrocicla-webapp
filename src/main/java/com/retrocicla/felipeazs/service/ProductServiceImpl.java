@@ -33,16 +33,14 @@ public class ProductServiceImpl implements ProductService {
 		} else {			
 			String genre = product.getGenre().toLowerCase();
 			product.setGenre(genre);			
-			
 		}
 		
-		if (product.getCotton() > product.getSpandex()) {
+		if (product.getCotton() >= product.getSpandex()) {
 			product.setMaterial("algodón");
 		} else {
 			product.setMaterial("spandex");
 		}
 		
-
 		String size = product.getSize().toUpperCase();
 		product.setSize(size);
 			
@@ -128,8 +126,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<Product> findProducts(Product product) {
-		
+	public List<Product> searchProducts(Product product) {		
 				
 		int sizeIndex = product.getSize().indexOf(',');		
 				
@@ -142,8 +139,7 @@ public class ProductServiceImpl implements ProductService {
 		} else {
 			product.setSize(product.getSize().substring(0, sizeIndex));
 		}
-		
-				
+						
 		String type = product.getType();
 		String material = product.getMaterial();		
 		String wear = product.getWear();

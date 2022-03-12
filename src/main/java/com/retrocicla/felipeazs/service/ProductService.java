@@ -30,7 +30,7 @@ public interface ProductService {
 
 	public List<String> getDistinctByMadeIn();
 
-	public List<Product> findProducts(Product product);
+	public List<Product> searchProducts(Product product);
 
 	public Product findProductById(int id);
 	

@@ -5,7 +5,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta charset="UTF-8" />
+		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
 		<!-- JQuery -->
 		<script
 			src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -19,6 +19,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 			crossorigin="anonymous"
 		/>
+
 		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -26,11 +27,9 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 			href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
 			rel="stylesheet"
 		/>
-		<!-- Bootstrap icons -->
-		<link
-			rel="stylesheet"
-			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
-		/>
+		<!-- Font Awesome -->
+		<script src="https://kit.fontawesome.com/8df927e57d.js" crossorigin="anonymous"></script>
+
 		<link rel="stylesheet" href="css/style.css" />
 		<script src="js/script.js"></script>
 
@@ -111,57 +110,125 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 										</li>
 									</ul>
 								</div>
+								<div class="cart-area d-n">								
+									<a href="/cartdetails">
+									    <div class="total">
+									    	<strong name="feedback-totalprice">${ totalamount }</strong>					    	
+									      	<span id="feedback-totalquantity">${ totalquantity }</span>
+									    </div>
+									    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+									  </a>
+									</div>
 							</div>
 						</nav>
+						
 					</div>
 				</header>
 				<!-- END HEADER DESKTOP-->
 
 				<!-- MAIN CONTENT-->
 				<div class="main-content">
-					<div class="row">
-						<div class="section-content section-content-p30">
-							<div class="detail-section">
-								<div class="container-fluid">
-									<img
-										src="${ product.imageUrl }"
-										class="img-responsive"
-										alt="image product"
-									/>
-									<h3>
-										${ product.description } (Nombre del
-										producto)
-									</h3>
-									<p>Descripción del producto</p>
-									<h2>Precio:</h2>
-									<div class="price">
-										${ product.formatted_price }
-									</div>
-									<button class="btn btn-primary btn-sm">
-										Agregar al carrito
-									</button>
-									<hr />
+					<div class="section-content section-content-p30">
+						<div class="container-fluid">
+							<c:if test="${ not empty productssize }">
+								<div class="alert alert-success">
 									<c:choose>
-										<c:when
-											test="${ product.wear eq 'indefinido' }"
-										>
-											<h2>Tipo: tela</h2>
+										<c:when test="${ productssize > 1}">
+											${ productssize } elementos fueron
+											encontrados
+										</c:when>
+										<c:when test="${ productssize eq 0}">
+											Ningún elemento fue encontrado
 										</c:when>
 										<c:otherwise>
-											<h2>Tipo: ${ product.wear }</h2>
+											${ productssize } elemento fue
+											encontrado
 										</c:otherwise>
 									</c:choose>
-									<h2>Materiales:</h2>
-									<h2 class="comp">
-										${ product.cotton }% Algodón
-									</h2>
-									<h2 class="comp">
-										${ product.spandex }% Spandex
-									</h2>
-									<h2 class="comp">etc...</h2>
-									<h2></h2>
-									<a href="" class="mt-5">Volver</a>
 								</div>
+							</c:if>
+							<c:if test="${ empty products }">
+								<div class="alert alert-danger">
+									No se encontró ningún producto con esas
+									características
+								</div>
+							</c:if>
+							<div class="row">
+								<c:forEach items="${ products }" var="p">
+									<div class="col-md-2">
+										<div class="product-box">
+											<form:form
+												method="get"
+												modelAttribute="product"
+												action="/productdetails"
+											>
+												<form:input
+													path="imageUrl"
+													type="image"
+													src="${ p.imageUrl }"
+													class="img-responsive"
+												/>
+												<form:input
+													path="id"
+													type="hidden"
+													value="${ p.id }"
+													id="productid"
+													name="productid"
+												/>
+											</form:form>
+											<h1>${ p.description }</h1>
+											<c:if
+												test="${ p.wear ne 'indefinido' }"
+											>
+												<h2>Prenda: ${ p.wear }</h2>
+											</c:if>
+											<h2>Tamaño: ${ p.size }</h2>
+											<c:if
+												test="${ p.style ne 'indefinido' }"
+											>
+												<h2>Estilo: ${ p.style }</h2>
+											</c:if>
+											<c:if
+												test="${ p.genre ne 'indefinido' }"
+											>
+												<h2>Género: ${ p.genre }</h2>
+											</c:if>
+											<h2>Color: ${ p.color }</h2>
+											<c:if
+												test="${ p.season ne 'indefinido' }"
+											>
+												<h2>
+													Temporada: ${ p.season }
+												</h2>
+											</c:if>
+											<h2>Composición:</h2>
+											<c:if test="${ p.cotton > 0 }">
+												<h2 class="comp">
+													${ p.cotton }% algodón
+												</h2>
+											</c:if>
+											<c:if test="${ p.spandex > 0 }">
+												<h2 class="comp">
+													${ p.spandex }% spandex
+												</h2>
+											</c:if>
+											<h2>Hecho en ${ p.made }</h2>
+											<div class="price">
+												<h2>Precio:</h2>
+												${ p.formatted_price }
+											</div>
+											<form id="addtocartform" enctype="multipart/form-data">
+												<button
+													class="btn btn-primary btn-sm"
+													type="button"
+													onclick="addproducttocart(${ p.id })"
+												>
+													Agregar al carrito
+												</button>
+											</form>
+										</div>
+									</div>
+								</c:forEach>
 							</div>
 						</div>
 					</div>
@@ -170,7 +237,9 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				<!-- END MAIN CONTENT-->
 			</div>
 		</div>
+
 		<!-- END PAGE CONTAINER-->
+
 		<footer>
 			<ul>
 				<li><a href="#">About Us</a></li>

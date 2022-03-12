@@ -1,7 +1,6 @@
 package com.retrocicla.felipeazs.model;
 
 import java.io.Serializable;
-import java.util.ArrayList;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -9,7 +8,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Transient;
 
 @Entity
 @Table(name = "product")
@@ -43,7 +41,7 @@ public class Product implements Serializable {
     @Column(name = "genre", nullable=true)
     private String genre;
     
-    @Transient
+    @Column(name = "unformatted_price")
     private int price;
     
     @Column(name="price", nullable=false)
@@ -96,14 +94,13 @@ public class Product implements Serializable {
         this.size = size;
     }
 
-    public int getPrice() {
-        return price;
-    }
+	public int getPrice() {
+		return price;
+	}
 
-    public void setPrice(int price) {
-        this.price = price;
-    }   
-    
+	public void setPrice(int price) {
+		this.price = price;
+	}
 
 	public String getFormatted_price() {
 		return formatted_price;
@@ -200,6 +197,8 @@ public class Product implements Serializable {
 	public void setType(String type) {
 		this.type = type;
 	}
+	
+	
 
 	
 	    
