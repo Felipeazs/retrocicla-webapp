@@ -26,6 +26,8 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 			href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
 			rel="stylesheet"
 		/>
+		<!-- Font Awesome -->
+		<script src="https://kit.fontawesome.com/8df927e57d.js" crossorigin="anonymous"></script>
 
 		<link rel="stylesheet" href="css/style.css" />
 		<script src="js/script.js"></script>

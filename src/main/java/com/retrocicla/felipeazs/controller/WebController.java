@@ -59,6 +59,7 @@ public class WebController {
 	public String getIndex(Product product, Model model) {			
 						
 		modelMultipleSelection(model); 
+		setTotalAmountAndQuantityProducts(model, cartService.list());
 
 		return "index";
 	}
@@ -78,7 +79,9 @@ public class WebController {
 		}
 		
 		Product add_product = productService.add(product);		
-		model.addAttribute("addProduct", add_product);		
+		model.addAttribute("addProduct", add_product);	
+		
+		setTotalAmountAndQuantityProducts(model, cartService.list());
 		
 		return getIndex(product, model);
 	}
