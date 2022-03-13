@@ -1,4 +1,5 @@
 $(document).ready(function() {
+	
 	$('#messageerrorprenda').hide();
 	$('#messageerrortela').hide();
 	$('#typeropa').val('prenda');
@@ -109,8 +110,8 @@ $(document).ready(function() {
 function addproducttocart(id) {
 
 	$.ajax({
-		type: 'GET',
-		url: '/api/products/add/' + id,
+		type: 'POST',
+		url: '/api/product/' + id,
 		data: {
 			id: id
 		},
@@ -121,6 +122,9 @@ function addproducttocart(id) {
 			404: function() {
 				console.log("http status code 404: page not found");
 			},
+			405: function(){
+				console.log("Bad HTTP request");
+			},
 			500: function() {
 				console.log("http status code 500: error interno del servidor");
 			}
@@ -129,34 +133,36 @@ function addproducttocart(id) {
 									
 			var totalAmount = 0;
 			var totalQuantity = 0;
+			
+			$('#removecartbutton').prop('disabled', true);
 	
 			data.forEach(function(data) {
+				
 				if (data.quantity >= data.product.stock){
 					$('#addproducttocartbutton').prop('disabled', true);
 				} 
 				
 				totalAmount = totalAmount + (data.product.price * data.quantity);
-				totalQuantity = totalQuantity + data.quantity;				
+				totalQuantity = totalQuantity + data.quantity;			
+					
 			});
 	
 			$('[name=feedback-totalprice]').html(formatter.format(totalAmount));
 			$('#feedback-totalquantity').html(totalQuantity);
-			
-			
 		},
-		error: function() {
+		error: function(data) {
 			console.log('ERROR: ', data);
 		},
 	});
 
 }
 
-function addcartproduct(id) {
+function addcartproductitem(id) {
 
 	addproducttocart(id);
 
 	$.ajax({
-		type: 'GET',
+		type: 'PUT',
 		url: '/api/product/add/' + id,
 		data: {
 			id: id
@@ -167,6 +173,9 @@ function addcartproduct(id) {
 			},
 			404: function() {
 				console.log("http status code 404: page not found");
+			},
+			405: function(){
+				console.log("Bad HTTP request");
 			},
 			500: function() {
 				console.log("http status code 500: server error");
@@ -196,51 +205,10 @@ function addcartproduct(id) {
 
 }
 
-function removecartproducts(id) {
+function removecartproductitem(id) {
 
 	$.ajax({
-		type: 'GET',
-		url: '/api/products/remove/' + id,
-		data: {
-			id: id
-		},
-		statusCode: {
-			200: function(){
-				console.log("http status code 200: succesful request")
-			},
-			404: function() {
-				console.log("http status code 404: page not found");
-			},
-			500: function() {
-				console.log("http status code 500: server error");
-			}
-		},
-		success: function(data) {
-			var totalAmount = 0;
-			var totalQuantity = 0;
-
-			data.forEach(function(producto) {
-				totalAmount = totalAmount + (producto.product.price * producto.quantity);
-				totalQuantity = totalQuantity + producto.quantity;
-			});
-
-			$('[name=feedback-totalprice]').html(formatter.format(totalAmount));
-			$('#feedback-totalquantity').html(totalQuantity);
-		},
-		error: function(data) {
-			console.log('ERROR: ', data);
-			location.reload();
-		},
-	});
-
-}
-
-function removecartproduct(id) {
-
-	removecartproducts(id);
-
-	$.ajax({
-		type: 'GET',
+		type: 'PUT',
 		url: '/api/product/remove/' + id,
 		data: {
 			id: id
@@ -252,39 +220,56 @@ function removecartproduct(id) {
 			404: function() {
 				console.log("http status code 404: page not found");
 			},
+			405: function(){
+				console.log("Bad HTTP request");
+			},
 			500: function() {
 				console.log("http status code 500: server error");
 			}
 		},
 		success: function(data) {
-				
-			if (data.quantity <= 1){
-				$('#removecartbutton' + data.product.id).prop('disabled', true);
-			} 
-			
-			if (data.quantity <= data.product.stock){
-				$('#addcartbutton' + data.product.id).prop('disabled', false);
-			}
-						
-			var totalAmount = data.totalPrice;
-			var totalQuantity = data.quantity;
-			var itemid = data.id;
+			var totalAmount = 0;
+			var totalQuantity = 0;
 
-			$('#feedback-price' + itemid).html(totalAmount);
-			$('#feedback-quantity' + itemid).html(totalQuantity);
+			data.forEach(function(data) {
+				totalAmount = totalAmount + (data.product.price * data.quantity);
+				totalQuantity = totalQuantity + data.quantity;				
+				
+				$('[name=feedback-totalprice]').html(formatter.format(totalAmount));
+				$('#feedback-totalquantity').html(totalQuantity);
+				
+				if (data.quantity == 1){
+					$('#removecartbutton' + data.product.id).prop('disabled', true);
+				} else if (data.quantity == 0) {
+					location.reload();
+				}
+							
+				if (data.quantity <= data.product.stock){
+					$('#addcartbutton' + data.product.id).prop('disabled', false);
+				}
+							
+				var itemAmount = data.totalPrice;
+				var itemQuantity = data.quantity;
+				var itemid = data.id;
+	
+				$('#feedback-price' + itemid).html(itemAmount);
+				$('#feedback-quantity' + itemid).html(itemQuantity);
+			});
+
 		},
 		error: function(data) {
 			console.log('ERROR: ', data);
 			location.reload();
 		},
 	});
+
 }
 
 function deletecartproduct(id){
 	
 	$.ajax({
-		type: 'GET',
-		url: '/api/product/delete/' + id,
+		type: 'DELETE',
+		url: '/api/product/' + id,
 		data: {
 			id: id
 		},
@@ -294,6 +279,9 @@ function deletecartproduct(id){
 			},
 			404: function() {
 				console.log("http status code 404: page not found");
+			},
+			405: function(){
+				console.log("Bad HTTP request");
 			},
 			500: function() {
 				console.log("http status code 500: server error");
@@ -318,3 +306,5 @@ var formatter = new Intl.NumberFormat('es-CL', {
 	currency: 'CLP',
 	maximumFractionDigits: 0
 });
+
+

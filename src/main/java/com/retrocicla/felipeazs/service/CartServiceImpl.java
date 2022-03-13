@@ -29,8 +29,8 @@ public class CartServiceImpl implements CartService{
 	public void addProduct(Product product) {
 		
 		try {
-			Cart findProd = findByProductId(product.getId());
-			updateProductQuantityInCart(findProd);
+			Cart findProduct = findByProductId(product.getId());
+			updateProduct(findProduct);
 		} catch (NullPointerException ex) {
 			
 			Cart cart = new Cart();
@@ -59,19 +59,19 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public void updateProductQuantityInCart(Cart cart) {
+	public void updateProduct(Cart product) {
 		
-		if (cart.getQuantity() < cart.getProduct().getStock()) {
+		if (product.getQuantity() < product.getProduct().getStock()) {
 			
-			cart.setQuantity(cart.getQuantity() + 1);		
+			product.setQuantity(product.getQuantity() + 1);		
 			
-			int totalPrice = cart.getQuantity() * cart.getPrice();
+			int totalPrice = product.getQuantity() * product.getPrice();
 			Locale clp = new Locale("es", "CL");
 			NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
 			String price = nf.format(totalPrice);		
-			cart.setTotalPrice(price);
+			product.setTotalPrice(price);
 			
-			repo.save(cart);
+			repo.save(product);
 		}		
 						
 	}
@@ -106,7 +106,6 @@ public class CartServiceImpl implements CartService{
 		
 		try {
 			Cart product = findByProductId(productId);
-			System.out.println("eliminar: " + product.getId());
 			repo.delete(product);
 		} catch (StaleStateException ex) {
 			ex.getMessage();

@@ -168,7 +168,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 							                  <div class="col">
 							                  	<input name="productid" value="${ ci.product.id }" type="hidden"/>
 							                    <button
-							                      onclick="addcartproduct(${ ci.product.id })"
+							                      onclick="addcartproductitem(${ ci.product.id })"
 							                      class="btn btn-primary btn-sm"
 							                      title="a"
 							                      id="addcartbutton${ ci.product.id }"
@@ -181,10 +181,11 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 									            </div>	
 							                  <div class="col">
 							                    <button
-							                      onclick="removecartproduct(${ ci.product.id })"
+							                      onclick="removecartproductitem(${ ci.product.id })"
 							                      class="btn btn-primary btn-sm"
 							                      type="button"
 							                      id="removecartbutton${ ci.product.id }"
+							                      disabled
 							                    >
 							                      <i class="fas fa-minus"></i>
 							                    </button>
@@ -214,7 +215,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 							            <fmt:setLocale value="es-CL"/>					             			            					          				           					           
 							            Total: <strong name="feedback-totalprice"> ${ totalamount } </strong>					            		              
 							              <div>
-							                <a ="/checkout" class="btn btn-primary">Checkout</a>
+							                <a href="/checkout" class="btn btn-primary">Comprar</a>
 							              </div>
 							            </td>					            
 							          </tr>

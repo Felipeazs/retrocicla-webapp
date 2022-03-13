@@ -10,8 +10,9 @@ public interface CartService {
 	List<Cart> list();
 	void addProduct(Product product);
 	Cart findByProductId(int id);
-	void updateProductQuantityInCart(Cart product);
+	void updateProduct(Cart product);
 	void removeProduct(Integer productId);
 	void deleteProduct(Integer productId);
+
 	
 }

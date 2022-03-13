@@ -145,6 +145,14 @@ public class WebController {
 		return "cartdetails";
 	}
 	
+	@GetMapping("/checkout")
+	public String getCheckout(Model model) {		
+		
+		setTotalAmountAndQuantityProducts(model, cartService.list());		
+		
+		return "checkout";
+	}
+	
 	// FUNCIONES Y MÉTODOS
 	
 	private void setTotalAmountAndQuantityProducts(Model model, List<Cart> cartitems) {
