@@ -134,8 +134,6 @@ function addproducttocart(id) {
 			var totalAmount = 0;
 			var totalQuantity = 0;
 			
-			$('#removecartbutton').prop('disabled', true);
-	
 			data.forEach(function(data) {
 				
 				if (data.quantity >= data.product.stock){

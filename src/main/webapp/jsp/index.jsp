@@ -87,7 +87,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 											>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" href="#"
+											<a class="nav-link" href="/tienda"
 												>Tienda</a
 											>
 										</li>

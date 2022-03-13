@@ -180,15 +180,29 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 									                <p id="feedback-quantity${ ci.id }"> ${ ci.quantity }</p>
 									            </div>	
 							                  <div class="col">
+							                  <c:choose>
+							                  <c:when test="${ ci.quantity == 1 }">
 							                    <button
 							                      onclick="removecartproductitem(${ ci.product.id })"
 							                      class="btn btn-primary btn-sm"
 							                      type="button"
 							                      id="removecartbutton${ ci.product.id }"
 							                      disabled
-							                    >
-							                      <i class="fas fa-minus"></i>
+							                    >		
+							                    <i class="fas fa-minus"></i>					                      
 							                    </button>
+							                  </c:when>
+							                  <c:otherwise>
+							                  	<button
+							                      onclick="removecartproductitem(${ ci.product.id })"
+							                      class="btn btn-primary btn-sm"
+							                      type="button"
+							                      id="removecartbutton${ ci.product.id }"							                     
+							                    >		
+							                    <i class="fas fa-minus"></i>					                      
+							                    </button>							                  
+							                  </c:otherwise>							                  
+							                  </c:choose>							                  	
 							                  </div>
 							                  <div class="col-8"></div>
 							                </div>
