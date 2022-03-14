@@ -142,12 +142,12 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				              <div class="input-space">
 				                <input
 				                  type="text"
-				                  onkeydown=""
-				                  id="inputtext"
-				                />
-				                <div class="alert alert-danger mt-1" id="inputalertmsg">
-				                  <div id="requiredalert">
-				                    First Name is required
+				                  onkeyup="checkinputrequirements(${1})"
+				                  id="inputtext-1"
+				                />				              
+				                <div class="alert alert-danger mt-1" id="inputalertmsg-1" name="inputalertmsg">
+				                  <div>
+				                    Su nombre es requerido y debe tener al menos 2 caracteres.
 				                  </div>
 				                </div>
 				              </div>
@@ -159,15 +159,12 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				              <div class="input-space">
 				                <input
 				                  type="text"
-				                  onkeydown="checkinputrequirements(${2})"
-				                  id="inputtext${2}"
+				                  onkeyup="checkinputrequirements(${2})"
+				                  id="inputtext-2"
 				                />
-				                <div class="alert alert-danger mt-1" id="inputalertmsg2">
+				                <div class="alert alert-danger mt-1" id="inputalertmsg-2" name="inputalertmsg">
 				                  <div>
-				                    Last Name is required
-				                  </div>				
-				                  <div>
-				                    Last Name must be at least 2 characters long
+				                    Su apellido es requerido y debe tener al menos 2 caracteres.
 				                  </div>
 				                </div>
 				              </div>
@@ -179,13 +176,11 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				              <div class="input-space">
 				                <input
 				                  type="text"
+				                  onkeyup="checkinputrequirements('email')"
+				               	  id="inputtext-email"
 				                />
-				                <div class="alert alert-danger mt-1">
-				                  <div>Email is required</div>
-				
-				                  <div>
-				                    Email must be a valid email address format
-				                  </div>
+				                <div class="alert alert-danger mt-1" id="inputalertmsg-email" name="inputalertmsg">
+				                  <div>Su email es requerido y debe tener formato válido</div>				
 				                </div>
 				              </div>
 				            </div>
@@ -203,7 +198,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				                    {{ state.name }}
 				                  </option>
 				                </select>
-				                <div class="alert alert-danger mt-1">
+				                <div class="alert alert-danger mt-1" name="inputalertmsg">
 				                  <div>
 				                    State is required
 				                  </div>
@@ -215,10 +210,14 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				            <div class="col-md-2"><label>Ciudad</label></div>
 				            <div class="col-md-9">
 				              <div class="input-space">
-				                <input type="text" />
-				                <div class="alert alert-danger mt-1">
+				                <select>
+				                  <option>
+				                    {{ state.name }}
+				                  </option>
+				                </select>
+				                <div class="alert alert-danger mt-1" name="inputalertmsg">
 				                  <div>
-				                    City is required
+				                    State is required
 				                  </div>
 				                </div>
 				              </div>
@@ -230,8 +229,10 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				              <div class="input-space">
 				                <input
 				                  type="text"
+				                  onkeyup="checkinputrequirements(${3})"
+				                  id="inputtext-3"
 				                />
-				                <div class="alert alert-danger mt-1">
+				                <div class="alert alert-danger mt-1" id="inputalertmsg-3" name="inputalertmsg">
 				                  <div>
 				                    Street is required
 				                  </div>
@@ -264,7 +265,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				                    {{ state.name }}
 				                  </option>
 				                </select>
-				                <div class="alert alert-danger mt-1">
+				                <div class="alert alert-danger mt-1" name="inputalertmsg">
 				                  <div>
 				                    State is required
 				                  </div>
@@ -277,7 +278,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				            <div class="col-md-9">
 				              <div class="input-space">
 				                <input type="text" />
-				                <div class="alert alert-danger mt-1">
+				                <div class="alert alert-danger mt-1" name="inputalertmsg">
 				                  <div>
 				                    City is required
 				                  </div>
@@ -292,7 +293,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				                <input
 				                  type="text"
 				                />
-				                <div class="alert alert-danger mt-1">
+				                <div class="alert alert-danger mt-1" name="inputalertmsg">
 				                  <div>
 				                    Street is required
 				                  </div>
