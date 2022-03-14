@@ -13,9 +13,13 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.retrocicla.felipeazs.model.Cart;
+import com.retrocicla.felipeazs.model.Ciudad;
 import com.retrocicla.felipeazs.model.Product;
+import com.retrocicla.felipeazs.model.Region;
 import com.retrocicla.felipeazs.service.CartService;
+import com.retrocicla.felipeazs.service.CiudadService;
 import com.retrocicla.felipeazs.service.ProductService;
+import com.retrocicla.felipeazs.service.RegionService;
 
 @RestController
 @RequestMapping("/api")
@@ -26,6 +30,12 @@ public class ApiRestController {
 	
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private CiudadService ciudadService;
+	
+	@Autowired
+	private RegionService regionService;
 		
 	@PostMapping(path = "/product/{productid}")
 	public List<Cart> addProductToCart(@PathVariable String productid, Model model) {
@@ -68,6 +78,21 @@ public class ApiRestController {
 		int id = Integer.parseInt(productid);		
 		cartService.deleteProduct(id);		
 		
+	}
+	
+	@GetMapping(path = "/regiones/{regionid}")
+	public List<Ciudad> getCiudades(@PathVariable String regionid) {
+		
+		int id = Integer.parseInt(regionid);
+		List<Ciudad> cities = ciudadService.findAllByRegion(id);
+		return cities;	
+	}
+	
+	@GetMapping(path = "/regiones")
+	public List<Region> getCiudades() {
+		
+		List<Region> regiones = regionService.list();
+		return regiones;	
 	}
 
 }

@@ -20,8 +20,10 @@ import com.retrocicla.felipeazs.model.Cart;
 import com.retrocicla.felipeazs.model.Client;
 import com.retrocicla.felipeazs.model.Product;
 import com.retrocicla.felipeazs.service.CartService;
+import com.retrocicla.felipeazs.service.CiudadService;
 import com.retrocicla.felipeazs.service.ClientService;
 import com.retrocicla.felipeazs.service.ProductService;
+import com.retrocicla.felipeazs.service.RegionService;
 
 @Controller
 public class WebController {
@@ -34,6 +36,12 @@ public class WebController {
 	
 	@Autowired
 	private CartService cartService;
+	
+	@Autowired
+	private RegionService regionService;
+	
+	@Autowired
+	private CiudadService ciudadService;
 
 	@ModelAttribute("client")
 	private Client setClient() {
@@ -148,7 +156,9 @@ public class WebController {
 	@GetMapping("/checkout")
 	public String getCheckout(Model model) {		
 		
-		setTotalAmountAndQuantityProducts(model, cartService.list());		
+		setTotalAmountAndQuantityProducts(model, cartService.list());
+		model.addAttribute("regiones", regionService.list());
+		model.addAttribute("ciudades", ciudadService.list());
 		
 		return "checkout";
 	}

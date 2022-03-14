@@ -85,7 +85,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 											>
 										</li>
 										<li class="nav-item">
-											<a class="nav-link" href="#"
+											<a class="nav-link" href="/tienda"
 												>Tienda</a
 											>
 										</li>
@@ -193,10 +193,12 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				            <div class="col-md-2"><label>Región</label></div>
 				            <div class="col-md-9">
 				              <div class="input-space">
-				                <select>
-				                  <option>
-				                    {{ state.name }}
+				                <select onchange="selectCity(${1})" id ="selectRegion-1">
+				                <c:forEach items="${ regiones }" var="r">
+				                  <option value="${ r.id }">				                    
+				                    	${ r.name }				                   
 				                  </option>
+				                </c:forEach>
 				                </select>
 				                <div class="alert alert-danger mt-1" name="inputalertmsg">
 				                  <div>
@@ -210,11 +212,8 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				            <div class="col-md-2"><label>Ciudad</label></div>
 				            <div class="col-md-9">
 				              <div class="input-space">
-				                <select>
-				                  <option>
-				                    {{ state.name }}
-				                  </option>
-				                </select>
+				                <select disabled id="selectcityoption-1">	
+				                </select>				               
 				                <div class="alert alert-danger mt-1" name="inputalertmsg">
 				                  <div>
 				                    State is required
@@ -246,7 +245,8 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				          <label class="au-checkbox">
 				            <input
 				              type="checkbox"
-				              (change)="copyShippingAddressToBillingAddress($event)"
+				              onchange="selectShippingAddress()"
+				              id="selectShipping"
 				            />
 				            <span class="au-checkmark"></span> Billing Address same as Shipping
 				            Address
@@ -254,16 +254,18 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				        </div>
 				        
 				        <!-- Billing Address -->
-				        <div formGroupName="billingAddress" class="form-area">
+				        <div id="billingAddress" class="form-area">
 				        <h3>Dirección de facturación</h3>
 				        <div class="row">
 				            <div class="col-md-2"><label>Región</label></div>
 				            <div class="col-md-9">
 				              <div class="input-space">
-				                <select>
-				                  <option>
-				                    {{ state.name }}
-				                  </option>
+				                 <select onchange="selectCity(${2})" id ="selectRegion-2">
+					                <c:forEach items="${ regiones }" var="r">
+					                  <option value="${ r.id }" label="${ r.name }">				                    
+					                    	${ r.name }				                   
+					                  </option>
+					                </c:forEach>
 				                </select>
 				                <div class="alert alert-danger mt-1" name="inputalertmsg">
 				                  <div>
@@ -277,7 +279,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				            <div class="col-md-2"><label>Ciudad</label></div>
 				            <div class="col-md-9">
 				              <div class="input-space">
-				                <input type="text" />
+				                <select disabled id="selectcityoption-2"></select>
 				                <div class="alert alert-danger mt-1" name="inputalertmsg">
 				                  <div>
 				                    City is required

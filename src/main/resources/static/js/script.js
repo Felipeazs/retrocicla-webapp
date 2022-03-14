@@ -139,10 +139,6 @@ function checkinputrequirements(id) {
 	});
 }
 
-
-
-
-
 function addproducttocart(id) {
 
 	$.ajax({
@@ -216,7 +212,6 @@ function addcartproductitem(id) {
 			}
 		},
 		success: function(data) {
-
 			if (data.quantity > 1) {
 				$('#removecartbutton' + data.product.id).prop('disabled', false);
 			}
@@ -327,12 +322,72 @@ function deletecartproduct(id) {
 			}
 
 		},
-		error: function(id) {
-			console.log('ERROR: ', id);
+		error: function(data) {
+			console.log('ERROR: ', data);
 			location.reload();
 		},
 	});
+}
 
+function selectCity(n){
+	
+	var id = $('#selectRegion-' + n).val();	
+	
+	$.ajax({
+		type: 'GET',
+		url: '/api/regiones/' + id,
+		data: {
+			id: id
+		},			
+		success: function(data) {				
+			$('#selectcityoption-' + n).prop('disabled', false);	
+			$('#selectcityoption-' + n).empty();
+							
+			data.forEach(function(data){
+				$('#selectcityoption-' + n).append('<option value =' + data.id + '>' + data.name + '</option>');
+			});			
+		},
+		error: function(data) {
+			console.log('ERROR: ', data.status);
+		}
+	});	
+}
+
+function getRegions(){
+	
+	$.ajax({
+		type: 'GET',
+		url: '/api/regiones',				
+		success: function(data){
+			
+			$('#selectRegion-2').empty();
+						
+			data.forEach(function(data){
+					$('#selectRegion-2').append('<option value =' + data.id + '>' + data.name + '</option>');
+			});
+		},
+		error: function(data) {
+			console.log('ERROR: ', data.status);
+		}
+	});
+}
+
+function selectShippingAddress(){
+	
+	var input = $('input:checked').val();
+	var city = $('#selectcityoption-1 option:selected').html();
+	var region = $('#selectRegion-1 option:selected').html();	
+		
+	if (input == 'on'){		
+		$('#selectRegion-2').empty();
+		$('#selectRegion-2').append('<option>' + region + '</option>');
+		
+		$('#selectcityoption-2').empty();
+		$('#selectcityoption-2').append('<option>' + city + '</option>');			
+	} else {
+		getRegions();
+	}
+	
 }
 
 var formatter = new Intl.NumberFormat('es-CL', {
