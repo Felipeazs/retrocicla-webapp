@@ -17,7 +17,7 @@ public class RegionServiceImpl implements RegionService {
 	@Override
 	public List<Region> list() {
 		
-		return repo.findAllByOrderByNameAsc();
+		return repo.findAll();
 	}
 
 }

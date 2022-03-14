@@ -106,10 +106,12 @@ $(document).ready(function() {
 	var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
 		return new bootstrap.Tooltip(tooltipTriggerEl);
 	});
-
-
-
-
+	
+	var location = window.location.pathname;
+	if (location === '/checkout'){
+		selectCity(1);
+		selectCity(2);
+	}
 });
 
 function checkinputrequirements(id) {
@@ -372,18 +374,21 @@ function getRegions(){
 	});
 }
 
-function selectShippingAddress(){
+function copyPasteShippingAddress(){
 	
 	var input = $('input:checked').val();
 	var city = $('#selectcityoption-1 option:selected').html();
-	var region = $('#selectRegion-1 option:selected').html();	
+	var region = $('#selectRegion-1 option:selected').html();
+	var calle = $('#inputtext-3').val();	
 		
 	if (input == 'on'){		
 		$('#selectRegion-2').empty();
 		$('#selectRegion-2').append('<option>' + region + '</option>');
 		
 		$('#selectcityoption-2').empty();
-		$('#selectcityoption-2').append('<option>' + city + '</option>');			
+		$('#selectcityoption-2').append('<option>' + city + '</option>');
+		
+		$('#inputtext-4').val($('#inputtext-3').val());			
 	} else {
 		getRegions();
 	}

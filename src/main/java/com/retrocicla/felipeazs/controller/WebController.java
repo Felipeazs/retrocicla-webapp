@@ -18,10 +18,12 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.retrocicla.felipeazs.model.Cart;
 import com.retrocicla.felipeazs.model.Client;
+import com.retrocicla.felipeazs.model.Order;
 import com.retrocicla.felipeazs.model.Product;
 import com.retrocicla.felipeazs.service.CartService;
 import com.retrocicla.felipeazs.service.CiudadService;
 import com.retrocicla.felipeazs.service.ClientService;
+import com.retrocicla.felipeazs.service.OrderService;
 import com.retrocicla.felipeazs.service.ProductService;
 import com.retrocicla.felipeazs.service.RegionService;
 
@@ -33,15 +35,18 @@ public class WebController {
 
 	@Autowired
 	private ProductService productService;
-	
+
 	@Autowired
 	private CartService cartService;
-	
+
 	@Autowired
 	private RegionService regionService;
-	
+
 	@Autowired
 	private CiudadService ciudadService;
+	
+	@Autowired
+	private OrderService orderService;
 
 	@ModelAttribute("client")
 	private Client setClient() {
@@ -51,6 +56,11 @@ public class WebController {
 	@ModelAttribute("product")
 	private Product setProduct() {
 		return new Product();
+	}
+	
+	@ModelAttribute("order")
+	private Order setOrder() {
+		return new Order();
 	}
 
 	@GetMapping("/login")
@@ -64,9 +74,9 @@ public class WebController {
 	}
 
 	@GetMapping("/")
-	public String getIndex(Product product, Model model) {			
-						
-		modelMultipleSelection(model); 
+	public String getIndex(Product product, Model model) {
+
+		modelMultipleSelection(model);
 		setTotalAmountAndQuantityProducts(model, cartService.list());
 
 		return "index";
@@ -74,10 +84,10 @@ public class WebController {
 
 	@GetMapping("/addproductpage")
 	public String getAddProductPage() {
-		
+
 		return "addproduct";
 	}
-	
+
 	@GetMapping("/addproductdb")
 	public String getAddProductdv(@Valid @ModelAttribute("product") Product product, BindingResult br, Model model) {
 
@@ -85,114 +95,128 @@ public class WebController {
 			System.out.println(br.toString());
 			return "index";
 		}
-		
-		Product add_product = productService.add(product);		
-		model.addAttribute("addProduct", add_product);	
-		
+
+		Product add_product = productService.add(product);
+		model.addAttribute("addProduct", add_product);
+
 		setTotalAmountAndQuantityProducts(model, cartService.list());
-		
+
 		return getIndex(product, model);
 	}
-	
+
 	@GetMapping("/ropaspage")
 	public String getRopasPage(Model model) {
-		
+
 		model.addAttribute("products", productService.searchBy("prenda"));
-		
+
 		setTotalAmountAndQuantityProducts(model, cartService.list());
-		
+
 		return "productslist";
 	}
-	
+
 	@GetMapping("/telaspage")
 	public String getTelasPage(Model model) {
-		
+
 		model.addAttribute("products", productService.searchBy("tela"));
-		
+
 		setTotalAmountAndQuantityProducts(model, cartService.list());
-		
+
 		return "productslist";
 	}
-	
+
 	@GetMapping("/searchproduct")
 	public String getSearchProduct(@Valid @ModelAttribute("product") Product product, BindingResult br, Model model) {
-		
+
 		if (br.hasErrors()) {
 			System.out.println(br.toString());
 			return "index";
 		}
-		
+
 		List<Product> products = productService.searchProducts(product);
 		model.addAttribute("products", products);
 		model.addAttribute("productssize", products.size());
-				
+
 		return "productslist";
 	}
-	
+
 	@GetMapping("/productdetails")
-	public String getProductDetailsPage(@Valid @ModelAttribute("product") Product product, BindingResult br, Model model) {
-		
+	public String getProductDetailsPage(@Valid @ModelAttribute("product") Product product, BindingResult br,
+			Model model) {
+
 		if (br.hasErrors()) {
 			System.out.println(br.toString());
 			return "index";
 		}
-		
-		Product pro = productService.findProductById(product.getId());	
+
+		Product pro = productService.findProductById(product.getId());
 		model.addAttribute("product", pro);
-		
+
 		return "productdetails";
 	}
-	
+
 	@GetMapping("/cartdetails")
 	public String getProductDetails(Model model) {
-		
+
 		model.addAttribute("cartitems", cartService.list());
-			
+
 		setTotalAmountAndQuantityProducts(model, cartService.list());
-		
+
 		return "cartdetails";
 	}
-	
+
 	@GetMapping("/checkout")
-	public String getCheckout(Model model) {		
-		
+	public String getCheckout(Model model) {
+
 		setTotalAmountAndQuantityProducts(model, cartService.list());
 		model.addAttribute("regiones", regionService.list());
 		model.addAttribute("ciudades", ciudadService.list());
-		
+
 		return "checkout";
 	}
-	
-	// FUNCIONES Y MÉTODOS
-	
-	private void setTotalAmountAndQuantityProducts(Model model, List<Cart> cartitems) {
+
+	@PostMapping("/addOrder")
+	public String getAddOrder(@Valid @ModelAttribute("order") Order order, BindingResult br, Model model) {
+
+		if (br.hasErrors()) {
+			System.out.println(br.toString());
+			return "error-404";
+		}
 		
+		orderService.save(order);
+
+		return "index";
+	}
+
+	// FUNCIONES Y MÉTODOS
+
+	private void setTotalAmountAndQuantityProducts(Model model, List<Cart> cartitems) {
+
 		int totalAmount = 0;
 		int totalQuantity = 0;
 		for (Cart cartitem : cartitems) {
-			totalQuantity = totalQuantity + cartitem.getQuantity();	
+			totalQuantity = totalQuantity + cartitem.getQuantity();
 			totalAmount = totalAmount + (cartitem.getPrice() * cartitem.getQuantity());
 		}
-		
+
 		Locale clp = new Locale("es", "CL");
 		NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
-		String totalprice = nf.format(totalAmount);	
-				
+		String totalprice = nf.format(totalAmount);
+
 		model.addAttribute("totalquantity", totalQuantity);
 		model.addAttribute("totalamount", totalprice);
 	}
-	
+
 	private void modelMultipleSelection(Model model) {
 		model.addAttribute("types", productService.getDistinctByType());
 		model.addAttribute("materials", productService.getDistinctByMaterial());
 		model.addAttribute("colors", productService.getDistinctByColor());
 		model.addAttribute("ropasizes", productService.getDistinctByRopaSize());
 		model.addAttribute("telasizes", productService.getDistinctByTelaSize());
-		model.addAttribute("wear", productService.getDistinctByWear()); 
+		model.addAttribute("wear", productService.getDistinctByWear());
 		model.addAttribute("styles", productService.getDistinctByStyle());
 		model.addAttribute("genres", productService.getDistinctByGenre());
 		model.addAttribute("madeIn", productService.getDistinctByMadeIn());
-		
+
 	}
-	
+
 }

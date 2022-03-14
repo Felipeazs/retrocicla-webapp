@@ -8,6 +8,4 @@ import com.retrocicla.felipeazs.model.Region;
 
 public interface RegionRepository extends JpaRepository<Region, Integer> {
 
-	List<Region> findAllByOrderByNameAsc();
-
 }
