@@ -6,24 +6,31 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.boot.web.servlet.error.ErrorController;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class ErrorHandlingController implements ErrorController {
 	
 	@RequestMapping("/error")
-	public String handleError(HttpServletRequest request) {
+	public String handleError(HttpServletRequest request, Model model) {
 		
 		Object status = request.getAttribute(RequestDispatcher.ERROR_STATUS_CODE);
 		
 		if (status != null) {
 			Integer statusCode = Integer.valueOf(status.toString());
 			
+			System.out.println("statusCode: " + statusCode);
 			
 			if (statusCode == HttpStatus.NOT_FOUND.value()){
-				return "error/error-404";
+				
+				return "error/" + statusCode;
 			} else if (statusCode == HttpStatus.INTERNAL_SERVER_ERROR.value()) {
-				return "error/error-500";
+				
+				return "error/" + statusCode;
+			} else if (statusCode.equals(HttpStatus.METHOD_NOT_ALLOWED.value()) ) {
+			
+				return "error/" + statusCode;
 			}
 		}
 		

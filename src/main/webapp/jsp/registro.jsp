@@ -1,13 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ taglib uri="http://www.springframework.org/tags/form"
 prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
-<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html>
 <html>
 	<head>
-		<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+		<meta charset="UTF-8" />
 		<!-- JQuery -->
 		<script
 			src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -21,7 +21,6 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 			integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
 			crossorigin="anonymous"
 		/>
-
 		<!-- Google Fonts -->
 		<link rel="preconnect" href="https://fonts.googleapis.com" />
 		<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
@@ -29,9 +28,14 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 			href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
 			rel="stylesheet"
 		/>
+		<!-- Bootstrap icons -->
+		<link
+			rel="stylesheet"
+			href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css"
+		/>		
 		<!-- Font Awesome -->
 		<script src="https://kit.fontawesome.com/8df927e57d.js" crossorigin="anonymous"></script>
-
+		
 		<link rel="stylesheet" href="css/style.css" />
 		<script src="js/script.js"></script>
 
@@ -112,40 +116,84 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 										</li>
 									</ul>
 								</div>
-								<div class="cart-area d-n">									
-									<a href="/cartdetails">
-										<div class="total">									    
-									    	<strong name="feedback-totalprice">${ totalamount }</strong>					    	
-									      	<span id="feedback-totalquantity">${ totalquantity }</span>	
-									      </div>								   
-									    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-									    
-									</a>
-								</div>
 							</div>
-						</nav>						
+						</nav>
 					</div>
 				</header>
 				<!-- END HEADER DESKTOP-->
 
 				<!-- MAIN CONTENT-->
 				<div class="main-content">
-					  <div class="section-content section-content-p30">
-					    <div class="conteiner-fluid">
-					        <h2>Error 404: la página solicitada no se encuentra en nuestro servidor</h2><br>
-							
-							<a href="/">Ir a inicio</a>   					 
-					    </div>
-					  </div>
+					<div class="row">
+						<div class="section-content section-content-p30">
+							<div class="detail-section">
+								<div class="container-fluid">
+								<form:form 
+                		action="/registrarcliente" 
+                		method="post"
+                		modelAttribute="cliente">
+                		<div class="row g-1 align-items-center">
+							  <label for="nombre" class="form-label">Nombre</label>
+							  <form:input 
+							  	path="nombre" 
+							  	type="text" 
+							  	class="form-control" 							  	
+							  	/>
+						</div>
+						<div class="row g-1 align-items-center">
+							  <label for="apellido" class="form-label">Apellido</label>
+							  <form:input 
+							  	path="apellido" 
+							  	type="text" 
+							  	class="form-control" 							  	
+							  	/>
+						</div>
+						<div class="row g-1 align-items-center">
+							  <label for="email" class="form-label">Email</label>
+							  <form:input 
+							  	path="email" 
+							  	type="email" 
+							  	class="form-control" 							  	
+							  	/>
+						</div>
+						<div class="row g-1 align-items-center">
+							  <label for="pass" class="form-label">Contraseña</label>
+							  <form:input 
+							  	path="encryptedPass" 
+							  	type="password" 
+							  	class="form-control" 
+							  	name="pass"
+							  	/>
+						</div>	
+						<div class="row g-1 align-items-center">
+							  <label for="pass2" class="form-label">Repite la contraseña</label>
+							  <form:input 
+							  	path="pass2" 
+							  	type="password" 
+							  	class="form-control"
+							  	name="pass2"							  	
+							  	/>
+							  
+						</div>
+						<p>${ mensaje }</p>		
+						<div style="text-align:center">					
+							<br>
+								<button 
+								class="btn btn-primary">
+									Registrar
+								</button>
+						</div>
+					</form:form>
+								
+							</div>
+						</div>
+					</div>
 				</div>
-				
 
 				<!-- END MAIN CONTENT-->
 			</div>
 		</div>
-
 		<!-- END PAGE CONTAINER-->
-
 		<footer>
 			<ul>
 				<li><a href="#">About Us</a></li>

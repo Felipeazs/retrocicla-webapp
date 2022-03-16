@@ -112,16 +112,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 										</li>
 									</ul>
 								</div>
-								<div class="cart-area d-n">									
-									<a href="/cartdetails">
-										<div class="total">									    
-									    	<strong name="feedback-totalprice">${ totalamount }</strong>					    	
-									      	<span id="feedback-totalquantity">${ totalquantity }</span>	
-									      </div>								   
-									    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-									    
-									</a>
-								</div>
+								
 							</div>
 						</nav>						
 					</div>
@@ -132,7 +123,9 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				<div class="main-content">
 					  <div class="section-content section-content-p30">
 					    <div class="conteiner-fluid">
-					        <h2>Error 500: error interno del servidor</h2><br>
+					        <h2>
+					        	${ status }
+					        </h2><br>
 							
 							<a href="/">Ir a inicio</a>   					 
 					    </div>

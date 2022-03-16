@@ -142,7 +142,7 @@ function checkinputrequirements(id) {
 }
 
 function addproducttocart(id) {
-
+	
 	$.ajax({
 		type: 'POST',
 		url: '/api/product/' + id,
@@ -166,7 +166,7 @@ function addproducttocart(id) {
 		success: function(data) {
 
 			var totalAmount = 0;
-			var totalQuantity = 0;
+			var totalQuantity = 0;			
 
 			data.forEach(function(data) {
 
@@ -191,7 +191,7 @@ function addproducttocart(id) {
 
 function addcartproductitem(id) {
 
-	addproducttocart(id);
+	/*addproducttocart(id);*/
 
 	$.ajax({
 		type: 'PUT',
@@ -201,17 +201,26 @@ function addcartproductitem(id) {
 		},
 		statusCode: {
 			200: function() {
-				console.log("http status code 200: succesful request")
+				console.log("Status code 200: succesful request")
+			},
+			401: function(){
+				console.log("Status code 401: Usuario no autenticado");
+			},
+			403: function(){
+				console.log("Status code 403: usuario no autorizado");
 			},
 			404: function() {
-				console.log("http status code 404: page not found");
+				console.log("Status code 404: page not found");				
 			},
 			405: function() {
-				console.log("Bad HTTP request");
+				console.log("Status code 405: Bad HTTP request");
 			},
 			500: function() {
-				console.log("http status code 500: server error");
+				console.log("Status code 500: server error");
 			}
+		},
+		error: function(data) {
+			location.href = data.status			
 		},
 		success: function(data) {
 			if (data.quantity > 1) {
@@ -229,9 +238,7 @@ function addcartproductitem(id) {
 			$('#feedback-price' + itemid).html(totalAmount);
 			$('#feedback-quantity' + itemid).html(totalQuantity);
 		},
-		error: function() {
-			console.log('ERROR: ', id);
-		},
+		
 	});
 
 }
@@ -246,17 +253,26 @@ function removecartproductitem(id) {
 		},
 		statusCode: {
 			200: function() {
-				console.log("http status code 200: succesful request")
+				console.log("Status code 200: succesful request")
+			},
+			401: function(){
+				console.log("Status code 401: Usuario no autenticado");
+			},
+			403: function(){
+				console.log("Status code 403: usuario no autorizado");
 			},
 			404: function() {
-				console.log("http status code 404: page not found");
+				console.log("Status code 404: page not found");				
 			},
 			405: function() {
-				console.log("Bad HTTP request");
+				console.log("Status code 405: Bad HTTP request");
 			},
 			500: function() {
-				console.log("http status code 500: server error");
+				console.log("Status code 500: server error");
 			}
+		},
+		error: function(data) {
+			location.href = data.status			
 		},
 		success: function(data) {
 			var totalAmount = 0;
@@ -286,12 +302,8 @@ function removecartproductitem(id) {
 				$('#feedback-price' + itemid).html(itemAmount);
 				$('#feedback-quantity' + itemid).html(itemQuantity);
 			});
-
 		},
-		error: function(data) {
-			console.log('ERROR: ', data);
-			location.reload();
-		},
+		
 	});
 
 }
@@ -306,17 +318,26 @@ function deletecartproduct(id) {
 		},
 		statusCode: {
 			200: function() {
-				console.log("http status code 200: succesful request")
+				console.log("Status code 200: succesful request")
+			},
+			401: function(){
+				console.log("Status code 401: Usuario no autenticado");
+			},
+			403: function(){
+				console.log("Status code 403: usuario no autorizado");
 			},
 			404: function() {
-				console.log("http status code 404: page not found");
+				console.log("Status code 404: page not found");				
 			},
 			405: function() {
-				console.log("Bad HTTP request");
+				console.log("Status code 405: Bad HTTP request");
 			},
 			500: function() {
-				console.log("http status code 500: server error");
+				console.log("Status code 500: server error");
 			}
+		},
+		error: function(data) {
+			location.href = data.status			
 		},
 		success: function() {
 			if (window.confirm("Está seguro que desea eliminar este producto de su carrito?")) {
@@ -324,10 +345,7 @@ function deletecartproduct(id) {
 			}
 
 		},
-		error: function(data) {
-			console.log('ERROR: ', data);
-			location.reload();
-		},
+		
 	});
 }
 
@@ -340,7 +358,30 @@ function selectCity(n){
 		url: '/api/regiones/' + id,
 		data: {
 			id: id
-		},			
+		},	
+		statusCode: {
+			200: function() {
+				console.log("Status code 200: succesful request")
+			},
+			401: function(){
+				console.log("Status code 401: Usuario no autenticado");
+			},
+			403: function(){
+				console.log("Status code 403: usuario no autorizado");
+			},
+			404: function() {
+				console.log("Status code 404: page not found");				
+			},
+			405: function() {
+				console.log("Status code 405: Bad HTTP request");
+			},
+			500: function() {
+				console.log("Status code 500: server error");
+			}
+		},
+		error: function(data) {
+			location.href = data.status			
+		},		
 		success: function(data) {				
 			$('#selectcityoption-' + n).prop('disabled', false);	
 			$('#selectcityoption-' + n).empty();
@@ -348,10 +389,7 @@ function selectCity(n){
 			data.forEach(function(data){
 				$('#selectcityoption-' + n).append('<option value =' + data.id + '>' + data.name + '</option>');
 			});			
-		},
-		error: function(data) {
-			console.log('ERROR: ', data.status);
-		}
+		},		
 	});	
 }
 
@@ -359,7 +397,30 @@ function getRegions(){
 	
 	$.ajax({
 		type: 'GET',
-		url: '/api/regiones',				
+		url: '/api/regiones',
+		statusCode: {
+			200: function() {
+				console.log("Status code 200: succesful request")
+			},
+			401: function(){
+				console.log("Status code 401: Usuario no autenticado");
+			},
+			403: function(){
+				console.log("Status code 403: usuario no autorizado");
+			},
+			404: function() {
+				console.log("Status code 404: page not found");				
+			},
+			405: function() {
+				console.log("Status code 405: Bad HTTP request");
+			},
+			500: function() {
+				console.log("Status code 500: server error");
+			}
+		},
+		error: function(data) {
+			location.href = data.status			
+		},				
 		success: function(data){
 			
 			$('#selectRegion-2').empty();
@@ -368,9 +429,6 @@ function getRegions(){
 					$('#selectRegion-2').append('<option value =' + data.id + '>' + data.name + '</option>');
 			});
 		},
-		error: function(data) {
-			console.log('ERROR: ', data.status);
-		}
 	});
 }
 

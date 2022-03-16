@@ -1,6 +1,7 @@
 package com.retrocicla.felipeazs.controller;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -8,6 +9,7 @@ import javax.validation.Valid;
 
 import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,12 +19,12 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.retrocicla.felipeazs.model.Cart;
-import com.retrocicla.felipeazs.model.Client;
+import com.retrocicla.felipeazs.model.Cliente;
 import com.retrocicla.felipeazs.model.Order;
 import com.retrocicla.felipeazs.model.Product;
 import com.retrocicla.felipeazs.service.CartService;
 import com.retrocicla.felipeazs.service.CiudadService;
-import com.retrocicla.felipeazs.service.ClientService;
+import com.retrocicla.felipeazs.service.ClienteService;
 import com.retrocicla.felipeazs.service.OrderService;
 import com.retrocicla.felipeazs.service.ProductService;
 import com.retrocicla.felipeazs.service.RegionService;
@@ -31,7 +33,7 @@ import com.retrocicla.felipeazs.service.RegionService;
 public class WebController {
 
 	@Autowired
-	private ClientService clientService;
+	private ClienteService clienetService;
 
 	@Autowired
 	private ProductService productService;
@@ -49,8 +51,8 @@ public class WebController {
 	private OrderService orderService;
 
 	@ModelAttribute("client")
-	private Client setClient() {
-		return new Client();
+	private Cliente setCliente() {
+		return new Cliente();
 	}
 
 	@ModelAttribute("product")
@@ -61,6 +63,11 @@ public class WebController {
 	@ModelAttribute("order")
 	private Order setOrder() {
 		return new Order();
+	}
+	
+	@GetMapping("/registro")
+	public String postRegistro() {		
+		return "registro";
 	}
 
 	@GetMapping("/login")
@@ -80,6 +87,17 @@ public class WebController {
 		setTotalAmountAndQuantityProducts(model, cartService.list());
 
 		return "index";
+	}
+	
+	@PostMapping("/registrarcliente")
+	public String getRegistroCliente(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult br, Model model) {
+		
+		if (br.hasErrors()) {
+			System.out.println(br.toString());
+			return "index";
+		}
+		
+		return null;
 	}
 
 	@GetMapping("/addproductpage")
@@ -165,7 +183,10 @@ public class WebController {
 	}
 
 	@GetMapping("/checkout")
-	public String getCheckout(Model model) {
+	public String getCheckout(Model model, Authentication auth) {
+		
+		String email = auth.getName();
+		System.out.println(email);
 
 		setTotalAmountAndQuantityProducts(model, cartService.list());
 		model.addAttribute("regiones", regionService.list());
@@ -175,16 +196,31 @@ public class WebController {
 	}
 
 	@PostMapping("/addOrder")
-	public String getAddOrder(@Valid @ModelAttribute("order") Order order, BindingResult br, Model model) {
+	public String getAddOrder(@Valid @ModelAttribute("order") Order order, BindingResult br,
+			Model model) {
 
 		if (br.hasErrors()) {
 			System.out.println(br.toString());
 			return "error-404";
 		}
 		
-		orderService.save(order);
+		List<Cart> items = cartService.list();
+		
+		orderService.save(order, items);
+		
+		List<Order> nueva_orden = orderService.listByClienteId(31);
+		
+		ArrayList<Integer> prods = new ArrayList<>();
+		for (Order nn : nueva_orden) {
+			for (Integer prod : nn.getProduct()) {
+				prods.add(prod);
+			}
+		}
+						
+		model.addAttribute("order", nueva_orden);
+		model.addAttribute("products", productService.listById(prods));
 
-		return "index";
+		return "detallecompra";
 	}
 
 	// FUNCIONES Y MÉTODOS

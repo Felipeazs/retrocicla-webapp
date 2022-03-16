@@ -1,17 +1,18 @@
 package com.retrocicla.felipeazs.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 
 @Entity
@@ -27,22 +28,26 @@ public class Order implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @JoinColumn(name = "checkorder_id")
-	private List<Cart> cart;
+	@Column(name = "product")
+    @ElementCollection
+	private List<Integer> product = new ArrayList<Integer>();
 	
-	@Column(name = "direccion")
-	private String direccion;
+	@ManyToOne
+	@JoinColumn(name = "direccion_id")
+	private Direccion direccion;
 	
-	@Column(name = "facturacion")
-	private String facturacion;
+	@ManyToOne
+	@JoinColumn(name = "facturacion_id")
+	private Facturacion facturacion;
 	
 	@Column(name = "createdAt")
-	private String cretedAt;
+	private LocalDate cretedAt;
 	
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
 	private Cliente cliente;
+	
+	
 
 	public int getId() {
 		return id;
@@ -52,37 +57,23 @@ public class Order implements Serializable{
 		this.id = id;
 	}
 
-	public List<Cart> getCart() {
-		return cart;
+	
+	public List<Integer> getProduct() {
+		return product;
 	}
 
-	public void setCart(List<Cart> cart) {
-		this.cart = cart;
+	public void setProduct(List<Integer> product) {
+		this.product = product;
 	}
 
-	public String getDireccion() {
-		return direccion;
-	}
-
-	public void setDireccion(String direccion) {
-		this.direccion = direccion;
-	}
-
-	public String getCretedAt() {
+	public LocalDate getCretedAt() {
 		return cretedAt;
 	}
 
-	public void setCretedAt(String cretedAt) {
+	public void setCretedAt(LocalDate cretedAt) {
 		this.cretedAt = cretedAt;
 	}
-
-	public String getFacturacion() {
-		return facturacion;
-	}
-
-	public void setFacturacion(String facturacion) {
-		this.facturacion = facturacion;
-	}
+	
 
 	public Cliente getCliente() {
 		return cliente;
@@ -91,6 +82,24 @@ public class Order implements Serializable{
 	public void setCliente(Cliente cliente) {
 		this.cliente = cliente;
 	}
+
+	public Direccion getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
+	}
+
+	public Facturacion getFacturacion() {
+		return facturacion;
+	}
+
+	public void setFacturacion(Facturacion facturacion) {
+		this.facturacion = facturacion;
+	}
+
+	
 	
 	
 	

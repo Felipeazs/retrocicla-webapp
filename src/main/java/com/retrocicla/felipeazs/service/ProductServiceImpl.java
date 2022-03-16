@@ -1,6 +1,7 @@
 package com.retrocicla.felipeazs.service;
 
 import java.text.NumberFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -157,6 +158,16 @@ public class ProductServiceImpl implements ProductService {
 	public Product findProductById(int id) {
 		
 		return repo.findById(id);
+	}
+
+	@Override
+	public List<Product> listById(ArrayList<Integer> pps) {
+		
+		List<Product> products = repo.findAllById(pps);
+		
+		
+		
+		return products;
 	}
 
 	

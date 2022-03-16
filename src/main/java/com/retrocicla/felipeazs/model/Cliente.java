@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
+import javax.persistence.Transient;
 
 @Entity
 @Table(name = "cliente")
@@ -36,6 +38,21 @@ public class Cliente implements Serializable {
 	
 	@Column(name="telefono")
 	private int telefono;
+	
+	@OneToOne(mappedBy = "cliente")
+	private Direccion direccion;
+	
+	@OneToOne(mappedBy = "cliente")
+	private Facturacion facturacion;
+	
+	@Column(name = "rol")
+	private String rol;
+	
+	@Transient
+	private String password;
+	
+	@Column(name = "encryptes_pass")
+	private String encpass;
 
 	public int getId() {
 		return id;
@@ -84,6 +101,48 @@ public class Cliente implements Serializable {
 	public void setTelefono(int telefono) {
 		this.telefono = telefono;
 	}
+
+	public Direccion getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(Direccion direccion) {
+		this.direccion = direccion;
+	}
+
+	public Facturacion getFacturacion() {
+		return facturacion;
+	}
+
+	public void setFacturacion(Facturacion facturacion) {
+		this.facturacion = facturacion;
+	}
+
+	public String getRol() {
+		return rol;
+	}
+
+	public void setRol(String rol) {
+		this.rol = rol;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
+	}
+
+	public String getEncpass() {
+		return encpass;
+	}
+
+	public void setEncpass(String encpass) {
+		this.encpass = encpass;
+	}
+	
+	
 	
 	
 

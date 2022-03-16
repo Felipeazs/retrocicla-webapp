@@ -163,11 +163,11 @@
 									</div>
 									<div class="col-md-9">
 										<div class="input-space">
-											<select onchange="selectCity(${1})" id="selectRegion-1">
+											<form:select path="direccion.region" onchange="selectCity(${1})" id="selectRegion-1">
 												<c:forEach items="${ regiones }" var="r">
 													<option value="${ r.id }">${ r.name }</option>
 												</c:forEach>
-											</select>
+											</form:select>
 											<div class="alert alert-danger mt-1"
 												id="inputalertmsg-region" name="inputalertmsg">
 												<div>La Región es requerida</div>
@@ -181,8 +181,8 @@
 									</div>
 									<div class="col-md-9">
 										<div class="input-space">
-											<select disabled id="selectcityoption-1">
-											</select>
+											<form:select path="direccion.ciudad" disabled="true" id="selectcityoption-1">
+											</form:select>
 											<div class="alert alert-danger mt-1" id="inputalertmsg-city"
 												name="inputalertmsg">
 												<div>La Ciudad es requerida</div>
@@ -196,7 +196,7 @@
 									</div>
 									<div class="col-md-9">
 										<div class="input-space">
-											<form:input path="direccion" type="text"
+											<form:input path="direccion.calle" type="text"
 												onkeyup="checkinputrequirements(${3})" id="inputtext-3"
 												placeholder="Ej: Vicuña Mackenna 2356" />
 											<div class="alert alert-danger mt-1" id="inputalertmsg-3"
@@ -225,12 +225,12 @@
 									</div>
 									<div class="col-md-9">
 										<div class="input-space">
-											<select onchange="selectCity(${2})" id="selectRegion-2">
+											<form:select path="facturacion.region" onchange="selectCity(${2})" id="selectRegion-2">
 												<c:forEach items="${ regiones }" var="r">
 													<option value="${ r.id }" label="${ r.name }">${ r.name }
 													</option>
 												</c:forEach>
-											</select>
+											</form:select>
 											<div class="alert alert-danger mt-1" name="inputalertmsg">
 												<div>State is required</div>
 											</div>
@@ -243,7 +243,7 @@
 									</div>
 									<div class="col-md-9">
 										<div class="input-space">
-											<select disabled id="selectcityoption-2"></select>
+											<form:select path="facturacion.ciudad" disabled="true" id="selectcityoption-2"></form:select>
 											<div class="alert alert-danger mt-1" name="inputalertmsg">
 												<div>City is required</div>
 											</div>
@@ -256,7 +256,7 @@
 									</div>
 									<div class="col-md-9">
 										<div class="input-space">
-											<form:input path="facturacion" type="text" onkeyup="checkinputrequirements(${4})"
+											<form:input path="facturacion.calle" type="text" onkeyup="checkinputrequirements(${4})"
 												id="inputtext-4" placeholder="Ej: Vicuña Mackenna 2356" />
 											<div class="alert alert-danger mt-1" id="inputalertmsg-4"
 												name="inputalertmsg">
