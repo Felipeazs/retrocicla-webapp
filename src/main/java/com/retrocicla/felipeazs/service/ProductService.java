@@ -33,9 +33,9 @@ public interface ProductService {
 
 	public List<Product> searchProducts(Product product);
 
-	public Product findProductById(int id);
-
 	public List<Product> listById(ArrayList<Integer> pps);
+
+	public Product getProductById(int id);
 	
 	
 

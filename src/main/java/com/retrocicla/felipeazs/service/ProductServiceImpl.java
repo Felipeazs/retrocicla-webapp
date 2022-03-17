@@ -155,7 +155,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public Product findProductById(int id) {
+	public Product getProductById(int id) {
 		
 		return repo.findById(id);
 	}

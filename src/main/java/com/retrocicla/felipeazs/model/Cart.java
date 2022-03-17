@@ -1,5 +1,6 @@
 package com.retrocicla.felipeazs.model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import javax.persistence.Column;
@@ -13,8 +14,13 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="cart")
-public class Cart {
+public class Cart implements Serializable{
 	
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 9082255421207218948L;
+
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
@@ -34,6 +40,10 @@ public class Cart {
 	
 	@Column(name = "total_price")
 	private String totalPrice;
+	
+	@ManyToOne
+	@JoinColumn(name = "cliente_id")
+	private Cliente cliente;
 	
 	public int getId() {
 		return id;
@@ -81,6 +91,14 @@ public class Cart {
 
 	public void setTotalPrice(String totalPrice) {
 		this.totalPrice = totalPrice;
+	}
+
+	public Cliente getCliente() {
+		return cliente;
+	}
+
+	public void setCliente(Cliente cliente) {
+		this.cliente = cliente;
 	}
 
 	

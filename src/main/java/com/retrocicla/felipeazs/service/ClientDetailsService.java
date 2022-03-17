@@ -20,14 +20,15 @@ public class ClientDetailsService implements UserDetailsService {
     private ClienteRepository repo;
 
     @Override
-    public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
-        Cliente cliente = repo.findByEmail(email);
-        if (cliente == null) throw new UsernameNotFoundException(email);
+        Cliente cliente = repo.findByEmail(username);        
+           
+        if (cliente == null) throw new UsernameNotFoundException(username);
 
         ArrayList<GrantedAuthority> roles = new ArrayList<GrantedAuthority>();
         roles.add(new SimpleGrantedAuthority(cliente.getRol()));
-
+        
         UserDetails userDt = new User(cliente.getEmail(), cliente.getEncpass(), roles);
 
         return userDt;

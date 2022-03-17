@@ -12,7 +12,6 @@ import com.retrocicla.felipeazs.model.Cliente;
 import com.retrocicla.felipeazs.model.Direccion;
 import com.retrocicla.felipeazs.model.Facturacion;
 import com.retrocicla.felipeazs.model.Order;
-import com.retrocicla.felipeazs.model.Product;
 import com.retrocicla.felipeazs.repository.ClienteRepository;
 import com.retrocicla.felipeazs.repository.DireccionRepository;
 import com.retrocicla.felipeazs.repository.FacturacionRepository;
@@ -34,41 +33,32 @@ public class OrderServiceImpl implements OrderService {
 	private FacturacionRepository repo_f;
 
 	@Override
-	public void save(Order order, List<Cart> items) {
+	public void save(Order order, List<Cart> items, String cliente) {
 		
 		Order nueva_orden = new Order();
 		
-		Order findEmail = repo.findByClienteEmail(order.getCliente().getEmail());
-		if (findEmail == null) {
-			Cliente cliente = new Cliente();
-			
-			String nombre = order.getCliente().getNombre();
-			String apellido = order.getCliente().getApellido();
-			String rut = "16741352-8";
-			String email = order.getCliente().getEmail();
-			int telefono = order.getCliente().getTelefono();
-			
-			cliente.setNombre(nombre);
-			cliente.setApellido(apellido);
-			cliente.setRun(rut);
-			cliente.setEmail(email);
-			cliente.setTelefono(telefono);
-			
-			Cliente nuevo_cliente = repo_cl.save(cliente);
-			nueva_orden.setCliente(nuevo_cliente);
+		Cliente findClienteEmail = repo_cl.findByEmail(cliente);
+		
+		if (findClienteEmail.getDireccion() == null) {
 			
 			Direccion direccion = new Direccion();
 			String dcalle = order.getDireccion().getCalle();
 			String dciudad = order.getDireccion().getCiudad();
 			String dregion = order.getDireccion().getRegion();
-			
+				
 			direccion.setCalle(dcalle);
 			direccion.setCiudad(dciudad);
 			direccion.setRegion(dregion);
-			direccion.setCliente(nuevo_cliente);			
-			Direccion nueva_direccion = repo_d.save(direccion);
+			direccion.setCliente(findClienteEmail);			
+			Direccion nueva_direccion = repo_d.save(direccion);	
 			
 			nueva_orden.setDireccion(nueva_direccion);
+			
+		} else {
+			nueva_orden.setDireccion(findClienteEmail.getDireccion());
+		}			
+		
+		if (findClienteEmail.getFacturacion() == null) {
 			
 			Facturacion facturacion = new Facturacion();
 			String fcalle = order.getDireccion().getCalle();
@@ -78,15 +68,13 @@ public class OrderServiceImpl implements OrderService {
 			facturacion.setCalle(fcalle);
 			facturacion.setCiudad(fciudad);
 			facturacion.setRegion(fregion);
-			facturacion.setCliente(nuevo_cliente);			
+			facturacion.setCliente(findClienteEmail);			
 			Facturacion nueva_facturacion = repo_f.save(facturacion);
 			
 			nueva_orden.setFacturacion(nueva_facturacion);
 			
-		} else {			
-			nueva_orden.setCliente(findEmail.getCliente());
-			nueva_orden.setDireccion(findEmail.getDireccion());
-			nueva_orden.setFacturacion(findEmail.getFacturacion());
+		} else {
+			nueva_orden.setFacturacion(findClienteEmail.getFacturacion());
 		}
 		
 		ArrayList<Integer> productos = new ArrayList<>();
@@ -109,15 +97,11 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> listByClienteId(int id) {
+	public List<Order> listByClienteEmail(String email) {
 		
-		List<Order> orders = repo.findAllByClienteId(id);
-		for (Order order : orders) {
-			System.out.println("order id:" + order.getId());
-		}
+		Cliente cliente = repo_cl.findByEmail(email);
 		
-		
-		return orders;
+		return repo.findAllByClienteId(cliente.getId());
 	}	
 
 }

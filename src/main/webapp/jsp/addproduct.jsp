@@ -52,9 +52,8 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 						<ul class="list-unstyled navbar-list">
 							<li><a href="/ropaspage">Ropa</a></li>
 							<li><a href="/telaspage">Telas</a></li>
-							<li>
-								<a href="/addproductpage">Agregar producto</a>
-							</li>
+							<li><a href="/addproductpage">Agregar producto</a></li>
+							<li><a href="/logout">Cerrar sesión</a></li>
 						</ul>
 					</nav>
 				</div>

@@ -114,6 +114,14 @@ $(document).ready(function() {
 	}
 });
 
+function btnregistrar(){
+	if ($('#pass').val() != $('#pass2').val()){
+		$('#alertregistrar').show();
+	} else {
+		$('#btnregistrar').submit();
+	}
+}
+
 function checkinputrequirements(id) {
 	
 	document.addEventListener('keyup', (event) => {
@@ -151,17 +159,30 @@ function addproducttocart(id) {
 		},
 		statusCode: {
 			200: function() {
-				console.log("http status code 200: succesful request")
+				console.log("Status code 200: succesful request")
+			},
+			401: function(){
+				console.log("Status code 401: Usuario no autenticado");
+			},
+			403: function(){
+				console.log("Status code 403: usuario no autorizado");
 			},
 			404: function() {
-				console.log("http status code 404: page not found");
+				console.log("Status code 404: page not found");				
 			},
 			405: function() {
-				console.log("Bad HTTP request");
+				console.log("Status code 405: Bad HTTP request");
 			},
 			500: function() {
-				console.log("http status code 500: error interno del servidor");
+				console.log("Status code 500: server error");
 			}
+		},
+		error: function(data) {
+			if (data.status == 401){
+				location.href = "/login"
+			}
+			console.log(data);
+			//location.href = data.status			
 		},
 		success: function(data) {
 
@@ -182,16 +203,14 @@ function addproducttocart(id) {
 			$('[name=feedback-totalprice]').html(formatter.format(totalAmount));
 			$('#feedback-totalquantity').html(totalQuantity);
 		},
-		error: function(data) {
-			console.log('ERROR: ', data);
-		},
+		
 	});
 
 }
 
 function addcartproductitem(id) {
 
-	/*addproducttocart(id);*/
+	addproducttocart(id);
 
 	$.ajax({
 		type: 'PUT',
@@ -220,7 +239,8 @@ function addcartproductitem(id) {
 			}
 		},
 		error: function(data) {
-			location.href = data.status			
+			console.log(data);
+			//location.href = data.status			
 		},
 		success: function(data) {
 			if (data.quantity > 1) {
@@ -272,6 +292,9 @@ function removecartproductitem(id) {
 			}
 		},
 		error: function(data) {
+			if (data.status == 401){
+				location.href = "/login"
+			}
 			location.href = data.status			
 		},
 		success: function(data) {

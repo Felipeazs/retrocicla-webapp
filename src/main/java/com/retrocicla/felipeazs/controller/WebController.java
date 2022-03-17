@@ -7,7 +7,6 @@ import java.util.Locale;
 
 import javax.validation.Valid;
 
-import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
@@ -16,7 +15,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import com.retrocicla.felipeazs.model.Cart;
 import com.retrocicla.felipeazs.model.Cliente;
@@ -33,7 +31,7 @@ import com.retrocicla.felipeazs.service.RegionService;
 public class WebController {
 
 	@Autowired
-	private ClienteService clienetService;
+	private ClienteService clienteService;
 
 	@Autowired
 	private ProductService productService;
@@ -50,7 +48,7 @@ public class WebController {
 	@Autowired
 	private OrderService orderService;
 
-	@ModelAttribute("client")
+	@ModelAttribute("cliente")
 	private Cliente setCliente() {
 		return new Cliente();
 	}
@@ -71,7 +69,7 @@ public class WebController {
 	}
 
 	@GetMapping("/login")
-	public String getLogin() {
+	public String postLogin() {				
 		return "login";
 	}
 
@@ -81,10 +79,10 @@ public class WebController {
 	}
 
 	@GetMapping("/")
-	public String getIndex(Product product, Model model) {
+	public String getIndex(Product product, Model model, Authentication auth) {
 
-		modelMultipleSelection(model);
-		setTotalAmountAndQuantityProducts(model, cartService.list());
+		modelMultipleSelection(model);		
+		amountAndQuantity(model, auth);
 
 		return "index";
 	}
@@ -97,7 +95,9 @@ public class WebController {
 			return "index";
 		}
 		
-		return null;
+		clienteService.add(cliente);
+		
+		return "index";
 	}
 
 	@GetMapping("/addproductpage")
@@ -107,7 +107,8 @@ public class WebController {
 	}
 
 	@GetMapping("/addproductdb")
-	public String getAddProductdv(@Valid @ModelAttribute("product") Product product, BindingResult br, Model model) {
+	public String getAddProductdv(@Valid @ModelAttribute("product") Product product, BindingResult br, Model model,
+			Authentication auth) {
 
 		if (br.hasErrors()) {
 			System.out.println(br.toString());
@@ -117,27 +118,27 @@ public class WebController {
 		Product add_product = productService.add(product);
 		model.addAttribute("addProduct", add_product);
 
-		setTotalAmountAndQuantityProducts(model, cartService.list());
+		amountAndQuantity(model, auth);
 
-		return getIndex(product, model);
+		return getIndex(product, model, auth);
 	}
 
 	@GetMapping("/ropaspage")
-	public String getRopasPage(Model model) {
+	public String getRopasPage(Model model, Authentication auth) {
 
 		model.addAttribute("products", productService.searchBy("prenda"));
 
-		setTotalAmountAndQuantityProducts(model, cartService.list());
+		amountAndQuantity(model, auth);
 
 		return "productslist";
 	}
 
 	@GetMapping("/telaspage")
-	public String getTelasPage(Model model) {
+	public String getTelasPage(Model model, Authentication auth) {
 
 		model.addAttribute("products", productService.searchBy("tela"));
 
-		setTotalAmountAndQuantityProducts(model, cartService.list());
+		amountAndQuantity(model, auth);
 
 		return "productslist";
 	}
@@ -166,18 +167,21 @@ public class WebController {
 			return "index";
 		}
 
-		Product pro = productService.findProductById(product.getId());
+		Product pro = productService.getProductById(product.getId());
 		model.addAttribute("product", pro);
 
 		return "productdetails";
 	}
 
 	@GetMapping("/cartdetails")
-	public String getProductDetails(Model model) {
+	public String getProductDetails(Model model, Authentication auth) {
+		
+		String cliente = auth.getName();
+		List<Cart> products = cartService.getProductsByClienteId(cliente);
 
-		model.addAttribute("cartitems", cartService.list());
+		model.addAttribute("cartitems", products);
 
-		setTotalAmountAndQuantityProducts(model, cartService.list());
+		amountAndQuantity(model, auth);
 
 		return "cartdetails";
 	}
@@ -185,10 +189,8 @@ public class WebController {
 	@GetMapping("/checkout")
 	public String getCheckout(Model model, Authentication auth) {
 		
-		String email = auth.getName();
-		System.out.println(email);
-
-		setTotalAmountAndQuantityProducts(model, cartService.list());
+		amountAndQuantity(model, auth);
+		
 		model.addAttribute("regiones", regionService.list());
 		model.addAttribute("ciudades", ciudadService.list());
 
@@ -197,7 +199,7 @@ public class WebController {
 
 	@PostMapping("/addOrder")
 	public String getAddOrder(@Valid @ModelAttribute("order") Order order, BindingResult br,
-			Model model) {
+			Model model, Authentication auth) {
 
 		if (br.hasErrors()) {
 			System.out.println(br.toString());
@@ -205,10 +207,11 @@ public class WebController {
 		}
 		
 		List<Cart> items = cartService.list();
+		String clienteEmail = auth.getName();		
 		
-		orderService.save(order, items);
+		orderService.save(order, items, clienteEmail);
 		
-		List<Order> nueva_orden = orderService.listByClienteId(31);
+		List<Order> nueva_orden = orderService.listByClienteEmail(clienteEmail);
 		
 		ArrayList<Integer> prods = new ArrayList<>();
 		for (Order nn : nueva_orden) {
@@ -224,22 +227,31 @@ public class WebController {
 	}
 
 	// FUNCIONES Y MÉTODOS
-
-	private void setTotalAmountAndQuantityProducts(Model model, List<Cart> cartitems) {
-
+	
+	private void amountAndQuantity(Model model, Authentication auth) {
+		
 		int totalAmount = 0;
 		int totalQuantity = 0;
-		for (Cart cartitem : cartitems) {
-			totalQuantity = totalQuantity + cartitem.getQuantity();
-			totalAmount = totalAmount + (cartitem.getPrice() * cartitem.getQuantity());
+		
+		try {
+			List<Cart> cartitems = cartService.listByEmail(auth.getName());	
+			
+			for (Cart cartitem : cartitems) {
+				totalQuantity = totalQuantity + cartitem.getQuantity();
+				totalAmount = totalAmount + (cartitem.getPrice() * cartitem.getQuantity());
+			}			
+				
+			Locale clp = new Locale("es", "CL");
+			NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
+			String totalprice = nf.format(totalAmount);	
+				
+			model.addAttribute("totalquantity", totalQuantity);
+			model.addAttribute("totalamount", totalprice);	
+			
+		} catch (NullPointerException ex) {
+			model.addAttribute("totalquantity", 0);
+			model.addAttribute("totalamount", 0);
 		}
-
-		Locale clp = new Locale("es", "CL");
-		NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
-		String totalprice = nf.format(totalAmount);
-
-		model.addAttribute("totalquantity", totalQuantity);
-		model.addAttribute("totalamount", totalprice);
 	}
 
 	private void modelMultipleSelection(Model model) {

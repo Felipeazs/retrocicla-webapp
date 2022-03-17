@@ -1,6 +1,7 @@
 package com.retrocicla.felipeazs.model;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -24,16 +25,16 @@ public class Cliente implements Serializable {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name="nombre")
+	@Column(name="nombre", nullable = false)
 	private String nombre;
 	
-	@Column(name="apellido")
+	@Column(name="apellido", nullable = false)
 	private String apellido;
 	
 	@Column(name="run")
 	private String run;
 	
-	@Column(name="email")
+	@Column(name="email", nullable = false)
 	private String email;
 	
 	@Column(name="telefono")
@@ -53,6 +54,9 @@ public class Cliente implements Serializable {
 	
 	@Column(name = "encryptes_pass")
 	private String encpass;
+	
+	@Column(name = "createdAt")
+	private LocalDate createdAt;
 
 	public int getId() {
 		return id;
@@ -140,6 +144,14 @@ public class Cliente implements Serializable {
 
 	public void setEncpass(String encpass) {
 		this.encpass = encpass;
+	}
+
+	public LocalDate getCreatedAt() {
+		return createdAt;
+	}
+
+	public void setCreatedAt(LocalDate createdAt) {
+		this.createdAt = createdAt;
 	}
 	
 	

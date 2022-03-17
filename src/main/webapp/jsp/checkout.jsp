@@ -50,6 +50,7 @@
 						<li><a href="/ropaspage">Ropa</a></li>
 						<li><a href="/telaspage">Telas</a></li>
 						<li><a href="/addproductpage">Agregar producto</a></li>
+						<li><a href="/logout">Cerrar sesión</a></li>
 					</ul>
 				</nav>
 			</div>
@@ -110,7 +111,7 @@
 										<label>Nombre</label>
 									</div>
 									<div class="col-md-9">
-										<div class="input-space">
+										<div class="input-space">											
 											<form:input path="cliente.nombre" type="text"
 												onkeyup="checkinputrequirements(${1})" id="inputtext-1" />
 											<div class="alert alert-danger mt-1" id="inputalertmsg-1"

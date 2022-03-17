@@ -59,9 +59,8 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 						<ul class="list-unstyled navbar-list">
 							<li><a href="/ropaspage">Ropa</a></li>
 							<li><a href="/telaspage">Telas</a></li>
-							<li>
-								<a href="/addproductpage">Agregar producto</a>
-							</li>
+							<li><a href="/addproductpage">Agregar producto</a></li>
+							<li><a href="/logout">Cerrar sesión</a></li>
 						</ul>
 					</nav>
 				</div>
@@ -129,61 +128,64 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 							<div class="detail-section">
 								<div class="container-fluid">
 								<form:form 
-                		action="/registrarcliente" 
-                		method="post"
-                		modelAttribute="cliente">
-                		<div class="row g-1 align-items-center">
-							  <label for="nombre" class="form-label">Nombre</label>
-							  <form:input 
-							  	path="nombre" 
-							  	type="text" 
-							  	class="form-control" 							  	
-							  	/>
-						</div>
-						<div class="row g-1 align-items-center">
-							  <label for="apellido" class="form-label">Apellido</label>
-							  <form:input 
-							  	path="apellido" 
-							  	type="text" 
-							  	class="form-control" 							  	
-							  	/>
-						</div>
-						<div class="row g-1 align-items-center">
-							  <label for="email" class="form-label">Email</label>
-							  <form:input 
-							  	path="email" 
-							  	type="email" 
-							  	class="form-control" 							  	
-							  	/>
-						</div>
-						<div class="row g-1 align-items-center">
-							  <label for="pass" class="form-label">Contraseña</label>
-							  <form:input 
-							  	path="encryptedPass" 
-							  	type="password" 
-							  	class="form-control" 
-							  	name="pass"
-							  	/>
-						</div>	
-						<div class="row g-1 align-items-center">
-							  <label for="pass2" class="form-label">Repite la contraseña</label>
-							  <form:input 
-							  	path="pass2" 
-							  	type="password" 
-							  	class="form-control"
-							  	name="pass2"							  	
-							  	/>
-							  
-						</div>
-						<p>${ mensaje }</p>		
-						<div style="text-align:center">					
-							<br>
-								<button 
-								class="btn btn-primary">
-									Registrar
-								</button>
-						</div>
-					</form:form>
+			                		action="/registrarcliente" 
+			                		method="post"
+			                		modelAttribute="cliente">
+			                		<div class="row g-1 align-items-center">
+										  <label for="nombre" class="form-label">Nombre</label>
+										  <form:input 
+										  	path="nombre" 
+										  	type="text" 
+										  	class="form-control" 							  	
+										  	/>
+									</div>
+									<div class="row g-1 align-items-center">
+										  <label for="apellido" class="form-label">Apellido</label>
+										  <form:input 
+										  	path="apellido" 
+										  	type="text" 
+										  	class="form-control" 							  	
+										  	/>
+									</div>
+									<div class="row g-1 align-items-center">
+										  <label for="email" class="form-label">Email</label>
+										  <form:input 
+										  	path="email" 
+										  	type="email" 
+										  	class="form-control" 							  	
+										  	/>
+									</div>
+									<div class="row g-1 align-items-center">
+										  <label for="pass" class="form-label">Contraseña</label>
+										  <form:input 
+										  	path="password" 
+										  	type="password" 
+										  	class="form-control" 
+										  	id="pass"
+										  	/>
+									</div>	
+									<div class="row g-1 align-items-center">
+										  <label for="pass2" class="form-label">Repite la contraseña</label>
+										  <form:input 
+										  	path="" 
+										  	type="password" 
+										  	class="form-control"
+										  	id="pass2"							  	
+										  	/>
+										  
+									</div>
+									<div class="alert alert-danger mt-1" id="alertregistrar"
+										name="inputalertmsg">
+										<div>Las contraseñas no coinciden</div>
+									</div>	
+									<div style="text-align:center">					
+										<br>
+											<button onclick="btnregistrar()" id="btnregistrar"
+											class="btn btn-primary">
+												Registrar
+											</button>
+									</div>
+								</form:form>
 								
 							</div>
 						</div>

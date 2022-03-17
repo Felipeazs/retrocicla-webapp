@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.retrocicla.felipeazs.model.Cart;
+import com.retrocicla.felipeazs.model.Cliente;
 import com.retrocicla.felipeazs.model.Product;
 import com.retrocicla.felipeazs.repository.CartRepository;
 
@@ -20,17 +21,23 @@ public class CartServiceImpl implements CartService{
 	private CartRepository repo;
 
 	@Override
-	public List<Cart> list() {
-		
+	public List<Cart> list() {		
 		return repo.findAll();
+	}
+	
+
+	@Override
+	public List<Cart> listByEmail(String email) {
+		
+		return repo.findByClienteEmail(email);
 	}
 
 	@Override
-	public void addProduct(Product product) {
+	public void addProduct(Product product, Cliente cliente) {
 		
 		try {
-			Cart findProduct = findByProductId(product.getId());
-			updateProduct(findProduct);
+			Cart findProduct = repo.findByProductIdAndClienteEmail(product.getId(), cliente.getEmail());			
+			updateProduct(findProduct.getProduct().getId(), cliente.getEmail());
 		} catch (NullPointerException ex) {
 			
 			Cart cart = new Cart();
@@ -38,7 +45,8 @@ public class CartServiceImpl implements CartService{
 			cart.setCreatedAt(LocalDate.now());
 			cart.setProduct(product);
 			cart.setQuantity(1);
-			cart.setPrice(product.getPrice());
+			cart.setPrice(product.getPrice());						
+			cart.setCliente(cliente);
 				
 			int totalPrice = cart.getQuantity() * cart.getPrice();
 			Locale clp = new Locale("es", "CL");
@@ -51,15 +59,9 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public Cart findByProductId(int id) {		
+	public void updateProduct(int productId, String email) {
 		
-		Cart cart = repo.findByProductId(id);		
-		
-		return cart;		
-	}
-
-	@Override
-	public void updateProduct(Cart product) {
+		Cart product = repo.findByProductIdAndClienteEmail(productId, email);
 		
 		if (product.getQuantity() < product.getProduct().getStock()) {
 			
@@ -77,10 +79,10 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public void removeProduct(Integer productId) {
+	public void removeProduct(Integer productId, String email) {
 		
 		try {
-			Cart findProd = findByProductId(productId);
+			Cart findProd = repo.findByProductIdAndClienteEmail(productId, email);
 			
 			if (findProd.getQuantity() > 1) {
 				findProd.setQuantity(findProd.getQuantity() - 1);		
@@ -93,7 +95,7 @@ public class CartServiceImpl implements CartService{
 				
 				repo.save(findProd);
 			} else {
-				deleteProduct(productId);
+				deleteProduct(productId, email);
 			}
 						
 		} catch (NullPointerException ex) {
@@ -102,10 +104,10 @@ public class CartServiceImpl implements CartService{
 	}
 
 	@Override
-	public void deleteProduct(Integer productId) {
+	public void deleteProduct(Integer productId, String email) {
 		
 		try {
-			Cart product = findByProductId(productId);
+			Cart product = repo.findByProductIdAndClienteEmail(productId, email);
 			repo.delete(product);
 		} catch (StaleStateException ex) {
 			ex.getMessage();
@@ -113,4 +115,19 @@ public class CartServiceImpl implements CartService{
 		
 		
 	}
+
+
+	@Override
+	public List<Cart> getProductsByClienteId(String cliente) {
+		
+		return repo.findAllByClienteEmail(cliente);
+	}
+
+
+	@Override
+	public Cart getProductByIdAndEmail(int id, String email) {
+		
+		return repo.findByProductIdAndClienteEmail(id, email);
+	}
+
 }

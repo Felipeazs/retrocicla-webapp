@@ -7,10 +7,11 @@ import com.retrocicla.felipeazs.model.Order;
 
 public interface OrderService {
 	
-	void save(Order order, List<Cart> items);
+	void save(Order order, List<Cart> items, String clienteEmail);
 
 	List<Order> list();
 
-	List<Order> listByClienteId(int id);
+	List<Order> listByClienteEmail(String clienteEmail);
+
 	
 }

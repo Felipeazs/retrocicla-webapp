@@ -97,14 +97,22 @@
 							<div class="container-fluid">
 								<form action="/login" method="post">
 									<div class="row g-1 align-items-center">
-										<label for="usuario" class="form-label">Usuario</label> <input
-											type="text" name="name" class="form-control" id="usuario"
+										<label for="usuario" class="form-label">Usuario</label> 
+										<input
+											type="text" 
+											name="username" 
+											class="form-control" 
+											id="usuario"
 											placeholder="">
 									</div>
 									<div class="row g-1 align-items-center">
-										<label for="pass" class="form-label">Contraseña</label> <input
-											type="password" name="password" class="form-control"
-											id="password" placeholder="">
+										<label for="pass" class="form-label">Contraseña</label> 
+										<input
+											type="password" 
+											name="password" 
+											class="form-control"
+											id="password" 
+											placeholder="">
 									</div>
 									<c:if test="${ param.error != null }">
 										<p>*Usuario y/o contraseña incorrectos</p>

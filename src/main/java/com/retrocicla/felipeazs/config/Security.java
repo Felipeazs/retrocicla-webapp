@@ -3,6 +3,7 @@ package com.retrocicla.felipeazs.config;
 import com.retrocicla.felipeazs.service.ClientDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.builders.WebSecurity;
@@ -26,36 +27,36 @@ public class Security extends WebSecurityConfigurerAdapter {
     }
 
     protected void configure(HttpSecurity http) throws Exception {   
-        http
-        .csrf()
-		.disable()
+        http 	
+        .csrf().disable()
 		.authorizeRequests()
-		.antMatchers("/",
+		.antMatchers(
+				"/",
 				"/searchproduct",
-				"/addproduct",
 				"/ropaspage", 
 				"/telaspage",
 				"/productdetails",
-				"/cartdetails", 
 				"/tienda",
 				"/registro",
-				"/registrarcliente",
-				"/api/product/{productid}", 
-				"/api/product/add/{productid}", 
-				"/api/product/remove/{productid}",
-				"/api/regiones/{regionid}",
-				"/api/regiones",
-				"/404", "/405", "/500").permitAll()
-		.antMatchers("/addproductpage", "/addproductdb")
+				"/registrarcliente",							
+				"/404", "/405", "/500").permitAll()		
+		.antMatchers(	
+				"/cartdetails",
+				"/checkout",
+				"/api/**")
+		.hasAnyAuthority("cliente", "admin")	
+		.antMatchers("/addproduct", "/addproductpage", "/addproductdb")
 		.hasAnyAuthority("admin")
 		.anyRequest()
 		.authenticated()
+		.and()
+        .httpBasic()
 		.and()
 		.formLogin().loginPage("/login").permitAll()
 		.and()
 		.logout()
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/login");
+		.logoutSuccessUrl("/index");
     }
 
     @Override
@@ -66,7 +67,10 @@ public class Security extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userService).passwordEncoder(encoder);
+        
     }
+    
+    
 
 
 }
