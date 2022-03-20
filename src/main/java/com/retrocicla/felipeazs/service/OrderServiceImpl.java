@@ -38,45 +38,35 @@ public class OrderServiceImpl implements OrderService {
 		Order nueva_orden = new Order();
 		
 		Cliente findClienteEmail = repo_cl.findByEmail(cliente);
-		
-		if (findClienteEmail.getDireccion() == null) {
+					
+		Direccion direccion = new Direccion();
+		String dcalle = order.getDireccion().getCalle();
+		String dciudad = order.getDireccion().getCiudad();
+		String dregion = order.getDireccion().getRegion();
 			
-			Direccion direccion = new Direccion();
-			String dcalle = order.getDireccion().getCalle();
-			String dciudad = order.getDireccion().getCiudad();
-			String dregion = order.getDireccion().getRegion();
+		direccion.setCalle(dcalle);
+		direccion.setCiudad(dciudad);
+		direccion.setRegion(dregion);
+		direccion.setCliente(findClienteEmail);			
+		Direccion nueva_direccion = repo_d.save(direccion);	
+		
+		ArrayList<Direccion> direcciones = (ArrayList<Direccion>) findClienteEmail.getDireccion();
+		
+		direcciones.add(nueva_direccion);
+					
+		Facturacion facturacion = new Facturacion();
+		String fcalle = order.getDireccion().getCalle();
+		String fciudad = order.getDireccion().getCiudad();
+		String fregion = order.getDireccion().getRegion();
+			
+		facturacion.setCalle(fcalle);
+		facturacion.setCiudad(fciudad);
+		facturacion.setRegion(fregion);
+		facturacion.setCliente(findClienteEmail);			
+		Facturacion nueva_facturacion = repo_f.save(facturacion);
+			
+		findClienteEmail.getFacturacion().add(nueva_facturacion);
 				
-			direccion.setCalle(dcalle);
-			direccion.setCiudad(dciudad);
-			direccion.setRegion(dregion);
-			direccion.setCliente(findClienteEmail);			
-			Direccion nueva_direccion = repo_d.save(direccion);	
-			
-			nueva_orden.setDireccion(nueva_direccion);
-			
-		} else {
-			nueva_orden.setDireccion(findClienteEmail.getDireccion());
-		}			
-		
-		if (findClienteEmail.getFacturacion() == null) {
-			
-			Facturacion facturacion = new Facturacion();
-			String fcalle = order.getDireccion().getCalle();
-			String fciudad = order.getDireccion().getCiudad();
-			String fregion = order.getDireccion().getRegion();
-			
-			facturacion.setCalle(fcalle);
-			facturacion.setCiudad(fciudad);
-			facturacion.setRegion(fregion);
-			facturacion.setCliente(findClienteEmail);			
-			Facturacion nueva_facturacion = repo_f.save(facturacion);
-			
-			nueva_orden.setFacturacion(nueva_facturacion);
-			
-		} else {
-			nueva_orden.setFacturacion(findClienteEmail.getFacturacion());
-		}
-		
 		ArrayList<Integer> productos = new ArrayList<>();
 		
 		for (Cart item : items) {

@@ -107,11 +107,11 @@ $(document).ready(function() {
 		return new bootstrap.Tooltip(tooltipTriggerEl);
 	});
 	
-	var location = window.location.pathname;
+	/*var location = window.location.pathname;
 	if (location === '/checkout'){
 		selectCity(1);
 		selectCity(2);
-	}
+	}*/
 });
 
 function btnregistrar(){

@@ -50,7 +50,7 @@ public class Security extends WebSecurityConfigurerAdapter {
 		.anyRequest()
 		.authenticated()
 		.and()
-        .httpBasic()
+        .httpBasic() // permite REST API
 		.and()
 		.formLogin().loginPage("/login").permitAll()
 		.and()

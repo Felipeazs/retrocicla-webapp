@@ -139,6 +139,16 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 										  	class="form-control" 							  	
 										  	/>
 									</div>
+									
+									<%-- <form:input path="cliente.nombre" type="text"
+												onkeyup="checkinputrequirements(${1})" id="inputtext-1" />
+											<div class="alert alert-danger mt-1" id="inputalertmsg-1"
+												name="inputalertmsg">
+												<div>Su nombre es requerido y debe tener al menos 2
+													caracteres.</div>
+											</div> --%>
+									
+									
 									<div class="row g-1 align-items-center">
 										  <label for="apellido" class="form-label">Apellido</label>
 										  <form:input 
@@ -147,6 +157,16 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 										  	class="form-control" 							  	
 										  	/>
 									</div>
+									
+									<%-- <form:input path="cliente.apellido" type="text"
+												onkeyup="checkinputrequirements(${2})" id="inputtext-2" />
+											<div class="alert alert-danger mt-1" id="inputalertmsg-2"
+												name="inputalertmsg">
+												<div>Su apellido es requerido y debe tener al menos 2
+													caracteres.</div>
+											</div> --%>
+											
+											
 									<div class="row g-1 align-items-center">
 										  <label for="email" class="form-label">Email</label>
 										  <form:input 
@@ -155,6 +175,16 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 										  	class="form-control" 							  	
 										  	/>
 									</div>
+									
+									<%-- <form:input path="cliente.email" type="text"
+												onkeyup="checkinputrequirements('email')"
+												id="inputtext-email" />
+											<div class="alert alert-danger mt-1" id="inputalertmsg-email"
+												name="inputalertmsg">
+												<div>Su email es requerido y debe tener formato válido</div>
+											</div> --%>
+											
+											
 									<div class="row g-1 align-items-center">
 										  <label for="pass" class="form-label">Contraseña</label>
 										  <form:input 

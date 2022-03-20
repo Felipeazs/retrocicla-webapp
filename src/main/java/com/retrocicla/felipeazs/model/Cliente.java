@@ -2,13 +2,16 @@ package com.retrocicla.felipeazs.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.OneToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
 
@@ -38,13 +41,13 @@ public class Cliente implements Serializable {
 	private String email;
 	
 	@Column(name="telefono")
-	private int telefono;
+	private String telefono;
 	
-	@OneToOne(mappedBy = "cliente")
-	private Direccion direccion;
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Direccion> direccion = new ArrayList<Direccion>();
 	
-	@OneToOne(mappedBy = "cliente")
-	private Facturacion facturacion;
+	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
+	private List<Facturacion> facturacion = new ArrayList<Facturacion>();
 	
 	@Column(name = "rol")
 	private String rol;
@@ -98,27 +101,27 @@ public class Cliente implements Serializable {
 		this.email = email;
 	}
 
-	public int getTelefono() {
+	public String getTelefono() {
 		return telefono;
 	}
 
-	public void setTelefono(int telefono) {
+	public void setTelefono(String telefono) {
 		this.telefono = telefono;
 	}
 
-	public Direccion getDireccion() {
+	public List<Direccion> getDireccion() {
 		return direccion;
 	}
 
-	public void setDireccion(Direccion direccion) {
+	public void setDireccion(List<Direccion> direccion) {
 		this.direccion = direccion;
 	}
 
-	public Facturacion getFacturacion() {
+	public List<Facturacion> getFacturacion() {
 		return facturacion;
 	}
 
-	public void setFacturacion(Facturacion facturacion) {
+	public void setFacturacion(List<Facturacion> facturacion) {
 		this.facturacion = facturacion;
 	}
 

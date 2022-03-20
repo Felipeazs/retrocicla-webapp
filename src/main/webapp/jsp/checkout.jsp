@@ -108,117 +108,120 @@
 								<h3>Datos del Cliente</h3>
 								<div class="row">
 									<div class="col-md-2">
-										<label>Nombre</label>
+										<label>Nombre:</label>
 									</div>
 									<div class="col-md-9">
 										<div class="input-space">											
-											<form:input path="cliente.nombre" type="text"
-												onkeyup="checkinputrequirements(${1})" id="inputtext-1" />
-											<div class="alert alert-danger mt-1" id="inputalertmsg-1"
-												name="inputalertmsg">
-												<div>Su nombre es requerido y debe tener al menos 2
-													caracteres.</div>
-											</div>
+											<div>${ cliente.nombre } ${ cliente.apellido }</div>											
 										</div>
 									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-2">
-										<label>Apellido</label>
-									</div>
-									<div class="col-md-9">
-										<div class="input-space">
-											<form:input path="cliente.apellido" type="text"
-												onkeyup="checkinputrequirements(${2})" id="inputtext-2" />
-											<div class="alert alert-danger mt-1" id="inputalertmsg-2"
-												name="inputalertmsg">
-												<div>Su apellido es requerido y debe tener al menos 2
-													caracteres.</div>
-											</div>
-										</div>
-									</div>
-								</div>
+								</div>								
 								<div class="row">
 									<div class="col-md-2">
 										<label>Email</label>
 									</div>
 									<div class="col-md-9">
 										<div class="input-space">
-											<form:input path="cliente.email" type="text"
-												onkeyup="checkinputrequirements('email')"
-												id="inputtext-email" />
-											<div class="alert alert-danger mt-1" id="inputalertmsg-email"
-												name="inputalertmsg">
-												<div>Su email es requerido y debe tener formato válido</div>
-											</div>
+											<div>${ cliente.email }</div>
+										</div>
+									</div>
+								</div>
+								<div class="row">
+									<div class="col-md-2">
+										<label>Teléfono:</label>
+									</div>
+									<div class="col-md-9">
+										<div class="input-space">
+											<div>${ cliente.telefono }</div>
 										</div>
 									</div>
 								</div>
 							</div>
 							<!-- Shipping Address -->
 							<div id="shippingAddress" class="form-area">
-								<h3>Dirección de despacho</h3>
-								<div class="row">
-									<div class="col-md-2">
-										<label>Región</label>
-									</div>
-									<div class="col-md-9">
+								<h3>Dirección de despacho</h3>								
+								<c:choose>
+									<c:when test="${ fn:length(cliente.direccion) > 0 }">
+										<div class="col-md-2">
+												<label>Mis Direcciones:</label>
+										</div>
+										<div class="col-md-9">
+											<div class="input-space">
+												<form:select path="direccion.region">												
+														<form:options value="${ cliente.direccion }"/>										
+												</form:select>																			
+											</div>
+										</div>
 										<div class="input-space">
-											<form:select path="direccion.region" onchange="selectCity(${1})" id="selectRegion-1">
-												<c:forEach items="${ regiones }" var="r">
-													<option value="${ r.id }">${ r.name }</option>
-												</c:forEach>
-											</form:select>
-											<div class="alert alert-danger mt-1"
-												id="inputalertmsg-region" name="inputalertmsg">
-												<div>La Región es requerida</div>
+											<label class="au-checkbox"> <input type="checkbox"
+												onchange="mostrardireccion()" id="g" /> <span
+												class="au-checkmark"></span> Agregar dirección												
+											</label>
+										</div>																		
+									</c:when>
+									<c:otherwise>
+									<div class="row">
+										<div class="col-md-2">
+											<label>Región</label>
+										</div>
+										<div class="col-md-9">
+											<div class="input-space">
+												<form:select path="direccion.region" onchange="selectCity(${1})" id="selectRegion-1">
+													<c:forEach items="${ regiones }" var="r">
+														<option value="${ r.id }">${ r.name }</option>
+													</c:forEach>
+												</form:select>
+												<div class="alert alert-danger mt-1"
+													id="inputalertmsg-region" name="inputalertmsg">
+													<div>La Región es requerida</div>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-2">
-										<label>Ciudad</label>
-									</div>
-									<div class="col-md-9">
-										<div class="input-space">
-											<form:select path="direccion.ciudad" disabled="true" id="selectcityoption-1">
-											</form:select>
-											<div class="alert alert-danger mt-1" id="inputalertmsg-city"
-												name="inputalertmsg">
-												<div>La Ciudad es requerida</div>
+									<div class="row">
+										<div class="col-md-2">
+											<label>Ciudad</label>
+										</div>
+										<div class="col-md-9">
+											<div class="input-space">
+												<form:select path="direccion.ciudad" disabled="true" id="selectcityoption-1">
+												</form:select>
+												<div class="alert alert-danger mt-1" id="inputalertmsg-city"
+													name="inputalertmsg">
+													<div>La Ciudad es requerida</div>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-								<div class="row">
-									<div class="col-md-2">
-										<label>Calle</label>
-									</div>
-									<div class="col-md-9">
-										<div class="input-space">
-											<form:input path="direccion.calle" type="text"
-												onkeyup="checkinputrequirements(${3})" id="inputtext-3"
-												placeholder="Ej: Vicuña Mackenna 2356" />
-											<div class="alert alert-danger mt-1" id="inputalertmsg-3"
-												name="inputalertmsg">
-												<div>La Calle es requerida</div>
+									<div class="row">
+										<div class="col-md-2">
+											<label>Calle</label>
+										</div>
+										<div class="col-md-9">
+											<div class="input-space">
+												<form:input path="direccion.calle" type="text"
+													onkeyup="checkinputrequirements(${3})" id="inputtext-3"
+													placeholder="Ej: Vicuña Mackenna 2356" />
+												<div class="alert alert-danger mt-1" id="inputalertmsg-3"
+													name="inputalertmsg">
+													<div>La Calle es requerida</div>
+												</div>
 											</div>
 										</div>
 									</div>
-								</div>
-							</div>
+									</c:otherwise>
+								</c:choose>								
+							</div>	
+													
+							<!-- Billing Address -->
+							<div id="billingAddress" class="form-area">
 							<!-- check box shipping/billing address-->
 							<div class="input-space">
 								<label class="au-checkbox"> <input type="checkbox"
 									onchange="copyPasteShippingAddress()" id="selectShipping" /> <span
-									class="au-checkmark"></span> Billing Address same as Shipping
-									Address
+									class="au-checkmark"></span> Misma dirección de envío
 								</label>
 							</div>
-
-							<!-- Billing Address -->
-							<div id="billingAddress" class="form-area">
 								<h3>Dirección de facturación</h3>
 								<div class="row">
 									<div class="col-md-2">
