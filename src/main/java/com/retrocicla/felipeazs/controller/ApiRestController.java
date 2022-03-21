@@ -80,6 +80,7 @@ public class ApiRestController {
 	@DeleteMapping(path = "/product/{productid}")
 	public void deleteCartProduct(@PathVariable String productid, Model model, Authentication auth) {
 			
+		System.out.println(productid);
 		int id = Integer.parseInt(productid);		
 		cartService.deleteProduct(id, auth.getName());		
 		

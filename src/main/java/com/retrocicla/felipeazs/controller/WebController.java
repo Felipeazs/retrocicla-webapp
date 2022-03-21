@@ -194,7 +194,7 @@ public class WebController {
 		model.addAttribute("cliente", clienteService.getCliente(auth.getName()));
 		model.addAttribute("regiones", regionService.list());
 		model.addAttribute("ciudades", ciudadService.list());
-
+		
 		return "checkout";
 	}
 

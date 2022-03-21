@@ -38,6 +38,8 @@ public class OrderServiceImpl implements OrderService {
 		Order nueva_orden = new Order();
 		
 		Cliente findClienteEmail = repo_cl.findByEmail(cliente);
+		
+		nueva_orden.setCliente(findClienteEmail);
 					
 		Direccion direccion = new Direccion();
 		String dcalle = order.getDireccion().getCalle();
@@ -49,10 +51,8 @@ public class OrderServiceImpl implements OrderService {
 		direccion.setRegion(dregion);
 		direccion.setCliente(findClienteEmail);			
 		Direccion nueva_direccion = repo_d.save(direccion);	
-		
-		ArrayList<Direccion> direcciones = (ArrayList<Direccion>) findClienteEmail.getDireccion();
-		
-		direcciones.add(nueva_direccion);
+				
+		nueva_orden.setDireccion(nueva_direccion);
 					
 		Facturacion facturacion = new Facturacion();
 		String fcalle = order.getDireccion().getCalle();
@@ -65,7 +65,7 @@ public class OrderServiceImpl implements OrderService {
 		facturacion.setCliente(findClienteEmail);			
 		Facturacion nueva_facturacion = repo_f.save(facturacion);
 			
-		findClienteEmail.getFacturacion().add(nueva_facturacion);
+		nueva_orden.setFacturacion(nueva_facturacion);
 				
 		ArrayList<Integer> productos = new ArrayList<>();
 		

@@ -82,14 +82,13 @@
 											donar?</a></li>
 								</ul>
 							</div>
-							<div class="cart-area d-n">
-								<a href="/cartdetails">
-									<div class="total">
+							<div class="cart-area d-n">								
+								<div class="total">
+									<a href="/cartdetails">
 										<strong name="feedback-totalprice">${ totalamount }</strong> <span
 											id="feedback-totalquantity">${ totalquantity }</span>
-									</div> <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-
-								</a>
+									</a>
+								</div> <i class="fa fa-shopping-cart" aria-hidden="true"></i>								
 							</div>
 						</div>
 					</nav>
@@ -139,16 +138,18 @@
 							</div>
 							<!-- Shipping Address -->
 							<div id="shippingAddress" class="form-area">
-								<h3>Dirección de despacho</h3>								
+								<h3>Dirección de despacho</h3>	
+												
 								<c:choose>
 									<c:when test="${ fn:length(cliente.direccion) > 0 }">
+									<input type=hidden value=${ fn:length(cliente.direccion) } id="misdirecciones" />	
 										<div class="col-md-2">
 												<label>Mis Direcciones:</label>
 										</div>
 										<div class="col-md-9">
 											<div class="input-space">
-												<form:select path="direccion.region">												
-														<form:options value="${ cliente.direccion }"/>										
+												<form:select path="direccion">																						
+														<form:options items="${ cliente.direccion }" itemValue="id" itemLabel="calle"/>										
 												</form:select>																			
 											</div>
 										</div>

@@ -36,6 +36,9 @@ public class Direccion implements Serializable{
 	
 	@Column(name = "ciudad")
 	private String ciudad;
+	
+	@Column(name = "nombre")
+	private String nombre;
 
 	public int getId() {
 		return id;
@@ -75,6 +78,14 @@ public class Direccion implements Serializable{
 
 	public void setCiudad(String ciudad) {
 		this.ciudad = ciudad;
+	}
+
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
 	}
 	
 	

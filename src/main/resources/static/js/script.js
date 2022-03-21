@@ -107,11 +107,15 @@ $(document).ready(function() {
 		return new bootstrap.Tooltip(tooltipTriggerEl);
 	});
 	
-	/*var location = window.location.pathname;
-	if (location === '/checkout'){
-		selectCity(1);
-		selectCity(2);
-	}*/
+	var location = window.location.pathname;
+	var direcciones = $('#misdirecciones').val();
+		
+	if (location === '/checkout'){			
+		if (direcciones == 0) {	
+			selectCity(1);
+			selectCity(2);
+		}
+	}
 });
 
 function btnregistrar(){
@@ -375,6 +379,8 @@ function deletecartproduct(id) {
 function selectCity(n){
 	
 	var id = $('#selectRegion-' + n).val();	
+	
+	console.log(id);
 	
 	$.ajax({
 		type: 'GET',

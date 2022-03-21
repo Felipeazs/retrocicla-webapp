@@ -28,12 +28,12 @@ public class Order implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
-	@Column(name = "product")
+	@Column(name = "product", nullable = false)
     @ElementCollection
 	private List<Integer> product = new ArrayList<Integer>();
 	
 	@ManyToOne
-	@JoinColumn(name = "direccion_id")
+	@JoinColumn(name = "direccion_id", nullable = false)
 	private Direccion direccion;
 	
 	@ManyToOne
@@ -44,7 +44,7 @@ public class Order implements Serializable{
 	private LocalDate cretedAt;
 	
 	@ManyToOne
-	@JoinColumn(name = "cliente_id")
+	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
 	
 	
