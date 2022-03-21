@@ -10,4 +10,6 @@ public interface CiudadService {
 
 	List<Ciudad> findAllByRegion(Integer regionid);
 
+	Ciudad getCiudad(String ciudad);
+
 }

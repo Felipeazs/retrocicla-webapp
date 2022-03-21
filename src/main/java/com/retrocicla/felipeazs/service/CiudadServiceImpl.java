@@ -26,4 +26,12 @@ public class CiudadServiceImpl implements CiudadService{
 		return repo.findAllByRegionIdOrderByNameAsc(regionid);
 	}
 
+	@Override
+	public Ciudad getCiudad(String ciudad) {
+		
+		int id = Integer.parseInt(ciudad);
+		return repo.findById(id).get();
+		
+	}
+
 }

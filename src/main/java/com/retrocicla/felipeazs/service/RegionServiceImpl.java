@@ -20,4 +20,11 @@ public class RegionServiceImpl implements RegionService {
 		return repo.findAll();
 	}
 
+	@Override
+	public Region getRegion(String region) {
+		
+		int id = Integer.parseInt(region);
+		return repo.findById(id).get();
+	}
+
 }

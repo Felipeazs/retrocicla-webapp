@@ -2,6 +2,7 @@ package com.retrocicla.felipeazs.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -17,11 +18,13 @@ import org.springframework.web.bind.annotation.RestController;
 import com.retrocicla.felipeazs.model.Cart;
 import com.retrocicla.felipeazs.model.Ciudad;
 import com.retrocicla.felipeazs.model.Cliente;
+import com.retrocicla.felipeazs.model.Direccion;
 import com.retrocicla.felipeazs.model.Product;
 import com.retrocicla.felipeazs.model.Region;
 import com.retrocicla.felipeazs.service.CartService;
 import com.retrocicla.felipeazs.service.CiudadService;
 import com.retrocicla.felipeazs.service.ClienteService;
+import com.retrocicla.felipeazs.service.DireccionService;
 import com.retrocicla.felipeazs.service.ProductService;
 import com.retrocicla.felipeazs.service.RegionService;
 
@@ -43,9 +46,12 @@ public class ApiRestController {
 	
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired
+	private DireccionService direccionService;
 		
 	@PostMapping(path = "/product/{productid}")
-	public List<Cart> addProductToCart(@PathVariable String productid, Model model, Authentication auth) {	
+	public List<Cart> addProductToCart(@PathVariable String productid,Authentication auth) {	
 		
 		System.out.println("entró al api");
 		
@@ -60,7 +66,7 @@ public class ApiRestController {
 	}
 	
 	@PutMapping(path = "/product/add/{productid}")
-	public Cart addCartProduct(@PathVariable String productid, Model model, Authentication auth) {
+	public Cart addCartProduct(@PathVariable String productid, Authentication auth) {
 		
 		System.out.println("entró al api");
 			
@@ -72,7 +78,7 @@ public class ApiRestController {
 	}
 	
 	@PutMapping(path = "/product/remove/{productid}")
-	public List<Cart> removeCartProductItem(@PathVariable String productid, Model model, Authentication auth) {
+	public List<Cart> removeCartProductItem(@PathVariable String productid, Authentication auth) {
 		
 		int id = Integer.parseInt(productid);
 		cartService.removeProduct(id, auth.getName());
@@ -84,7 +90,7 @@ public class ApiRestController {
 	}	
 		
 	@DeleteMapping(path = "/product/{productid}")
-	public void deleteCartProduct(@PathVariable String productid, Model model, Authentication auth) {
+	public void deleteCartProduct(@PathVariable String productid, Authentication auth) {
 			
 		System.out.println(productid);
 		int id = Integer.parseInt(productid);		
@@ -113,5 +119,35 @@ public class ApiRestController {
 		List<Region> regiones = regionService.list();
 		return regiones;	
 	}
+	
+	@PostMapping(path = "/add/address/{region}/{ciudad}/{calle}/{nombre}")
+	public void addAddress(@PathVariable("region") String region, String ciudad, String calle, String nombre, Authentication auth) {
+		
+		Cliente cliente = clienteService.getCliente(auth.getName());
+		Region regionid = regionService.getRegion(region);
+		Ciudad ciudadid = ciudadService.getCiudad(ciudad);
+		
+		Direccion direccion = new Direccion();
+		direccion.setRegion(regionid);
+		direccion.setCiudad(ciudadid);
+		direccion.setCalle(calle);
+		direccion.setNombre(nombre);
+		direccion.setCliente(cliente);
+		
+		direccionService.addAddress(direccion);
+		
+	}
+	
+	@GetMapping(path = "/address/{direccionid}")
+	public Direccion getAddress(@PathVariable String direccionid) {
+		
+		Direccion direccion = direccionService.getAddress(direccionid);
+		System.out.println(direccion.getCiudad());
+		
+		return direccion;
+		
+		
+	}
+	
 
 }

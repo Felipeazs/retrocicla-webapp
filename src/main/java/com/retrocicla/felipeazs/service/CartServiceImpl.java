@@ -31,13 +31,7 @@ public class CartServiceImpl implements CartService{
 	public List<Cart> listByEmail(String email) {
 		
 		List<Cart> clientecart = repo.findAllByClienteEmail(email);
-		
-		for (Cart cart : clientecart) {
-			System.out.println(cart.getCliente().getEmail());
-		}
-		
-		List<Cart> clientecar = new ArrayList<>();
-		
+			
 		
 		return clientecart;
 	}

@@ -191,7 +191,10 @@ public class WebController {
 		
 		amountAndQuantity(model, auth);
 		
-		model.addAttribute("cliente", clienteService.getCliente(auth.getName()));
+		Cliente cliente = clienteService.getCliente(auth.getName());
+		System.out.println("direcciones: " + cliente.getDireccion().size());
+		
+		model.addAttribute("cliente", cliente);
 		model.addAttribute("regiones", regionService.list());
 		model.addAttribute("ciudades", ciudadService.list());
 		

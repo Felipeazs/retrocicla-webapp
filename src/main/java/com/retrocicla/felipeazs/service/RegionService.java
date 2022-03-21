@@ -8,4 +8,6 @@ public interface RegionService {
 	
 	List<Region> list();
 
+	Region getRegion(String region);
+
 }

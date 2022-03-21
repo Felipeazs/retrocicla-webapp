@@ -11,6 +11,8 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "direccion")
 public class Direccion implements Serializable{
@@ -24,6 +26,7 @@ public class Direccion implements Serializable{
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private int id;
 	
+	@JsonIgnore
 	@ManyToOne()
     @JoinColumn(name = "cliente_id", referencedColumnName = "id")
 	private Cliente cliente;
@@ -32,10 +35,10 @@ public class Direccion implements Serializable{
 	private String calle;
 	
 	@Column(name = "region")
-	private String region;
+	private Region region;
 	
 	@Column(name = "ciudad")
-	private String ciudad;
+	private Ciudad ciudad;
 	
 	@Column(name = "nombre")
 	private String nombre;
@@ -64,19 +67,19 @@ public class Direccion implements Serializable{
 		this.calle = calle;
 	}
 
-	public String getRegion() {
+	public Region getRegion() {
 		return region;
 	}
 
-	public void setRegion(String region) {
+	public void setRegion(Region region) {
 		this.region = region;
 	}
 
-	public String getCiudad() {
+	public Ciudad getCiudad() {
 		return ciudad;
 	}
 
-	public void setCiudad(String ciudad) {
+	public void setCiudad(Ciudad ciudad) {
 		this.ciudad = ciudad;
 	}
 

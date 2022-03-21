@@ -138,8 +138,7 @@
 							</div>
 							<!-- Shipping Address -->
 							<div id="shippingAddress" class="form-area">
-								<h3>Dirección de despacho</h3>	
-												
+								<h3>Dirección de despacho</h3>												
 								<c:choose>
 									<c:when test="${ fn:length(cliente.direccion) > 0 }">
 									<input type=hidden value=${ fn:length(cliente.direccion) } id="misdirecciones" />	
@@ -148,7 +147,7 @@
 										</div>
 										<div class="col-md-9">
 											<div class="input-space">
-												<form:select path="direccion">																						
+												<form:select path="direccion" id="selectaddress">																						
 														<form:options items="${ cliente.direccion }" itemValue="id" itemLabel="calle"/>										
 												</form:select>																			
 											</div>
@@ -219,11 +218,11 @@
 										</div>
 										<div class="col-md-9">
 											<div class="input-space">
-												<form:select path="direccion.region" onchange="selectCity(${1})" id="selectRegion-1">
+												<select onchange="selectCity(${1})" id="selectRegion-1">
 													<c:forEach items="${ regiones }" var="r">
 														<option value="${ r.id }">${ r.name }</option>
 													</c:forEach>
-												</form:select>
+												</select>
 												<div class="alert alert-danger mt-1"
 													id="inputalertmsg-region" name="inputalertmsg">
 													<div>La Región es requerida</div>
@@ -237,8 +236,8 @@
 										</div>
 										<div class="col-md-9">
 											<div class="input-space">
-												<form:select path="direccion.ciudad" disabled="true" id="selectcityoption-1">
-												</form:select>
+												<select disabled="true" id="selectcityoption-1">
+												</select>
 												<div class="alert alert-danger mt-1" id="inputalertmsg-city"
 													name="inputalertmsg">
 													<div>La Ciudad es requerida</div>
@@ -252,7 +251,7 @@
 										</div>
 										<div class="col-md-9">
 											<div class="input-space">
-												<form:input path="direccion.calle" type="text"
+												<input type="text"
 													onkeyup="checkinputrequirements(${3})" id="inputtext-3"
 													placeholder="Ej: Vicuña Mackenna 2356" />
 												<div class="alert alert-danger mt-1" id="inputalertmsg-3"
@@ -261,6 +260,25 @@
 												</div>
 											</div>
 										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-2">
+											<label>Nombre</label>
+										</div>
+										<div class="col-md-9">
+											<div class="input-space">
+												<input type="text"
+													id="inputtext-4"
+													placeholder="Ej: Mi casa" />
+												<div class="alert alert-danger mt-1" id="inputalertmsg-4"
+													name="inputalertmsg">
+													<div>El nombre es requerido</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="text-center">
+										<button type="button" onclick="addaddress()" class="btn btn-info">Agregar</button>
 									</div>
 								</div>							
 							</div>	

@@ -481,7 +481,14 @@ function getRegions(){
 
 function mostrardireccion(){
 	
-	$('#hiddenaddress').show();
+	var input = $('input:checked').val();
+	
+	if (input == 'on'){	
+		$('#hiddenaddress').show();
+	} else {
+		$('#hiddenaddress').hide();
+	}
+	
 	
 }
 
@@ -490,9 +497,46 @@ function copyPasteShippingAddress(){
 	var input = $('input:checked').val();
 	var city = $('#selectcityoption-1 option:selected').html();
 	var region = $('#selectRegion-1 option:selected').html();
-	var calle = $('#inputtext-3').val();	
+	var calle = $('#inputtext-3').val();
+	
+	var direccionid = $('#selectaddress').val();
+	var ciudad = $('#selectcityoption-1').val();
+	
+	console.log(`city: ${city}, address id: ${direccionid}`);
+	console.log(ciudad);
+	
+	if (ciudad === null){
+		console.log("ciudad no definida");
+	} else {
+		console.log(`la ciudad es: ${ciudad}`);
+	}
+	
+	
+	if (ciudad === null && input == 'on'){
+		$.ajax({
+			type: 'GET',
+			url: `/api/address/${direccionid}`,
+			data: {
+				id: direccionid,
+			},
+			success: function(data){
+				
+				console.log(data.region);
+				
+				$('#selectRegion-2').empty();
+				$('#selectRegion-2').append('<option value="' + data.region + '"></option>');
+				
+				$('#selectcityoption-2').empty();
+				$('#selectcityoption-2').append('<option>' + data.ciudad + '</option>');
+				
+				$('#inputtext-4').val(data.calle);				
+			},
+			error: function(data){
+				console.log(data.status);
+			}
 		
-	if (input == 'on'){		
+		});
+	} else if (ciudad != null && input == 'on'){		
 		$('#selectRegion-2').empty();
 		$('#selectRegion-2').append('<option>' + region + '</option>');
 		
@@ -503,6 +547,40 @@ function copyPasteShippingAddress(){
 	} else {
 		getRegions();
 	}
+	
+	
+		
+	
+	
+}
+
+function addaddress(){
+	
+	var region = $('#selectRegion-1').val();
+	var ciudad = $('#selectcityoption-1').val();
+	var calle = $('#inputtext-3').val();
+	var nombre = $('#inputtext-4').val();	
+	
+	console.log(`region: ${region}, ciudad: ${ciudad}, calle: ${calle}, nombre: ${nombre}`);
+	
+	$.ajax({
+		type: 'POST',
+		url: `/api/add/address/${region}/${ciudad}/${calle}/${nombre}`,
+		data: {
+			region: region,
+			ciudad: ciudad,
+			calle: calle,
+			nombre: nombre
+		},
+		success: function(){
+			location.reload();	
+		},
+		error: function(data){
+			console.log(data.status);
+		}				
+			
+	})
+	
 	
 }
 
