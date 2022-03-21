@@ -1,10 +1,13 @@
-$(document).ready(function() {
+$(document).ready(function(e) {
+
+	
 
 	$('#messageerrorprenda').hide();
 	$('#messageerrortela').hide();
 	$('#typeropa').val('prenda');
 	$('#sizetelas').hide();
 	$('[name=inputalertmsg]').hide();
+	$('#hiddenaddress').hide();
 
 	var sizetelas = $('#sizetelas').val();
 	var sizeropa = $('#sizeropa').val();
@@ -97,6 +100,8 @@ $(document).ready(function() {
 			$('#wear').attr('disabled', true);
 			$('#wear').val('');
 		}
+		
+		e.preventDefault();
 	});
 
 	// Tootltips
@@ -181,15 +186,19 @@ function addproducttocart(id) {
 				console.log("Status code 500: server error");
 			}
 		},
-		error: function(data) {
-			if (data.status == 401){
-				location.href = "/login"
-			}
-			console.log(data);
-			//location.href = data.status			
+		error: function(XMLHttpRequest, textStatus, errorThrown){
+                            console.log(XMLHttpRequest);
+                            console.log(textStatus);
+                            console.log(errorThrown);
+		
+//		function(data) {
+//			if (data.status == 401){
+//				location.href = "/login"
+//			}
+					
 		},
 		success: function(data) {
-
+			
 			var totalAmount = 0;
 			var totalQuantity = 0;			
 
@@ -214,7 +223,7 @@ function addproducttocart(id) {
 
 function addcartproductitem(id) {
 
-	addproducttocart(id);
+	//addproducttocart(id);
 
 	$.ajax({
 		type: 'PUT',
@@ -247,6 +256,9 @@ function addcartproductitem(id) {
 			//location.href = data.status			
 		},
 		success: function(data) {
+			
+			console.log(data.status);
+			
 			if (data.quantity > 1) {
 				$('#removecartbutton' + data.product.id).prop('disabled', false);
 			}
@@ -268,6 +280,8 @@ function addcartproductitem(id) {
 }
 
 function removecartproductitem(id) {
+	
+	console.log(id);
 
 	$.ajax({
 		type: 'PUT',
@@ -276,6 +290,9 @@ function removecartproductitem(id) {
 			id: id
 		},
 		statusCode: {
+			0: function() {
+				console.log("failed to load resource");
+			},
 			200: function() {
 				console.log("Status code 200: succesful request")
 			},
@@ -299,7 +316,8 @@ function removecartproductitem(id) {
 			if (data.status == 401){
 				location.href = "/login"
 			}
-			location.href = data.status			
+			console.log(data);
+			//location.href = data.status			
 		},
 		success: function(data) {
 			var totalAmount = 0;
@@ -459,6 +477,12 @@ function getRegions(){
 			});
 		},
 	});
+}
+
+function mostrardireccion(){
+	
+	$('#hiddenaddress').show();
+	
 }
 
 function copyPasteShippingAddress(){

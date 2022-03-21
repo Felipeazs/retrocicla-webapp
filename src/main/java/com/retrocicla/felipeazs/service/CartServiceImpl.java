@@ -2,6 +2,7 @@ package com.retrocicla.felipeazs.service;
 
 import java.text.NumberFormat;
 import java.time.LocalDate;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Locale;
 
@@ -29,7 +30,16 @@ public class CartServiceImpl implements CartService{
 	@Override
 	public List<Cart> listByEmail(String email) {
 		
-		return repo.findByClienteEmail(email);
+		List<Cart> clientecart = repo.findAllByClienteEmail(email);
+		
+		for (Cart cart : clientecart) {
+			System.out.println(cart.getCliente().getEmail());
+		}
+		
+		List<Cart> clientecar = new ArrayList<>();
+		
+		
+		return clientecart;
 	}
 
 	@Override

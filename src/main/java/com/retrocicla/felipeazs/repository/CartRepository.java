@@ -14,5 +14,4 @@ public interface CartRepository extends JpaRepository<Cart, Integer> {
 
 	List<Cart> findAllByClienteEmail(String cliente);
 
-	List<Cart> findByClienteEmail(String email);
 }

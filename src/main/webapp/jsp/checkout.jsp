@@ -211,7 +211,58 @@
 										</div>
 									</div>
 									</c:otherwise>
-								</c:choose>								
+								</c:choose>	
+								<div class="row" id="hiddenaddress">
+									<div class="row" id="">
+										<div class="col-md-2">
+											<label>Región</label>
+										</div>
+										<div class="col-md-9">
+											<div class="input-space">
+												<form:select path="direccion.region" onchange="selectCity(${1})" id="selectRegion-1">
+													<c:forEach items="${ regiones }" var="r">
+														<option value="${ r.id }">${ r.name }</option>
+													</c:forEach>
+												</form:select>
+												<div class="alert alert-danger mt-1"
+													id="inputalertmsg-region" name="inputalertmsg">
+													<div>La Región es requerida</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-2">
+											<label>Ciudad</label>
+										</div>
+										<div class="col-md-9">
+											<div class="input-space">
+												<form:select path="direccion.ciudad" disabled="true" id="selectcityoption-1">
+												</form:select>
+												<div class="alert alert-danger mt-1" id="inputalertmsg-city"
+													name="inputalertmsg">
+													<div>La Ciudad es requerida</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="row">
+										<div class="col-md-2">
+											<label>Calle</label>
+										</div>
+										<div class="col-md-9">
+											<div class="input-space">
+												<form:input path="direccion.calle" type="text"
+													onkeyup="checkinputrequirements(${3})" id="inputtext-3"
+													placeholder="Ej: Vicuña Mackenna 2356" />
+												<div class="alert alert-danger mt-1" id="inputalertmsg-3"
+													name="inputalertmsg">
+													<div>La Calle es requerida</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>							
 							</div>	
 													
 							<!-- Billing Address -->

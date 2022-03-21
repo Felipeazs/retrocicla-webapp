@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ taglib uri="http://www.springframework.org/tags/form"
 prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib prefix = "fmt" uri = "http://java.sun.com/jsp/jstl/fmt" %>
+<%@ taglib uri = "http://java.sun.com/jsp/jstl/functions" prefix = "fn" %>
 
 <!DOCTYPE html>
 <html>
@@ -53,8 +55,9 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 						<ul class="list-unstyled navbar-list">
 							<li><a href="/ropaspage">Ropa</a></li>
 							<li><a href="/telaspage">Telas</a></li>
-							<li><a href="/addproductpage">Agregar producto</a></li>
-							<li><a href="/logout">Cerrar sesión</a></li>
+							<li>
+								<a href="/addproductpage">Agregar producto</a>
+							</li>
 						</ul>
 					</nav>
 				</div>
@@ -109,128 +112,27 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 										</li>
 									</ul>
 								</div>
-								<div class="cart-area d-n">								
-									<a href="/cartdetails">
-									    <div class="total">
-									    	<strong name="feedback-totalprice">${ totalamount }</strong>					    	
-									      	<span id="feedback-totalquantity">${ totalquantity }</span>
-									    </div>
-									    <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-									  </a>
-									</div>
+								
 							</div>
-						</nav>
-						
+						</nav>						
 					</div>
 				</header>
 				<!-- END HEADER DESKTOP-->
 
 				<!-- MAIN CONTENT-->
 				<div class="main-content">
-					<div class="section-content section-content-p30">
-						<div class="container-fluid">
-							<c:if test="${ not empty productssize }">
-								<div class="alert alert-success">
-									<c:choose>
-										<c:when test="${ productssize > 1}">
-											${ productssize } elementos fueron
-											encontrados
-										</c:when>
-										<c:when test="${ productssize eq 0}">
-											Ningún elemento fue encontrado
-										</c:when>
-										<c:otherwise>
-											${ productssize } elemento fue
-											encontrado
-										</c:otherwise>
-									</c:choose>
-								</div>
-							</c:if>
-							<c:if test="${ empty products }">
-								<div class="alert alert-danger">
-									No se encontró ningún producto con esas
-									características
-								</div>
-							</c:if>
-							<div class="row">
-								<c:forEach items="${ products }" var="p">
-									<div class="col-md-2">
-										<div class="product-box">
-											<form:form
- 												method="get"
- 												modelAttribute="product"
- 												action="/productdetails"
- 											>
- 												<form:input
- 													path="imageUrl"
- 													type="image"
- 													src="${ p.imageUrl }"
- 													class="img-responsive"
- 												/> 
- 												<form:input
- 													path="id"
- 													type="hidden"
- 													value="${ p.id }"
- 													id="productid"
- 													name="productid"
- 												/>
- 											</form:form>
-											<h1>${ p.description }</h1>
-											<c:if
-												test="${ p.wear ne 'indefinido' }"
-											>
-												<h2>Prenda: ${ p.wear }</h2>
-											</c:if>
-											<h2>Tamaño: ${ p.size }</h2>
-											<c:if
-												test="${ p.style ne 'indefinido' }"
-											>
-												<h2>Estilo: ${ p.style }</h2>
-											</c:if>
-											<c:if
-												test="${ p.genre ne 'indefinido' }"
-											>
-												<h2>Género: ${ p.genre }</h2>
-											</c:if>
-											<h2>Color: ${ p.color }</h2>
-											<c:if
-												test="${ p.season ne 'indefinido' }"
-											>
-												<h2>
-													Temporada: ${ p.season }
-												</h2>
-											</c:if>
-											<h2>Composición:</h2>
-											<c:if test="${ p.cotton > 0 }">
-												<h2 class="comp">
-													${ p.cotton }% algodón
-												</h2>
-											</c:if>
-											<c:if test="${ p.spandex > 0 }">
-												<h2 class="comp">
-													${ p.spandex }% spandex
-												</h2>
-											</c:if>
-											<h2>Hecho en ${ p.made }</h2>
-											<div class="price">
-												<h2>Precio:</h2>
-												${ p.formatted_price }
-											</div>											
-												<button
-													class="btn btn-primary btn-sm"
-													type="button"
-													onclick="addproducttocart(${ p.id })"
-													id="addproducttocartbutton"
-												>
-													Agregar al carrito
-												</button>
-										</div>
-									</div>
-								</c:forEach>
-							</div>
-						</div>
-					</div>
+					  <div class="section-content section-content-p30">
+					    <div class="conteiner-fluid">
+					        <h2>
+					        	200
+					        </h2>
+					        <h4>Página no encontrada</h4>
+							
+							<a href="/">Ir a inicio</a>   					 
+					    </div>
+					  </div>
 				</div>
+				
 
 				<!-- END MAIN CONTENT-->
 			</div>

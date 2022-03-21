@@ -137,8 +137,10 @@ public class ProductServiceImpl implements ProductService {
 		    product.setSeason("indefinido");
 			product.setWear("indefinido");
 			product.setSize(product.getSize().substring(sizeIndex + 1));
-		} else {
+		} else if (product.getType().equals("prenda") && sizeIndex > 0) {			
 			product.setSize(product.getSize().substring(0, sizeIndex));
+		} else {
+			product.setSize(product.getSize());
 		}
 						
 		String type = product.getType();

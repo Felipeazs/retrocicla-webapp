@@ -1,5 +1,6 @@
 package com.retrocicla.felipeazs.controller;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -44,20 +45,24 @@ public class ApiRestController {
 	private ClienteService clienteService;
 		
 	@PostMapping(path = "/product/{productid}")
-	public List<Cart> addProductToCart(@PathVariable String productid, Model model, Authentication auth) {				
+	public List<Cart> addProductToCart(@PathVariable String productid, Model model, Authentication auth) {	
+		
+		System.out.println("entró al api");
 		
 		int id = Integer.parseInt(productid); 
 		Product pro = productService.getProductById(id); 
 		Cliente cliente = clienteService.getCliente(auth.getName());
 		 
 		cartService.addProduct(pro, cliente);
-		List<Cart> carrito = cartService.listByEmail(auth.getName());		
-				
+		List<Cart> carrito = cartService.listByEmail(auth.getName());
+					
 		return carrito;		
 	}
 	
 	@PutMapping(path = "/product/add/{productid}")
 	public Cart addCartProduct(@PathVariable String productid, Model model, Authentication auth) {
+		
+		System.out.println("entró al api");
 			
 		int id = Integer.parseInt(productid);				
 		cartService.updateProduct(id, auth.getName());		
@@ -72,7 +77,8 @@ public class ApiRestController {
 		int id = Integer.parseInt(productid);
 		cartService.removeProduct(id, auth.getName());
 			
-		List<Cart> carrito = cartService.list();		
+		List<Cart> carrito = cartService.list();
+		System.out.println(carrito.isEmpty());
 				
 		return carrito;		
 	}	
@@ -84,6 +90,13 @@ public class ApiRestController {
 		int id = Integer.parseInt(productid);		
 		cartService.deleteProduct(id, auth.getName());		
 		
+	}
+	
+	@GetMapping(path = "/products")
+	public List<Product> getProducts() {		
+		
+		List<Product> products = productService.list();
+		return products;	
 	}
 	
 	@GetMapping(path = "/regiones/{regionid}")
