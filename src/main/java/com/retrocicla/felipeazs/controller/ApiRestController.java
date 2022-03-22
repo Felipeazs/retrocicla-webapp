@@ -52,9 +52,7 @@ public class ApiRestController {
 		
 	@PostMapping(path = "/product/{productid}")
 	public List<Cart> addProductToCart(@PathVariable String productid,Authentication auth) {	
-		
-		System.out.println("entró al api");
-		
+				
 		int id = Integer.parseInt(productid); 
 		Product pro = productService.getProductById(id); 
 		Cliente cliente = clienteService.getCliente(auth.getName());
@@ -84,7 +82,6 @@ public class ApiRestController {
 		cartService.removeProduct(id, auth.getName());
 			
 		List<Cart> carrito = cartService.list();
-		System.out.println(carrito.isEmpty());
 				
 		return carrito;		
 	}	
@@ -142,7 +139,6 @@ public class ApiRestController {
 	public Direccion getAddress(@PathVariable String direccionid) {
 		
 		Direccion direccion = direccionService.getAddress(direccionid);
-		System.out.println(direccion.getCiudad());
 		
 		return direccion;
 		

@@ -1,7 +1,5 @@
 $(document).ready(function(e) {
 
-	
-
 	$('#messageerrorprenda').hide();
 	$('#messageerrortela').hide();
 	$('#typeropa').val('prenda');
@@ -172,6 +170,7 @@ function addproducttocart(id) {
 			},
 			401: function(){
 				console.log("Status code 401: Usuario no autenticado");
+				window.location.href = "/login";
 			},
 			403: function(){
 				console.log("Status code 403: usuario no autorizado");
@@ -223,7 +222,7 @@ function addproducttocart(id) {
 
 function addcartproductitem(id) {
 
-	//addproducttocart(id);
+	addproducttocart(id);
 
 	$.ajax({
 		type: 'PUT',
@@ -256,9 +255,7 @@ function addcartproductitem(id) {
 			//location.href = data.status			
 		},
 		success: function(data) {
-			
-			console.log(data.status);
-			
+						
 			if (data.quantity > 1) {
 				$('#removecartbutton' + data.product.id).prop('disabled', false);
 			}

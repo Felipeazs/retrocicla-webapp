@@ -98,7 +98,7 @@ public class WebController {
 		
 		clienteService.add(cliente);
 		
-		return "index";
+		return "login";
 	}
 
 	@GetMapping("/addproductpage")
@@ -193,7 +193,6 @@ public class WebController {
 		amountAndQuantity(model, auth);
 		
 		Cliente cliente = clienteService.getCliente(auth.getName());
-		System.out.println("direcciones: " + cliente.getDireccion().size());
 		
 		model.addAttribute("cliente", cliente);
 		model.addAttribute("regiones", regionService.list());
@@ -211,12 +210,12 @@ public class WebController {
 			return "error-404";
 		}
 		
-		List<Cart> items = cartService.list();
-		String clienteEmail = auth.getName();		
+		String email = auth.getName();	
+		List<Cart> items = cartService.listByClienteEmail(email);
 		
-		orderService.save(order, items, clienteEmail);
+		orderService.save(order, items, email);
 		
-		List<Order> nueva_orden = orderService.listByClienteEmail(clienteEmail);
+		List<Order> nueva_orden = orderService.listByClienteEmailAndObservaciones(email, "abierta");
 		
 		ArrayList<Integer> prods = new ArrayList<>();
 		for (Order nn : nueva_orden) {

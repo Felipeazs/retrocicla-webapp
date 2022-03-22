@@ -82,13 +82,15 @@
 											donar?</a></li>
 								</ul>
 							</div>
-							<div class="cart-area d-n">								
+							<div class="cart-area d-n">	
+							<a href="/cartdetails">							
 								<div class="total">
-									<a href="/cartdetails">
+									
 										<strong name="feedback-totalprice">${ totalamount }</strong> <span
 											id="feedback-totalquantity">${ totalquantity }</span>
-									</a>
-								</div> <i class="fa fa-shopping-cart" aria-hidden="true"></i>								
+									
+								</div> <i class="fa fa-shopping-cart" aria-hidden="true"></i>	
+							</a>							
 							</div>
 						</div>
 					</nav>

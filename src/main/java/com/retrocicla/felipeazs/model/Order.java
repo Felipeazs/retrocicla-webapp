@@ -47,8 +47,12 @@ public class Order implements Serializable{
 	@JoinColumn(name = "cliente_id", nullable = false)
 	private Cliente cliente;
 	
+	@Column(name= "total")
+	private int total;
 	
-
+	@Column(name = "observaciones")
+	private String observaciones;
+	
 	public int getId() {
 		return id;
 	}
@@ -99,9 +103,21 @@ public class Order implements Serializable{
 		this.facturacion = facturacion;
 	}
 
-	
-	
-	
+	public int getTotal() {
+		return total;
+	}
+
+	public void setTotal(int total) {
+		this.total = total;
+	}
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
+	}	
 	
 	
 

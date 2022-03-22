@@ -19,7 +19,7 @@ import com.retrocicla.felipeazs.repository.CartRepository;
 public class CartServiceImpl implements CartService{
 	
 	@Autowired
-	private CartRepository repo;
+	private CartRepository repo; 
 
 	@Override
 	public List<Cart> list() {		
@@ -132,6 +132,13 @@ public class CartServiceImpl implements CartService{
 	public Cart getProductByIdAndEmail(int id, String email) {
 		
 		return repo.findByProductIdAndClienteEmail(id, email);
+	}
+
+
+	@Override
+	public List<Cart> listByClienteEmail(String email) {
+		
+		return repo.findAllByClienteEmail(email);
 	}
 
 }

@@ -16,6 +16,7 @@ public interface CartService {
 	List<Cart> getProductsByClienteId(String cliente);
 	List<Cart> listByEmail(String name);
 	Cart getProductByIdAndEmail(int id, String email);
+	List<Cart> listByClienteEmail(String email);
 
 	
 }

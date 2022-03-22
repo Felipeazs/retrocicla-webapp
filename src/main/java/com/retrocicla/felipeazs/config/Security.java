@@ -41,7 +41,7 @@ public class Security extends WebSecurityConfigurerAdapter {
 				"/registrarcliente",							
 				"/404", "/405", "/500").permitAll()		
 		.antMatchers(	
-				"/cartdetails",
+				"/cartdetails", 
 				"/checkout",
 				"/api/**")
 		.hasAnyAuthority("cliente", "admin")	
@@ -53,6 +53,7 @@ public class Security extends WebSecurityConfigurerAdapter {
         .httpBasic() // permite REST API
 		.and()
 		.formLogin().loginPage("/login").permitAll()
+		.defaultSuccessUrl("/", true)
 		.and()
 		.logout()
 		.logoutRequestMatcher(new AntPathRequestMatcher("/logout"))

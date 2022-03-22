@@ -13,5 +13,7 @@ public interface OrderService {
 
 	List<Order> listByClienteEmail(String clienteEmail);
 
+	List<Order> listByClienteEmailAndObservaciones(String email, String obs);
+
 	
 }

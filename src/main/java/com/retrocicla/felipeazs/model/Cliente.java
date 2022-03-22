@@ -44,7 +44,7 @@ public class Cliente implements Serializable {
 	private String telefono;
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Direccion> direccion = new ArrayList<Direccion>();
+	private List<Direccion> direccion = new ArrayList<Direccion>(); 
 	
 	@OneToMany(mappedBy = "cliente", cascade = CascadeType.ALL, orphanRemoval = true)
 	private List<Facturacion> facturacion = new ArrayList<Facturacion>(); 
