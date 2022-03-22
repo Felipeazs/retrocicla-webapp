@@ -236,6 +236,7 @@ public class WebController {
 		
 		int totalAmount = 0;
 		int totalQuantity = 0;
+		int envio = 6990;
 		
 		try {
 			List<Cart> cartitems = cartService.listByEmail(auth.getName());	
@@ -248,9 +249,13 @@ public class WebController {
 			Locale clp = new Locale("es", "CL");
 			NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
 			String totalprice = nf.format(totalAmount);	
+			String despacho = nf.format(envio);
+			String total_envio = nf.format(totalAmount + envio);	
 				
 			model.addAttribute("totalquantity", totalQuantity);
-			model.addAttribute("totalamount", totalprice);	
+			model.addAttribute("totalamount", totalprice);
+			model.addAttribute("envio", despacho);
+			model.addAttribute("total", total_envio);
 			
 		} catch (NullPointerException ex) {
 			model.addAttribute("totalquantity", 0);

@@ -82,7 +82,7 @@
 											donar?</a></li>
 								</ul>
 							</div>
-							<div class="cart-area d-n">	
+							<%-- <div class="cart-area d-n">	
 							<a href="/cartdetails">							
 								<div class="total">
 									
@@ -91,7 +91,7 @@
 									
 								</div> <i class="fa fa-shopping-cart" aria-hidden="true"></i>	
 							</a>							
-							</div>
+							</div> --%>
 						</div>
 					</nav>
 				</div>
@@ -370,7 +370,9 @@
 							<div class="form-area">
 								<h3>Revisa tu orden</h3>
 								<p>Cantidad de productos: ${ totalquantity }</p>
-								<p>Precio total: ${ totalamount }</p>
+								<p>Total: ${ totalamount }</p>
+								<p>Envío: ${ envio }</p>
+								<p>Total + envío: ${ total }</p>
 							</div>
 							<!-- Submit -->
 							<div class="text-center">
