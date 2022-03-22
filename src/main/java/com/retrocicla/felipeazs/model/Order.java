@@ -30,7 +30,7 @@ public class Order implements Serializable{
 	
 	@Column(name = "product", nullable = false)
     @ElementCollection
-	private List<Integer> product = new ArrayList<Integer>();
+	private List<Integer> product = new ArrayList<Integer>(); 
 	
 	@ManyToOne
 	@JoinColumn(name = "direccion_id", nullable = false)

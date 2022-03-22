@@ -117,11 +117,11 @@ public class ApiRestController {
 	public List<Region> getCiudades() {
 		
 		List<Region> regiones = regionService.list();
-		return regiones;	
+		return regiones;	 
 	}
 	
 	@PostMapping(path = "/add/address/{region}/{ciudad}/{calle}/{nombre}")
-	public void addAddress(@PathVariable("region") String region, String ciudad, String calle, String nombre, Authentication auth) {
+	public void addAddress(@PathVariable String region, String ciudad, String calle, String nombre, Authentication auth) {
 		
 		Cliente cliente = clienteService.getCliente(auth.getName());
 		Region regionid = regionService.getRegion(region);
@@ -134,8 +134,8 @@ public class ApiRestController {
 		direccion.setNombre(nombre);
 		direccion.setCliente(cliente);
 		
-		direccionService.addAddress(direccion);
-		
+		direccionService.addAddress(direccion);		
+			
 	}
 	
 	@GetMapping(path = "/address/{direccionid}")

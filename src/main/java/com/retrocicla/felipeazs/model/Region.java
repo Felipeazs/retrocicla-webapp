@@ -11,7 +11,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "region")
-public class Region implements Serializable{
+public class Region implements Serializable{ 
 
 	/**
 	 * 

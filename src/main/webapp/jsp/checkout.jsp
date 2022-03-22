@@ -132,6 +132,9 @@
 									<div class="col-md-9">
 										<div class="input-space">
 											<div>${ cliente.telefono }</div>
+											<c:if test="${ empty cliente.telefono }">
+											<a href="#">agregar teléfono</a>
+											</c:if>
 										</div>
 									</div>
 								</div>
@@ -148,7 +151,7 @@
 										<div class="col-md-9">
 											<div class="input-space">
 												<form:select path="direccion" id="selectaddress">																						
-														<form:options items="${ cliente.direccion }" itemValue="id" itemLabel="calle"/>										
+													<form:options items="${ cliente.direccion }" itemValue="id" itemLabel="nombre" id="selectedadd"/>										
 												</form:select>																			
 											</div>
 										</div>
@@ -209,6 +212,25 @@
 											</div>
 										</div>
 									</div>
+									<div class="row">
+										<div class="col-md-2">
+											<label>Nombre</label>
+										</div>
+										<div class="col-md-9">
+											<div class="input-space">
+												<input type="text"
+													id="inputtext-4"
+													placeholder="Ej: Mi casa" />
+												<div class="alert alert-danger mt-1" id="inputalertmsg-4"
+													name="inputalertmsg">
+													<div>El nombre es requerido</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<div class="text-center">
+										<button type="button" onclick="addaddress(1)" class="btn btn-info">Agregar</button>
+									</div>
 									</c:otherwise>
 								</c:choose>	
 								<div class="row" id="hiddenaddress">
@@ -268,7 +290,7 @@
 										<div class="col-md-9">
 											<div class="input-space">
 												<input type="text"
-													id="inputtext-4"
+													id="inputtext-5"
 													placeholder="Ej: Mi casa" />
 												<div class="alert alert-danger mt-1" id="inputalertmsg-4"
 													name="inputalertmsg">
@@ -278,14 +300,14 @@
 										</div>
 									</div>
 									<div class="text-center">
-										<button type="button" onclick="addaddress()" class="btn btn-info">Agregar</button>
+										<button type="button" onclick="addaddress(2)" class="btn btn-info">Agregar</button>
 									</div>
 								</div>							
 							</div>	
 													
 							<!-- Billing Address -->
-							<div id="billingAddress" class="form-area">
-							<!-- check box shipping/billing address-->
+							<%-- <div id="billingAddress" class="form-area">
+							check box shipping/billing address
 							<div class="input-space">
 								<label class="au-checkbox"> <input type="checkbox"
 									onchange="copyPasteShippingAddress()" id="selectShipping" /> <span
@@ -331,15 +353,15 @@
 									<div class="col-md-9">
 										<div class="input-space">
 											<form:input path="facturacion.calle" type="text" onkeyup="checkinputrequirements(${4})"
-												id="inputtext-4" placeholder="Ej: Vicuña Mackenna 2356" />
+ 												id="inputtext-6" placeholder="Ej: Vicuña Mackenna 2356" />
 											<div class="alert alert-danger mt-1" id="inputalertmsg-4"
-												name="inputalertmsg">
-												<div>La Calle es requerida</div>
-											</div>
-										</div>
-									</div>
-								</div>
-							</div>
+ 												name="inputalertmsg">
+ 												<div>La Calle es requerida</div> 
+ 											</div>
+ 										</div>
+ 									</div>
+ 								</div>
+ 							</div> --%>
 							<!-- Credit Card Info -->
 
 							<!-- Order details -->

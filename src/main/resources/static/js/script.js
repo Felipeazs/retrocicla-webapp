@@ -497,20 +497,10 @@ function copyPasteShippingAddress(){
 	var input = $('input:checked').val();
 	var city = $('#selectcityoption-1 option:selected').html();
 	var region = $('#selectRegion-1 option:selected').html();
-	var calle = $('#inputtext-3').val();
-	
+	var calle = $('#inputtext-3').val();	
 	var direccionid = $('#selectaddress').val();
 	var ciudad = $('#selectcityoption-1').val();
-	
-	console.log(`city: ${city}, address id: ${direccionid}`);
-	console.log(ciudad);
-	
-	if (ciudad === null){
-		console.log("ciudad no definida");
-	} else {
-		console.log(`la ciudad es: ${ciudad}`);
-	}
-	
+		
 	
 	if (ciudad === null && input == 'on'){
 		$.ajax({
@@ -520,16 +510,14 @@ function copyPasteShippingAddress(){
 				id: direccionid,
 			},
 			success: function(data){
-				
-				console.log(data.region);
-				
+								
 				$('#selectRegion-2').empty();
 				$('#selectRegion-2').append('<option value="' + data.region + '"></option>');
 				
 				$('#selectcityoption-2').empty();
 				$('#selectcityoption-2').append('<option>' + data.ciudad + '</option>');
-				
-				$('#inputtext-4').val(data.calle);				
+								
+				$('#inputtext-6').val(data.calle);			
 			},
 			error: function(data){
 				console.log(data.status);
@@ -542,24 +530,28 @@ function copyPasteShippingAddress(){
 		
 		$('#selectcityoption-2').empty();
 		$('#selectcityoption-2').append('<option>' + city + '</option>');
-		
-		$('#inputtext-4').val($('#inputtext-3').val());			
+				
+		$('#inputtext-6').val(calle);	
+	
 	} else {
 		getRegions();
 	}
 	
-	
-		
-	
-	
 }
 
-function addaddress(){
+function addaddress(id){
 	
-	var region = $('#selectRegion-1').val();
-	var ciudad = $('#selectcityoption-1').val();
-	var calle = $('#inputtext-3').val();
-	var nombre = $('#inputtext-4').val();	
+	var region, ciudad, calle, nombre;
+	
+	region = $('#selectRegion-1').val();
+	ciudad = $('#selectcityoption-1').val();
+	calle = $('#inputtext-3').val();
+	
+	if (id == 1){		
+		nombre = $('#inputtext-4').val();
+	} else {		
+		nombre = $('#inputtext-5').val();
+	}	
 	
 	console.log(`region: ${region}, ciudad: ${ciudad}, calle: ${calle}, nombre: ${nombre}`);
 	
@@ -573,7 +565,9 @@ function addaddress(){
 			nombre: nombre
 		},
 		success: function(){
-			location.reload();	
+			
+			location.reload();
+			
 		},
 		error: function(data){
 			console.log(data.status);

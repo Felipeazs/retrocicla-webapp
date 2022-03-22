@@ -34,10 +34,14 @@ public class Direccion implements Serializable{
 	@Column(name = "calle")
 	private String calle;
 	
-	@Column(name = "region")
+	@JsonIgnore
+	@ManyToOne()
+	@JoinColumn(name = "region_id", referencedColumnName = "id")
 	private Region region;
 	
-	@Column(name = "ciudad")
+	@JsonIgnore
+	@ManyToOne()
+	@JoinColumn(name = "ciudad_id", referencedColumnName = "id")
 	private Ciudad ciudad;
 	
 	@Column(name = "nombre")

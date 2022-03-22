@@ -1,7 +1,6 @@
 package com.retrocicla.felipeazs.service;
 
 import java.util.List;
-import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,7 +17,7 @@ public class DireccionServiceImpl implements DireccionService {
 	@Override
 	public List<Direccion> list() {
 		
-		return repo.findAll();
+		return repo.findAll(); 
 	}
 
 	@Override
@@ -33,6 +32,12 @@ public class DireccionServiceImpl implements DireccionService {
 		
 		int id = Integer.parseInt(direccionid);
 		return repo.findById(id).get();
+	}
+
+	@Override
+	public List<Direccion> listAddress(String email) {
+		
+		return repo.findAllByClienteEmail(email);
 	}
 
 }

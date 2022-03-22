@@ -46,7 +46,7 @@ public class Cart implements Serializable{
 	@JsonIgnore
 	@ManyToOne
 	@JoinColumn(name = "cliente_id")
-	private Cliente cliente;
+	private Cliente cliente; 
 	
 	public int getId() {
 		return id;
