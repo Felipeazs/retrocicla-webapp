@@ -8,7 +8,7 @@ import java.util.Locale;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -80,10 +80,10 @@ public class WebController {
 	}
 
 	@GetMapping("/")
-	public String getIndex(Product product, Model model, Authentication auth) {
+	public String getIndex(Product product, Model model) {
 
 		modelMultipleSelection(model);		
-		amountAndQuantity(model, auth);
+//		amountAndQuantity(model, auth);
 
 		return "index";
 	}
@@ -108,8 +108,8 @@ public class WebController {
 	}
 
 	@GetMapping("/addproductdb")
-	public String getAddProductdv(@Valid @ModelAttribute("product") Product product, BindingResult br, Model model,
-			Authentication auth) {
+	public String getAddProductdv(@Valid @ModelAttribute("product") Product product, BindingResult br, Model model
+			) {
 
 		if (br.hasErrors()) {
 			System.out.println(br.toString());
@@ -119,27 +119,29 @@ public class WebController {
 		Product add_product = productService.add(product);
 		model.addAttribute("addProduct", add_product);
 
-		amountAndQuantity(model, auth);
-
-		return getIndex(product, model, auth);
+//		amountAndQuantity(model, auth);
+//
+//		return getIndex(product, model, auth);
+		
+		return "index";
 	}
 
 	@GetMapping("/ropaspage")
-	public String getRopasPage(Model model, Authentication auth) {
+	public String getRopasPage(Model model) {
 
 		model.addAttribute("products", productService.searchBy("prenda"));
 
-		amountAndQuantity(model, auth);
+//		amountAndQuantity(model, auth);
 
 		return "productslist";
 	}
 
 	@GetMapping("/telaspage")
-	public String getTelasPage(Model model, Authentication auth) {
+	public String getTelasPage(Model model) {
 
 		model.addAttribute("products", productService.searchBy("tela"));
 
-		amountAndQuantity(model, auth);
+//		amountAndQuantity(model, auth);
 
 		return "productslist";
 	}
@@ -175,60 +177,60 @@ public class WebController {
 	}
 
 	@GetMapping("/cartdetails")
-	public String getProductDetails(Model model, Authentication auth) {
+	public String getProductDetails(Model model) {
 		
-		String cliente = auth.getName();
-		List<Cart> products = cartService.getProductsByClienteId(cliente);
+//		String cliente = auth.getName();
+//		List<Cart> products = cartService.getProductsByClienteId(cliente);
 
-		model.addAttribute("cartitems", products);
+//		model.addAttribute("cartitems", products);
 
-		amountAndQuantity(model, auth);
+//		amountAndQuantity(model, auth);
 
 		return "cartdetails"; 
 	}
 
 	@GetMapping("/checkout")
-	public String getCheckout(Model model, Authentication auth) {
+	public String getCheckout(Model model) {
 		
-		amountAndQuantity(model, auth);
-		
-		Cliente cliente = clienteService.getCliente(auth.getName());
-		
-		model.addAttribute("cliente", cliente);
-		model.addAttribute("regiones", regionService.list());
-		model.addAttribute("ciudades", ciudadService.list());
+//		amountAndQuantity(model, auth);
+//		
+//		Cliente cliente = clienteService.getCliente(auth.getName());
+//		
+//		model.addAttribute("cliente", cliente);
+//		model.addAttribute("regiones", regionService.list());
+//		model.addAttribute("ciudades", ciudadService.list());
 		
 		return "checkout";
 	}
 
 	@PostMapping("/addOrder")
 	public String getAddOrder(@Valid @ModelAttribute("order") Order order, BindingResult br,
-			Model model, Authentication auth) {
+			Model model) {
 
 		if (br.hasErrors()) {
 			System.out.println(br.toString());
 			return "error-404";
 		}
 		
-		String email = auth.getName();	
-		List<Cart> items = cartService.listByClienteEmail(email);
-		
-		orderService.save(order, items, email);
-		
-		Order nueva_orden = orderService.listByClienteEmailAndObservaciones(email, "abierta");
-		
-		ArrayList<Integer> prods = new ArrayList<>();
-				
-		for (Integer prod : nueva_orden.getProduct()) {
-			prods.add(prod);
-		}		
-						
-		model.addAttribute("order", nueva_orden);
-		
-		Locale clp = new Locale("es", "CL");
-		NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
-		String totalprice = nf.format(nueva_orden.getTotal());	
-		model.addAttribute("total", totalprice);
+//		String email = auth.getName();	
+//		List<Cart> items = cartService.listByClienteEmail(email);
+//		
+//		orderService.save(order, items, email);
+//		
+//		Order nueva_orden = orderService.listByClienteEmailAndObservaciones(email, "abierta");
+//		
+//		ArrayList<Integer> prods = new ArrayList<>();
+//				
+//		for (Integer prod : nueva_orden.getProduct()) {
+//			prods.add(prod);
+//		}		
+//						
+//		model.addAttribute("order", nueva_orden);
+//		
+//		Locale clp = new Locale("es", "CL");
+//		NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
+//		String totalprice = nf.format(nueva_orden.getTotal());	
+//		model.addAttribute("total", totalprice);
 		
 
 		return "detallecompra";
@@ -236,36 +238,36 @@ public class WebController {
 
 	// FUNCIONES Y MÉTODOS
 	
-	private void amountAndQuantity(Model model, Authentication auth) {
-		
-		int totalAmount = 0;
-		int totalQuantity = 0;
-		int envio = 6990;
-		
-		try {
-			List<Cart> cartitems = cartService.listByEmail(auth.getName());	
-			
-			for (Cart cartitem : cartitems) {
-				totalQuantity = totalQuantity + cartitem.getQuantity();
-				totalAmount = totalAmount + (cartitem.getPrice() * cartitem.getQuantity());
-			}			
-				
-			Locale clp = new Locale("es", "CL");
-			NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
-			String totalprice = nf.format(totalAmount);	
-			String despacho = nf.format(envio);
-			String total_envio = nf.format(totalAmount + envio);	
-				
-			model.addAttribute("totalquantity", totalQuantity);
-			model.addAttribute("totalamount", totalprice);
-			model.addAttribute("envio", despacho);
-			model.addAttribute("total", total_envio);
-			
-		} catch (NullPointerException ex) {
-			model.addAttribute("totalquantity", 0);
-			model.addAttribute("totalamount", 0);
-		}
-	}
+//	private void amountAndQuantity(Model model, Authentication auth) {
+//		
+//		int totalAmount = 0;
+//		int totalQuantity = 0;
+//		int envio = 6990;
+//		
+//		try {
+//			List<Cart> cartitems = cartService.listByEmail(auth.getName());	
+//			
+//			for (Cart cartitem : cartitems) {
+//				totalQuantity = totalQuantity + cartitem.getQuantity();
+//				totalAmount = totalAmount + (cartitem.getPrice() * cartitem.getQuantity());
+//			}			
+//				
+//			Locale clp = new Locale("es", "CL");
+//			NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
+//			String totalprice = nf.format(totalAmount);	
+//			String despacho = nf.format(envio);
+//			String total_envio = nf.format(totalAmount + envio);	
+//				
+//			model.addAttribute("totalquantity", totalQuantity);
+//			model.addAttribute("totalamount", totalprice);
+//			model.addAttribute("envio", despacho);
+//			model.addAttribute("total", total_envio);
+//			
+//		} catch (NullPointerException ex) {
+//			model.addAttribute("totalquantity", 0);
+//			model.addAttribute("totalamount", 0);
+//		}
+//	}
 
 	private void modelMultipleSelection(Model model) {
 		model.addAttribute("types", productService.getDistinctByType());

@@ -5,7 +5,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.Authentication;
+//import org.springframework.security.core.Authentication;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -51,47 +51,49 @@ public class ApiRestController {
 	private DireccionService direccionService;
 		
 	@PostMapping(path = "/product/{productid}")
-	public List<Cart> addProductToCart(@PathVariable String productid,Authentication auth) {	
+	public List<Cart> addProductToCart(@PathVariable String productid) {	
 				
-		int id = Integer.parseInt(productid); 
-		Product pro = productService.getProductById(id); 
-		Cliente cliente = clienteService.getCliente(auth.getName());
-		 
-		cartService.addProduct(pro, cliente);
-		List<Cart> carrito = cartService.listByEmail(auth.getName());
+//		int id = Integer.parseInt(productid); 
+//		Product pro = productService.getProductById(id); 
+//		Cliente cliente = clienteService.getCliente(auth.getName());
+//		 
+//		cartService.addProduct(pro, cliente);
+//		List<Cart> carrito = cartService.listByEmail(auth.getName());
+		
+		
 					
-		return carrito;		
+		return new ArrayList<Cart>();		
 	}
 	
 	@PutMapping(path = "/product/add/{productid}")
-	public Cart addCartProduct(@PathVariable String productid, Authentication auth) {
+	public Cart addCartProduct(@PathVariable String productid) {
 		
 		System.out.println("entró al api");
 			
-		int id = Integer.parseInt(productid);				
-		cartService.updateProduct(id, auth.getName());		
-		Cart product = cartService.getProductByIdAndEmail(id, auth.getName());
+//		int id = Integer.parseInt(productid);				
+//		cartService.updateProduct(id, auth.getName());		
+//		Cart product = cartService.getProductByIdAndEmail(id, auth.getName());
 				
-		return product;
+		return new Cart();
 	}
 	
 	@PutMapping(path = "/product/remove/{productid}")
-	public List<Cart> removeCartProductItem(@PathVariable String productid, Authentication auth) {
+	public List<Cart> removeCartProductItem(@PathVariable String productid) {
 		
-		int id = Integer.parseInt(productid);
-		cartService.removeProduct(id, auth.getName());
-			
-		List<Cart> carrito = cartService.list();
+//		int id = Integer.parseInt(productid);
+//		cartService.removeProduct(id, auth.getName());
+//			
+//		List<Cart> carrito = cartService.list();
 				
-		return carrito;		
+		return new ArrayList<Cart>();		
 	}	
 		
 	@DeleteMapping(path = "/product/{productid}")
-	public void deleteCartProduct(@PathVariable String productid, Authentication auth) {
+	public void deleteCartProduct(@PathVariable String productid) {
 			
-		System.out.println(productid);
-		int id = Integer.parseInt(productid);		
-		cartService.deleteProduct(id, auth.getName());		
+//		System.out.println(productid);
+//		int id = Integer.parseInt(productid);		
+//		cartService.deleteProduct(id, auth.getName());		
 		
 	}
 	
@@ -118,20 +120,21 @@ public class ApiRestController {
 	}
 	
 	@PostMapping(path = "/add/address/{region}/{ciudad}/{calle}/{nombre}")
-	public void addAddress(@PathVariable String region, String ciudad, String calle, String nombre, Authentication auth) {
+	public void addAddress(@PathVariable String region, String ciudad, String calle, 
+			String nombre) {
 		
-		Cliente cliente = clienteService.getCliente(auth.getName());
-		Region regionid = regionService.getRegion(region);
-		Ciudad ciudadid = ciudadService.getCiudad(ciudad);
-		
-		Direccion direccion = new Direccion();
-		direccion.setRegion(regionid);
-		direccion.setCiudad(ciudadid);
-		direccion.setCalle(calle);
-		direccion.setNombre(nombre);
-		direccion.setCliente(cliente);
-		
-		direccionService.addAddress(direccion);		
+//		Cliente cliente = clienteService.getCliente(auth.getName());
+//		Region regionid = regionService.getRegion(region);
+//		Ciudad ciudadid = ciudadService.getCiudad(ciudad);
+//		
+//		Direccion direccion = new Direccion();
+//		direccion.setRegion(regionid);
+//		direccion.setCiudad(ciudadid);
+//		direccion.setCalle(calle);
+//		direccion.setNombre(nombre);
+//		direccion.setCliente(cliente);
+//		
+//		direccionService.addAddress(direccion);		
 			
 	}
 	

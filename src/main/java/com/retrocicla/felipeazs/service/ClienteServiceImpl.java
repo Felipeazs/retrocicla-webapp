@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import com.retrocicla.felipeazs.config.Security;
+//import com.retrocicla.felipeazs.config.Security;
 import com.retrocicla.felipeazs.model.Cliente;
 import com.retrocicla.felipeazs.repository.ClienteRepository;
 
@@ -17,8 +17,8 @@ public class ClienteServiceImpl implements ClienteService{
     @Autowired
     private ClienteRepository repo;
     
-    @Autowired
-    private Security security;
+//    @Autowired
+//    private Security security;
 
     @Override
     public List<Cliente> list() {
@@ -33,7 +33,7 @@ public class ClienteServiceImpl implements ClienteService{
 		if (cli == null){
 			cliente.setCreatedAt(LocalDate.now());
 			cliente.setRol("cliente");
-			cliente.setEncpass(security.passwordEncoder().encode(cliente.getPassword()));	
+//			cliente.setEncpass(security.passwordEncoder().encode(cliente.getPassword()));	
 					
 			repo.save(cliente);
 		} else {
