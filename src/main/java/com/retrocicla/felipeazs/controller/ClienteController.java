@@ -12,6 +12,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.retrocicla.felipeazs.exceptions.ClienteServiceException;
 import com.retrocicla.felipeazs.model.dto.ClienteDto;
 import com.retrocicla.felipeazs.service.ClienteService;
 import com.retrocicla.felipeazs.ui.model.request.ClienteRequestModel;
@@ -46,7 +47,11 @@ public class ClienteController {
 			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public ClienteRest createCliente(@RequestBody ClienteRequestModel clienteDetails) throws Exception {
 		
-		if (clienteDetails.getNombre().isEmpty()) throw new Exception(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
+		if (clienteDetails.getNombre().isEmpty() ||
+			clienteDetails.getApellido().isEmpty() ||
+			clienteDetails.getEmail().isEmpty() || 
+			clienteDetails.getPassword().isEmpty()) 
+		throw new ClienteServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
 		
 		//Crear un nuevo objeto de respuesta al request.
 		ClienteRest returnValue = new ClienteRest();
@@ -67,10 +72,22 @@ public class ClienteController {
 		
 	}
 	
-	@PutMapping
-	public String updateCliente() {
+	@PutMapping(path = "{/id}",
+			consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE },
+			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+	public ClienteRest updateCliente(@RequestBody ClienteRequestModel clienteDetails, @PathVariable String clienteid) {
+				
+			ClienteRest returnValue = new ClienteRest();
+			
+			ClienteDto clienteDto = new ClienteDto();
+			
+			BeanUtils.copyProperties(clienteDetails, clienteDto); 
 		
-		return "Update cliente was called";
+			ClienteDto updatedCliente = clienteService.actualizarCliente(clienteid, clienteDto);
+			
+			BeanUtils.copyProperties(updatedCliente, returnValue);
+			
+			return returnValue;
 	}
 	
 	@DeleteMapping

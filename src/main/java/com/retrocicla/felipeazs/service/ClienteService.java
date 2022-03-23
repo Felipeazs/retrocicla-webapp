@@ -10,4 +10,6 @@ public interface ClienteService {
 
 	public ClienteDto obtenerClienteById(String id);
 
+	public ClienteDto actualizarCliente(String clienteid, ClienteDto cliente);
+
 }

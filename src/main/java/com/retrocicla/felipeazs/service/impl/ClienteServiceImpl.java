@@ -6,11 +6,13 @@ import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.retrocicla.felipeazs.exceptions.ClienteServiceException;
 import com.retrocicla.felipeazs.io.entity.ClienteEntity;
 import com.retrocicla.felipeazs.io.repository.ClienteRepository;
 import com.retrocicla.felipeazs.model.dto.ClienteDto;
 import com.retrocicla.felipeazs.service.ClienteService;
 import com.retrocicla.felipeazs.shared.Utils;
+import com.retrocicla.felipeazs.ui.model.response.ErrorMessages;
 
 @Service
 public class ClienteServiceImpl implements ClienteService{
@@ -79,6 +81,19 @@ public class ClienteServiceImpl implements ClienteService{
 		BeanUtils.copyProperties(dbCliente, returnValue);
 		
 		return returnValue;
+	}
+
+	@Override
+	public ClienteDto actualizarCliente(String clienteid, ClienteDto cliente) {
+		
+		
+		
+		ClienteEntity dbCliente = clienteRepo.findByClienteId(clienteid);
+		
+		if (dbCliente == null) throw new ClienteServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+		
+		
+		return null;
 	}
 
 	
