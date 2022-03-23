@@ -1,4 +1,4 @@
-package com.retrocicla.felipeazs.repository;
+package com.retrocicla.felipeazs.io.repository;
 
 import java.util.List;
 

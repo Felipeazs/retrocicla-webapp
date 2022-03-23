@@ -21,7 +21,7 @@ public class Utils {
 		StringBuilder rv = new StringBuilder(length);
 		
 		for (int i = 0; i < length; i++) {
-			rv.append(NUMBER.charAt(RANDOM.nextInt(NUMBER.length())));
+			rv.append(ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length())));
 			
 		}
 		return new String(rv);

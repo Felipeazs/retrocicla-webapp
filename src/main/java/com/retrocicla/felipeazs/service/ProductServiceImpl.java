@@ -8,8 +8,8 @@ import java.util.Locale;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.retrocicla.felipeazs.io.repository.ProductRepository;
 import com.retrocicla.felipeazs.model.Product;
-import com.retrocicla.felipeazs.repository.ProductRepository;
 
 @Service
 public class ProductServiceImpl implements ProductService {

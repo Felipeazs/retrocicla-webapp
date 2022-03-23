@@ -1,15 +1,13 @@
 package com.retrocicla.felipeazs.service;
 
-import java.util.List;
-
-import com.retrocicla.felipeazs.model.Cliente;
+import com.retrocicla.felipeazs.model.dto.ClienteDto;
 
 public interface ClienteService {
 	
-	public List<Cliente> list();
+	public ClienteDto crearCliente(ClienteDto cliente);
 	
-	void add(Cliente cliente);
+	public ClienteDto obtenerClienteByEmail(String email);
 
-	public Cliente getCliente(String name);
+	public ClienteDto obtenerClienteById(String id);
 
 }

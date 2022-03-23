@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.retrocicla.felipeazs.io.repository.CiudadRepository;
 import com.retrocicla.felipeazs.model.Ciudad;
-import com.retrocicla.felipeazs.repository.CiudadRepository;
 
 @Service
 public class CiudadServiceImpl implements CiudadService{

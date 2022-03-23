@@ -5,8 +5,8 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.retrocicla.felipeazs.io.repository.RegionRepository;
 import com.retrocicla.felipeazs.model.Region;
-import com.retrocicla.felipeazs.repository.RegionRepository;
 
 @Service
 public class RegionServiceImpl implements RegionService {
