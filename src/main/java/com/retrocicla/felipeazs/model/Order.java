@@ -53,6 +53,9 @@ public class Order implements Serializable{
 	@Column(name = "observaciones")
 	private String observaciones;
 	
+	@Column(name = "numero_orden")
+	private String tracking_number;
+	
 	public int getId() {
 		return id;
 	}
@@ -117,6 +120,14 @@ public class Order implements Serializable{
 
 	public void setObservaciones(String observaciones) {
 		this.observaciones = observaciones;
+	}
+
+	public String getTracking_number() {
+		return tracking_number;
+	}
+
+	public void setTracking_number(String tracking_number) {
+		this.tracking_number = tracking_number;
 	}	
 	
 	

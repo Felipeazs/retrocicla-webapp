@@ -568,10 +568,12 @@ function addaddress(id){
 		},
 		error: function(data){
 			console.log(data.status);
-		}				
+		}	
 			
-	})
-	
+	})	
+}
+
+function btncomprar(){
 	
 }
 

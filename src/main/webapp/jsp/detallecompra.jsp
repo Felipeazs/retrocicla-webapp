@@ -127,11 +127,8 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 						<div class="section-content section-content-p30">
 							<div class="detail-section">
 								<div class="container-fluid">
-								<c:set var="size" value="${ fn:length(order) }"></c:set>
-									<c:out value="${ size }"></c:out>
-										<c:forEach items="${ products }" var="p">
-											${ p.type }	
-										</c:forEach>
+									<p>Total: ${ total }</p>
+									<p>Número de orden: ${ order.tracking_number }</p>
 								</div>
 							</div>
 						</div>

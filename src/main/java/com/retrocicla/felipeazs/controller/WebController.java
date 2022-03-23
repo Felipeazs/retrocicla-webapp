@@ -215,17 +215,21 @@ public class WebController {
 		
 		orderService.save(order, items, email);
 		
-		List<Order> nueva_orden = orderService.listByClienteEmailAndObservaciones(email, "abierta");
+		Order nueva_orden = orderService.listByClienteEmailAndObservaciones(email, "abierta");
 		
 		ArrayList<Integer> prods = new ArrayList<>();
-		for (Order nn : nueva_orden) {
-			for (Integer prod : nn.getProduct()) {
-				prods.add(prod);
-			}
-		}
+				
+		for (Integer prod : nueva_orden.getProduct()) {
+			prods.add(prod);
+		}		
 						
 		model.addAttribute("order", nueva_orden);
-		model.addAttribute("products", productService.listById(prods));
+		
+		Locale clp = new Locale("es", "CL");
+		NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
+		String totalprice = nf.format(nueva_orden.getTotal());	
+		model.addAttribute("total", totalprice);
+		
 
 		return "detallecompra";
 	}

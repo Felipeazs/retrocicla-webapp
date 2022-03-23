@@ -8,17 +8,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.retrocicla.felipeazs.model.Cart;
-import com.retrocicla.felipeazs.model.Ciudad;
 import com.retrocicla.felipeazs.model.Cliente;
 import com.retrocicla.felipeazs.model.Direccion;
-import com.retrocicla.felipeazs.model.Facturacion;
 import com.retrocicla.felipeazs.model.Order;
-import com.retrocicla.felipeazs.model.Region;
 import com.retrocicla.felipeazs.repository.CartRepository;
 import com.retrocicla.felipeazs.repository.ClienteRepository;
 import com.retrocicla.felipeazs.repository.DireccionRepository;
-import com.retrocicla.felipeazs.repository.FacturacionRepository;
 import com.retrocicla.felipeazs.repository.OrderRepository;
+import com.retrocicla.felipeazs.shared.Utils;
 
 @Service
 public class OrderServiceImpl implements OrderService {
@@ -34,17 +31,12 @@ public class OrderServiceImpl implements OrderService {
 	
 	@Autowired
 	private CartRepository repo_cr;
+	
+	@Autowired
+	private Utils utils;
 
 	@Override
 	public void save(Order order, List<Cart> items, String cliente) {
-
-		Order nueva_orden = new Order();
-
-		Cliente findClienteEmail = repo_cl.findByEmail(cliente);
-		nueva_orden.setCliente(findClienteEmail); 
-		
-		Direccion d = repo_d.findByCalleAndClienteId(order.getDireccion().getCalle(), findClienteEmail.getId());
-		nueva_orden.setDireccion(d);				
 
 		ArrayList<Integer> productos = new ArrayList<>();
 
@@ -54,21 +46,34 @@ public class OrderServiceImpl implements OrderService {
 			total = total + (item.getPrice() * item.getQuantity());
 		}
 		
-		System.out.println(total);
+		if (total > 0 ) {
+			
+			Order nueva_orden = new Order();
 
-		nueva_orden.setProduct(productos);
+			Cliente findClienteEmail = repo_cl.findByEmail(cliente);
+			nueva_orden.setCliente(findClienteEmail); 
+			
+			Direccion d = repo_d.findByCalleAndClienteId(order.getDireccion().getCalle(), findClienteEmail.getId());
+			nueva_orden.setDireccion(d);		
+			
+			nueva_orden.setTotal(total);
 
-		nueva_orden.setCretedAt(LocalDate.now());
+			nueva_orden.setProduct(productos);
+
+			nueva_orden.setCretedAt(LocalDate.now());		
+			
+			nueva_orden.setObservaciones("abierta");
+			
+			nueva_orden.setTracking_number(utils.generarRandomId(18));
+			
+			repo.save(nueva_orden);
+			
+			repo_cr.deleteAllByClienteId(findClienteEmail.getId());
+			
+			updateLastOrder(findClienteEmail.getId());
+			
+		} 
 		
-		nueva_orden.setTotal(total);
-		
-		nueva_orden.setObservaciones("abierta");
-		
-		repo.save(nueva_orden);
-		
-		repo_cr.deleteAllByClienteId(findClienteEmail.getId());
-		
-		updateLastOrder(findClienteEmail.getId());
 		
 	}
 
@@ -101,9 +106,9 @@ public class OrderServiceImpl implements OrderService {
 	}
 
 	@Override
-	public List<Order> listByClienteEmailAndObservaciones(String email, String obs) {
+	public Order listByClienteEmailAndObservaciones(String email, String obs) {
 		
-		return repo.findAllByClienteEmailAndObservaciones(email, obs);
+		return repo.findByClienteEmailAndObservaciones(email, obs);
 	}
 
 }
