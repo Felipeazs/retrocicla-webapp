@@ -7,6 +7,8 @@ import com.retrocicla.felipeazs.model.dto.DireccionDto;
 public interface DireccionService {
 
 	List<DireccionDto> obtenerDireccionesCliente(String clienteid);
+
+	DireccionDto obtenerDireccionCliente(String direccionid);
 	
 	
 }

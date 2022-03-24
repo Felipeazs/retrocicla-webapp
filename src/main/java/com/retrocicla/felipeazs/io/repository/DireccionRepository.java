@@ -10,4 +10,6 @@ public interface DireccionRepository extends JpaRepository<DireccionEntity, Long
 
 	List<DireccionEntity> findAllByClienteDetailsClienteId(String clienteid);
 
+	DireccionEntity findByDireccionId(String direccionid);
+
 }

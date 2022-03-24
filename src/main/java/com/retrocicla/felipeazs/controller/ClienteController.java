@@ -156,5 +156,20 @@ public class ClienteController {
 						
 		return returnValue;
 	}
+	
+	@GetMapping(
+			path="/{clienteid}/direcciones/{direccionid}",
+			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+	public DireccionRest getDireccionCliente(
+			@PathVariable String direccionid){
+		
+		DireccionRest returnValue = new DireccionRest();
+		
+		DireccionDto direccion = direccionService.obtenerDireccionCliente(direccionid);
+		
+		BeanUtils.copyProperties(direccion, returnValue);
+						
+		return returnValue;
+	}
 
 }
