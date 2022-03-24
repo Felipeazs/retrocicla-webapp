@@ -1,6 +1,8 @@
 package com.retrocicla.felipeazs.ui.model.response;
 
-public class DireccionRest {
+import org.springframework.hateoas.RepresentationModel;
+
+public class DireccionRest extends RepresentationModel<DireccionRest>{
 
 	private String direccionId;
 	private String calle;

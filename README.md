@@ -8,4 +8,5 @@ Dependencias:
   - https://mvnrepository.com/artifact/org.hibernate/hibernate-validator
   - https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
   - https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
+  - https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-hateoas
   - modelmapper (modelmapper.org)

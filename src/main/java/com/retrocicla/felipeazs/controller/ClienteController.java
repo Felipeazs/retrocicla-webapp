@@ -1,11 +1,16 @@
 package com.retrocicla.felipeazs.controller;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.hateoas.CollectionModel;
+import org.springframework.hateoas.EntityModel;
+import org.springframework.hateoas.Link;
+import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -141,7 +146,7 @@ public class ClienteController {
 	@GetMapping(
 			path="/{clienteid}/direcciones",
 			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public List<DireccionRest> getDireccionesCliente(
+	public CollectionModel<DireccionRest> getDireccionesCliente(
 			@PathVariable String clienteid){
 		
 		List<DireccionRest> returnValue = new ArrayList<>();
@@ -151,16 +156,33 @@ public class ClienteController {
 		ModelMapper modelMapper = new ModelMapper();
 		
 		for (DireccionDto direccion : direcciones) {
-			returnValue.add(modelMapper.map(direccion, DireccionRest.class));
+			returnValue.add(modelMapper.map(direccion, DireccionRest.class));			
 		}
+		
+		for (DireccionRest direccion : returnValue) {
+			Link selfLink = WebMvcLinkBuilder
+					.linkTo(WebMvcLinkBuilder.methodOn(ClienteController.class).getDireccionCliente(clienteid, direccion.getDireccionId()))			
+					.withSelfRel();	
+			direccion.add(selfLink);
+		}
+		
+		//HATEOAS
+		Link clienteLink = WebMvcLinkBuilder.linkTo(ClienteController.class)
+				.slash(clienteid)
+				.withRel("cliente");
+		
+		Link selfLink = WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder.methodOn(ClienteController.class).getDireccionesCliente(clienteid))			
+				.withSelfRel();
 						
-		return returnValue;
+		return CollectionModel.of(returnValue, clienteLink, selfLink);
 	}
 	
 	@GetMapping(
 			path="/{clienteid}/direcciones/{direccionid}",
 			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	public DireccionRest getDireccionCliente(
+	public EntityModel<DireccionRest> getDireccionCliente(
+			@PathVariable String clienteid,
 			@PathVariable String direccionid){
 		
 		DireccionRest returnValue = new DireccionRest();
@@ -168,8 +190,26 @@ public class ClienteController {
 		DireccionDto direccion = direccionService.obtenerDireccionCliente(direccionid);
 		
 		BeanUtils.copyProperties(direccion, returnValue);
-						
-		return returnValue;
+		
+		//HATEOAS
+		Link clienteLink = WebMvcLinkBuilder.linkTo(ClienteController.class)
+				.slash(clienteid)
+				.withRel("cliente");
+		
+		Link direccionesLink = WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder.methodOn(ClienteController.class).getDireccionesCliente(clienteid))				
+				.withRel("direcciones");
+		
+		Link selfLink = WebMvcLinkBuilder
+				.linkTo(WebMvcLinkBuilder.methodOn(ClienteController.class).getDireccionCliente(clienteid, direccionid))			
+				.withSelfRel();
+		
+		
+//		returnValue.add(clienteLink);
+//		returnValue.add(direccionesLink);
+//		returnValue.add(selfLink);
+		
+		return EntityModel.of(returnValue, Arrays.asList(clienteLink, direccionesLink, selfLink));
 	}
 
 }
