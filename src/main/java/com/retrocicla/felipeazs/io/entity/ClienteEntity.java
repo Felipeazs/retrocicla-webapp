@@ -1,12 +1,15 @@
 package com.retrocicla.felipeazs.io.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity(name = "clientes")
 public class ClienteEntity implements Serializable {
@@ -36,6 +39,9 @@ public class ClienteEntity implements Serializable {
 	
 	@Column(nullable = false)
 	private Boolean emailVerificationStatus = false;
+	
+	@OneToMany(mappedBy = "clienteDetails", cascade = CascadeType.ALL)
+	private List<DireccionEntity> direcciones; 
 
 	public long getId() {
 		return id;
@@ -100,7 +106,13 @@ public class ClienteEntity implements Serializable {
 	public void setEmailVerificationStatus(Boolean emailVerificationStatus) {
 		this.emailVerificationStatus = emailVerificationStatus;
 	}
-	
-	
+
+	public List<DireccionEntity> getDirecciones() {
+		return direcciones;
+	}
+
+	public void setDirecciones(List<DireccionEntity> direcciones) {
+		this.direcciones = direcciones;
+	}
 
 }

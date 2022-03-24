@@ -1,5 +1,7 @@
 package com.retrocicla.felipeazs.service;
 
+import java.util.List;
+
 import com.retrocicla.felipeazs.model.dto.ClienteDto;
 
 public interface ClienteService {
@@ -11,5 +13,9 @@ public interface ClienteService {
 	public ClienteDto obtenerClienteById(String id);
 
 	public ClienteDto actualizarCliente(String clienteid, ClienteDto cliente);
+	
+	void eliminarCliente(String clienteid);
+
+	public List<ClienteDto> obtenerClientes(int page, int limit);
 
 }

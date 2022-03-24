@@ -1,12 +1,14 @@
 package com.retrocicla.felipeazs.ui.model.response;
 
+import java.util.List;
+
 public class ClienteRest {
 	
 	private String clienteId;
 	private String nombre;
 	private String apellido;
 	private String email;
-	
+	private List<DireccionRest> direcciones;
 	
 	public String getClienteId() {
 		return clienteId;
@@ -32,5 +34,12 @@ public class ClienteRest {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	public List<DireccionRest> getDirecciones() {
+		return direcciones;
+	}
+	public void setDirecciones(List<DireccionRest> direcciones) {
+		this.direcciones = direcciones;
+	}
+	
 
 }

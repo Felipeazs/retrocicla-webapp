@@ -1,11 +1,14 @@
 package com.retrocicla.felipeazs.ui.model.request;
 
+import java.util.List;
+
 public class ClienteRequestModel {
 	
 	private String nombre;
 	private String apellido;
 	private String email;
 	private String password;
+	private List<DireccionRequestModel> direcciones;
 	
 	public String getNombre() {
 		return nombre;
@@ -30,6 +33,12 @@ public class ClienteRequestModel {
 	}
 	public void setPassword(String password) {
 		this.password = password;
+	}
+	public List<DireccionRequestModel> getDirecciones() {
+		return direcciones;
+	}
+	public void setDirecciones(List<DireccionRequestModel> direcciones) {
+		this.direcciones = direcciones;
 	}
 	
 	

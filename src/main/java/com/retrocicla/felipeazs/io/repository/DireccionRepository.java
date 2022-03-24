@@ -1,19 +1,13 @@
 package com.retrocicla.felipeazs.io.repository;
-//package com.retrocicla.felipeazs.repository;
-//
-//import java.util.List;
-//
-//import org.springframework.data.jpa.repository.JpaRepository;
-//
-//import com.retrocicla.felipeazs.model.Cliente;
-//import com.retrocicla.felipeazs.model.Direccion;
-//
-//public interface DireccionRepository extends JpaRepository<Direccion, Integer> {
-//
-//	Direccion findByCalle(String calle);
-//
-//	List<Direccion> findAllByClienteEmail(String email);
-//
-//	Direccion findByCalleAndClienteId(String calle, int id);
-//
-//}
+
+import java.util.List;
+
+import org.springframework.data.jpa.repository.JpaRepository;
+
+import com.retrocicla.felipeazs.io.entity.DireccionEntity;
+
+public interface DireccionRepository extends JpaRepository<DireccionEntity, Long> {
+
+	List<DireccionEntity> findAllByClienteDetailsClienteId(String clienteid);
+
+}
