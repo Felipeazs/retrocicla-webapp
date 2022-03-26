@@ -126,17 +126,12 @@ $(document).ready(function() {
 });
 
 function verifyToken(tokenValue){
-	$.get('/clientes/email-verification', 
-		{token: tokenValue})
-			.done(function (response) {	
-				
-				console.log(response);
-									
-				if (response.operationResult === 'SUCCESS'){					
-					$('#successful-result').attr('style', 'display: block');						
-				} else {
-					$('#unsuccessful-result').attr('style', 'display: block');
-				}		
+	$.get('/clientes/email-verification', {token: tokenValue}).done(function (response) {	
+			if (response.operationResult === 'SUCCESS'){					
+				$('#successful-result').attr('style', 'display: block');						
+			} else {
+				$('#unsuccessful-result').attr('style', 'display: block');
+			}		
 	});
 }
 

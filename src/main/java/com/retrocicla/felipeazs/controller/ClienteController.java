@@ -220,8 +220,6 @@ public class ClienteController {
 		
 		boolean isVerified = clienteService.verifyEmailToken(token);
 		
-		System.out.println(isVerified);
-		
 		if (isVerified) {
 			returnValue.setOperationResult(OperationStatusResponse.SUCCESS.name());
 		} else {

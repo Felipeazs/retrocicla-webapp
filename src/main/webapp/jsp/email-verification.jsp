@@ -95,10 +95,8 @@
 					<div class="section-content section-content-p30">
 						<div class="detail-section">
 							<div class="container-fluid">
-							<div id="successful-result" style="display: none">Successful
-								verification</div>
-							<div id="unsuccessful-result" style="display: none">Verification
-								link has expired</div>						
+							<div id="successful-result" style="display: none">Su email  ha sido verificado exitosamente</div>
+							<div id="unsuccessful-result" style="display: none">El link de verificación ha expirado</div>						
 							</div>
 						</div>
 					</div>

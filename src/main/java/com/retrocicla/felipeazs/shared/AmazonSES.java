@@ -46,11 +46,11 @@ public class AmazonSES {
 			
 			AmazonSimpleEmailService cliente = AmazonSimpleEmailServiceClientBuilder.standard().withCredentials(provider).withRegion(Regions.SA_EAST_1).build();
 						
+			//Reemplaza el dummy token con el token del cliente
 			String htmlBodyWithToken = HTMLBODY.replace("$tokenValue", clienteDto.getEmailVerificationToken());
 			String textBodyWithToken = TEXTBODY.replace("$tokenValue", clienteDto.getEmailVerificationToken());
 			
-			
-			
+			//Construye el email y lo envía
 			SendEmailRequest request = new SendEmailRequest()
 					.withDestination(new Destination().withToAddresses(clienteDto.getEmail()))
 					.withMessage(new Message().withBody(new Body().withHtml(new Content().withCharset("UTF-8").withData(htmlBodyWithToken))
@@ -60,10 +60,8 @@ public class AmazonSES {
 			
 			cliente.sendEmail(request);
 			
-			System.out.println("Email enviado!!, pulento");
-			
 		} catch (Exception ex) {
-			System.out.println("the email was not sent. Error message: " + ex.getMessage());
+			System.out.println("El mail no se pudo enviar. Error message: " + ex.getMessage());
 		}
 		
 		

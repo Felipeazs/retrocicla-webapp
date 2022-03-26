@@ -64,11 +64,16 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 		
 		ClienteService clienteService = (ClienteService) SpringApplicationContext.getBean("clienteServiceImpl");
 		ClienteDto cliente = clienteService.obtenerClienteByEmail(username);
-					
+		
 		response.getWriter().append("LOGIN SUCCESSFUL, welcome " + cliente.getNombre());
 		response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
-		response.addHeader("UserId", cliente.getClienteId());		
-		
+		response.addHeader("UserId", cliente.getClienteId());				
 	}
 
+	@Override
+	protected void unsuccessfulAuthentication(HttpServletRequest request, HttpServletResponse response,
+			AuthenticationException failed) throws IOException, ServletException {
+		
+		response.getWriter().append("UNSUCCESSFUL LOGIN: el cliente no se encuentra registrado ");	
+	}
 }
