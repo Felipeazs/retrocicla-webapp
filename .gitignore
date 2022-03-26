@@ -4,6 +4,7 @@ target/
 !**/src/main/**/target/
 !**/src/test/**/target/
 AwsCredentials.properties
+.DS_STORE
 
 ### STS ###
 .apt_generated
