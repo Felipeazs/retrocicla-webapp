@@ -1,6 +1,6 @@
-$(document).ready(function(e) {
+$(document).ready(function() {
 
-	$('#messageerrorprenda').hide();
+	/*$('#messageerrorprenda').hide();
 	$('#messageerrortela').hide();
 	$('#typeropa').val('prenda');
 	$('#sizetelas').hide();
@@ -97,13 +97,17 @@ $(document).ready(function(e) {
 			$('#season').val('');
 			$('#wear').attr('disabled', true);
 			$('#wear').val('');
+		}*/
+		
+		// Email-verification
+		var urlParams = new URLSearchParams(location.search);
+		if (urlParams.has('token')){
+			verifyToken(urlParams.get('token'));
 		}
 		
-		e.preventDefault();
-	});
 
 	// Tootltips
-	var tooltipTriggerList = [].slice.call(
+	/*var tooltipTriggerList = [].slice.call(
 		document.querySelectorAll('[data-bs-toggle="tooltip"]')
 	);
 	var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
@@ -118,8 +122,23 @@ $(document).ready(function(e) {
 			selectCity(1);
 			selectCity(2);
 		}
-	}
+	}*/
 });
+
+function verifyToken(tokenValue){
+	$.get('/clientes/email-verification', 
+		{token: tokenValue})
+			.done(function (response) {	
+				
+				console.log(response);
+									
+				if (response.operationResult === 'SUCCESS'){					
+					$('#successful-result').attr('style', 'display: block');						
+				} else {
+					$('#unsuccessful-result').attr('style', 'display: block');
+				}		
+	});
+}
 
 function btnregistrar(){
 	if ($('#pass').val() != $('#pass2').val()){

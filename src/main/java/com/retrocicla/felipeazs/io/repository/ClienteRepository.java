@@ -10,4 +10,6 @@ public interface ClienteRepository extends JpaRepository<ClienteEntity, Long> {
 
 	ClienteEntity findByClienteId(String clienteid);
 
+	ClienteEntity findByEmailVerificationToken(String token);
+
 }

@@ -18,4 +18,6 @@ public interface ClienteService {
 
 	public List<ClienteDto> obtenerClientes(int page, int limit);
 
+	public boolean verifyEmailToken(String token);
+
 }

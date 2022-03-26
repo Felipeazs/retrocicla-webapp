@@ -22,16 +22,16 @@ public class DireccionEntity implements Serializable {
 	@Column(length = 30, nullable = false)
 	private String direccionId;
 	
-	@Column(length = 15, nullable = false)
+	@Column(length = 35, nullable = false)
 	private String calle;
 	
-	@Column(length = 15, nullable = false)
+	@Column(length = 35, nullable = false)
 	private String ciudad;
 	
-	@Column(length = 20, nullable = false)
+	@Column(length = 35, nullable = false)
 	private String region;
 	
-	@Column(length = 15, nullable = false)
+	@Column(length = 25, nullable = false)
 	private String tipo;
 	
 	@ManyToOne

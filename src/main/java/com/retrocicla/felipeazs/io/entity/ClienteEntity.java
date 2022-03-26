@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.OneToMany;
 
 @Entity(name = "clientes")
@@ -35,6 +36,7 @@ public class ClienteEntity implements Serializable {
 	@Column(nullable = false)
 	private String ecryptedPassword;
 	
+	@Lob
 	private String emailVerificationToken;
 	
 	@Column(nullable = false)

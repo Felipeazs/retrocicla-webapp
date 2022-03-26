@@ -9,4 +9,5 @@ Dependencias:
   - https://mvnrepository.com/artifact/io.jsonwebtoken/jjwt
   - https://mvnrepository.com/artifact/com.fasterxml.jackson.dataformat/jackson-dataformat-xml
   - https://mvnrepository.com/artifact/org.springframework.boot/spring-boot-starter-hateoas
+  - https://mvnrepository.com/artifact/com.amazonaws/aws-java-sdk-ses
   - modelmapper (modelmapper.org)

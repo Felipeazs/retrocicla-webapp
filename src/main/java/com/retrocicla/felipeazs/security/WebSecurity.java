@@ -26,12 +26,25 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	protected void configure(HttpSecurity http) throws Exception {   
         http 	
         .csrf().disable()
-		.authorizeRequests()
-		.antMatchers(
-				HttpMethod.POST, SecurityConstants.SIGN_UP_URL)
+		.authorizeRequests()		
+		.antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL)
 		.permitAll()
+		.antMatchers(HttpMethod.GET, SecurityConstants.VERIFICATION_EMAIL_URL)
+		.permitAll()
+		.antMatchers("/css/*", "/js/**", "/img/**").permitAll()
+		.antMatchers("/email-verification", "/").permitAll()
 		.anyRequest()
 		.authenticated()
+		.and()
+        .formLogin()
+        .loginPage("/login")
+        .usernameParameter("username")
+        .passwordParameter("password")
+        .successHandler(successLoginHandler())
+        .permitAll()
+        .and()
+        .logout()
+        .permitAll()
 		.and().addFilter(getAuthenticationFilter())
 		.addFilter(new AuthorizationFilter(authenticationManager()))
 		.sessionManagement()
@@ -51,12 +64,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		
 		return filter;
 	}
-
-//	@Override
-//    public void configure(WebSecurity web) throws Exception {
-//        web.ignoring().antMatchers("/css/*", "/js/**", "/img/**");
-//    }
-    
-
-
+	
+	private SuccessLoginHandler successLoginHandler() {
+        return new SuccessLoginHandler();
+    }
 }

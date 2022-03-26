@@ -25,14 +25,14 @@ import com.retrocicla.felipeazs.ui.model.request.ClienteLoginRequestModel;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter{
-	
+public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
+		 
 	private final AuthenticationManager authenticationManager;
-
+	
 	public AuthenticationFilter(AuthenticationManager authenticationManager) {
 		this.authenticationManager = authenticationManager;
 	}
-
+	
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException {
@@ -64,15 +64,11 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter{
 		
 		ClienteService clienteService = (ClienteService) SpringApplicationContext.getBean("clienteServiceImpl");
 		ClienteDto cliente = clienteService.obtenerClienteByEmail(username);
-		
+					
+		response.getWriter().append("LOGIN SUCCESSFUL, welcome " + cliente.getNombre());
 		response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
-		response.addHeader("UserId", cliente.getClienteId());
+		response.addHeader("UserId", cliente.getClienteId());		
+		
 	}
-	
-	
-	
-	
-	
-	
 
 }

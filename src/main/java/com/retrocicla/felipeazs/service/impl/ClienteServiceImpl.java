@@ -44,7 +44,7 @@ public class ClienteServiceImpl implements ClienteService{
 		int i = 0;
 		for (DireccionDto direccion : clienteDto.getDirecciones()) {			
 			direccion.setClienteDetails(clienteDto);
-			direccion.setDireccionId(utils.generarRandomId(30));
+			direccion.setDireccionId(utils.generateRandomId(30));
 			clienteDto.getDirecciones().set(i, direccion);
 			i++;
 		}
@@ -54,17 +54,22 @@ public class ClienteServiceImpl implements ClienteService{
 		ClienteEntity clienteEntity = modelMapper.map(clienteDto, ClienteEntity.class);
 		
 		//Generacion de un id random para el cliente
-		clienteEntity.setClienteId(utils.generarRandomId(30));		
+		String publicClienteId = utils.generateRandomId(30);
+		clienteEntity.setClienteId(publicClienteId);		
 				
 		//Encriptacion del password
 		clienteEntity.setEcryptedPassword(bCryptPasswordEncoder.encode(clienteDto.getPassword()));
+		
+		//Generacion del email verification Token
+		clienteEntity.setEmailVerificationToken(utils.generateEmailVerificationToken(publicClienteId));
+		clienteEntity.setEmailVerificationStatus(false);
 		
 		//Almacenar el cliente en la base de datos
 		ClienteEntity saveCliente = clienteRepo.save(clienteEntity);
 			
 		//Guardar las  propiedades del cliente en DB al ClienteDto para retornarlo como JSON
 		ClienteDto returnValue = modelMapper.map(saveCliente, ClienteDto.class);
-		
+				
 		return returnValue;
 		
 		
@@ -141,10 +146,31 @@ public class ClienteServiceImpl implements ClienteService{
 	
 		List<ClienteEntity> clientes = pageClientes.getContent();
 				
+		ModelMapper modelMapper = new ModelMapper();
+		
 		for (ClienteEntity cliente : clientes) {
-			ClienteDto dto = new ClienteDto();
-			BeanUtils.copyProperties(cliente, dto);
-			returnValue.add(dto);			
+			returnValue.add(modelMapper.map(cliente, ClienteDto.class));			
+		}
+		
+		return returnValue;
+	}
+
+	@Override
+	public boolean verifyEmailToken(String token) {
+		
+		boolean returnValue = false;
+		
+		//Find user by token
+		ClienteEntity clienteEntity = clienteRepo.findByEmailVerificationToken(token);
+		
+		if (clienteEntity != null) {
+			boolean hasTokenExpired = Utils.hasTokenExpired(token);
+			if (!hasTokenExpired) {
+				clienteEntity.setEmailVerificationToken(null);
+				clienteEntity.setEmailVerificationStatus(Boolean.TRUE);
+				clienteRepo.save(clienteEntity);
+				returnValue = true;
+			}
 		}
 		
 		return returnValue;

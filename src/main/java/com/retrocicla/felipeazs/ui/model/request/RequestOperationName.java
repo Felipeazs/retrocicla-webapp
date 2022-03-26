@@ -2,6 +2,8 @@ package com.retrocicla.felipeazs.ui.model.request;
 
 public enum RequestOperationName {
 	
-	DELETE
+	LOGIN,
+	DELETE,
+	VERIFY_EMAIL
 
 }

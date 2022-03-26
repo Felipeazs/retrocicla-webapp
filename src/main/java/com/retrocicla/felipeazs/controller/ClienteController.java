@@ -23,11 +23,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.retrocicla.felipeazs.exceptions.ClienteServiceException;
-import com.retrocicla.felipeazs.io.entity.DireccionEntity;
 import com.retrocicla.felipeazs.model.dto.ClienteDto;
 import com.retrocicla.felipeazs.model.dto.DireccionDto;
 import com.retrocicla.felipeazs.service.ClienteService;
 import com.retrocicla.felipeazs.service.DireccionService;
+import com.retrocicla.felipeazs.shared.AmazonSES;
 import com.retrocicla.felipeazs.ui.model.request.ClienteRequestModel;
 import com.retrocicla.felipeazs.ui.model.request.RequestOperationName;
 import com.retrocicla.felipeazs.ui.model.response.ClienteRest;
@@ -83,6 +83,9 @@ public class ClienteController {
 		//Crea un nuevo cliente y lo almacena en la DB a travéz del Service, utilizando la informacion del DTO.
 		ClienteDto createdCliente = clienteService.crearCliente(clienteDto);
 		
+		//Enviar email de verificacion del registro de cuenta
+		new AmazonSES().verifyEmail(createdCliente);
+		
 		//Copia el nuevo cliente creado y almacenado en la base de datos en el objeto de retorno.
 		returnValue = modelMapper.map(createdCliente, ClienteRest.class);
 		
@@ -134,10 +137,10 @@ public class ClienteController {
 		
 		List<ClienteDto> clientes = clienteService.obtenerClientes(page, limit);
 		
+		ModelMapper modelMapper = new ModelMapper();
+		
 		for (ClienteDto cliente : clientes) {
-			ClienteRest clModel = new ClienteRest();
-			BeanUtils.copyProperties(cliente, clModel);
-			returnValue.add(clModel);			
+			returnValue.add(modelMapper.map(cliente, ClienteRest.class));			
 		}		
 		
 		return returnValue;
@@ -203,13 +206,36 @@ public class ClienteController {
 		Link selfLink = WebMvcLinkBuilder
 				.linkTo(WebMvcLinkBuilder.methodOn(ClienteController.class).getDireccionCliente(clienteid, direccionid))			
 				.withSelfRel();
-		
-		
-//		returnValue.add(clienteLink);
-//		returnValue.add(direccionesLink);
-//		returnValue.add(selfLink);
-		
+				
 		return EntityModel.of(returnValue, Arrays.asList(clienteLink, direccionesLink, selfLink));
+	}
+	
+	@GetMapping(
+			path="/email-verification",
+			produces = { MediaType.APPLICATION_JSON_VALUE })
+	public OperationStatusModel verifyEmailToken(@RequestParam(value = "token") String token) {
+		
+		OperationStatusModel returnValue = new OperationStatusModel();
+		returnValue.setOperationName(RequestOperationName.VERIFY_EMAIL.name());
+		
+		boolean isVerified = clienteService.verifyEmailToken(token);
+		
+		System.out.println(isVerified);
+		
+		if (isVerified) {
+			returnValue.setOperationResult(OperationStatusResponse.SUCCESS.name());
+		} else {
+			returnValue.setOperationResult(OperationStatusResponse.ERROR.name());
+		}	
+		
+		return returnValue;
 	}
 
 }
+
+
+
+
+
+
+

@@ -120,7 +120,7 @@
 						</c:if>
 						<div class="row">
 							<div class="s007">
-								<form:form method="get" modelAttribute="product"
+								<%-- <form:form method="get" modelAttribute="product"
 									action="/searchproduct" id="">
 									<div class="inner-form">
 										<div class="advance-search">
@@ -242,7 +242,7 @@
 											</div>
 										</div>
 									</div>
-								</form:form>
+								</form:form> --%>
 							</div>
 						</div>
 					</div>
