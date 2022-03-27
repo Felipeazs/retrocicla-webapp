@@ -14,10 +14,13 @@ import org.springframework.stereotype.Service;
 
 import com.retrocicla.felipeazs.exceptions.ClienteServiceException;
 import com.retrocicla.felipeazs.io.entity.ClienteEntity;
+import com.retrocicla.felipeazs.io.entity.PasswordResetTokenEntity;
 import com.retrocicla.felipeazs.io.repository.ClienteRepository;
+import com.retrocicla.felipeazs.io.repository.PasswordResetTokenRepository;
 import com.retrocicla.felipeazs.model.dto.ClienteDto;
 import com.retrocicla.felipeazs.model.dto.DireccionDto;
 import com.retrocicla.felipeazs.service.ClienteService;
+import com.retrocicla.felipeazs.shared.AmazonSES;
 import com.retrocicla.felipeazs.shared.Utils;
 import com.retrocicla.felipeazs.ui.model.response.ErrorMessages;
 
@@ -27,6 +30,9 @@ public class ClienteServiceImpl implements ClienteService{
     @Autowired
     private ClienteRepository clienteRepo;
     
+    @Autowired
+    private PasswordResetTokenRepository passwordResetTokenRepo;
+        
     @Autowired
     private Utils utils;
     
@@ -172,6 +178,53 @@ public class ClienteServiceImpl implements ClienteService{
 				returnValue = true;
 			}
 		}
+		
+		return returnValue;
+	}
+
+	@Override
+	public boolean requestPasswordReset(String email) {
+		
+		boolean returnValue = false;
+		
+		ClienteEntity cliente = clienteRepo.findByEmail(email);
+		
+		if (cliente == null) {
+			return returnValue;
+		}
+		
+		String token = utils.generatePasswordResetToken(cliente.getClienteId());
+		
+		PasswordResetTokenEntity passwordResetToken = new PasswordResetTokenEntity();
+		passwordResetToken.setToken(token);
+		passwordResetToken.setClienteDetails(cliente);
+		passwordResetTokenRepo.save(passwordResetToken);
+		
+		returnValue = new AmazonSES().sendPasswordResetRequest(
+				cliente.getNombre(),
+				cliente.getEmail(),
+				token);
+		
+		return returnValue;
+	}
+
+	@Override
+	public boolean verifyPasswordResetToken(String token, String password) {
+		
+		boolean returnValue = false;
+
+		PasswordResetTokenEntity passwordToken = passwordResetTokenRepo.findByToken(token);
+		
+		if (passwordToken == null) {
+			return returnValue;
+		}
+		
+		passwordToken.setToken(null);		
+		passwordToken.getClienteDetails().setEcryptedPassword(bCryptPasswordEncoder.encode(password));
+		
+		passwordResetTokenRepo.save(passwordToken);
+		
+		returnValue = true;
 		
 		return returnValue;
 	}

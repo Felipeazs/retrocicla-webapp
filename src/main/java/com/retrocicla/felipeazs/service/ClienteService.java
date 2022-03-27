@@ -20,4 +20,8 @@ public interface ClienteService {
 
 	public boolean verifyEmailToken(String token);
 
+	public boolean requestPasswordReset(String email);
+
+	public boolean verifyPasswordResetToken(String token, String password);
+
 }

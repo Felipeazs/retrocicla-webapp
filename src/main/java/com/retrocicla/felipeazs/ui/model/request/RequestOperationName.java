@@ -4,6 +4,8 @@ public enum RequestOperationName {
 	
 	LOGIN,
 	DELETE,
-	VERIFY_EMAIL
+	VERIFY_EMAIL,
+	REQUEST_PASSWORD_RESET,
+	RESET_PASSWORD
 
 }

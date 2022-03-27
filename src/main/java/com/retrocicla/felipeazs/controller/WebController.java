@@ -36,6 +36,11 @@ public class WebController {
 		return "email-verification";
 	}
 	
+	@GetMapping("/password-reset-request")
+	public String getPasswordResetRequest() {
+		return "/password-reset";
+	}
+	
 
 
 //

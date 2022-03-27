@@ -100,8 +100,8 @@ $(document).ready(function() {
 		}*/
 		
 		// Email-verification
-		var urlParams = new URLSearchParams(location.search);
-		if (urlParams.has('token')){
+		var urlParams = new URLSearchParams(location.search); 
+		if (urlParams.has('token') && urlParams.has('email-verification')){ //Busca en la url el nombre token
 			verifyToken(urlParams.get('token'));
 		}
 		
@@ -126,13 +126,66 @@ $(document).ready(function() {
 });
 
 function verifyToken(tokenValue){
-	$.get('/clientes/email-verification', {token: tokenValue}).done(function (response) {	
+	$.get(
+		'/clientes/email-verification', 
+		{token: tokenValue}
+		).done(function (response) {	
 			if (response.operationResult === 'SUCCESS'){					
 				$('#successful-result').attr('style', 'display: block');						
 			} else {
 				$('#unsuccessful-result').attr('style', 'display: block');
 			}		
 	});
+}
+
+function submitnewpassword(){
+	
+	var urlParams = new URLSearchParams(location.search);
+	
+	if (!urlParams.has('token') || isEmpty(urlParams.get('token'))){
+		alert("El token no existe");
+		return;
+	}
+	
+	var tokenValue = urlParams.get('token');
+	
+	var password1 = $('#password1').val();
+	var password2 = $('#password2').val();
+	
+	if (isEmpty(password1)){
+		alert("Ingrese la nueva contraseña");
+		return;
+	}
+	
+	if (password1 !== password2){
+		alert("Las contraseñas no coinciden");
+		return
+	}
+	
+	$.post(
+		'/clientes/password-reset',
+		{
+			token: tokenValue,
+			password: password1
+		}
+	).done(function (response){
+		$('#password1').val('');
+		$('#password2').val('');
+		
+		console.log(response);
+		
+		if (response.operationResult === 'SUCCESS'){					
+				$('#successful-result').attr('style', 'display: block');						
+			} else {
+				$('#unsuccessful-result').attr('style', 'display: block');
+			}
+		
+	});
+		
+}
+
+function isEmpty(str){
+	return (!str || 0 === str.trim().length);
 }
 
 function btnregistrar(){

@@ -29,6 +29,7 @@ import com.retrocicla.felipeazs.service.ClienteService;
 import com.retrocicla.felipeazs.service.DireccionService;
 import com.retrocicla.felipeazs.shared.AmazonSES;
 import com.retrocicla.felipeazs.ui.model.request.ClienteRequestModel;
+import com.retrocicla.felipeazs.ui.model.request.PasswordResetRequestModel;
 import com.retrocicla.felipeazs.ui.model.request.RequestOperationName;
 import com.retrocicla.felipeazs.ui.model.response.ClienteRest;
 import com.retrocicla.felipeazs.ui.model.response.DireccionRest;
@@ -228,6 +229,49 @@ public class ClienteController {
 		
 		return returnValue;
 	}
+	
+	@PostMapping(path = "/password-reset-request",
+			consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }, //La data entregada puede ir en XML o JSON
+			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
+	public OperationStatusModel requestResetPassword(@RequestBody PasswordResetRequestModel passwordResetRequest) throws Exception {
+		
+		boolean operationResult = clienteService.requestPasswordReset(passwordResetRequest.getEmail());
+		
+		OperationStatusModel returnValue = new OperationStatusModel();
+		
+		returnValue.setOperationName(RequestOperationName.REQUEST_PASSWORD_RESET.name());
+		returnValue.setOperationResult(OperationStatusResponse.ERROR.name());
+		
+		if (operationResult) {
+			returnValue.setOperationResult(OperationStatusResponse.SUCCESS.name());
+		}	
+		
+		return returnValue;
+	}
+	
+	@PostMapping(path = "/password-reset",
+			produces = { MediaType.APPLICATION_JSON_VALUE })
+	public OperationStatusModel passwordReset(
+			@RequestParam(value = "token") String token,
+			@RequestParam(value = "password") String password){		
+		
+		OperationStatusModel returnValue = new OperationStatusModel();
+		returnValue.setOperationName(RequestOperationName.RESET_PASSWORD.name());
+		
+		boolean isVerified = clienteService.verifyPasswordResetToken(token, password);
+		
+		System.out.println("token verificado: " + isVerified);
+		
+		if (isVerified) {
+			returnValue.setOperationResult(OperationStatusResponse.SUCCESS.name());
+		} else {
+			returnValue.setOperationResult(OperationStatusResponse.ERROR.name());
+		}	
+		
+		return returnValue;
+		
+	}
+
 
 }
 

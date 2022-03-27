@@ -50,5 +50,27 @@ public class Utils {
 		return token;
 	}
 
+	public String generatePasswordResetToken(String clienteId) {
+		
+		String token = Jwts.builder()
+				.setSubject(clienteId)
+				.setExpiration(new Date(System.currentTimeMillis() + SecurityConstants.PASSWORD_RESET_EXPIRATION_TIME))
+				.signWith(SignatureAlgorithm.HS512, SecurityConstants.getTokenSecret())
+				.compact();
+				
+		return token;
+	}
+
 
 }
+
+
+
+
+
+
+
+
+
+
+
