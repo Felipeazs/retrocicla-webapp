@@ -22,6 +22,6 @@ public interface ClienteService {
 
 	public boolean requestPasswordReset(String email);
 
-	public boolean verifyPasswordResetToken(String token, String password);
+	public boolean verifyAndResetPassword(String token, String password);
 
 }

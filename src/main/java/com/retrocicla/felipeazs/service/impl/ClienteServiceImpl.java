@@ -209,20 +209,27 @@ public class ClienteServiceImpl implements ClienteService{
 	}
 
 	@Override
-	public boolean verifyPasswordResetToken(String token, String password) {
+	public boolean verifyAndResetPassword(String token, String password) {
 		
 		boolean returnValue = false;
-
+		
+		if (Utils.hasTokenExpired(token)) {
+			return returnValue;
+		}
+		
 		PasswordResetTokenEntity passwordToken = passwordResetTokenRepo.findByToken(token);
 		
 		if (passwordToken == null) {
 			return returnValue;
 		}
 		
-		passwordToken.setToken(null);		
-		passwordToken.getClienteDetails().setEcryptedPassword(bCryptPasswordEncoder.encode(password));
+		String newPassword = bCryptPasswordEncoder.encode(password);
 		
-		passwordResetTokenRepo.save(passwordToken);
+		ClienteEntity cliente = passwordToken.getClienteDetails();
+		cliente.setEcryptedPassword(newPassword);
+		clienteRepo.save(cliente);
+				
+		passwordResetTokenRepo.delete(passwordToken);
 		
 		returnValue = true;
 		

@@ -29,6 +29,7 @@ import com.retrocicla.felipeazs.service.ClienteService;
 import com.retrocicla.felipeazs.service.DireccionService;
 import com.retrocicla.felipeazs.shared.AmazonSES;
 import com.retrocicla.felipeazs.ui.model.request.ClienteRequestModel;
+import com.retrocicla.felipeazs.ui.model.request.PasswordResetModel;
 import com.retrocicla.felipeazs.ui.model.request.PasswordResetRequestModel;
 import com.retrocicla.felipeazs.ui.model.request.RequestOperationName;
 import com.retrocicla.felipeazs.ui.model.response.ClienteRest;
@@ -251,17 +252,13 @@ public class ClienteController {
 	
 	@PostMapping(path = "/password-reset",
 			produces = { MediaType.APPLICATION_JSON_VALUE })
-	public OperationStatusModel passwordReset(
-			@RequestParam(value = "token") String token,
-			@RequestParam(value = "password") String password){		
+	public OperationStatusModel passwordReset(@RequestBody PasswordResetModel passwordRequest){		
 		
 		OperationStatusModel returnValue = new OperationStatusModel();
 		returnValue.setOperationName(RequestOperationName.RESET_PASSWORD.name());
 		
-		boolean isVerified = clienteService.verifyPasswordResetToken(token, password);
-		
-		System.out.println("token verificado: " + isVerified);
-		
+		boolean isVerified = clienteService.verifyAndResetPassword(passwordRequest.getToken(), passwordRequest.getPassword());
+				
 		if (isVerified) {
 			returnValue.setOperationResult(OperationStatusResponse.SUCCESS.name());
 		} else {

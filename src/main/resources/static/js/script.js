@@ -162,18 +162,21 @@ function submitnewpassword(){
 		return
 	}
 	
+	$.ajaxSetup({
+		"contentType": "application/json"
+	});
+	
+	var data = {
+			"token": tokenValue,
+			"password": password1
+		};
+	
 	$.post(
-		'/clientes/password-reset',
-		{
-			token: tokenValue,
-			password: password1
-		}
-	).done(function (response){
+		'/clientes/password-reset', JSON.stringify(data))
+		.done(function (response){
 		$('#password1').val('');
 		$('#password2').val('');
-		
-		console.log(response);
-		
+				
 		if (response.operationResult === 'SUCCESS'){					
 				$('#successful-result').attr('style', 'display: block');						
 			} else {
