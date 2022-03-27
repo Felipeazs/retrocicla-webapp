@@ -1,4 +1,4 @@
-package com.retrocicla.felipeazs.controller;
+package com.retrocicla.felipeazs.ui.controller;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.http.HttpServletRequest;

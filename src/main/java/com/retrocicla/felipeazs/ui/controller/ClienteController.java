@@ -1,10 +1,12 @@
-package com.retrocicla.felipeazs.controller;
+package com.retrocicla.felipeazs.ui.controller;
 
+import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.CollectionModel;
@@ -27,7 +29,6 @@ import com.retrocicla.felipeazs.model.dto.ClienteDto;
 import com.retrocicla.felipeazs.model.dto.DireccionDto;
 import com.retrocicla.felipeazs.service.ClienteService;
 import com.retrocicla.felipeazs.service.DireccionService;
-import com.retrocicla.felipeazs.shared.AmazonSES;
 import com.retrocicla.felipeazs.ui.model.request.ClienteRequestModel;
 import com.retrocicla.felipeazs.ui.model.request.PasswordResetModel;
 import com.retrocicla.felipeazs.ui.model.request.PasswordResetRequestModel;
@@ -84,9 +85,6 @@ public class ClienteController {
 		
 		//Crea un nuevo cliente y lo almacena en la DB a travéz del Service, utilizando la informacion del DTO.
 		ClienteDto createdCliente = clienteService.crearCliente(clienteDto);
-		
-		//Enviar email de verificacion del registro de cuenta
-		new AmazonSES().verifyEmail(createdCliente);
 		
 		//Copia el nuevo cliente creado y almacenado en la base de datos en el objeto de retorno.
 		returnValue = modelMapper.map(createdCliente, ClienteRest.class);
@@ -156,21 +154,21 @@ public class ClienteController {
 		
 		List<DireccionRest> returnValue = new ArrayList<>();
 		
-		List<DireccionDto> direcciones = direccionService.obtenerDireccionesCliente(clienteid);
+		List<DireccionDto> direccionesDto = direccionService.obtenerDireccionesCliente(clienteid);
 		
-		ModelMapper modelMapper = new ModelMapper();
-		
-		for (DireccionDto direccion : direcciones) {
-			returnValue.add(modelMapper.map(direccion, DireccionRest.class));			
+		if (direccionesDto!= null && !direccionesDto.isEmpty()) {
+			Type listType = new TypeToken<List<DireccionRest>>() {}.getType();
+			returnValue = new ModelMapper().map(direccionesDto, listType);
+			
+			for (DireccionRest direccion : returnValue) {
+				Link selfLink = WebMvcLinkBuilder
+						.linkTo(WebMvcLinkBuilder
+						.methodOn(ClienteController.class).getDireccionCliente(clienteid, direccion.getDireccionId()))			
+						.withSelfRel();	
+				direccion.add(selfLink);
+			}
 		}
-		
-		for (DireccionRest direccion : returnValue) {
-			Link selfLink = WebMvcLinkBuilder
-					.linkTo(WebMvcLinkBuilder.methodOn(ClienteController.class).getDireccionCliente(clienteid, direccion.getDireccionId()))			
-					.withSelfRel();	
-			direccion.add(selfLink);
-		}
-		
+				
 		//HATEOAS
 		Link clienteLink = WebMvcLinkBuilder.linkTo(ClienteController.class)
 				.slash(clienteid)

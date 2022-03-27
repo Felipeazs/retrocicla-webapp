@@ -101,7 +101,11 @@ $(document).ready(function() {
 		
 		// Email-verification
 		var urlParams = new URLSearchParams(location.search); 
-		if (urlParams.has('token') && urlParams.has('email-verification')){ //Busca en la url el nombre token
+		var verification_page = window.location.href.indexOf("email-verification");
+				
+		if (urlParams.has('token') && verification_page > -1){ //Busca en la url el nombre token
+			console.log("email-verification");
+			
 			verifyToken(urlParams.get('token'));
 		}
 		
@@ -130,6 +134,9 @@ function verifyToken(tokenValue){
 		'/clientes/email-verification', 
 		{token: tokenValue}
 		).done(function (response) {	
+			
+			console.log(response);
+			
 			if (response.operationResult === 'SUCCESS'){					
 				$('#successful-result').attr('style', 'display: block');						
 			} else {
@@ -169,15 +176,15 @@ function submitnewpassword(){
 	var data = {
 			"token": tokenValue,
 			"password": password1
-		};
+	};
 	
 	$.post(
 		'/clientes/password-reset', JSON.stringify(data))
 		.done(function (response){
-		$('#password1').val('');
-		$('#password2').val('');
-				
-		if (response.operationResult === 'SUCCESS'){					
+			$('#password1').val('');
+			$('#password2').val('');
+					
+			if (response.operationResult === 'SUCCESS'){					
 				$('#successful-result').attr('style', 'display: block');						
 			} else {
 				$('#unsuccessful-result').attr('style', 'display: block');

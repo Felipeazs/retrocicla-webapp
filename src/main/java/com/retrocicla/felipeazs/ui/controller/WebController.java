@@ -1,4 +1,4 @@
-package com.retrocicla.felipeazs.controller;
+package com.retrocicla.felipeazs.ui.controller;
 //
 //import java.text.NumberFormat;
 //import java.util.ArrayList;
@@ -40,9 +40,6 @@ public class WebController {
 	public String getPasswordResetRequest() {
 		return "/password-reset";
 	}
-	
-
-
 //
 //	@Autowired
 //	private ClienteService clienteService;

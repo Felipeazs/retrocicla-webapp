@@ -38,19 +38,22 @@ public class ClienteServiceImpl implements ClienteService{
     
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
+    
+    @Autowired
+    private AmazonSES amazonSes;
 
 	@Override
 	public ClienteDto crearCliente(ClienteDto clienteDto) {
 		
 		//Asegurar que el cliente no existe en la base de datos
 		ClienteEntity dbCliente = clienteRepo.findByEmail(clienteDto.getEmail());		
-		if (dbCliente != null) throw new RuntimeException("El cliente ya existe en la Base de datos");
+		if (dbCliente != null) throw new ClienteServiceException(ErrorMessages.RECORDS_ALREADY_EXIST.getErrorMessage());
 						
 		//Setear los propiedades de direccion y devolverlos al clienteDto
 		int i = 0;
 		for (DireccionDto direccion : clienteDto.getDirecciones()) {			
 			direccion.setClienteDetails(clienteDto);
-			direccion.setDireccionId(utils.generateRandomId(30));
+			direccion.setDireccionId(utils.generateDireccionId(30));
 			clienteDto.getDirecciones().set(i, direccion);
 			i++;
 		}
@@ -60,7 +63,7 @@ public class ClienteServiceImpl implements ClienteService{
 		ClienteEntity clienteEntity = modelMapper.map(clienteDto, ClienteEntity.class);
 		
 		//Generacion de un id random para el cliente
-		String publicClienteId = utils.generateRandomId(30);
+		String publicClienteId = utils.generateClienteId(30);
 		clienteEntity.setClienteId(publicClienteId);		
 				
 		//Encriptacion del password
@@ -75,6 +78,9 @@ public class ClienteServiceImpl implements ClienteService{
 			
 		//Guardar las  propiedades del cliente en DB al ClienteDto para retornarlo como JSON
 		ClienteDto returnValue = modelMapper.map(saveCliente, ClienteDto.class);
+		
+		//Enviar email de verificacion del registro de cuenta
+		amazonSes.verifyEmail(returnValue);
 				
 		return returnValue;
 		

@@ -4,23 +4,34 @@ import java.security.SecureRandom;
 import java.util.Date;
 import java.util.Random;
 
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.retrocicla.felipeazs.security.SecurityConstants;
 
 import io.jsonwebtoken.Claims;
+import io.jsonwebtoken.ExpiredJwtException;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 
-@Component
+@Service
 public class Utils {
 	
 	private final Random RANDOM = new SecureRandom();
 	private final String ALPHABET = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz";
-	private final String NUMBER = "0123456789";
 	
 	
-	public String generateRandomId(int length) {
+	public String generateClienteId(int length) {
+		
+		StringBuilder rv = new StringBuilder(length);
+		
+		for (int i = 0; i < length; i++) {
+			rv.append(ALPHABET.charAt(RANDOM.nextInt(ALPHABET.length())));			
+		}
+		return new String(rv);
+	}
+	
+	public String generateDireccionId(int length) {
+		
 		StringBuilder rv = new StringBuilder(length);
 		
 		for (int i = 0; i < length; i++) {
@@ -31,12 +42,22 @@ public class Utils {
 
 	public static boolean hasTokenExpired(String token) {
 		
-		Claims claims = Jwts.parser().setSigningKey(SecurityConstants.getTokenSecret()).parseClaimsJws(token).getBody();
+		boolean returnValue = false;
 		
-		Date tokenExpirationDate = claims.getExpiration();
-		Date today = new Date();
-				
-		return tokenExpirationDate.before(today);
+		try {
+			Claims claims = Jwts.parser().setSigningKey(SecurityConstants.getTokenSecret()).parseClaimsJws(token).getBody();
+			
+			Date tokenExpirationDate = claims.getExpiration();
+			Date today = new Date();
+					
+			returnValue = tokenExpirationDate.before(today);
+			
+		} catch (ExpiredJwtException ex) {
+			returnValue = true;
+		}
+		
+		return returnValue;
+		
 	}
 
 	public String generateEmailVerificationToken(String publicId) {
@@ -60,6 +81,8 @@ public class Utils {
 				
 		return token;
 	}
+
+	
 
 
 }

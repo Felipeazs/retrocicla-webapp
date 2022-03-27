@@ -1,5 +1,7 @@
 package com.retrocicla.felipeazs.shared;
 
+import org.springframework.stereotype.Service;
+
 import com.amazonaws.auth.AWSCredentialsProvider;
 import com.amazonaws.auth.ClasspathPropertiesFileCredentialsProvider;
 import com.amazonaws.regions.Regions;
@@ -13,7 +15,7 @@ import com.amazonaws.services.simpleemail.model.SendEmailRequest;
 import com.amazonaws.services.simpleemail.model.SendEmailResult;
 import com.retrocicla.felipeazs.model.dto.ClienteDto;
 
-
+@Service
 public class AmazonSES {
 	
 	//Email verificado por AmazonSES
