@@ -39,10 +39,18 @@ import com.retrocicla.felipeazs.ui.model.response.ErrorMessages;
 import com.retrocicla.felipeazs.ui.model.response.OperationStatusModel;
 import com.retrocicla.felipeazs.ui.model.response.OperationStatusResponse;
 
+import io.swagger.v3.oas.annotations.Operation;
+import io.swagger.v3.oas.annotations.headers.Header;
+import io.swagger.v3.oas.annotations.media.Content;
+import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.responses.ApiResponses;
+import io.swagger.v3.oas.annotations.security.SecurityRequirement;
+import io.swagger.v3.oas.annotations.tags.Tag;
 
 // Basic CRUD
 @RestController
 @RequestMapping("clientes")
+@Tag(name = "clientes-controller", description = "clientes API")//Swagger
 public class ClienteController {
 	
 	@Autowired
@@ -51,6 +59,32 @@ public class ClienteController {
 	@Autowired
 	private DireccionService direccionService;
 	
+	//OpenAPI/Swagger
+	@Operation(
+			summary = "Buscar un cliente",
+			description = "Buscar un cliente en particular por su ID",
+			tags = "cliente",
+			security = {
+					@SecurityRequirement(name = "bearer-key")
+			})
+	@ApiResponses(
+			value = {
+					@ApiResponse(
+							responseCode = "200",
+							description = "Successful operation",
+							content = @Content(
+									mediaType = "application/json"),
+							headers = { 
+									@Header(
+									name = "Authorization",
+									description = "Bearer JWT value here"),
+									@Header(
+									name = "Cliente ID",
+									description = "Cliente ID value here")
+							}
+					)	
+			}
+	)
 	@GetMapping(
 			path = "/{clienteid}",
 			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }) // Retorna el valor en XML o JSON
@@ -127,6 +161,24 @@ public class ClienteController {
 		return returnValue;
 	}
 	
+	//OpenAPI/Swagger
+		@Operation(
+				summary = "Buscar a todos los cliente",
+				description = "Buscar a todos los clientes",
+				tags = "cliente",
+				security = {
+						@SecurityRequirement(name = "bearer-key")
+				})		
+		@ApiResponses(
+				value = {
+						@ApiResponse(
+								responseCode = "200",
+								description = "Successful operation",
+								content = @Content(
+										mediaType = "application/json")									
+						)						
+				}
+		)
 	@GetMapping(
 			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public List<ClienteRest> getClientes(

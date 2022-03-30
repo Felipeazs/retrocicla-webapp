@@ -1,4 +1,25 @@
-//package com.retrocicla.felipeazs.service;
+package com.retrocicla.felipeazs.service.impl;
+
+import java.text.NumberFormat;
+import java.time.LocalDate;
+import java.util.Locale;
+
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import com.retrocicla.felipeazs.exceptions.CartServiceException;
+import com.retrocicla.felipeazs.io.entity.CartEntity;
+import com.retrocicla.felipeazs.io.entity.ClienteEntity;
+import com.retrocicla.felipeazs.io.entity.ProductEntity;
+import com.retrocicla.felipeazs.io.repository.CartRepository;
+import com.retrocicla.felipeazs.io.repository.ClienteRepository;
+import com.retrocicla.felipeazs.io.repository.ProductRepository;
+import com.retrocicla.felipeazs.model.dto.CartDto;
+import com.retrocicla.felipeazs.service.CartService;
+import com.retrocicla.felipeazs.ui.model.request.CartRequestModel;
+import com.retrocicla.felipeazs.ui.model.response.ErrorMessages;
+
 //
 //import java.text.NumberFormat;
 //import java.time.LocalDate;
@@ -15,12 +36,63 @@
 //import com.retrocicla.felipeazs.model.dto.ClienteDto;
 //import com.retrocicla.felipeazs.repository.CartRepository;
 //
-//@Service
-//public class CartServiceImpl implements CartService{
-//	
-//	@Autowired
-//	private CartRepository repo; 
-//
+@Service
+public class CartServiceImpl implements CartService{
+	
+	@Autowired
+	private CartRepository cartRepo;
+	
+	@Autowired
+	private ProductRepository productRepo;
+	
+	@Autowired
+	private ClienteRepository clienteRepo;
+
+	@Override
+	public CartDto createCart(CartRequestModel cartDetails) {
+				
+		ClienteEntity dbCart = clienteRepo.findByClienteId(cartDetails.getCliente_id());
+		if(dbCart != null) throw new CartServiceException(ErrorMessages.RECORDS_ALREADY_EXIST.getErrorMessage());
+				
+		CartEntity newCart = new CartEntity();
+		BeanUtils.copyProperties(cartDetails, newCart);
+		
+		ProductEntity dbProduct = productRepo.findByProductid(cartDetails.getPoducto_id());		
+		newCart.setProducto(dbProduct);
+		
+		ClienteEntity dbCliente = clienteRepo.findByClienteId(cartDetails.getCliente_id());
+		newCart.setCliente(dbCliente);
+		
+		newCart.setCreatedAt(LocalDate.now());
+		
+		int totalPrice = cartDetails.getPrice() * cartDetails.getQuantity();		
+				
+		newCart.setTotalPrice(formatPrice(totalPrice));
+		
+		CartEntity savedCart = cartRepo.save(newCart);	
+		
+		System.out.println(savedCart.getProducto().getDescription());
+				
+		CartDto returnValue = new CartDto();
+		BeanUtils.copyProperties(savedCart, returnValue);
+		
+		System.out.println(returnValue.getCliente());
+		
+		return returnValue;
+	} 	
+	
+	private String formatPrice(int price) {
+
+		Locale clp = new Locale("es", "CL");
+		NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
+		String formattedPrice = nf.format(price);
+
+		return formattedPrice;
+	}
+}
+
+
+
 ////	@Override
 ////	public List<Cart> list() {		
 ////		return repo.findAll();

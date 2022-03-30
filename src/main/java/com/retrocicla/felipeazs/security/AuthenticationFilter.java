@@ -66,6 +66,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 		ClienteDto cliente = clienteService.obtenerClienteByEmail(username);
 		
 		response.getWriter().append("LOGIN SUCCESSFUL, welcome " + cliente.getNombre());
+		
 		response.addHeader(SecurityConstants.HEADER_STRING, SecurityConstants.TOKEN_PREFIX + token);
 		response.addHeader("UserId", cliente.getClienteId());				
 	}

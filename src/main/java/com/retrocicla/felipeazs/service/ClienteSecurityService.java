@@ -25,7 +25,10 @@ public class ClienteSecurityService implements UserDetailsService{
 		
 		if (clienteEntity == null) throw new UsernameNotFoundException(email);
 		
-		return new User(clienteEntity.getEmail(), clienteEntity.getEcryptedPassword(), clienteEntity.getEmailVerificationStatus(),
+		return new User(
+				clienteEntity.getEmail(), 
+				clienteEntity.getEcryptedPassword(), 
+				clienteEntity.getEmailVerificationStatus(),
 				true, true, true, new ArrayList<>());		
 	}
 

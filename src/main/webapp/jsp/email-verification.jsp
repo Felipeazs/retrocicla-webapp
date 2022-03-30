@@ -33,7 +33,7 @@
 	crossorigin="anonymous"></script>
 
 <link rel="stylesheet" href="css/style.css" />
-<script src="js/script.js"></script>
+<script src="js/email-verification/script.js"></script>
 
 <title>Retrocicla</title>
 </head>

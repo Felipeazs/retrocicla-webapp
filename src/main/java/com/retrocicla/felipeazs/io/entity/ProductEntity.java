@@ -1,4 +1,4 @@
-package com.retrocicla.felipeazs.model;
+package com.retrocicla.felipeazs.io.entity;
 
 import java.io.Serializable;
 
@@ -7,21 +7,21 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
-@Table(name = "product")
-public class Product implements Serializable {
+@Table(name = "productos")
+public class ProductEntity implements Serializable {
 
-    /**
-	 * 
-	 */
 	private static final long serialVersionUID = 9111711165715337808L;
 
 	@Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id")
     private int id;
+	
+	private String productid;
 	
 	@Column(name = "description", nullable=false)
     private String description;
@@ -47,16 +47,14 @@ public class Product implements Serializable {
     @Column(name="price", nullable=false)
     private String formatted_price;
         
-    @Column(name = "image_url", nullable=false)
+    @Lob
     private String imageUrl;
     
-    @Column(name = "made_in", nullable=false)
-    private String made;
+    @Column(name="madeIn")
+    private String madeIn;
     
-    @Column(name = "cotton", nullable=false)
     private int cotton;
     
-    @Column(name = "spandex", nullable=false)
     private int spandex;
     
     @Column(name="material")
@@ -69,14 +67,22 @@ public class Product implements Serializable {
     private String type;
     
     @Column(name = "stock", nullable=false)
-    private int stock;    
-
+    private int stock; 
+ 
     public int getId() {
 		return id;
 	}
 
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String getProductid() {
+		return productid;
+	}
+
+	public void setProductid(String productid) {
+		this.productid = productid;
 	}
 
 	public String getWear() {
@@ -127,12 +133,12 @@ public class Product implements Serializable {
 		this.description = description;
 	}
 
-	public String getMade() {
-		return made;
+	public String getMadeIn() {
+		return madeIn;
 	}
 
-	public void setMade(String made) {
-		this.made = made;
+	public void setMadeIn(String madeIn) {
+		this.madeIn = madeIn;
 	}
 
 	public int getCotton() {
@@ -205,6 +211,5 @@ public class Product implements Serializable {
 
 	public void setStock(int stock) {
 		this.stock = stock;
-	}
-		    
+	}		    
 }

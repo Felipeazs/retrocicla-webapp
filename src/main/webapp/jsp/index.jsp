@@ -120,7 +120,7 @@
 						</c:if>
 						<div class="row">
 							<div class="s007">
-								<%-- <form:form method="get" modelAttribute="product"
+								<form:form method="get" modelAttribute="product"
 									action="/searchproduct" id="">
 									<div class="inner-form">
 										<div class="advance-search">
@@ -132,7 +132,7 @@
 													</div>
 													<div class="input-select">
 														<form:select class="form-select" path="type" id="types">
-															<form:options items="${ types }" />
+															<form:options items="${ multipleSelect[0] }" />
 														</form:select>
 													</div>
 												</div>
@@ -147,7 +147,7 @@
 													<div class="input-select">
 														<form:select class="form-select" path="material"
 															type="text">
-															<form:options items="${ materials }" />
+															<form:options items="${ multipleSelect[1] }" />
 														</form:select>
 													</div>
 												</div>
@@ -157,7 +157,7 @@
 													</div>
 													<div class="input-select">
 														<form:select class="form-select" path="wear" id="wear">
-															<form:options items="${ wear }" />
+															<form:options items="${ multipleSelect[2] }" />
 														</form:select>
 													</div>
 												</div>
@@ -169,7 +169,7 @@
 													</div>
 													<div class="input-select">
 														<form:select class="form-select" path="color">
-															<form:options items="${ colors }" />
+															<form:options items="${ multipleSelect[3] }" />
 														</form:select>
 													</div>
 												</div>
@@ -180,12 +180,12 @@
 													<div class="input-select">
 														<div id="sizeropa">
 															<form:select class="form-select" path="size">
-																<form:options items="${ ropasizes }" />
+																<form:options items="${ multipleSelect[5] }" />
 															</form:select>
 														</div>
 														<div id="sizetelas">
 															<form:select class="form-select" path="size">
-																<form:options items="${ telasizes }" />
+																<form:options items="${ multipleSelect[4] }" />
 															</form:select>
 														</div>
 													</div>
@@ -196,7 +196,7 @@
 													</div>
 													<div class="input-select">
 														<form:select class="form-select" path="style" id="style">
-															<form:options items="${ styles }" />
+															<form:options items="${ multipleSelect[6] }" />
 														</form:select>
 													</div>
 												</div>
@@ -208,7 +208,7 @@
 													</div>
 													<div class="input-select">
 														<form:select class="form-select" path="genre" id="genre">
-															<form:options items="${ genres }" />
+															<form:options items="${ multipleSelect[7] }" />
 														</form:select>
 													</div>
 												</div>
@@ -228,8 +228,8 @@
 														<label>Hecho en</label>
 													</div>
 													<div class="input-select">
-														<form:select class="form-select" path="made">
-															<form:options items="${ madeIn }" />
+														<form:select class="form-select" path="madeIn">
+															<form:options items="${ multipleSelect[8] }" />
 														</form:select>
 													</div>
 												</div>
@@ -242,7 +242,7 @@
 											</div>
 										</div>
 									</div>
-								</form:form> --%>
+								</form:form>
 							</div>
 						</div>
 					</div>

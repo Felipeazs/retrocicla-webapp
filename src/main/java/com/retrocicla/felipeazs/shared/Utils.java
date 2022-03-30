@@ -18,6 +18,7 @@ public class Utils {
 	
 	private final Random RANDOM = new SecureRandom();
 	private final String ALPHABET = "0123456789ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz";
+	private final String NUMBER = "0123456789";
 	
 	
 	public String generateClienteId(int length) {
@@ -82,9 +83,16 @@ public class Utils {
 		return token;
 	}
 
-	
+	public String generateProductId(int length) {
+		
+		StringBuilder rv = new StringBuilder(length);
+		
+		for (int i = 0; i < length; i++) {
+			rv.append(NUMBER.charAt(RANDOM.nextInt(NUMBER.length())));			
+		}
+		return new String(rv);
 
-
+	}
 }
 
 

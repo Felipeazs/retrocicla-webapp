@@ -1,15 +1,20 @@
 package com.retrocicla.felipeazs.io.entity;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
 import javax.persistence.Lob;
+import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
 @Entity(name = "clientes")
@@ -44,6 +49,19 @@ public class ClienteEntity implements Serializable {
 	
 	@OneToMany(mappedBy = "clienteDetails", cascade = CascadeType.ALL)
 	private List<DireccionEntity> direcciones; 
+	
+	@ManyToMany(
+			cascade = { CascadeType.PERSIST }, 
+			fetch = FetchType.EAGER)
+	@JoinTable(
+			name = "clientes_roles", 
+			joinColumns = @JoinColumn(
+					name = "clientes_id",
+					referencedColumnName = "id"),
+			inverseJoinColumns = @JoinColumn(
+					name = "roles_id", 
+					referencedColumnName = "id"))		
+	private Collection<RolEntity> roles;
 
 	public long getId() {
 		return id;
@@ -115,6 +133,15 @@ public class ClienteEntity implements Serializable {
 
 	public void setDirecciones(List<DireccionEntity> direcciones) {
 		this.direcciones = direcciones;
+		
+	}
+
+	public Collection<RolEntity> getRoles() {
+		return roles;
+	}
+
+	public void setRoles(Collection<RolEntity> roles) {
+		this.roles = roles;
 	}
 
 }

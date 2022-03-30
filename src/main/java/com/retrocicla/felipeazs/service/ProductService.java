@@ -3,39 +3,29 @@ package com.retrocicla.felipeazs.service;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.retrocicla.felipeazs.model.Product;
+import com.retrocicla.felipeazs.model.dto.ProductDto;
 
 public interface ProductService {
 	
-	public List<Product> list();
+	public List<ProductDto> listarProducts(int page, int limit);
 
-	public Product add(Product product);
+	public ProductDto crearProducto(ProductDto productDto);
 
-	public List<Product> searchBy(String productType);
+	public List<ArrayList<String>> getMultipleSelection();
+	
+//	public List<ProductEntity> list();
+//
+//	public ProductEntity add(ProductEntity product);
+//
+//	public List<ProductEntity> searchBy(String productType);
+//
+//	public List<ProductEntity> searchProducts(ProductEntity product);
+//
+//	public List<ProductEntity> listById(ArrayList<Integer> pps);
+//
+//	public ProductEntity getProductById(int id);
 
-	public List<String> getDistinctByWear();
-
-	public List<String> getDistinctByStyle();
-
-	public List<String> getDistinctByGenre();
-
-	public List<String> getDistinctByType();
-
-	public List<String> getDistinctByMaterial();
-
-	public List<String> getDistinctByColor();
-
-	public List<String> getDistinctByRopaSize();
-
-	public List<String> getDistinctByTelaSize();
-
-	public List<String> getDistinctByMadeIn();
-
-	public List<Product> searchProducts(Product product);
-
-	public List<Product> listById(ArrayList<Integer> pps);
-
-	public Product getProductById(int id);
+	
 	
 	
 

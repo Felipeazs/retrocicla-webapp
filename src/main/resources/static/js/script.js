@@ -1,20 +1,18 @@
 $(document).ready(function() {
 
-	/*$('#messageerrorprenda').hide();
+	$('#messageerrorprenda').hide();
 	$('#messageerrortela').hide();
 	$('#typeropa').val('prenda');
 	$('#sizetelas').hide();
 	$('[name=inputalertmsg]').hide();
 	$('#hiddenaddress').hide();
-
-	var sizetelas = $('#sizetelas').val();
-	var sizeropa = $('#sizeropa').val();
+	
 	var wear = $('#wear').val();
 	var style = $('#style').val();
 	var genre = $('#genre').val();
 	var season = $('#season').val();
 
-	// Selección de formulario para agrgar prenda o tela
+	// Selección de formulario para agregar prenda o tela
 	$('#formulariotela').hide();
 
 	$('#selecttipoprenda').change(function() {
@@ -70,12 +68,13 @@ $(document).ready(function() {
 	});
 
 	// Seleccion de tipos en búsqueda avanzada
+	
+	var tipo = $('#types').val();
+	
 	$('#types').change(function() {
-		if ($('#types').val() == 'prenda') {
+		if (tipo === 'prenda') {
 			$('#sizeropa').show();
 			$('#sizetelas').hide();
-			$('#sizetelas').val('');
-			$('#sizeropa').val(sizeropa);
 			$('#wear').attr('disabled', false);
 			$('#wear').val(wear);
 			$('#genre').attr('disabled', false);
@@ -87,8 +86,6 @@ $(document).ready(function() {
 		} else {
 			$('#sizeropa').hide();
 			$('#sizetelas').show();
-			$('#sizetelas').val(sizetelas);
-			$('#sizeropa').val('');
 			$('#genre').attr('disabled', true);
 			$('#genre').val('');
 			$('#style').attr('disabled', true);
@@ -97,53 +94,31 @@ $(document).ready(function() {
 			$('#season').val('');
 			$('#wear').attr('disabled', true);
 			$('#wear').val('');
-		}*/
-		
-		// Email-verification
-		var urlParams = new URLSearchParams(location.search); 
-		var verification_page = window.location.href.indexOf("email-verification");
-				
-		if (urlParams.has('token') && verification_page > -1){ //Busca en la url el nombre token
-			console.log("email-verification");
-			
-			verifyToken(urlParams.get('token'));
 		}
+	});
 		
+				
 
 	// Tootltips
-	/*var tooltipTriggerList = [].slice.call(
-		document.querySelectorAll('[data-bs-toggle="tooltip"]')
-	);
-	var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-		return new bootstrap.Tooltip(tooltipTriggerEl);
-	});
-	
-	var location = window.location.pathname;
-	var direcciones = $('#misdirecciones').val();
+		var tooltipTriggerList = [].slice.call(
+			document.querySelectorAll('[data-bs-toggle="tooltip"]')
+		);
+		var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+			return new bootstrap.Tooltip(tooltipTriggerEl);
+		});
 		
-	if (location === '/checkout'){			
-		if (direcciones == 0) {	
-			selectCity(1);
-			selectCity(2);
+		var location = window.location.pathname;
+		var direcciones = $('#misdirecciones').val();
+			
+		if (location === '/checkout'){			
+			if (direcciones == 0) {	
+				selectCity(1);
+				selectCity(2);
+			}
 		}
-	}*/
-});
-
-function verifyToken(tokenValue){
-	$.get(
-		'/clientes/email-verification', 
-		{token: tokenValue}
-		).done(function (response) {	
-			
-			console.log(response);
-			
-			if (response.operationResult === 'SUCCESS'){					
-				$('#successful-result').attr('style', 'display: block');						
-			} else {
-				$('#unsuccessful-result').attr('style', 'display: block');
-			}		
 	});
-}
+
+
 
 function submitnewpassword(){
 	
@@ -659,5 +634,3 @@ var formatter = new Intl.NumberFormat('es-CL', {
 	currency: 'CLP',
 	maximumFractionDigits: 0
 });
-
-
