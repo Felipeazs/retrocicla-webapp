@@ -1,7 +1,6 @@
 package com.retrocicla.felipeazs.security;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -13,13 +12,18 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 
+import com.retrocicla.felipeazs.io.entity.ClienteEntity;
+import com.retrocicla.felipeazs.io.repository.ClienteRepository;
+
 import io.jsonwebtoken.Jwts;
 
 public class AuthorizationFilter extends BasicAuthenticationFilter {
+	
+	private final ClienteRepository clienteRepo;
 
-	public AuthorizationFilter(AuthenticationManager authManager) {
+	public AuthorizationFilter(AuthenticationManager authManager, ClienteRepository clienteRepo) {
 		super(authManager);
-		
+		this.clienteRepo = clienteRepo;
 	}
 
 	@Override
@@ -51,7 +55,9 @@ public class AuthorizationFilter extends BasicAuthenticationFilter {
 					.getSubject();
 			
 			if (cliente != null) {
-				return new UsernamePasswordAuthenticationToken(cliente, null, new ArrayList<>());
+				ClienteEntity clienteEntity = clienteRepo.findByEmail(cliente);
+				ClientePrincipal clientePrincipal = new ClientePrincipal(clienteEntity); 
+				return new UsernamePasswordAuthenticationToken(cliente, null, clientePrincipal.getAuthorities());
 			}
 			return null;
 		}

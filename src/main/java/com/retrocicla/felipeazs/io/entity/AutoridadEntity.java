@@ -26,6 +26,10 @@ public class AutoridadEntity implements Serializable{
 	
 	@ManyToMany(mappedBy = "autoridades")
 	private Collection<RolEntity> roles;
+	
+	public AutoridadEntity() {
+		super();
+	}
 
 	public AutoridadEntity(String nombre) {
 		this.nombre = nombre;

@@ -9,6 +9,7 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.retrocicla.felipeazs.io.repository.ClienteRepository;
 import com.retrocicla.felipeazs.service.ClienteSecurityService;
 
 @EnableWebSecurity
@@ -17,10 +18,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	@Autowired
     private ClienteSecurityService userDetailsService;
     private final BCryptPasswordEncoder bCryptPasswordEncoder;  
+    private final ClienteRepository clienteRepo;
     
-    public WebSecurity(ClienteSecurityService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder) {
+    public WebSecurity(ClienteSecurityService userDetailsService, BCryptPasswordEncoder bCryptPasswordEncoder, ClienteRepository clienteRepo) {
 		this.userDetailsService = userDetailsService;
 		this.bCryptPasswordEncoder = bCryptPasswordEncoder;
+		this.clienteRepo = clienteRepo;
 	}
 
 	protected void configure(HttpSecurity http) throws Exception {   
@@ -37,6 +40,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		.permitAll()
 		.antMatchers(HttpMethod.POST, SecurityConstants.PASSWORD_RESET_URL)
 		.permitAll()
+		.antMatchers(HttpMethod.DELETE, "/clientes/**").hasRole("ROL_ADMIN")
 		.antMatchers("/swagger-ui/**", "/api-docs")
 		.permitAll()
 		.antMatchers("/css/*", "/js/**", "/img/**")
@@ -56,7 +60,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         .logout()
         .permitAll()
 		.and().addFilter(getAuthenticationFilter())
-		.addFilter(new AuthorizationFilter(authenticationManager()))
+		.addFilter(new AuthorizationFilter(authenticationManager(), clienteRepo))
 		.sessionManagement()
 		.sessionCreationPolicy(SessionCreationPolicy.STATELESS); //Elimina las cookies generadas
     }

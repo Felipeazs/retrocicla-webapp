@@ -44,6 +44,14 @@ public class RolEntity implements Serializable {
 					referencedColumnName = "id"))		
 	private Collection<AutoridadEntity> autoridades;
 
+	public RolEntity() {
+		super();
+	}
+
+	public RolEntity(String nombre) {
+		this.nombre = nombre;
+	}
+
 	public long getId() {
 		return id;
 	}
