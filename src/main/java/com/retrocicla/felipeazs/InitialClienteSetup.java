@@ -17,6 +17,7 @@ import com.retrocicla.felipeazs.io.entity.RolEntity;
 import com.retrocicla.felipeazs.io.repository.AutoridadRepository;
 import com.retrocicla.felipeazs.io.repository.ClienteRepository;
 import com.retrocicla.felipeazs.io.repository.RolRepository;
+import com.retrocicla.felipeazs.shared.Roles;
 import com.retrocicla.felipeazs.shared.Utils;
 
 @Component
@@ -47,8 +48,8 @@ public class InitialClienteSetup {
 		AutoridadEntity writeAutoridad = crearAutoridad("WRITE_AUTORIDAD");
 		AutoridadEntity deleteAutoridad = crearAutoridad("DELETE_AUTORIDAD");
 		
-		RolEntity rolCliente = crearRol("ROL_CLIENTE", Arrays.asList(readAutoridad, writeAutoridad));
-		RolEntity rolAdmin = crearRol("ROL_ADMIN", Arrays.asList(readAutoridad, writeAutoridad, deleteAutoridad));
+		crearRol(Roles.ROLE_USER.name(), Arrays.asList(readAutoridad, writeAutoridad));
+		RolEntity rolAdmin = crearRol(Roles.ROLE_ADMIN.name(), Arrays.asList(readAutoridad, writeAutoridad, deleteAutoridad));
 		
 		if (rolAdmin == null) return;
 		
@@ -71,9 +72,7 @@ public class InitialClienteSetup {
 	
 	@Transactional
 	private AutoridadEntity crearAutoridad(String nombre) {
-		
-		System.out.println(nombre);
-		
+				
 		AutoridadEntity autoridad = autoridadRepo.findByNombre(nombre);
 		
 		if (autoridad == null) {

@@ -3,6 +3,7 @@ package com.retrocicla.felipeazs.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
@@ -12,6 +13,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import com.retrocicla.felipeazs.io.repository.ClienteRepository;
 import com.retrocicla.felipeazs.service.ClienteSecurityService;
 
+@EnableGlobalMethodSecurity(securedEnabled = true, prePostEnabled = true)// Method security
 @EnableWebSecurity
 public class WebSecurity extends WebSecurityConfigurerAdapter {
 
@@ -40,12 +42,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		.permitAll()
 		.antMatchers(HttpMethod.POST, SecurityConstants.PASSWORD_RESET_URL)
 		.permitAll()
-		.antMatchers(HttpMethod.DELETE, "/clientes/**").hasRole("ROL_ADMIN")
+		//.antMatchers(HttpMethod.DELETE, "/clientes/**").hasRole("ADMIN")
 		.antMatchers("/swagger-ui/**", "/api-docs")
 		.permitAll()
 		.antMatchers("/css/*", "/js/**", "/img/**")
 		.permitAll()
-		.antMatchers("/", "/email-verification", "/password-reset", "/password-reset-request")
+		.antMatchers("/", "/productos/ropa", "/agregar/**",  "/email-verification", "/password-reset", "/password-reset-request")
 		.permitAll()
 		.anyRequest()
 		.authenticated()

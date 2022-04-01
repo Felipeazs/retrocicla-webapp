@@ -3,6 +3,7 @@ package com.retrocicla.felipeazs.ui.controller;
 import java.lang.reflect.Type;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashSet;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -14,6 +15,9 @@ import org.springframework.hateoas.EntityModel;
 import org.springframework.hateoas.Link;
 import org.springframework.hateoas.server.mvc.WebMvcLinkBuilder;
 import org.springframework.http.MediaType;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PostAuthorize;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +33,7 @@ import com.retrocicla.felipeazs.model.dto.ClienteDto;
 import com.retrocicla.felipeazs.model.dto.DireccionDto;
 import com.retrocicla.felipeazs.service.ClienteService;
 import com.retrocicla.felipeazs.service.DireccionService;
+import com.retrocicla.felipeazs.shared.Roles;
 import com.retrocicla.felipeazs.ui.model.request.ClienteRequestModel;
 import com.retrocicla.felipeazs.ui.model.request.PasswordResetModel;
 import com.retrocicla.felipeazs.ui.model.request.PasswordResetRequestModel;
@@ -59,6 +64,7 @@ public class ClienteController {
 	@Autowired
 	private DireccionService direccionService;
 	
+	@PostAuthorize(value = "hasRole('ROLE_ADMIN') or returnObject.clienteId == principal.clienteId")
 	//OpenAPI/Swagger
 	@Operation(
 			summary = "Buscar un cliente",
@@ -116,6 +122,7 @@ public class ClienteController {
 		//Copia y pega las propiedades desde el RequestBody al DTO.
 		ModelMapper modelMapper = new ModelMapper();
 		ClienteDto clienteDto = modelMapper.map(clienteDetails, ClienteDto.class);
+		clienteDto.setRoles(new HashSet<>(Arrays.asList(Roles.ROLE_USER.name())));
 		
 		//Crea un nuevo cliente y lo almacena en la DB a travéz del Service, utilizando la informacion del DTO.
 		ClienteDto createdCliente = clienteService.crearCliente(clienteDto);
@@ -145,7 +152,9 @@ public class ClienteController {
 			
 			return returnValue;
 	}
-	
+
+	@PreAuthorize(value = "hasRole('ROLE_ADMIN') or #id == principal.clienteId")
+	//@Secured("ROLE_ADMIN")
 	@DeleteMapping(
 			path = "/{clienteid}",
 			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })

@@ -1,6 +1,8 @@
 package com.retrocicla.felipeazs.service.impl;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
 import java.util.List;
 
 import org.modelmapper.ModelMapper;
@@ -15,8 +17,10 @@ import org.springframework.stereotype.Service;
 import com.retrocicla.felipeazs.exceptions.ClienteServiceException;
 import com.retrocicla.felipeazs.io.entity.ClienteEntity;
 import com.retrocicla.felipeazs.io.entity.PasswordResetTokenEntity;
+import com.retrocicla.felipeazs.io.entity.RolEntity;
 import com.retrocicla.felipeazs.io.repository.ClienteRepository;
 import com.retrocicla.felipeazs.io.repository.PasswordResetTokenRepository;
+import com.retrocicla.felipeazs.io.repository.RolRepository;
 import com.retrocicla.felipeazs.model.dto.ClienteDto;
 import com.retrocicla.felipeazs.model.dto.DireccionDto;
 import com.retrocicla.felipeazs.service.ClienteService;
@@ -32,6 +36,9 @@ public class ClienteServiceImpl implements ClienteService{
     
     @Autowired
     private PasswordResetTokenRepository passwordResetTokenRepo;
+    
+    @Autowired
+    private RolRepository rolRepo;
         
     @Autowired
     private Utils utils;
@@ -72,6 +79,17 @@ public class ClienteServiceImpl implements ClienteService{
 		//Generacion del email verification Token
 		clienteEntity.setEmailVerificationToken(utils.generateEmailVerificationToken(publicClienteId));
 		clienteEntity.setEmailVerificationStatus(false);
+		
+		//Set rol de usuario
+		Collection<RolEntity> rolesEntity = new HashSet<>();
+		for(String rol: clienteDto.getRoles()) {
+			RolEntity rolEntity = rolRepo.findByNombre(rol);
+			if (rolEntity != null) {
+				rolesEntity.add(rolEntity);
+			}
+		}
+		
+		clienteEntity.setRoles(rolesEntity);
 		
 		//Almacenar el cliente en la base de datos
 		ClienteEntity saveCliente = clienteRepo.save(clienteEntity);

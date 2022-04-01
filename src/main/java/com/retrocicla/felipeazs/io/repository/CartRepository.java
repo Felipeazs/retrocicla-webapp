@@ -13,6 +13,8 @@ public interface CartRepository extends JpaRepository<CartEntity, Integer> {
 
 	CartEntity findByClienteId(String cliente_id);
 
+	CartEntity findByProductoProductid(String productId);
+
 	
 }
 

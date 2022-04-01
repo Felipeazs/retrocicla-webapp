@@ -1,8 +1,7 @@
 package com.retrocicla.felipeazs.security;
 
-import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
+import java.util.HashSet;
 
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -17,17 +16,25 @@ public class ClientePrincipal implements UserDetails {
 
 	private static final long serialVersionUID = -6911531710695082525L;
 	
-	ClienteEntity clienteEntity;
+	private ClienteEntity clienteEntity;
+	private String clienteId;
 
 	public ClientePrincipal(ClienteEntity clienteEntity) {
 		this.clienteEntity = clienteEntity;
+		this.clienteId = clienteEntity.getClienteId();
+	}	
+	public String getClienteId() {
+		return clienteId;
 	}
-
+	public void setClienteId(String clienteId) {
+		this.clienteId = clienteId;
+	}
+	
 	@Override
 	public Collection<? extends GrantedAuthority> getAuthorities() {
 		
-		List<GrantedAuthority> autoridades = new ArrayList<>();
-		List<AutoridadEntity> autoridadesEnt = new ArrayList<>();
+		Collection<GrantedAuthority> autoridades = new HashSet<>();
+		Collection<AutoridadEntity> autoridadesEnt = new HashSet<>();
 		
 		Collection<RolEntity> roles = clienteEntity.getRoles();
 		

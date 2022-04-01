@@ -83,7 +83,7 @@ public class ProductRest implements Serializable {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	public String getMadein() {
+	public String getMadeIn() {
 		return madeIn;
 	}
 	public void setMadeIn(String madeIn) {

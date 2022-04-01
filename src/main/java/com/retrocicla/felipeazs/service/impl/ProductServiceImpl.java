@@ -20,6 +20,7 @@ import com.retrocicla.felipeazs.model.dto.ProductDto;
 import com.retrocicla.felipeazs.service.ProductService;
 import com.retrocicla.felipeazs.shared.Utils;
 import com.retrocicla.felipeazs.ui.model.response.ErrorMessages;
+import com.retrocicla.felipeazs.ui.model.response.ProductRest;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -168,11 +169,21 @@ public class ProductServiceImpl implements ProductService {
 //		
 //	}
 //
-//	@Override
-//	public List<ProductEntity> searchBy(String productType) {
-//		
-//		return repo.findAllByTypeOrderByWearAsc(productType);
-//	}
+	@Override
+	public List<ProductDto> searchBy(String productType) {
+		
+		List<ProductEntity> productos = productRepo.findAllByTypeOrderByWearAsc(productType);
+		
+		List<ProductDto> returnValue = new ArrayList<>();
+		
+		ModelMapper modelMap = new ModelMapper();
+		for (ProductEntity producto : productos) {
+			returnValue.add(modelMap.map(producto, ProductDto.class));			
+		}
+		
+		
+		return returnValue;
+	}
 //
 //	
 //

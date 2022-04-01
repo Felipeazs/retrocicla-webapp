@@ -30,8 +30,8 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 		<!-- Font Awesome -->
 		<script src="https://kit.fontawesome.com/8df927e57d.js" crossorigin="anonymous"></script>
 
-		<link rel="stylesheet" href="css/style.css" />
-		<script src="js/script.js"></script>
+		<link rel="stylesheet" href="../css/style.css" />
+		<script src="../js/script.js"></script>
 
 		<title>Retrocicla</title>
 	</head>
@@ -42,7 +42,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				<div class="logo">
 					<a href="/">
 						<img
-							src="img/logo1.png"
+							src="../img/logo1.png"
 							alt="logo-retrocicla"
 							class="img-responsive"
 						/>
@@ -158,7 +158,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 										<div class="product-box">
 											<form:form
  												method="get"
- 												modelAttribute="product"
+ 												modelAttribute="producto"
  												action="/productdetails"
  											>
  												<form:input
@@ -168,9 +168,9 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
  													class="img-responsive"
  												/> 
  												<form:input
- 													path="id"
+ 													path="productid"
  													type="hidden"
- 													value="${ p.id }"
+ 													value="${ p.productid }"
  													id="productid"
  													name="productid"
  												/>
@@ -211,19 +211,23 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 													${ p.spandex }% spandex
 												</h2>
 											</c:if>
-											<h2>Hecho en ${ p.made }</h2>
+											<h2>Hecho en ${ p.madeIn }</h2>
 											<div class="price">
 												<h2>Precio:</h2>
 												${ p.formatted_price }
-											</div>											
-												<button
+											</div>	
+											<form:form
+												method="post"
+ 												modelAttribute="producto"
+ 												action="/agregar/${ p.productid }">									
+												<form:button
 													class="btn btn-primary btn-sm"
-													type="button"
-													onclick="addproducttocart(${ p.id })"
-													id="addproducttocartbutton"
+													type="submit"
+													id=""
 												>
 													Agregar al carrito
-												</button>
+												</form:button>
+											</form:form>	
 										</div>
 									</div>
 								</c:forEach>

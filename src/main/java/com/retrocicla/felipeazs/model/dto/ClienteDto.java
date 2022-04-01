@@ -1,6 +1,7 @@
 package com.retrocicla.felipeazs.model.dto;
 
 import java.io.Serializable;
+import java.util.Collection;
 import java.util.List;
 
 public class ClienteDto implements Serializable {
@@ -15,6 +16,7 @@ public class ClienteDto implements Serializable {
 	private String emailVerificationToken;
 	private Boolean emailVerificationStatus = false;
 	private List<DireccionDto> direcciones;
+	private Collection<String> roles;
 		
 	public String getClienteId() {
 		return clienteId;
@@ -70,6 +72,12 @@ public class ClienteDto implements Serializable {
 	}
 	public void setDirecciones(List<DireccionDto> direcciones) {
 		this.direcciones = direcciones;
+	}
+	public Collection<String> getRoles() {
+		return roles;
+	}
+	public void setRoles(Collection<String> roles) {
+		this.roles = roles;
 	}
 	
 	

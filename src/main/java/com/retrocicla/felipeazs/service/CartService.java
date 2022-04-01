@@ -1,11 +1,16 @@
 package com.retrocicla.felipeazs.service;
 
+import com.retrocicla.felipeazs.io.entity.CartEntity;
 import com.retrocicla.felipeazs.model.dto.CartDto;
 import com.retrocicla.felipeazs.ui.model.request.CartRequestModel;
 
 public interface CartService {
 
 	CartDto createCart(CartRequestModel cartDetails);
+
+	void addProduct(String productId);
+
+	void updateProductInCart(CartEntity product);
 	
 //	List<Cart> list();
 //	void addProduct(Product product, Cliente cliente);

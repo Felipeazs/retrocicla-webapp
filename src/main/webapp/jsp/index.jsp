@@ -47,7 +47,7 @@
 			<div class="menu-sidebar-content js-scrollbar1">
 				<nav class="navbar-sidebar">
 					<ul class="list-unstyled navbar-list">
-						<li><a href="/ropaspage">Ropa</a></li>
+						<li><a href="/productos/ropa">Ropa</a></li>
 						<li><a href="/telaspage">Telas</a></li>
 						<li><a href="/addproductpage">Agregar producto</a></li>
 						<li><a href="/logout">Cerrar sesión</a></li>
@@ -120,7 +120,7 @@
 						</c:if>
 						<div class="row">
 							<div class="s007">
-								<form:form method="get" modelAttribute="product"
+								<form:form method="get" modelAttribute="producto"
 									action="/searchproduct" id="">
 									<div class="inner-form">
 										<div class="advance-search">

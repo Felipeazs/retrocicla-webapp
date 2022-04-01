@@ -17,7 +17,7 @@ public interface ProductService {
 //
 //	public ProductEntity add(ProductEntity product);
 //
-//	public List<ProductEntity> searchBy(String productType);
+	public List<ProductDto> searchBy(String productType);
 //
 //	public List<ProductEntity> searchProducts(ProductEntity product);
 //

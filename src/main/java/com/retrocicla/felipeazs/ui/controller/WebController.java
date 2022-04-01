@@ -4,6 +4,9 @@ import java.util.ArrayList;
 //import java.text.NumberFormat;
 //import java.util.ArrayList;
 import java.util.List;
+
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.BeanUtils;
 //import java.util.Locale;
 //
 //import javax.validation.Valid;
@@ -37,9 +40,13 @@ public class WebController {
 //
 	@Autowired
 	private ProductService productService;
+	
+	@ModelAttribute("producto")
+	private ProductEntity setProduct() {
+		return new ProductEntity();
+	}
 //
-//	@Autowired
-//	private CartService cartService;
+	
 //
 //	@Autowired
 //	private RegionService regionService;
@@ -55,10 +62,7 @@ public class WebController {
 //		return new Cliente();
 //	}
 //
-	@ModelAttribute("product")
-	private ProductEntity setProduct() {
-		return new ProductEntity();
-	}
+	
 //	
 //	@ModelAttribute("order")
 //	private Order setOrder() {
@@ -70,21 +74,6 @@ public class WebController {
 //		return "registro";
 //	}
 //
-	@GetMapping("/login")
-	public String postLogin() {				
-		return "login";
-	}
-	
-	@GetMapping("/email-verification")
-	public String getEmailVerification() {
-		return "email-verification";
-	}
-	
-	@GetMapping("/password-reset-request")
-	public String getPasswordResetRequest() {
-		return "/password-reset";
-	}
-
 //
 //	@GetMapping("logout")
 //	public String getLogout() {
@@ -97,10 +86,6 @@ public class WebController {
 		List<ArrayList<String>> multipleSelect = productService.getMultipleSelection();
 		model.addAttribute("multipleSelect", multipleSelect);
 		
-
-//		modelMultipleSelection(model);		
-//		amountAndQuantity(model, auth);
-
 		return "index";
 	}
 //	
@@ -142,15 +127,9 @@ public class WebController {
 //		return "index";
 //	}
 //
-//	@GetMapping("/ropaspage")
-//	public String getRopasPage(Model model) {
-//
-//		model.addAttribute("products", productService.searchBy("prenda"));
-//
-////		amountAndQuantity(model, auth);
-//
-//		return "productslist";
-//	}
+
+	
+	
 //
 //	@GetMapping("/telaspage")
 //	public String getTelasPage(Model model) {
@@ -284,4 +263,19 @@ public class WebController {
 //			model.addAttribute("totalamount", 0);
 //		}
 //	}
+	
+	@GetMapping("/login")
+	public String postLogin() {				
+		return "login";
+	}
+	
+	@GetMapping("/email-verification")
+	public String getEmailVerification() {
+		return "email-verification";
+	}
+	
+	@GetMapping("/password-reset-request")
+	public String getPasswordResetRequest() {
+		return "/password-reset";
+	}
 }

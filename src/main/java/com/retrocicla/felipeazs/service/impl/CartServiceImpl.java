@@ -89,7 +89,7 @@ public class CartServiceImpl implements CartService{
 
 		return formattedPrice;
 	}
-}
+
 
 
 
@@ -108,51 +108,51 @@ public class CartServiceImpl implements CartService{
 ////		return clientecart;
 ////	}
 ////
-////	@Override
-////	public void addProduct(Product product, ClienteDto cliente) {
-////		
-////		try {
-////			Cart findProduct = repo.findByProductIdAndClienteEmail(product.getId(), cliente.getEmail());			
-////			updateProduct(findProduct.getProduct().getId(), cliente.getEmail());
-////		} catch (NullPointerException ex) {
-////			
-////			Cart cart = new Cart();
-////			
-////			cart.setCreatedAt(LocalDate.now());
-////			cart.setProduct(product);
-////			cart.setQuantity(1);
-////			cart.setPrice(product.getPrice());						
-////			cart.setCliente(cliente);
-////				
-////			int totalPrice = cart.getQuantity() * cart.getPrice();
-////			Locale clp = new Locale("es", "CL");
-////			NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
-////			String price = nf.format(totalPrice);		
-////			cart.setTotalPrice(price);
-////				
-////			repo.save(cart);			
-////		}				
-////	}
-////
-////	@Override
-////	public void updateProduct(int productId, String email) {
-////		
-////		Cart product = repo.findByProductIdAndClienteEmail(productId, email);
-////		
-////		if (product.getQuantity() < product.getProduct().getStock()) {
-////			
-////			product.setQuantity(product.getQuantity() + 1);		
-////			
-////			int totalPrice = product.getQuantity() * product.getPrice();
-////			Locale clp = new Locale("es", "CL");
-////			NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
-////			String price = nf.format(totalPrice);		
-////			product.setTotalPrice(price);
-////			
-////			repo.save(product);
-////		}		
-////						
-////	}
+	@Override
+	public void addProduct(String productId) {
+		
+		try {
+			CartEntity product = cartRepo.findByProductoProductid(productId);			
+			updateProductInCart(product);
+		} catch (NullPointerException ex) {
+			
+			ProductEntity product = productRepo.findByProductid(productId);
+			
+			CartEntity cart = new CartEntity();
+			cart.setCreatedAt(LocalDate.now());
+			cart.setProducto(product);
+			cart.setQuantity(1);
+			cart.setPrice(product.getPrice());						
+//			cart.setCliente(cliente);
+				
+			int totalPrice = cart.getQuantity() * cart.getPrice();
+			Locale clp = new Locale("es", "CL");
+			NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
+			String price = nf.format(totalPrice);		
+			cart.setTotalPrice(price);
+				
+			cartRepo.save(cart);			
+		}				
+	}
+
+	@Override
+	public void updateProductInCart(CartEntity product) {
+				
+		if (product.getQuantity() < product.getProducto().getStock()) {
+			
+			product.setQuantity(product.getQuantity() + 1);		
+			
+			int totalPrice = product.getQuantity() * product.getPrice();
+			Locale clp = new Locale("es", "CL");
+			NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
+			String price = nf.format(totalPrice);		
+			product.setTotalPrice(price);
+			
+			cartRepo.save(product);
+		}		
+						
+	}
+}
 ////
 ////	@Override
 ////	public void removeProduct(Integer productId, String email) {
