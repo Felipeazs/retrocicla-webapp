@@ -17,11 +17,13 @@ public class SuccessLoginHandler implements AuthenticationSuccessHandler{
 	public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
 			Authentication authentication) throws IOException, ServletException {		
 
-		System.out.println("success login handler");
+		System.out.println("success login: " + authentication.getAuthorities());
 		
 		response.getWriter().append("SUCCESSFUL LOGIN");
         response.sendRedirect("/");
 		
 	}
+	
+	
 
 }

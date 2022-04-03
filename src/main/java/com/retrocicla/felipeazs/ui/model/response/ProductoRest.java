@@ -1,11 +1,11 @@
-package com.retrocicla.felipeazs.model.dto;
+package com.retrocicla.felipeazs.ui.model.response;
 
 import java.io.Serializable;
 
-public class ProductDto implements Serializable {
+public class ProductoRest implements Serializable {
 	
-	private static final long serialVersionUID = -5369572265095232666L;
-	private String productid;		
+	private static final long serialVersionUID = -7078670393217265540L;
+	private String productoId;		
     private String description;	
     private String wear;
     private String size;
@@ -23,11 +23,11 @@ public class ProductDto implements Serializable {
     private String type; 
     private int stock;
     
-	public String getProductid() {
-		return productid;
+	public String getProductoId() {
+		return productoId;
 	}
-	public void setProductid(String productid) {
-		this.productid = productid;
+	public void setProductoId(String productoId) {
+		this.productoId = productoId;
 	}
 	public String getDescription() {
 		return description;
@@ -86,7 +86,7 @@ public class ProductDto implements Serializable {
 	public String getMadeIn() {
 		return madeIn;
 	}
-	public void setMade(String madeIn) {
+	public void setMadeIn(String madeIn) {
 		this.madeIn = madeIn;
 	}
 	public int getCotton() {
@@ -125,7 +125,6 @@ public class ProductDto implements Serializable {
 	public void setStock(int stock) {
 		this.stock = stock;
 	} 
-    
     
 
 }

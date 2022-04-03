@@ -16,8 +16,8 @@ import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
 @Entity
-@Table(name="carritos")
-public class CartEntity implements Serializable{
+@Table(name="carrito")
+public class CarritoEntity implements Serializable{
 	
 	private static final long serialVersionUID = 9082255421207218948L;
 
@@ -29,8 +29,8 @@ public class CartEntity implements Serializable{
 	private LocalDate createdAt;
 	
 	@OneToOne(cascade = CascadeType.ALL)
-	@JoinTable(name = "product_id")
-	private ProductEntity producto;
+	@JoinTable(name = "producto_id")
+	private ProductoEntity producto;
 	
 	@Column(name = "quantity")
 	private int quantity;
@@ -61,11 +61,11 @@ public class CartEntity implements Serializable{
 		this.createdAt = createdAt;
 	}
 
-	public ProductEntity getProducto() {
+	public ProductoEntity getProducto() {
 		return producto;
 	}
 
-	public void setProducto(ProductEntity producto) {
+	public void setProducto(ProductoEntity producto) {
 		this.producto = producto;
 	}
 

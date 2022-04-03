@@ -7,8 +7,8 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
 import com.retrocicla.felipeazs.io.repository.ClienteRepository;
 import com.retrocicla.felipeazs.service.ClienteSecurityService;
@@ -32,25 +32,30 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         http 	
         .csrf().disable()
 		.authorizeRequests()		
-		.antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL)
-		.permitAll()
-		.antMatchers(HttpMethod.GET, SecurityConstants.VERIFICATION_EMAIL_URL)
-		.permitAll()
-		.antMatchers(HttpMethod.GET, SecurityConstants.GET_PRODUCTS_URL)
-		.permitAll()
-		.antMatchers(HttpMethod.POST, SecurityConstants.PASSWORD_RESET_REQUEST_URL)
-		.permitAll()
-		.antMatchers(HttpMethod.POST, SecurityConstants.PASSWORD_RESET_URL)
-		.permitAll()
+		.antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
+		.antMatchers(HttpMethod.GET, SecurityConstants.VERIFICATION_EMAIL_URL).permitAll()
+		.antMatchers(HttpMethod.GET, SecurityConstants.GET_PRODUCTS_URL).permitAll()
+		.antMatchers(HttpMethod.POST, SecurityConstants.PASSWORD_RESET_REQUEST_URL).permitAll()
+		.antMatchers(HttpMethod.POST, SecurityConstants.PASSWORD_RESET_URL).permitAll()
+		.antMatchers(HttpMethod.POST, "/productos").permitAll()
 		//.antMatchers(HttpMethod.DELETE, "/clientes/**").hasRole("ADMIN")
 		.antMatchers("/swagger-ui/**", "/api-docs")
 		.permitAll()
 		.antMatchers("/css/*", "/js/**", "/img/**")
 		.permitAll()
-		.antMatchers("/", "/productos/ropa", "/agregar/**",  "/email-verification", "/password-reset", "/password-reset-request")
+		.antMatchers(
+				"/", 
+				"/productos/ropa",
+				"/email-verification", 
+				"/password-reset", 
+				"/password-reset-request")
 		.permitAll()
+		.antMatchers(HttpMethod.POST, "/carrito/agregar/{productoId}").hasAnyAuthority("WRITE_AUTORIDAD")
+		.antMatchers("/producto/{productoId}").hasAnyAuthority("READ_AUTORIDAD")
 		.anyRequest()
 		.authenticated()
+		.and()
+		.httpBasic()
 		.and()
         .formLogin()
         .loginPage("/login")
@@ -60,11 +65,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         .permitAll()
         .and()
         .logout()
-        .permitAll()
-		.and().addFilter(getAuthenticationFilter())
-		.addFilter(new AuthorizationFilter(authenticationManager(), clienteRepo))
-		.sessionManagement()
-		.sessionCreationPolicy(SessionCreationPolicy.STATELESS); //Elimina las cookies generadas
+        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
+		.logoutSuccessUrl("/");
+//		.and().addFilter(getAuthenticationFilter())
+//		.addFilter(new AuthorizationFilter(authenticationManager(), clienteRepo))
+//		.sessionManagement()
+//		.sessionCreationPolicy(SessionCreationPolicy.STATELESS); //Elimina las cookies generadas
     }
 	
 	@Override

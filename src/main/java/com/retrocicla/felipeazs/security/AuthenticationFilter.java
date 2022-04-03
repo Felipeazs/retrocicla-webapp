@@ -38,7 +38,7 @@ public class AuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 		
 		try {
 			ClienteLoginRequestModel creds = new ObjectMapper().readValue(request.getInputStream(), ClienteLoginRequestModel.class);
-			
+						
 			return authenticationManager.authenticate(
 					new UsernamePasswordAuthenticationToken(
 							creds.getEmail(),

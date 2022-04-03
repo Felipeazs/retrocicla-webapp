@@ -19,9 +19,12 @@ public class ClienteSecurityService implements UserDetailsService{
 	@Override
 	public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
 		
-		ClienteEntity clienteEntity = clienteRepository.findByEmail(email);		
+		ClienteEntity clienteEntity = clienteRepository.findByEmail(email);				
 		
 		if (clienteEntity == null) throw new UsernameNotFoundException(email);
+		
+		System.out.println("cliente: " + clienteEntity.getEmail());
+		System.out.println("autoridades: " + clienteEntity.getRoles());
 		
 		return new ClientePrincipal(clienteEntity);
 		

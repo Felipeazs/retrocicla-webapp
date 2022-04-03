@@ -2,10 +2,10 @@ package com.retrocicla.felipeazs.ui.model.response;
 
 import java.time.LocalDate;
 
-public class CartRest {
+public class CarritoRest {
 	
 	private LocalDate createdAt;
-	private ProductRest producto;
+	private ProductoRest producto;
 	private int quantity;
 	private int price;
 	private String totalPrice;
@@ -17,10 +17,10 @@ public class CartRest {
 	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
-	public ProductRest  getProducto() {
+	public ProductoRest getProducto() {
 		return producto;
 	}
-	public void setProducto(ProductRest  producto) {
+	public void setProducto(ProductoRest  producto) {
 		this.producto = producto;
 	}
 	public int getQuantity() {

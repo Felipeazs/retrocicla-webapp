@@ -13,42 +13,41 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
-import com.retrocicla.felipeazs.exceptions.ProductServiceException;
-import com.retrocicla.felipeazs.io.entity.ProductEntity;
-import com.retrocicla.felipeazs.io.repository.ProductRepository;
-import com.retrocicla.felipeazs.model.dto.ProductDto;
-import com.retrocicla.felipeazs.service.ProductService;
+import com.retrocicla.felipeazs.exceptions.ProductoServiceException;
+import com.retrocicla.felipeazs.io.entity.ProductoEntity;
+import com.retrocicla.felipeazs.io.repository.ProductoRepository;
+import com.retrocicla.felipeazs.model.dto.ProductoDto;
+import com.retrocicla.felipeazs.service.ProductoService;
 import com.retrocicla.felipeazs.shared.Utils;
 import com.retrocicla.felipeazs.ui.model.response.ErrorMessages;
-import com.retrocicla.felipeazs.ui.model.response.ProductRest;
 
 @Service
-public class ProductServiceImpl implements ProductService {
+public class ProductoServiceImpl implements ProductoService {
 
 	@Autowired
-	private ProductRepository productRepo;
+	private ProductoRepository productoRepo;
 
 	@Autowired
 	private Utils utils;
 
 	@Override
-	public ProductDto crearProducto(ProductDto productDto) {
+	public ProductoDto crearProducto(ProductoDto productDto) {
 
-		ProductEntity dbProduct = productRepo.findByImageUrl(productDto.getImageUrl());
+		ProductoEntity dbProduct = productoRepo.findByImageUrl(productDto.getImageUrl());
 		if (dbProduct != null)
-			throw new ProductServiceException(ErrorMessages.RECORDS_ALREADY_EXIST.getErrorMessage());
+			throw new ProductoServiceException(ErrorMessages.RECORDS_ALREADY_EXIST.getErrorMessage());
 
-		ProductEntity newProduct = new ProductEntity();
+		ProductoEntity newProduct = new ProductoEntity();
 				
 		BeanUtils.copyProperties(productDto, newProduct);
 		
-		String productId = utils.generateProductId(10);
-		newProduct.setProductid(productId);
+		String productoId = utils.generateProductId(10);
+		newProduct.setProductoId(productoId);
 		newProduct.setFormatted_price(formatPrice(productDto.getPrice()));
 		
-		ProductEntity savedProduct = productRepo.save(newProduct);
+		ProductoEntity savedProduct = productoRepo.save(newProduct);
 		
-		ProductDto returnValue = new ProductDto();
+		ProductoDto returnValue = new ProductoDto();
 		
 		BeanUtils.copyProperties(savedProduct, returnValue);
 
@@ -56,28 +55,39 @@ public class ProductServiceImpl implements ProductService {
 	}
 
 	@Override
-	public List<ProductDto> listarProducts(int page, int limit) {
+	public List<ProductoDto> listarProducts(int page, int limit) {
 
 		if (page > 0)
 			page = page - 1;
 
-		List<ProductDto> returnValue = new ArrayList<>();
+		List<ProductoDto> returnValue = new ArrayList<>();
 
 		Pageable pageableReq = PageRequest.of(page, limit);
 
-		Page<ProductEntity> pageProducts = productRepo.findAll(pageableReq);
+		Page<ProductoEntity> pageProducts = productoRepo.findAll(pageableReq);
 
 		if (pageProducts == null)
-			throw new ProductServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+			throw new ProductoServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
-		List<ProductEntity> products = pageProducts.getContent();
+		List<ProductoEntity> products = pageProducts.getContent();
 		
 		ModelMapper modelMapper = new ModelMapper();
 
-		for (ProductEntity product : products) {
-			returnValue.add(modelMapper.map(product, ProductDto.class));			
+		for (ProductoEntity product : products) {
+			returnValue.add(modelMapper.map(product, ProductoDto.class));			
 		}
 
+		return returnValue;
+	}
+	
+	@Override
+	public ProductoDto obtenerProductoPorId(String productoId) {
+		
+		ProductoDto returnValue = new ProductoDto();
+		
+		ProductoEntity productoEntity = productoRepo.findByProductoId(productoId);
+		BeanUtils.copyProperties(productoEntity, returnValue);
+		
 		return returnValue;
 	}
 
@@ -89,21 +99,23 @@ public class ProductServiceImpl implements ProductService {
 
 		return formattedPrice;
 	}
+	
+	
 
 	@Override
 	public List<ArrayList<String>> getMultipleSelection() {
 			
 		List<ArrayList<String>> selections = new ArrayList<ArrayList<String>>();
 		
-		ArrayList<String> type = productRepo.getDistinctByType();
-		ArrayList<String> material = productRepo.getDistinctByMaterial();
-		ArrayList<String> wear = productRepo.getDistinctByWear();
-		ArrayList<String> color = productRepo.getDistinctByColor();
-		ArrayList<String> telasize = productRepo.getDistinctByTelaSize();
-		ArrayList<String> ropasize = productRepo.getDistinctByRopaSize();
-		ArrayList<String> style = productRepo.getDistinctByStyle();
-		ArrayList<String> genre = productRepo.getDistinctByGenre();
-		ArrayList<String> made = productRepo.getDistinctByMadeIn();
+		ArrayList<String> type = productoRepo.getDistinctByType();
+		ArrayList<String> material = productoRepo.getDistinctByMaterial();
+		ArrayList<String> wear = productoRepo.getDistinctByWear();
+		ArrayList<String> color = productoRepo.getDistinctByColor();
+		ArrayList<String> telasize = productoRepo.getDistinctByTelaSize();
+		ArrayList<String> ropasize = productoRepo.getDistinctByRopaSize();
+		ArrayList<String> style = productoRepo.getDistinctByStyle();
+		ArrayList<String> genre = productoRepo.getDistinctByGenre();
+		ArrayList<String> made = productoRepo.getDistinctByMadeIn();
 		
 		selections.add(type);
 		selections.add(material);
@@ -170,15 +182,15 @@ public class ProductServiceImpl implements ProductService {
 //	}
 //
 	@Override
-	public List<ProductDto> searchBy(String productType) {
+	public List<ProductoDto> searchBy(String productType) {
 		
-		List<ProductEntity> productos = productRepo.findAllByTypeOrderByWearAsc(productType);
+		List<ProductoEntity> productos = productoRepo.findAllByTypeOrderByWearAsc(productType);
 		
-		List<ProductDto> returnValue = new ArrayList<>();
+		List<ProductoDto> returnValue = new ArrayList<>();
 		
 		ModelMapper modelMap = new ModelMapper();
-		for (ProductEntity producto : productos) {
-			returnValue.add(modelMap.map(producto, ProductDto.class));			
+		for (ProductoEntity producto : productos) {
+			returnValue.add(modelMap.map(producto, ProductoDto.class));			
 		}
 		
 		
@@ -232,5 +244,7 @@ public class ProductServiceImpl implements ProductService {
 //		
 //		return products;
 //	}
+
+	
 
 }

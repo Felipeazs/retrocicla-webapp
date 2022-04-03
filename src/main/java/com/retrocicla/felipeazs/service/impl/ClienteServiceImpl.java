@@ -258,9 +258,6 @@ public class ClienteServiceImpl implements ClienteService{
 		returnValue = true;
 		
 		return returnValue;
-	}
-
-	
-    
+	} 
     
 }

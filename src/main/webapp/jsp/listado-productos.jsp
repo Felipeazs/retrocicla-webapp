@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 pageEncoding="UTF-8"%> <%@ taglib uri="http://www.springframework.org/tags/form"
 prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 
 <!DOCTYPE html>
 <html>
@@ -51,9 +52,9 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				<div class="menu-sidebar-content js-scrollbar1">
 					<nav class="navbar-sidebar">
 						<ul class="list-unstyled navbar-list">
-							<li><a href="/ropaspage">Ropa</a></li>
-							<li><a href="/telaspage">Telas</a></li>
-							<li><a href="/addproductpage">Agregar producto</a></li>
+							<li><a href="/productos/ropa">Ropa</a></li>
+							<li><a href="">Telas</a></li>
+							<li><a href="">Agregar producto</a></li>
 							<li><a href="/logout">Cerrar sesión</a></li>
 						</ul>
 					</nav>
@@ -110,7 +111,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 									</ul>
 								</div>
 								<div class="cart-area d-n">								
-									<a href="/cartdetails">
+									<a href="">
 									    <div class="total">
 									    	<strong name="feedback-totalprice">${ totalamount }</strong>					    	
 									      	<span id="feedback-totalquantity">${ totalquantity }</span>
@@ -129,37 +130,41 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				<div class="main-content">
 					<div class="section-content section-content-p30">
 						<div class="container-fluid">
-							<c:if test="${ not empty productssize }">
+							<c:if test="${ not empty productos }">
 								<div class="alert alert-success">
 									<c:choose>
-										<c:when test="${ productssize > 1}">
-											${ productssize } elementos fueron
+										<c:when test="${ fn:length(productos) == 1}">
+											${ fn:length(productos) } elemento fue
+											encontrado
+										</c:when>
+										<c:when test="${ fn:length(productos) > 1}">
+											${ fn:length(productos) } elementos fueron
 											encontrados
 										</c:when>
-										<c:when test="${ productssize eq 0}">
+										<c:when test="${ fn:length(productos) eq 0}">
 											Ningún elemento fue encontrado
 										</c:when>
 										<c:otherwise>
-											${ productssize } elemento fue
+											${ fn:length(productos) } elemento fue
 											encontrado
 										</c:otherwise>
 									</c:choose>
 								</div>
 							</c:if>
-							<c:if test="${ empty products }">
+							<c:if test="${ empty productos }">
 								<div class="alert alert-danger">
 									No se encontró ningún producto con esas
 									características
 								</div>
 							</c:if>
 							<div class="row">
-								<c:forEach items="${ products }" var="p">
+								<c:forEach items="${ productos }" var="p">
 									<div class="col-md-2">
 										<div class="product-box">
 											<form:form
  												method="get"
  												modelAttribute="producto"
- 												action="/productdetails"
+ 												action="/producto/${p.productoId}"
  											>
  												<form:input
  													path="imageUrl"
@@ -168,11 +173,11 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
  													class="img-responsive"
  												/> 
  												<form:input
- 													path="productid"
+ 													path="productoId"
  													type="hidden"
- 													value="${ p.productid }"
- 													id="productid"
- 													name="productid"
+ 													value="${ p.productoId }"
+ 													id="productoId"
+ 													name="productoId"
  												/>
  											</form:form>
 											<h1>${ p.description }</h1>
@@ -215,19 +220,13 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 											<div class="price">
 												<h2>Precio:</h2>
 												${ p.formatted_price }
-											</div>	
-											<form:form
-												method="post"
- 												modelAttribute="producto"
- 												action="/agregar/${ p.productid }">									
-												<form:button
-													class="btn btn-primary btn-sm"
-													type="submit"
-													id=""
-												>
-													Agregar al carrito
-												</form:button>
-											</form:form>	
+											</div>																			
+											<button
+												class="btn btn-primary btn-sm"
+												type="button"
+												onclick="agregarProductoAlCarrito(${ p.productoId })">
+												Agregar al carrito
+											</button>										
 										</div>
 									</div>
 								</c:forEach>

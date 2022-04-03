@@ -6,11 +6,11 @@ import java.util.List;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
-import com.retrocicla.felipeazs.io.entity.ProductEntity;
+import com.retrocicla.felipeazs.io.entity.ProductoEntity;
 
-public interface ProductRepository extends JpaRepository<ProductEntity, Integer> {
+public interface ProductoRepository extends JpaRepository<ProductoEntity, Integer> {
 	
-	List<ProductEntity> findAllByTypeOrderByWearAsc(String productType);
+	List<ProductoEntity> findAllByTypeOrderByWearAsc(String productType);
 	
 	@Query(value = "SELECT DISTINCT wear FROM productos WHERE NOT wear = 'indefinido' ORDER BY wear ASC", nativeQuery = true)
 	ArrayList<String> getDistinctByWear();
@@ -42,10 +42,10 @@ public interface ProductRepository extends JpaRepository<ProductEntity, Integer>
 //	List<ProductEntity> findByTypeAndMaterialAndWearAndColorAndSizeAndStyleAndGenreAndSeasonAndMade(String type, String material, String wear, String color, String 
 //			size, String style, String genre, String season, String madeIn);
 
-	ProductEntity findById(String productId);
+	ProductoEntity findById(String productId);
 
-	ProductEntity findByImageUrl(String imageUrl);
+	ProductoEntity findByImageUrl(String imageUrl);
 
-	ProductEntity findByProductid(String poductos_id);
+	ProductoEntity findByProductoId(String productoId);
 	
 }

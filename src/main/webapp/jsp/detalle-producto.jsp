@@ -34,8 +34,8 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 		<!-- Font Awesome -->
 		<script src="https://kit.fontawesome.com/8df927e57d.js" crossorigin="anonymous"></script>
 		
-		<link rel="stylesheet" href="css/style.css" />
-		<script src="js/script.js"></script>
+		<link rel="stylesheet" href="../css/style.css" />
+		<script src="../js/script.js"></script>
 
 		<title>Retrocicla</title>
 	</head>
@@ -46,7 +46,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				<div class="logo">
 					<a href="/">
 						<img
-							src="img/logo1.png"
+							src="../img/logo1.png"
 							alt="logo-retrocicla"
 							class="img-responsive"
 						/>
@@ -55,9 +55,9 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 				<div class="menu-sidebar-content js-scrollbar1">
 					<nav class="navbar-sidebar">
 						<ul class="list-unstyled navbar-list">
-							<li><a href="/ropaspage">Ropa</a></li>
-							<li><a href="/telaspage">Telas</a></li>
-							<li><a href="/addproductpage">Agregar producto</a></li>
+							<li><a href="/productos/ropa">Ropa</a></li>
+							<li><a href="">Telas</a></li>
+							<li><a href="">Agregar producto</a></li>
 							<li><a href="/logout">Cerrar sesión</a></li>
 						</ul>
 					</nav>

@@ -133,7 +133,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 					    <div class="conteiner-fluid">
 					      
 					      <c:choose>
-						      <c:when test="${ fn:length(cartitems) == 0 }">
+						      <c:when test="${ fn:length(carrito) == 0 }">
 							  	<div class="alert alert-danger">					       
 							        Tu carrito está vacío
 							     </div>
@@ -142,50 +142,50 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 						      	<div>
 							        <table class="table table-bordered">
 							          <tr>
-							            <th width="20%">Product Image</th>
-							            <th width="50%">Product Detail</th>
+							            <th width="20%">Imagen del producto</th>
+							            <th width="50%">Detalle del producto</th>
 							            <th width="30%"></th>
 							          </tr>
-							          <c:forEach items="${ cartitems }" var="ci">
+							          <c:forEach items="${ carrito }" var="ci">
 							          <tr>
 							            <td>
 							              <img
-							                src="${ ci.product.imageUrl }"
+							                src="${ ci.producto.imageUrl }"
 							                alt=""
 							                class="img-responsive"
 							                width="150px"
 							              />
 							            </td>
 							            <td>
-							              <p>${ ci.product.description }</p>
-							              <p>${ ci.product.formatted_price}</p>
+							              <p>${ ci.producto.description }</p>
+							              <p>${ ci.producto.formatted_price}</p>
 							            </td>
 							            <td>
 							              <div class="items">
 							                <label>Quantity:</label>
 							                <div class="row no-gutters">
 							                  <div class="col">
-							                  	<input name="productid" value="${ ci.product.id }" type="hidden"/>
+							                  	<input name="productid" value="${ ci.producto.productoId }" type="hidden"/>
 							                    <button
-							                      onclick="addcartproductitem(${ ci.product.id })"
+							                      onclick="addcartproductitem(${ ci.producto.productoId })"
 							                      class="btn btn-primary btn-sm"
 							                      title="a"
-							                      id="addcartbutton${ ci.product.id }"
+							                      id="botonSumar${ ci.producto.productoId }"
 							                    >
 							                      <i class="fas fa-plus"></i>
 							                    </button>
 							                  </div>							                  
 							                  	<div class="col ml-4 mr-2">								  
-									                <p id="feedback-quantity${ ci.id }"> ${ ci.quantity }</p>
+									                <p id="feedback-quantity${ ci.producto.productoId }"> ${ ci.quantity }</p>
 									            </div>	
 							                  <div class="col">
 							                  <c:choose>
 							                  <c:when test="${ ci.quantity == 1 }">
 							                    <button
-							                      onclick="removecartproductitem(${ ci.product.id })"
+							                      onclick="botonRestar(${ ci.producto.productoId })"
 							                      class="btn btn-primary btn-sm"
 							                      type="button"
-							                      id="removecartbutton${ ci.product.id }"
+							                      id="removecartbutton${ ci.producto.productoId }"
 							                      disabled
 							                    >		
 							                    <i class="fas fa-minus"></i>					                      
@@ -193,10 +193,10 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 							                  </c:when>
 							                  <c:otherwise>
 							                  	<button
-							                      onclick="removecartproductitem(${ ci.product.id })"
+							                      onclick="removecartproductitem(${ ci.producto.productoId })"
 							                      class="btn btn-primary btn-sm"
 							                      type="button"
-							                      id="removecartbutton${ ci.product.id }"							                     
+							                      id="removecartbutton${ ci.producto.productoId }"							                     
 							                    >		
 							                    <i class="fas fa-minus"></i>					                      
 							                    </button>							                  
@@ -208,7 +208,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 							              </div>
 							              <div>
 							                <button
-							                  onclick="deletecartproduct(${ ci.product.id })"
+							                  onclick="deletecartproduct(${ ci.producto.productoId })"
 							                  class="btn btn-primary btn-sm mt-2"
 							                  type="button"
 							                >
@@ -216,7 +216,7 @@ prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 							                </button>
 							              </div>
 							              Subtotal:
-							              <p class="mt-2" id="feedback-price${ ci.id }">					                
+							              <p class="mt-2" id="feedback-price${ ci.producto.productoId }">					                
 							                ${ ci.totalPrice }
 							              </p>
 							            </td>

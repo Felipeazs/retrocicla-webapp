@@ -208,11 +208,11 @@ function checkinputrequirements(id) {
 	});
 }
 
-function addproducttocart(id) {
+function actualizarProductoEnCarrito(id) {
 	
 	$.ajax({
 		type: 'POST',
-		url: '/api/product/' + id,
+		url: 'sdfsdf/sdfsdf',
 		data: {
 			id: id
 		},
@@ -241,12 +241,6 @@ function addproducttocart(id) {
                             console.log(XMLHttpRequest);
                             console.log(textStatus);
                             console.log(errorThrown);
-		
-//		function(data) {
-//			if (data.status == 401){
-//				location.href = "/login"
-//			}
-					
 		},
 		success: function(data) {
 			
@@ -269,18 +263,19 @@ function addproducttocart(id) {
 		},
 		
 	});
+	}
 
-}
 
-function addcartproductitem(id) {
 
-	addproducttocart(id);
-
+function agregarProductoAlCarrito(id) {
+		
+	console.log(id);
+	
 	$.ajax({
-		type: 'PUT',
-		url: '/api/product/add/' + id,
+		type: 'POST',
+		url: '/carrito/' + id,
 		data: {
-			id: id
+			producto_id: id,			
 		},
 		statusCode: {
 			200: function() {
@@ -288,6 +283,7 @@ function addcartproductitem(id) {
 			},
 			401: function(){
 				console.log("Status code 401: Usuario no autenticado");
+				location.href = "/login";					
 			},
 			403: function(){
 				console.log("Status code 403: usuario no autorizado");
@@ -307,25 +303,58 @@ function addcartproductitem(id) {
 			//location.href = data.status			
 		},
 		success: function(data) {
-						
-			if (data.quantity > 1) {
-				$('#removecartbutton' + data.product.id).prop('disabled', false);
-			}
-
-			if (data.quantity >= data.product.stock) {
-				$('#addcartbutton' + data.product.id).prop('disabled', true);
-			}
-
-			var totalAmount = data.totalPrice;
-			var totalQuantity = data.quantity;
-			var itemid = data.id;
-
-			$('#feedback-price' + itemid).html(totalAmount);
-			$('#feedback-quantity' + itemid).html(totalQuantity);
+			
+			console.log(data);
+			
+			obtenerCantidadYPrecioTotal(data.cliente.clienteId);
+									
 		},
 		
 	});
 
+}
+
+function obtenerCantidadYPrecioTotal(clienteId){
+	
+	$.ajax({
+		type: 'GET',
+		url: '/carrito/' + clienteId,
+		data: {
+			cliente: clienteId,			
+		},
+		statusCode: {
+			200: function() {
+				console.log("Status code 200: succesful request")
+			},
+			401: function(){
+				console.log("Status code 401: Usuario no autenticado");
+				location.href = "/login";					
+			},
+			403: function(){
+				console.log("Status code 403: usuario no autorizado");
+			},
+			404: function() {
+				console.log("Status code 404: page not found");				
+			},
+			405: function() {
+				console.log("Status code 405: Bad HTTP request");
+			},
+			500: function() {
+				console.log("Status code 500: server error");
+			}
+		},
+		error: function(data) {
+			console.log(data);		
+		},
+		success: function(data) {
+			
+			console.log(data)				
+			
+			$('[name=feedback-totalprice]').html(data.totalprice);
+			$('#feedback-totalquantity').html(data.quantity);
+		},
+		
+	});
 }
 
 function removecartproductitem(id) {
@@ -334,9 +363,9 @@ function removecartproductitem(id) {
 
 	$.ajax({
 		type: 'PUT',
-		url: '/api/product/remove/' + id,
+		url: '/carrito/restar/' + id,
 		data: {
-			id: id
+			producto: id
 		},
 		statusCode: {
 			0: function() {
@@ -347,6 +376,7 @@ function removecartproductitem(id) {
 			},
 			401: function(){
 				console.log("Status code 401: Usuario no autenticado");
+				window.location.href = "/login";
 			},
 			403: function(){
 				console.log("Status code 403: usuario no autorizado");

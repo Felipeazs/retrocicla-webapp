@@ -48,8 +48,8 @@
 				<nav class="navbar-sidebar">
 					<ul class="list-unstyled navbar-list">
 						<li><a href="/productos/ropa">Ropa</a></li>
-						<li><a href="/telaspage">Telas</a></li>
-						<li><a href="/addproductpage">Agregar producto</a></li>
+						<li><a href="">Telas</a></li>
+						<li><a href="">Agregar producto</a></li>
 						<li><a href="/logout">Cerrar sesión</a></li>
 					</ul>
 				</nav>
@@ -83,24 +83,10 @@
 								</ul>
 							</div>
 							<div class="cart-area d-n">
-								<a href="/cartdetails">
+								<a href="/carrito">
 									<div class="total">
-										<c:choose>
-											<c:when test="${ totalamount eq null }">
-												<strong>$0</strong>
-											</c:when>
-											<c:otherwise>
-												<strong>${ totalamount }</strong>
-											</c:otherwise>
-										</c:choose>
-										<c:choose>
-											<c:when test="${ totalquantity eq null }">
-												<span>0</span>
-											</c:when>
-											<c:otherwise>
-												<span>${ totalquantity }</span>
-											</c:otherwise>
-										</c:choose>
+										<strong>${ totalamount }</strong>											
+										<span>${ totalquantity }</span>										
 									</div> <i class="fa fa-shopping-cart" aria-hidden="true"></i>
 								</a>
 							</div>
@@ -120,7 +106,9 @@
 						</c:if>
 						<div class="row">
 							<div class="s007">
-								<form:form method="get" modelAttribute="producto"
+								<form:form 
+									method="get" 
+									modelAttribute="producto"
 									action="/searchproduct" id="">
 									<div class="inner-form">
 										<div class="advance-search">

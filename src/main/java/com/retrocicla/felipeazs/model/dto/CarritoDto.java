@@ -3,12 +3,12 @@ package com.retrocicla.felipeazs.model.dto;
 import java.time.LocalDate;
 
 import com.retrocicla.felipeazs.io.entity.ClienteEntity;
-import com.retrocicla.felipeazs.io.entity.ProductEntity;
+import com.retrocicla.felipeazs.io.entity.ProductoEntity;
 
-public class CartDto {
+public class CarritoDto {
 	
 	private LocalDate createdAt;
-	private ProductEntity producto;
+	private ProductoEntity producto;
 	private int quantity;
 	private int price;
 	private String totalPrice;
@@ -20,10 +20,10 @@ public class CartDto {
 	public void setCreatedAt(LocalDate createdAt) {
 		this.createdAt = createdAt;
 	}
-	public ProductEntity getProducto() {
+	public ProductoEntity getProducto() {
 		return producto;
 	}
-	public void setProducto(ProductEntity producto) {
+	public void setProducto(ProductoEntity producto) {
 		this.producto = producto;
 	}
 	public int getQuantity() {

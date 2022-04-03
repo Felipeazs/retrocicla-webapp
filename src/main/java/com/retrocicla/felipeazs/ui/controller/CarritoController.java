@@ -1,31 +1,99 @@
 package com.retrocicla.felipeazs.ui.controller;
 
+import org.modelmapper.ModelMapper;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
+import org.springframework.http.MediaType;
+import org.springframework.security.core.Authentication;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.bind.annotation.RestController;
 
-import com.retrocicla.felipeazs.service.CartService;
+import com.retrocicla.felipeazs.io.entity.ProductoEntity;
+import com.retrocicla.felipeazs.model.CalculoTotalModel;
+import com.retrocicla.felipeazs.model.dto.CarritoDto;
+import com.retrocicla.felipeazs.model.dto.ClienteDto;
+import com.retrocicla.felipeazs.model.dto.ProductoDto;
+import com.retrocicla.felipeazs.service.CarritoService;
+import com.retrocicla.felipeazs.service.ClienteService;
+import com.retrocicla.felipeazs.service.ProductoService;
+import com.retrocicla.felipeazs.ui.model.response.CarritoRest;
 
-@Controller
+@RestController
 @RequestMapping("carrito")
 public class CarritoController {
 	
 	@Autowired
-	private CartService cartService;
+	private CarritoService carritoService;
 	
-	@PostMapping("/agregar/{productId}")
-	public ModelAndView agregarAlCarrito(@PathVariable("productId") String productId) {
+	@Autowired
+	private ClienteService clienteService;
+	
+	@Autowired
+	private ProductoService productoService;
+	
+	@PostMapping(
+			path = "/{productoId}",
+			produces = { MediaType.APPLICATION_JSON_VALUE })
+	public CarritoRest agregarProductoAlCarrito(@PathVariable String productoId, Authentication auth) {
 		
-		System.out.println(productId);
+		System.out.println(productoId);
 		
-		cartService.addProduct(productId);
+		String clienteEmail = auth.getName();
+				
+		CarritoDto carritoDto = carritoService.agregarProductoAlCarrito(productoId, clienteEmail);
 		
-		ModelAndView modelAndView = new ModelAndView("ropaspage");
+		CarritoRest returnValue = new CarritoRest();
 		
-		return modelAndView;
+		ModelMapper modelMapper = new ModelMapper();
+		returnValue = modelMapper.map(carritoDto, CarritoRest.class);
+		
+		return returnValue;
+		
+	}
+	
+	@GetMapping(
+			path = "/cliente/{clienteId}",
+			produces = { MediaType.APPLICATION_JSON_VALUE })
+	public CalculoTotalModel calcularElTotalDelCliente(@PathVariable String clienteId){
+				
+		ClienteDto clienteDto = clienteService.obtenerClienteById(clienteId);
+		
+		CalculoTotalModel returnValue = carritoService.calcularTotalCliente(clienteDto.getEmail());
+				
+		return returnValue;
+	}
+	
+	@PutMapping(
+			path = "/restar/{productoId}",
+			produces = { MediaType.APPLICATION_JSON_VALUE })
+	public void restarUnProductoDeUnCliente(@PathVariable String productoId, Authentication auth) {
+		
+		CarritoDto carrito = carritoService.obtenerProductoPorId(productoId);
+		
+		carritoService.actualizarProductoEnCarrito(producto, auth.getName());
+		
+		
+		
+		
 	}
 
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

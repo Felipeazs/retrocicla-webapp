@@ -1,93 +1,140 @@
 package com.retrocicla.felipeazs.ui.controller;
 import java.util.ArrayList;
-//
-//import java.text.NumberFormat;
-//import java.util.ArrayList;
 import java.util.List;
+
+import javax.validation.Valid;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
-//import java.util.Locale;
-//
-//import javax.validation.Valid;
-//
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestParam;
 
-import com.retrocicla.felipeazs.io.entity.ProductEntity;
-import com.retrocicla.felipeazs.service.ProductService;
+import com.retrocicla.felipeazs.io.entity.CarritoEntity;
+import com.retrocicla.felipeazs.io.entity.ProductoEntity;
+import com.retrocicla.felipeazs.model.CalculoTotalModel;
+import com.retrocicla.felipeazs.model.dto.CarritoDto;
+import com.retrocicla.felipeazs.model.dto.ProductoDto;
+import com.retrocicla.felipeazs.service.CarritoService;
+import com.retrocicla.felipeazs.service.ProductoService;
+import com.retrocicla.felipeazs.ui.model.response.CarritoRest;
+import com.retrocicla.felipeazs.ui.model.response.ProductoRest;
 
-//import com.retrocicla.felipeazs.model.Cart;
-//import com.retrocicla.felipeazs.model.Cliente;
-//import com.retrocicla.felipeazs.model.Order;
-//import com.retrocicla.felipeazs.service.CartService;
-//import com.retrocicla.felipeazs.service.CiudadService;
-//import com.retrocicla.felipeazs.service.ClienteService;
-//import com.retrocicla.felipeazs.service.OrderService;
-//import com.retrocicla.felipeazs.service.RegionService;
-//
 @Controller
 public class WebController {
 	
-	
-//
-//	@Autowired
-//	private ClienteService clienteService;
-//
 	@Autowired
-	private ProductService productService;
+	private ProductoService productoService;
 	
 	@ModelAttribute("producto")
-	private ProductEntity setProduct() {
-		return new ProductEntity();
+	private ProductoEntity setProduct() {
+		return new ProductoEntity();
 	}
-//
 	
-//
-//	@Autowired
-//	private RegionService regionService;
-//
-//	@Autowired
-//	private CiudadService ciudadService;
-//	
-//	@Autowired
-//	private OrderService orderService;
-//
-//	@ModelAttribute("cliente")
-//	private Cliente setCliente() {
-//		return new Cliente();
-//	}
-//
+	@Autowired
+	private CarritoService carritoService;
 	
-//	
-//	@ModelAttribute("order")
-//	private Order setOrder() {
-//		return new Order();
-//	}
-//	
-//	@GetMapping("/registro")
-//	public String postRegistro() {		
-//		return "registro";
-//	}
-//
-//
-//	@GetMapping("logout")
-//	public String getLogout() {
-//		return "logout";
-//	}
-//
+	@ModelAttribute("carrito")
+	private CarritoEntity setCartEntity() {
+		return new CarritoEntity();
+	}
+
+	/**
+	 *  
+	 * @param model
+	 * @param auth
+	 * @return
+	 */
 	@GetMapping("/")
 	public String getIndex(Model model, Authentication auth) {
 		
-		List<ArrayList<String>> multipleSelect = productService.getMultipleSelection();
+		List<ArrayList<String>> multipleSelect = productoService.getMultipleSelection();
 		model.addAttribute("multipleSelect", multipleSelect);
+		
+		calculoTotalDelCliente(model, auth);
 		
 		return "index";
 	}
+	
+	@GetMapping("/productos/ropa")
+	public String getRopasPage(Model model, Authentication auth) {
+		
+		calculoTotalDelCliente(model, auth);
+		
+		List<ProductoRest> returnValue = new ArrayList<>();
+				
+		List<ProductoDto> productos = productoService.searchBy("prenda");
+		
+		ModelMapper modelMap = new ModelMapper();
+		for (ProductoDto producto : productos) {
+			returnValue.add(modelMap.map(producto, ProductoRest.class));
+		}	
+				
+		System.out.println(productos.size());
+		
+		model.addAttribute("productos", returnValue);	
+
+		return "listado-productos";
+	}
+	
+	@GetMapping("/producto/{productoId}")
+	public String irAlDetalleDeProducto(@RequestParam String productoId,
+			Model model) {
+		
+		ProductoRest returnValue = new ProductoRest();
+
+		ProductoDto productoDto = productoService.obtenerProductoPorId(productoId);
+		BeanUtils.copyProperties(productoDto, returnValue);
+		
+		model.addAttribute("product", returnValue);
+
+		return "detalle-producto";
+	}
+	
+
+	@GetMapping("/carrito")
+	public String getProductDetails(Model model, Authentication auth) {
+		
+		String email = auth.getName();
+
+		List<CarritoRest> returnValue = new ArrayList<>();
+		
+		List<CarritoDto> carritos = carritoService.obtenerTodosPorCliente(email);
+		ModelMapper modelMapper = new ModelMapper();
+		for (CarritoDto carrito : carritos) {
+			returnValue.add(modelMapper.map(carrito, CarritoRest.class));
+		}
+		
+		System.out.println(returnValue.get(0).getQuantity());
+
+		model.addAttribute("carrito", returnValue);
+		
+		calculoTotalDelCliente(model, auth);
+
+		return "detalle-carrito"; 
+	}
+	
+	private void calculoTotalDelCliente(Model model, Authentication auth) {
+		CalculoTotalModel calculo = new CalculoTotalModel();
+		try {
+			 calculo = carritoService.calcularTotalCliente(auth.getName());
+		} catch(NullPointerException ex) {
+			
+			System.out.println(ex.getMessage());
+			calculo.setQuantity(0);
+			calculo.setTotalprice("$0");
+		}		
+	
+		model.addAttribute("totalquantity", calculo.getQuantity());
+		model.addAttribute("totalamount", calculo.getTotalprice());
+	}
+	
 //	
 //	@PostMapping("/registrarcliente")
 //	public String getRegistroCliente(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult br, Model model) {
@@ -156,33 +203,9 @@ public class WebController {
 //		return "productslist";
 //	}
 //
-//	@GetMapping("/productdetails")
-//	public String getProductDetailsPage(@Valid @ModelAttribute("product") Product product, BindingResult br,
-//			Model model) {
+
 //
-//		if (br.hasErrors()) {
-//			System.out.println(br.toString());
-//			return "index";
-//		}
-//
-//		Product pro = productService.getProductById(product.getId());
-//		model.addAttribute("product", pro);
-//
-//		return "productdetails";
-//	}
-//
-//	@GetMapping("/cartdetails")
-//	public String getProductDetails(Model model) {
-//		
-////		String cliente = auth.getName();
-////		List<Cart> products = cartService.getProductsByClienteId(cliente);
-//
-////		model.addAttribute("cartitems", products);
-//
-////		amountAndQuantity(model, auth);
-//
-//		return "cartdetails"; 
-//	}
+
 //
 //	@GetMapping("/checkout")
 //	public String getCheckout(Model model) {
