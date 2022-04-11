@@ -41,15 +41,23 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		//.antMatchers(HttpMethod.DELETE, "/clientes/**").hasRole("ADMIN")
 		.antMatchers("/swagger-ui/**", "/api-docs")
 		.permitAll()
-		.antMatchers("/css/*", "/js/**", "/img/**")
+		.antMatchers("/css/**", "/js/**", "/img/**")
 		.permitAll()
 		.antMatchers(
-				"/", 
+				"/",
+				"/somos",
+				"/tienda",	
+				"/donaciones",
+				"/blog",
+				"/noticias",
+				"/politicas-privacidad",
+				"/politicas-contacto",
+				"/politicas-pago",
+				"/politicas-despacho",
 				"/productos/ropa",
 				"/email-verification", 
 				"/password-reset", 
-				"/password-reset-request")
-		.permitAll()
+				"/password-reset-request").permitAll()
 		.antMatchers(HttpMethod.POST, "/carrito/agregar/{productoId}").hasAnyAuthority("WRITE_AUTORIDAD")
 		.antMatchers("/producto/{productoId}").hasAnyAuthority("READ_AUTORIDAD")
 		.anyRequest()

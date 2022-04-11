@@ -5,254 +5,427 @@
 
 <!DOCTYPE html>
 <html>
-<head>
-<meta charset="UTF-8" />
-<!-- JQuery -->
-<script src="https://code.jquery.com/jquery-3.6.0.min.js"
-	integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
-	crossorigin="anonymous"></script>
-<!-- CSS only -->
-<link
-	href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css"
-	rel="stylesheet"
-	integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC"
-	crossorigin="anonymous" />
-<!-- Google Fonts -->
-<link rel="preconnect" href="https://fonts.googleapis.com" />
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-<link
-	href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-	rel="stylesheet" />
-<!-- Bootstrap icons -->
-<link rel="stylesheet"
-	href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" />
-<!-- Font Awesome -->
-<script src="https://kit.fontawesome.com/8df927e57d.js"
-	crossorigin="anonymous"></script>
-
-<link rel="stylesheet" href="css/style.css" />
-<script src="js/script.js"></script>
-
-<title>Retrocicla</title>
-</head>
-<body>
-	<div class="page-wrapper">
-		<!-- MENU SIDEBAR-->
-		<aside class="menu-sidebar d-none d-lg-block">
-			<div class="logo">
-				<a href="/"> <img src="img/logo1.png" alt="logo-retrocicla"
-					class="img-responsive" />
-				</a>
+	<head>
+		<meta charset="UTF-8" />
+		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<!--JQuery-->
+		<script
+			src="https://code.jquery.com/jquery-3.6.0.min.js"
+			integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4="
+			crossorigin="anonymous"
+		></script>
+		<!--Bootstrap-->
+		<link
+			href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css"
+			rel="stylesheet"
+			integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3"
+			crossorigin="anonymous"
+		/>
+		<script
+			src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"
+			integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p"
+			crossorigin="anonymous"
+		></script>
+		<!--Bootstrap iconos-->
+		<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css" />
+		<!--Flickity gallery-->
+		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.css" />
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.pkgd.js"></script>
+		<!--FontAwesome-->
+		<link
+			rel="stylesheet"
+			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
+			integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
+			crossorigin="anonymous"
+			referrerpolicy="no-referrer"
+		/>
+		<link rel="stylesheet" href="css/flickity.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/script.js"></script>
+		<title>Retrocicla</title>
+	</head>
+	<body>
+	
+		<!-- Header -->
+		
+		<header class="container-fluid">
+			<div class="row header d-flex justify-content-between">
+				<div
+					class="col-xs-4 col-sm-5 col-md-4 d-flex justify-content-start header align-items-center header-inicio"
+				>
+					<i class="bi bi-envelope"></i>
+					<p>retrocicla@gmail.com</p>
+				</div>
+				<div class="col-md-4 text-center align-items-center header-centro">
+					<p>Upcycling Chile</p>
+				</div>
+				<div
+					class="col-xs-3 col-sm-5 col-md-4 d-flex justify-content-center align-items-center header header-final"
+				>
+					<i class="bi bi-whatsapp pe-3"></i>
+					<i class="bi bi-instagram pe-3"></i>
+					<i class="bi bi-facebook"></i>
+				</div>
 			</div>
-			<div class="menu-sidebar-content js-scrollbar1">
-				<nav class="navbar-sidebar">
-					<ul class="list-unstyled navbar-list">
-						<li><a href="/productos/ropa">Ropa</a></li>
-						<li><a href="">Telas</a></li>
-						<li><a href="">Agregar producto</a></li>
-						<li><a href="/logout">Cerrar sesión</a></li>
+		</header>
+		
+		<!-- Navegador -->
+		
+		<nav class="container-fluid">
+			<div class="row nav">
+				<div class="col-sm-12 col-md-3 logo">
+					<img src="img/logo-menu.png" alt="logo" />
+				</div>
+				<div class="col-md-6">
+					<ul class="nav align-items-center justify-content-center fs-5">
+						<li class="nav-item">
+							<a class="nav-link active text-white" aria-current="page" href="/">INICIO</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-white" href="/somos">SOMOS</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-white" href="/tienda">TIENDA</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-white" href="/donaciones">DONACIONES</a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link text-white" href="/blog">BLOG</a>
+						</li>
 					</ul>
-				</nav>
+				</div>
+				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
+					<a href="pages/cliente.html"><i class="bi bi-person-circle"></i></a>
+					<i class="bi bi-bag"></i>
+				</div>
 			</div>
-		</aside>
-		<!-- END MENU SIDEBAR-->
-
-		<!-- PAGE CONTAINER-->
-		<div class="page-container">
-			<!-- HEADER DESKTOP-->
-			<header class="header-desktop">
-				<div class="section-content section-content-p30">
-					<nav class="navbar navbar-expand-lg navbar-dark">
-						<div class="container-fluid">
-							<div class="collapse navbar-collapse" id="navbarNav">
-								<ul class="navbar-nav">
-									<li class="nav-item"><a
-										class="nav-link active text-decoration-underline"
-										aria-current="page" href="/">Home</a></li>
-									<li class="nav-item"><a class="nav-link" href="/tienda">Tienda</a>
-									</li>
-									<li class="nav-item"><a class="nav-link" href="#">Quienes
-											somos</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">Blog</a>
-									</li>
-
-									<li class="nav-item"><a class="nav-link" href="#">Nuestros
-											clientes</a></li>
-									<li class="nav-item"><a class="nav-link" href="#">Quieres
-											donar?</a></li>
-								</ul>
-							</div>
-							<div class="cart-area d-n">
-								<a href="/carrito">
-									<div class="total">
-										<strong>${ totalamount }</strong>											
-										<span>${ totalquantity }</span>										
-									</div> <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-								</a>
+		</nav>
+		
+		<!-- Carousel inicial -->
+		
+		<section>
+			<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
+				<div class="carousel-indicators">
+					<button
+						type="button"
+						data-bs-target="#carouselExampleIndicators"
+						data-bs-slide-to="0"
+						class="active"
+						aria-current="true"
+						aria-label="Slide 1"
+					></button>
+					<button
+						type="button"
+						data-bs-target="#carouselExampleIndicators"
+						data-bs-slide-to="1"
+						aria-label="Slide 2"
+					></button>
+					<button
+						type="button"
+						data-bs-target="#carouselExampleIndicators"
+						data-bs-slide-to="2"
+						aria-label="Slide 3"
+					></button>
+				</div>
+				<div class="carousel-inner">
+					<div class="carousel-item active">
+						<img src="img/index-1.png" class="d-block w-100" alt="imagen-carousel-1" />
+						<div class="texto">
+							<p class="p-0 m-0">ACABEMOS</p>
+							<p class="fs-2 p-0 m-0">con el ciclo destinado a los textiles</p>
+						</div>
+					</div>
+					<div class="carousel-item">
+						<img src="img/somos.png" class="d-block w-100" alt="imagen-carousel-2" />
+					</div>
+					<div class="carousel-item">
+						<img src="img/index-2.png" class="d-block w-100" alt="imagen-carousel-3" />
+						<div class="texto">
+							<p class="p-0 m-0">Reciclemos</p>
+							<p class="fs-2 p-0 m-0">no tires tu ropa, dónala</p>
+							<div class="row">
+								<div class="col-6">
+									<a href="/donaciones"
+										><button class="boton text-center p-2">Donaciones</button></a
+									>
+								</div>
 							</div>
 						</div>
-					</nav>
+					</div>
 				</div>
-			</header>
-			<!-- END HEADER DESKTOP-->
-
-			<!-- MAIN CONTENT-->
-			<div class="main-content">
-				<div class="section-content section-content-p30">
-					<div class="container-fluid">
-						<c:if test="${ not empty products }">
-							<div class="alert alert-danger mt-1">Elemento agregado
-								correctamente</div>
-						</c:if>
-						<div class="row">
-							<div class="s007">
-								<form:form 
-									method="get" 
-									modelAttribute="producto"
-									action="/searchproduct" id="">
-									<div class="inner-form">
-										<div class="advance-search">
-											<span class="desc">Búsqueda avanzada</span>
-											<div class="row">
-												<div class="input-field">
-													<div>
-														<label>Tela/Ropa</label>
-													</div>
-													<div class="input-select">
-														<form:select class="form-select" path="type" id="types">
-															<form:options items="${ multipleSelect[0] }" />
-														</form:select>
-													</div>
-												</div>
-												<div class="input-field">
-													<div>
-														<label>Material <i
-															class="bi bi-info-circle" data-bs-toggle="tooltip"
-															data-bs-placement="top"
-															title="El material más prevalente"></i>
-														</label>
-													</div>
-													<div class="input-select">
-														<form:select class="form-select" path="material"
-															type="text">
-															<form:options items="${ multipleSelect[1] }" />
-														</form:select>
-													</div>
-												</div>
-												<div class="input-field">
-													<div>
-														<label>Prenda</label>
-													</div>
-													<div class="input-select">
-														<form:select class="form-select" path="wear" id="wear">
-															<form:options items="${ multipleSelect[2] }" />
-														</form:select>
-													</div>
-												</div>
-											</div>
-											<div class="row second">
-												<div class="input-field">
-													<div>
-														<label>Color</label>
-													</div>
-													<div class="input-select">
-														<form:select class="form-select" path="color">
-															<form:options items="${ multipleSelect[3] }" />
-														</form:select>
-													</div>
-												</div>
-												<div class="input-field">
-													<div>
-														<label>Tamaño</label>
-													</div>
-													<div class="input-select">
-														<div id="sizeropa">
-															<form:select class="form-select" path="size">
-																<form:options items="${ multipleSelect[5] }" />
-															</form:select>
-														</div>
-														<div id="sizetelas">
-															<form:select class="form-select" path="size">
-																<form:options items="${ multipleSelect[4] }" />
-															</form:select>
-														</div>
-													</div>
-												</div>
-												<div class="input-field">
-													<div>
-														<label>Estilo</label>
-													</div>
-													<div class="input-select">
-														<form:select class="form-select" path="style" id="style">
-															<form:options items="${ multipleSelect[6] }" />
-														</form:select>
-													</div>
-												</div>
-											</div>
-											<div class="row third">
-												<div class="input-field">
-													<div>
-														<label>Género</label>
-													</div>
-													<div class="input-select">
-														<form:select class="form-select" path="genre" id="genre">
-															<form:options items="${ multipleSelect[7] }" />
-														</form:select>
-													</div>
-												</div>
-												<div class="input-field">
-													<div>
-														<label>Temporada</label>
-													</div>
-													<div class="input-select">
-														<form:select class="form-select" path="season" id="season">
-															<form:option value="otoño-inviero" />
-															<form:option value="primavera-verano" />
-														</form:select>
-													</div>
-												</div>
-												<div class="input-field">
-													<div>
-														<label>Hecho en</label>
-													</div>
-													<div class="input-select">
-														<form:select class="form-select" path="madeIn">
-															<form:options items="${ multipleSelect[8] }" />
-														</form:select>
-													</div>
-												</div>
-											</div>
-											<div class="row">
-												<div class="input-field">
-													<button class="btn btn-success">
-														Buscar</button>
-												</div>
-											</div>
-										</div>
-									</div>
-								</form:form>
+				<button
+					class="carousel-control-prev"
+					type="button"
+					data-bs-target="#carouselExampleIndicators"
+					data-bs-slide="prev"
+				>
+					<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Previous</span>
+				</button>
+				<button
+					class="carousel-control-next"
+					type="button"
+					data-bs-target="#carouselExampleIndicators"
+					data-bs-slide="next"
+				>
+					<span class="carousel-control-next-icon" aria-hidden="true"></span>
+					<span class="visually-hidden">Next</span>
+				</button>
+			</div>
+		</section>
+		
+		<!-- Somos -->
+		
+		<article class="container-fluid">
+			<div class="row seccion-secundaria-index">
+				<p class="text-white">
+					Somos un emprendimiento liderado por mujeres que quieren cambiar la
+					<span>industria textil</span> por medio de la <span>economÃ­a circular</span>. Nuestra labor es
+					apoyar a los emprendimientos de <span>upcycler</span> y crear conciencia medioambiental en los
+					jÃ³venes.
+				</p>
+				<div class="row d-flex justify-content-center">
+					<div class="col-md-3">
+						<a href="/somos"
+							><button type="button" class="btn btn-success mt-5 boton">Conócenos</button></a
+						>
+					</div>
+				</div>
+			</div>
+		</article>
+		
+		<!-- Donaciones -->
+		
+		<div class="container-fluid">
+			<div class="row seccion-terciaria-index">
+				<div class="col-sm-12 col-md-5 d-flex justify-content-center">
+					<img src="img/img-1.png" alt="" />
+				</div>
+				<div class="col-sm-12 col-md-7 text-center d-flex align-items-center">
+					<div class="mensaje">
+						<img src="img/img-2.png" alt="" />
+						<p>No sabes donde donar?</p>
+						<div class="row d-flex justify-content-center">
+							<div class="col-md-4">
+								<button type="button" class="btn btn-success boton">Más Info.</button>
 							</div>
 						</div>
 					</div>
 				</div>
 			</div>
-
-			<!-- END MAIN CONTENT-->
 		</div>
-	</div>
-	<!-- END PAGE CONTAINER-->
-	<footer>
-		<ul>
-			<li><a href="#">About Us</a></li>
-			<li><a href="#">Contact Us</a></li>
-			<li><a href="#">Help</a></li>
-		</ul>
-	</footer>
-
-	<!-- JavaScript Bundle with Popper -->
-	<script
-		src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"
-		integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM"
-		crossorigin="anonymous"></script>
-</body>
+		
+		<!-- Catálogo -->
+		
+		<div class="seccion-catalogo">
+			<a href="/tienda"><p class="text-center">Tienda / Catálogo</p></a>
+			<div class="container galeria">
+				<div class="row d-flex justify-content-center">
+					<div class="col-md-3 galeria-cell">
+						<img class="img-responsive" src="img/algodon-2.jpg" alt="" />					
+						<div class="item">
+							<span class="fs-3">Tipo de prenda</span>
+						</div>
+					</div>
+					<div class="col-md-3 galeria-cell">
+						<img src="img/seda-1.jpg" alt="" />
+					
+						<div class="item">
+							<span class="fs-3">Materiales</span>
+						</div>
+					</div>
+					<div class="col-md-3 galeria-cell">
+						<img src="img/tejidos.jpg" alt="" />					
+						<div class="item">
+							<span class="fs-3">Accesorios</span>
+						</div>
+					</div>
+					<div class="col-md-3 galeria-cell">
+						<img src="img/jacketDenim2.jpg" alt="" />					
+						<div class="item">
+							<span class="fs-3">Servicios</span>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Video -->
+		
+		<div class="container-fluid seccion-video d-flex align-items-center">
+			<div class="row p-5">
+				<div class="col-sm-12 col-md-5 d-flex justify-content-center">
+					<iframe
+						src="https://www.youtube.com/embed/uZKxn5xl1bw"
+						title="YouTube video player"
+						frameborder="0"
+						allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+						allowfullscreen
+					></iframe>
+				</div>
+				<div class="col-sm-12 col-md-7 d-flex justify-content-center content">
+					<div class="contaier-fluid text-center">
+						<div class="row mensaje">
+							<img src="img/recupera.png" alt="" />
+							<p>Revisaste nuestro blog?</p>
+						</div>
+						<div class="row d-flex justify-content-center">
+							<div class="col-md-4">
+								<button type="button" class="btn btn-success boton">Más Info.</button>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Blog Noticias -->
+		
+		<div class="seccion-catalogo">
+			<p class="text-center">Blog / Noticias</p>
+			<div class="galeria js-flickity">
+				<div class="galeria-cell">
+					<img class="img-responsive" src="img/news-1.jpeg" alt="" />
+					<i class="fa-solid fa-newspaper fa-2x"></i>
+					<div class="item">
+						<span>Noticia 1</span>
+						<strong>subtitulo</strong>
+					</div>
+				</div>
+				<div class="galeria-cell">
+					<img src="img/news-2.avif" alt="" />
+					<i class="fa-solid fa-newspaper fa-2x"></i>
+					<div class="item">
+						<span>Noticia 2</span>
+						<strong>subtitulo</strong>
+					</div>
+				</div>
+				<div class="galeria-cell">
+					<img src="img/news-3.png" alt="" />
+					<i class="fa-solid fa-newspaper fa-2x"></i>
+					<div class="item">
+						<span>Noticia 3</span>
+						<strong>subtitulo</strong>
+					</div>
+				</div>
+				<div class="galeria-cell">
+					<img src="img/news-4.jpeg" alt="" />
+					<i class="fa-solid fa-newspaper fa-2x"></i>
+					<div class="item">
+						<span>Noticia 4</span>
+						<strong>subtitulo</strong>
+					</div>
+				</div>
+				<div class="galeria-cell">
+					<img src="img/news-5.jpeg" alt="" />
+					<i class="fa-solid fa-newspaper fa-2x"></i>
+					<div class="item">
+						<span>Noticia 5</span>
+						<strong>subtitulo</strong>
+					</div>
+				</div>
+				<div class="galeria-cell">
+					<img src="img/news-6.jpeg" alt="" />
+					<i class="fa-solid fa-newspaper fa-2x"></i>
+					<div class="item">
+						<span>Noticia 6</span>
+						<strong>subtitulo</strong>
+					</div>
+				</div>
+				<div class="galeria-cell">
+					<img src="img/news-7.webp" alt="" />
+					<i class="fa-solid fa-newspaper fa-2x"></i>
+					<div class="item">
+						<span>Noticia 7</span>
+						<strong>subtitulo</strong>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+		<!-- Newsletter -->
+		
+		<section class="container-fluid seccion-bajada">
+			<img src="img/reutiliza.png" alt="" />
+			<div class="centro">
+				<p>Ya estas registrado a nuestro newsletter?</p>
+				<span
+					>Se el primero en tener nuestros catálogos de productos, nuestras novedades. Obtén descuentos
+					personalizados, invitaciones a eventos y más.
+				</span>
+				<div class="input">
+					<input type="email" placeholder="CORREO ELECTRÃNICO" />
+					<button class="button"><i class="fa-solid fa-chevron-right"></i></button>
+				</div>
+			</div>
+			<img src="img/recicla.png" alt="" />
+		</section>
+		
+		<!-- Apoyos -->
+		
+		<section class="container-fluid seccion-apoyo">
+			<div class="row">
+				<p>Proyecto apoyado por:</p>
+				<div class="row marca">
+					<div class="col-sm-12 col-md-4 d-flex justify-content-center">
+						<img src="img/corfo.png" alt="" />
+					</div>
+					<div class="col-sm-12 col-md-4 d-flex justify-content-center">
+						<img src="img/chrysalis.png" height="40" alt="" />
+					</div>
+					<div class="col-sm-12 col-md-4 d-flex justify-content-center">
+						<img src="img/gene.png" alt="" />
+					</div>
+				</div>
+			</div>
+		</section>
+		
+		<!-- Footer -->
+		
+		<footer class="footer">
+			<div class="container">
+				<div class="row">
+					<div class="col-sm-12 col-md-8 mb-4 seccion-superior">
+						<div class="row">
+							<div class="col-md-6">
+								<img src="img/logo-footer.png" alt="" class="img-responsive" />
+							</div>
+							<div class="col-sm-12 col-md-6 text-center mt-5">
+								<p>HORARIOS</p>
+								<p>Lunes a Viernes de 10 a 18 hrs</p>
+							</div>
+						</div>
+					</div>
+					<div class="col-sm-12 col-md-4 d-flex justify-content-center align-items-center seccion-final">
+						<p>CONTÁCTANOS</p>
+						<div class="iconos">
+							<i class="bi bi-envelope ps-3 pe-3"></i>
+							<i class="bi bi-whatsapp pe-3"></i>
+							<i class="bi bi-instagram pe-3"></i>
+							<i class="bi bi-facebook pe-3"></i>
+						</div>
+					</div>
+				</div>
+			</div>
+			<hr />
+			
+			<!-- Términos y condiciones -->
+			
+			<div class="container-fluid seccion-inferior">
+				<div class="row text-center">
+					<div class="col-md-4">
+						<p>Copyright retrocicla.cl</p>
+					</div>
+					<div class="col-md-8 d-flex justify-content-end">
+						<div>
+							<a href="">Términos y condiciones</a> | <a href="">Política de reembolso</a> |
+							<a href="/politicas-privacidad">Política de privacidad</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</body>
 </html>

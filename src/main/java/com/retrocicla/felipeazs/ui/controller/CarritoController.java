@@ -72,9 +72,9 @@ public class CarritoController {
 			produces = { MediaType.APPLICATION_JSON_VALUE })
 	public void restarUnProductoDeUnCliente(@PathVariable String productoId, Authentication auth) {
 		
-		CarritoDto carrito = carritoService.obtenerProductoPorId(productoId);
-		
-		carritoService.actualizarProductoEnCarrito(producto, auth.getName());
+//		CarritoDto carrito = carritoService.obtenerPorProductoYCliente()
+//		
+//		carritoService.actualizarProductoEnCarrito(producto, auth.getName());
 		
 		
 		

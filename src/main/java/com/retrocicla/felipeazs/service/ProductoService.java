@@ -3,6 +3,7 @@ package com.retrocicla.felipeazs.service;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.retrocicla.felipeazs.io.entity.ProductoEntity;
 import com.retrocicla.felipeazs.model.dto.ProductoDto;
 
 public interface ProductoService {
@@ -15,6 +16,6 @@ public interface ProductoService {
 
 	public List<ProductoDto> searchBy(String productType);
 
-	public ProductoDto obtenerProductoPorId(String productoId);	
+	public ProductoDto obtenerProductoPorId(String productoId);
 
 }

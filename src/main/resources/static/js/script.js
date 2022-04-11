@@ -6,7 +6,7 @@ $(document).ready(function() {
 	$('#sizetelas').hide();
 	$('[name=inputalertmsg]').hide();
 	$('#hiddenaddress').hide();
-	
+
 	var wear = $('#wear').val();
 	var style = $('#style').val();
 	var genre = $('#genre').val();
@@ -68,9 +68,9 @@ $(document).ready(function() {
 	});
 
 	// Seleccion de tipos en búsqueda avanzada
-	
+
 	var tipo = $('#types').val();
-	
+
 	$('#types').change(function() {
 		if (tipo === 'prenda') {
 			$('#sizeropa').show();
@@ -96,85 +96,102 @@ $(document).ready(function() {
 			$('#wear').val('');
 		}
 	});
-		
-				
+
+
 
 	// Tootltips
-		var tooltipTriggerList = [].slice.call(
-			document.querySelectorAll('[data-bs-toggle="tooltip"]')
-		);
-		var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-			return new bootstrap.Tooltip(tooltipTriggerEl);
-		});
-		
-		var location = window.location.pathname;
-		var direcciones = $('#misdirecciones').val();
-			
-		if (location === '/checkout'){			
-			if (direcciones == 0) {	
-				selectCity(1);
-				selectCity(2);
-			}
-		}
+	var tooltipTriggerList = [].slice.call(
+		document.querySelectorAll('[data-bs-toggle="tooltip"]')
+	);
+	var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+		return new bootstrap.Tooltip(tooltipTriggerEl);
 	});
 
+	var location = window.location.pathname;
+	var direcciones = $('#misdirecciones').val();
+
+	if (location === '/checkout') {
+		if (direcciones == 0) {
+			selectCity(1);
+			selectCity(2);
+		}
+	}
 
 
-function submitnewpassword(){
-	
+
+	$('.galeria-cell').mouseover(function() {
+		$(this).find('i').css('display', 'inline');
+	});
+
+	$('.galeria-cell').mouseleave(function() {
+		$(this).find('i').css('display', 'none');
+	});
+
+	$('.dropdown-submenu a.test').on('click', function(e) {
+		$(this).next('ul').toggle();
+		e.stopPropagation();
+	});
+	e.preventDefault();
+
+});
+
+
+
+function submitnewpassword() {
+
 	var urlParams = new URLSearchParams(location.search);
-	
-	if (!urlParams.has('token') || isEmpty(urlParams.get('token'))){
+
+	if (!urlParams.has('token') || isEmpty(urlParams.get('token'))) {
 		alert("El token no existe");
 		return;
 	}
-	
+
 	var tokenValue = urlParams.get('token');
-	
+
 	var password1 = $('#password1').val();
 	var password2 = $('#password2').val();
-	
-	if (isEmpty(password1)){
+
+	if (isEmpty(password1)) {
 		alert("Ingrese la nueva contraseña");
 		return;
 	}
-	
-	if (password1 !== password2){
+
+	if (password1 !== password2) {
 		alert("Las contraseñas no coinciden");
 		return
 	}
-	
+
 	$.ajaxSetup({
 		"contentType": "application/json"
 	});
-	
+
 	var data = {
-			"token": tokenValue,
-			"password": password1
+		"token": tokenValue,
+		"password": password1
 	};
-	
+
 	$.post(
 		'/clientes/password-reset', JSON.stringify(data))
-		.done(function (response){
+		.done(function(response) {
 			$('#password1').val('');
 			$('#password2').val('');
-					
-			if (response.operationResult === 'SUCCESS'){					
-				$('#successful-result').attr('style', 'display: block');						
+
+			if (response.operationResult === 'SUCCESS') {
+				$('#successful-result').attr('style', 'display: block');
 			} else {
 				$('#unsuccessful-result').attr('style', 'display: block');
 			}
-		
-	});
-		
+
+		});
+
 }
 
-function isEmpty(str){
+function isEmpty(str) {
 	return (!str || 0 === str.trim().length);
 }
 
-function btnregistrar(){
-	if ($('#pass').val() != $('#pass2').val()){
+function btnregistrar() {
+	if ($('#pass').val() != $('#pass2').val()) {
 		$('#alertregistrar').show();
 	} else {
 		$('#btnregistrar').submit();
@@ -182,18 +199,18 @@ function btnregistrar(){
 }
 
 function checkinputrequirements(id) {
-	
+
 	document.addEventListener('keyup', (event) => {
 		const keyCode = event.code;
 		const keyName = event.key;
-		
+
 		const regex = new RegExp('[a-z0-9._%+-]+@[a-z-0-9.-]+\\.[a-z]{2,4}$');
 
-		var input = $('#inputtext-' + id).val();		
-		
-		if (id === 'email'){
-			var rex = regex.test(input);		
-			if (!rex){
+		var input = $('#inputtext-' + id).val();
+
+		if (id === 'email') {
+			var rex = regex.test(input);
+			if (!rex) {
 				$('#inputalertmsg-' + id).show();
 			} else {
 				$('#inputalertmsg-' + id).hide();
@@ -209,7 +226,7 @@ function checkinputrequirements(id) {
 }
 
 function actualizarProductoEnCarrito(id) {
-	
+
 	$.ajax({
 		type: 'POST',
 		url: 'sdfsdf/sdfsdf',
@@ -220,15 +237,15 @@ function actualizarProductoEnCarrito(id) {
 			200: function() {
 				console.log("Status code 200: succesful request")
 			},
-			401: function(){
+			401: function() {
 				console.log("Status code 401: Usuario no autenticado");
 				window.location.href = "/login";
 			},
-			403: function(){
+			403: function() {
 				console.log("Status code 403: usuario no autorizado");
 			},
 			404: function() {
-				console.log("Status code 404: page not found");				
+				console.log("Status code 404: page not found");
 			},
 			405: function() {
 				console.log("Status code 405: Bad HTTP request");
@@ -237,15 +254,15 @@ function actualizarProductoEnCarrito(id) {
 				console.log("Status code 500: server error");
 			}
 		},
-		error: function(XMLHttpRequest, textStatus, errorThrown){
-                            console.log(XMLHttpRequest);
-                            console.log(textStatus);
-                            console.log(errorThrown);
+		error: function(XMLHttpRequest, textStatus, errorThrown) {
+			console.log(XMLHttpRequest);
+			console.log(textStatus);
+			console.log(errorThrown);
 		},
 		success: function(data) {
-			
+
 			var totalAmount = 0;
-			var totalQuantity = 0;			
+			var totalQuantity = 0;
 
 			data.forEach(function(data) {
 
@@ -261,35 +278,35 @@ function actualizarProductoEnCarrito(id) {
 			$('[name=feedback-totalprice]').html(formatter.format(totalAmount));
 			$('#feedback-totalquantity').html(totalQuantity);
 		},
-		
+
 	});
-	}
+}
 
 
 
 function agregarProductoAlCarrito(id) {
-		
+
 	console.log(id);
-	
+
 	$.ajax({
 		type: 'POST',
 		url: '/carrito/' + id,
 		data: {
-			producto_id: id,			
+			producto_id: id,
 		},
 		statusCode: {
 			200: function() {
 				console.log("Status code 200: succesful request")
 			},
-			401: function(){
+			401: function() {
 				console.log("Status code 401: Usuario no autenticado");
-				location.href = "/login";					
+				location.href = "/login";
 			},
-			403: function(){
+			403: function() {
 				console.log("Status code 403: usuario no autorizado");
 			},
 			404: function() {
-				console.log("Status code 404: page not found");				
+				console.log("Status code 404: page not found");
 			},
 			405: function() {
 				console.log("Status code 405: Bad HTTP request");
@@ -303,38 +320,38 @@ function agregarProductoAlCarrito(id) {
 			//location.href = data.status			
 		},
 		success: function(data) {
-			
+
 			console.log(data);
-			
+
 			obtenerCantidadYPrecioTotal(data.cliente.clienteId);
-									
+
 		},
-		
+
 	});
 
 }
 
-function obtenerCantidadYPrecioTotal(clienteId){
-	
+function obtenerCantidadYPrecioTotal(clienteId) {
+
 	$.ajax({
 		type: 'GET',
 		url: '/carrito/' + clienteId,
 		data: {
-			cliente: clienteId,			
+			cliente: clienteId,
 		},
 		statusCode: {
 			200: function() {
 				console.log("Status code 200: succesful request")
 			},
-			401: function(){
+			401: function() {
 				console.log("Status code 401: Usuario no autenticado");
-				location.href = "/login";					
+				location.href = "/login";
 			},
-			403: function(){
+			403: function() {
 				console.log("Status code 403: usuario no autorizado");
 			},
 			404: function() {
-				console.log("Status code 404: page not found");				
+				console.log("Status code 404: page not found");
 			},
 			405: function() {
 				console.log("Status code 405: Bad HTTP request");
@@ -344,21 +361,21 @@ function obtenerCantidadYPrecioTotal(clienteId){
 			}
 		},
 		error: function(data) {
-			console.log(data);		
+			console.log(data);
 		},
 		success: function(data) {
-			
-			console.log(data)				
-			
+
+			console.log(data)
+
 			$('[name=feedback-totalprice]').html(data.totalprice);
 			$('#feedback-totalquantity').html(data.quantity);
 		},
-		
+
 	});
 }
 
 function removecartproductitem(id) {
-	
+
 	console.log(id);
 
 	$.ajax({
@@ -374,15 +391,15 @@ function removecartproductitem(id) {
 			200: function() {
 				console.log("Status code 200: succesful request")
 			},
-			401: function(){
+			401: function() {
 				console.log("Status code 401: Usuario no autenticado");
 				window.location.href = "/login";
 			},
-			403: function(){
+			403: function() {
 				console.log("Status code 403: usuario no autorizado");
 			},
 			404: function() {
-				console.log("Status code 404: page not found");				
+				console.log("Status code 404: page not found");
 			},
 			405: function() {
 				console.log("Status code 405: Bad HTTP request");
@@ -392,7 +409,7 @@ function removecartproductitem(id) {
 			}
 		},
 		error: function(data) {
-			if (data.status == 401){
+			if (data.status == 401) {
 				location.href = "/login"
 			}
 			console.log(data);
@@ -427,7 +444,7 @@ function removecartproductitem(id) {
 				$('#feedback-quantity' + itemid).html(itemQuantity);
 			});
 		},
-		
+
 	});
 
 }
@@ -444,14 +461,14 @@ function deletecartproduct(id) {
 			200: function() {
 				console.log("Status code 200: succesful request")
 			},
-			401: function(){
+			401: function() {
 				console.log("Status code 401: Usuario no autenticado");
 			},
-			403: function(){
+			403: function() {
 				console.log("Status code 403: usuario no autorizado");
 			},
 			404: function() {
-				console.log("Status code 404: page not found");				
+				console.log("Status code 404: page not found");
 			},
 			405: function() {
 				console.log("Status code 405: Bad HTTP request");
@@ -461,7 +478,7 @@ function deletecartproduct(id) {
 			}
 		},
 		error: function(data) {
-			location.href = data.status			
+			location.href = data.status
 		},
 		success: function() {
 			if (window.confirm("Está seguro que desea eliminar este producto de su carrito?")) {
@@ -469,34 +486,34 @@ function deletecartproduct(id) {
 			}
 
 		},
-		
+
 	});
 }
 
-function selectCity(n){
-	
-	var id = $('#selectRegion-' + n).val();	
-	
+function selectCity(n) {
+
+	var id = $('#selectRegion-' + n).val();
+
 	console.log(id);
-	
+
 	$.ajax({
 		type: 'GET',
 		url: '/api/regiones/' + id,
 		data: {
 			id: id
-		},	
+		},
 		statusCode: {
 			200: function() {
 				console.log("Status code 200: succesful request")
 			},
-			401: function(){
+			401: function() {
 				console.log("Status code 401: Usuario no autenticado");
 			},
-			403: function(){
+			403: function() {
 				console.log("Status code 403: usuario no autorizado");
 			},
 			404: function() {
-				console.log("Status code 404: page not found");				
+				console.log("Status code 404: page not found");
 			},
 			405: function() {
 				console.log("Status code 405: Bad HTTP request");
@@ -506,21 +523,21 @@ function selectCity(n){
 			}
 		},
 		error: function(data) {
-			location.href = data.status			
-		},		
-		success: function(data) {				
-			$('#selectcityoption-' + n).prop('disabled', false);	
+			location.href = data.status
+		},
+		success: function(data) {
+			$('#selectcityoption-' + n).prop('disabled', false);
 			$('#selectcityoption-' + n).empty();
-							
-			data.forEach(function(data){
+
+			data.forEach(function(data) {
 				$('#selectcityoption-' + n).append('<option value =' + data.id + '>' + data.name + '</option>');
-			});			
-		},		
-	});	
+			});
+		},
+	});
 }
 
-function getRegions(){
-	
+function getRegions() {
+
 	$.ajax({
 		type: 'GET',
 		url: '/api/regiones',
@@ -528,14 +545,14 @@ function getRegions(){
 			200: function() {
 				console.log("Status code 200: succesful request")
 			},
-			401: function(){
+			401: function() {
 				console.log("Status code 401: Usuario no autenticado");
 			},
-			403: function(){
+			403: function() {
 				console.log("Status code 403: usuario no autorizado");
 			},
 			404: function() {
-				console.log("Status code 404: page not found");				
+				console.log("Status code 404: page not found");
 			},
 			405: function() {
 				console.log("Status code 405: Bad HTTP request");
@@ -545,95 +562,95 @@ function getRegions(){
 			}
 		},
 		error: function(data) {
-			location.href = data.status			
-		},				
-		success: function(data){
-			
+			location.href = data.status
+		},
+		success: function(data) {
+
 			$('#selectRegion-2').empty();
-						
-			data.forEach(function(data){
-					$('#selectRegion-2').append('<option value =' + data.id + '>' + data.name + '</option>');
+
+			data.forEach(function(data) {
+				$('#selectRegion-2').append('<option value =' + data.id + '>' + data.name + '</option>');
 			});
 		},
 	});
 }
 
-function mostrardireccion(){
-	
+function mostrardireccion() {
+
 	var input = $('input:checked').val();
-	
-	if (input == 'on'){	
+
+	if (input == 'on') {
 		$('#hiddenaddress').show();
 	} else {
 		$('#hiddenaddress').hide();
 	}
-	
-	
+
+
 }
 
-function copyPasteShippingAddress(){
-	
+function copyPasteShippingAddress() {
+
 	var input = $('input:checked').val();
 	var city = $('#selectcityoption-1 option:selected').html();
 	var region = $('#selectRegion-1 option:selected').html();
-	var calle = $('#inputtext-3').val();	
+	var calle = $('#inputtext-3').val();
 	var direccionid = $('#selectaddress').val();
 	var ciudad = $('#selectcityoption-1').val();
-		
-	
-	if (ciudad === null && input == 'on'){
+
+
+	if (ciudad === null && input == 'on') {
 		$.ajax({
 			type: 'GET',
 			url: `/api/address/${direccionid}`,
 			data: {
 				id: direccionid,
 			},
-			success: function(data){
-								
+			success: function(data) {
+
 				$('#selectRegion-2').empty();
 				$('#selectRegion-2').append('<option value="' + data.region + '"></option>');
-				
+
 				$('#selectcityoption-2').empty();
 				$('#selectcityoption-2').append('<option>' + data.ciudad + '</option>');
-								
-				$('#inputtext-6').val(data.calle);			
+
+				$('#inputtext-6').val(data.calle);
 			},
-			error: function(data){
+			error: function(data) {
 				console.log(data.status);
 			}
-		
+
 		});
-	} else if (ciudad != null && input == 'on'){		
+	} else if (ciudad != null && input == 'on') {
 		$('#selectRegion-2').empty();
 		$('#selectRegion-2').append('<option>' + region + '</option>');
-		
+
 		$('#selectcityoption-2').empty();
 		$('#selectcityoption-2').append('<option>' + city + '</option>');
-				
-		$('#inputtext-6').val(calle);	
-	
+
+		$('#inputtext-6').val(calle);
+
 	} else {
 		getRegions();
 	}
-	
+
 }
 
-function addaddress(id){
-	
+function addaddress(id) {
+
 	var region, ciudad, calle, nombre;
-	
+
 	region = $('#selectRegion-1').val();
 	ciudad = $('#selectcityoption-1').val();
 	calle = $('#inputtext-3').val();
-	
-	if (id == 1){		
+
+	if (id == 1) {
 		nombre = $('#inputtext-4').val();
-	} else {		
+	} else {
 		nombre = $('#inputtext-5').val();
-	}	
-	
+	}
+
 	console.log(`region: ${region}, ciudad: ${ciudad}, calle: ${calle}, nombre: ${nombre}`);
-	
+
 	$.ajax({
 		type: 'POST',
 		url: `/api/add/address/${region}/${ciudad}/${calle}/${nombre}`,
@@ -643,20 +660,20 @@ function addaddress(id){
 			calle: calle,
 			nombre: nombre
 		},
-		success: function(){
-			
+		success: function() {
+
 			location.reload();
-			
+
 		},
-		error: function(data){
+		error: function(data) {
 			console.log(data.status);
-		}	
-			
-	})	
+		}
+
+	})
 }
 
-function btncomprar(){
-	
+function btncomprar() {
+
 }
 
 var formatter = new Intl.NumberFormat('es-CL', {

@@ -54,12 +54,64 @@ public class WebController {
 	@GetMapping("/")
 	public String getIndex(Model model, Authentication auth) {
 		
-		List<ArrayList<String>> multipleSelect = productoService.getMultipleSelection();
-		model.addAttribute("multipleSelect", multipleSelect);
-		
-		calculoTotalDelCliente(model, auth);
-		
+//		List<ArrayList<String>> multipleSelect = productoService.getMultipleSelection();
+//		model.addAttribute("multipleSelect", multipleSelect);
+//		
+//		calculoTotalDelCliente(model, auth);
+				
 		return "index";
+	}
+	
+	@GetMapping("/tienda")
+	public String getTienda(Model model, Authentication auth) {
+		
+		return "tienda";
+	}
+	
+	@GetMapping("/somos")
+	public String getSomos(Model model, Authentication auth) {
+		
+		return "somos";
+	}
+	
+	@GetMapping("/donaciones")
+	public String getDonaciones(Model model, Authentication auth) {
+		
+		return "donaciones";
+	}
+	
+	@GetMapping("/blog")
+	public String getBlog(Model model, Authentication auth) {
+		
+		return "blog";
+	}
+	@GetMapping("/noticias")
+	public String getNoticias(Model model, Authentication auth) {
+		
+		return "noticias";
+	}
+	@GetMapping("/politicas-privacidad")
+	public String getPoliticasPrivacidad(Model model, Authentication auth) {
+		
+		return "politicas-privacidad";
+	}
+	
+	@GetMapping("/politicas-contacto")
+	public String getPoliticasContacto(Model model, Authentication auth) {
+		
+		return "politicas-contacto";
+	}
+	
+	@GetMapping("/politicas-pago")
+	public String getPoliticasPago(Model model, Authentication auth) {
+		
+		return "politicas-pago";
+	}
+	
+	@GetMapping("/politicas-despacho")
+	public String getPoliticasDespacho(Model model, Authentication auth) {
+		
+		return "politicas-despacho";
 	}
 	
 	@GetMapping("/productos/ropa")
