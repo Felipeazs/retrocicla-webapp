@@ -68,6 +68,45 @@ public class WebController {
 		return "tienda";
 	}
 	
+	@GetMapping("/catalogo/{tipo_de_producto}")
+	public String getCatalogo(@PathVariable String tipo_de_producto, Model model, Authentication auth) {
+		
+		List<ProductoRest> returnValue = new ArrayList<>();
+		
+		List<ProductoDto> productos = new ArrayList<>();
+		
+		if (tipo_de_producto.equals("mostrar_todo")) {
+			productos = productoService.listarProducts(1, 25);
+			model.addAttribute("titulo", "Catálogo");
+		} else {
+			productos = productoService.buscarPorPrenda(tipo_de_producto);
+			model.addAttribute("titulo", productos.get(0).getType());
+		}
+		
+		ModelMapper modelMapper = new ModelMapper();
+		for (ProductoDto producto : productos) {
+			returnValue.add(modelMapper.map(producto, ProductoRest.class));
+		}
+		
+		model.addAttribute("productos", returnValue);
+		
+		return "catalogo";
+	}
+	
+	@GetMapping("/item/{productoId}")
+	public String getDetalleItem(@PathVariable String productoId, Model model) {
+		
+		ProductoRest returnValue = new ProductoRest();
+		
+		ProductoDto producto = productoService.obtenerProductoPorId(productoId);
+		
+		BeanUtils.copyProperties(producto, returnValue);	
+		
+		model.addAttribute("item", returnValue);		
+		
+		return "detalle-item";
+	}
+	
 	@GetMapping("/somos")
 	public String getSomos(Model model, Authentication auth) {
 		
@@ -121,7 +160,7 @@ public class WebController {
 		
 		List<ProductoRest> returnValue = new ArrayList<>();
 				
-		List<ProductoDto> productos = productoService.searchBy("prenda");
+		List<ProductoDto> productos = productoService.buscarPorPrenda("prenda");
 		
 		ModelMapper modelMap = new ModelMapper();
 		for (ProductoDto producto : productos) {

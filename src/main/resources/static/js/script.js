@@ -117,8 +117,6 @@ $(document).ready(function() {
 		}
 	}
 
-
-
 	$('.galeria-cell').mouseover(function() {
 		$(this).find('i').css('display', 'inline');
 	});
@@ -134,6 +132,34 @@ $(document).ready(function() {
 	e.preventDefault();
 
 });
+
+function restar_cantidad(){
+	var cantidad = $('#cantidad_input').val();
+	var precio = $('#_precio').val();
+	var total = 0;
+	if (cantidad >= 1){
+		cantidad--;
+		total = cantidad * precio;
+		
+		$('#cantidad_input').val(cantidad);
+		$('#cantidad_carrito').html(cantidad);
+		$('#precio_').html(formatter.format(total));
+	}
+}
+function sumar_cantidad(){
+	var cantidad = $('#cantidad_input').val();
+	var precio = $('#_precio').val();
+	var total = 0;
+	if (cantidad >= 0){
+		cantidad++;
+		total = cantidad * precio;
+				
+		$('#cantidad_input').val(cantidad);
+		$('#cantidad_carrito').html(cantidad);
+		$('#precio_').html(formatter.format(total));
+
+	}
+}
 
 
 

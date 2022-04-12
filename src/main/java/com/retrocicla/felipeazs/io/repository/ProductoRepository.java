@@ -12,6 +12,8 @@ public interface ProductoRepository extends JpaRepository<ProductoEntity, Intege
 	
 	List<ProductoEntity> findAllByTypeOrderByWearAsc(String productType);
 	
+	List<ProductoEntity> findAllByStyleOrderByWearAsc(String productType);
+	
 	@Query(value = "SELECT DISTINCT wear FROM productos WHERE NOT wear = 'indefinido' ORDER BY wear ASC", nativeQuery = true)
 	ArrayList<String> getDistinctByWear();
 
@@ -47,5 +49,13 @@ public interface ProductoRepository extends JpaRepository<ProductoEntity, Intege
 	ProductoEntity findByImageUrl(String imageUrl);
 
 	ProductoEntity findByProductoId(String productoId);
+
+	List<ProductoEntity> findAllByWearAndGenreOrderByWearAsc(String wear, String genre);
+
+	List<ProductoEntity> findAllByFibra(String productType);
+
+	List<ProductoEntity> findAllByMaterial(String productType);
+
+	
 	
 }

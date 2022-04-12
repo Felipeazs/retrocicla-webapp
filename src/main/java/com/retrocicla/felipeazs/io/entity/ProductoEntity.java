@@ -68,6 +68,9 @@ public class ProductoEntity implements Serializable {
     
     @Column(name = "stock", nullable=false)
     private int stock; 
+    
+    @Column
+    private String fibra;
  
     public int getId() {
 		return id;
@@ -211,5 +214,14 @@ public class ProductoEntity implements Serializable {
 
 	public void setStock(int stock) {
 		this.stock = stock;
-	}		    
+	}
+
+	public String getFibra() {
+		return fibra;
+	}
+
+	public void setFibra(String fibra) {
+		this.fibra = fibra;
+	}		
+	
 }

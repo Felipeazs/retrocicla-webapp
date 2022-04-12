@@ -22,6 +22,7 @@ public class ProductoDto implements Serializable {
     private String season;
     private String type; 
     private int stock;
+    private String fibra;
     
 	public String getProductoId() {
 		return productoId;
@@ -124,6 +125,15 @@ public class ProductoDto implements Serializable {
 	}
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+	public String getFibra() {
+		return fibra;
+	}
+	public void setFibra(String fibra) {
+		this.fibra = fibra;
+	}
+	public void setMadeIn(String madeIn) {
+		this.madeIn = madeIn;
 	} 
     
     

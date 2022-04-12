@@ -106,7 +106,7 @@
 			</div>
 		</div>
 		<div class="seccion-catalogo">
-			<a href="/materiales">
+			<a href="/catalogo/mostrar_todo">
 				<p>Tipo de prenda</p>
 			</a>
 			<div class="galeria js-flickity">
