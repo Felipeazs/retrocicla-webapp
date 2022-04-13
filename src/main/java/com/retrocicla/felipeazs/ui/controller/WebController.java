@@ -14,16 +14,24 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.retrocicla.felipeazs.io.entity.CarritoEntity;
 import com.retrocicla.felipeazs.io.entity.ProductoEntity;
 import com.retrocicla.felipeazs.model.CalculoTotalModel;
 import com.retrocicla.felipeazs.model.dto.CarritoDto;
+import com.retrocicla.felipeazs.model.dto.ClienteDto;
+import com.retrocicla.felipeazs.model.dto.DireccionDto;
 import com.retrocicla.felipeazs.model.dto.ProductoDto;
 import com.retrocicla.felipeazs.service.CarritoService;
+import com.retrocicla.felipeazs.service.ClienteService;
 import com.retrocicla.felipeazs.service.ProductoService;
+import com.retrocicla.felipeazs.ui.model.request.CarritoRequestModel;
+import com.retrocicla.felipeazs.ui.model.request.ProductoRequestModel;
 import com.retrocicla.felipeazs.ui.model.response.CarritoRest;
+import com.retrocicla.felipeazs.ui.model.response.ClienteRest;
 import com.retrocicla.felipeazs.ui.model.response.ProductoRest;
 
 @Controller
@@ -31,6 +39,9 @@ public class WebController {
 	
 	@Autowired
 	private ProductoService productoService;
+	
+	@Autowired
+	private ClienteService clienteService;
 	
 	@ModelAttribute("producto")
 	private ProductoEntity setProduct() {
@@ -44,6 +55,12 @@ public class WebController {
 	private CarritoEntity setCartEntity() {
 		return new CarritoEntity();
 	}
+	
+	@ModelAttribute("carrito_model")
+	private CarritoRequestModel setCarritoRequestModel() {
+		return new CarritoRequestModel();
+	}
+	
 
 	/**
 	 *  
@@ -105,6 +122,43 @@ public class WebController {
 		model.addAttribute("item", returnValue);		
 		
 		return "detalle-item";
+	}
+	
+	@GetMapping("/informacion-usuario")
+	public String getInformacionUsuario(@ModelAttribute ProductoRequestModel detalle_producto, Model model, Authentication auth) {
+		
+		System.out.println(detalle_producto.getTotal());
+		
+		ClienteDto cliente = clienteService.obtenerClienteByEmail(auth.getName());
+		carritoService.agregarProductoAlCarrito(detalle_producto, cliente);
+		
+		ModelMapper modelMapper = new ModelMapper();
+		ClienteRest returnValue = modelMapper.map(cliente, ClienteRest.class);		
+		
+		model.addAttribute("cliente", returnValue);
+		model.addAttribute("producto", detalle_producto);
+		
+		return "informacion-usuario";
+	}
+	
+	@GetMapping("/informacion-envio")
+	public String getInformacionEnvio(Model model, Authentication auth) {
+		
+		return "informacion-envio";
+	}
+	
+	@GetMapping("/informacion-pago")
+	public String getInformacionPago(Model model, Authentication auth) {
+		
+		return "informacion-pago";
+	}
+	
+	@PostMapping("/agregar-carrito")
+	public String getCarritoCliente(@ModelAttribute CarritoRequestModel detalle_carrito,  Model model, Authentication auth) {
+		
+		System.out.println(detalle_carrito.getProductoId());
+		
+		return "informacion-envio";
 	}
 	
 	@GetMapping("/somos")

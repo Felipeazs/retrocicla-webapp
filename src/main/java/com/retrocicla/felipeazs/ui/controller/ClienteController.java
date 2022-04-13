@@ -92,7 +92,7 @@ public class ClienteController {
 	)
 	@GetMapping(
 			path = "/{clienteid}",
-			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }) // Retorna el valor en XML o JSON
+			produces = { MediaType.APPLICATION_JSON_VALUE }) // Retorna el valor en XML o JSON
 	public ClienteRest getCliente(@PathVariable String clienteid) {
 					
 		ClienteDto cliente = clienteService.obtenerClienteById(clienteid);

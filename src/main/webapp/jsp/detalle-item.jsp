@@ -154,7 +154,7 @@ prefix="c"%>
 
 								<div class="item fs-5 d-flex justify-content-between">
 									<span class="text-start">Marca</span>
-									<strong class="text-end"> ${ item.formatted_price } </strong>
+									<strong class="text-end" name="precio"> ${ item.formatted_price } </strong>
 								</div>
 								<div class="item d-flex justify-content-between">
 									<span>Talla: ${ item.size } </span>
@@ -162,9 +162,15 @@ prefix="c"%>
 								</div>
 								<div class="item d-flex justify-content-between m-2">
 									<div class="sub-item d-flex justify-content-between">
-										<button class="izq" onclick="restar_cantidad()">-</button>
-										<input type="number" value="1" id="cantidad_input" />
-										<button class="der" onclick="sumar_cantidad()">+</button>
+										<button type="button" class="izq" onclick="restar_cantidad()">-</button>
+										<input
+											name="cantidad"
+											type="number"
+											value="1"
+											id="cantidad_input"
+											oninput="precio_total()"
+										/>
+										<button type="button" class="der" onclick="sumar_cantidad()">+</button>
 									</div>
 									<button class="carrito">Carrito</button>
 								</div>
@@ -197,7 +203,12 @@ prefix="c"%>
 											<div class="container">
 												<div class="row">
 													<div class="col m-0 p-0">
-														<img src="${ item.imageUrl }" alt="" class="float-start" />
+														<img
+															name="iamgeUrl"
+															src="${ item.imageUrl }"
+															alt=""
+															class="float-start"
+														/>
 													</div>
 													<div class="container col m-2 p-0">
 														<p class="fs-6 text-start p-0 m-0">Marca</p>
@@ -213,7 +224,7 @@ prefix="c"%>
 														</p>
 														<input type="hidden" value="${ item.price }" id="_precio" />
 														<p class="fs-6 text-start p-0 mt-3">
-															total: <span id="precio_"></span>
+															total: <span name="precio"></span>
 														</p>
 													</div>
 												</div>
@@ -230,14 +241,41 @@ prefix="c"%>
 													</a>
 												</div>
 												<div class="col-5">
-													<a href="informacion-usuario" class="text-decoration-none">
+													<form action="/informacion-usuario" method="get">
+														<input
+															name="productoId"
+															type="hidden"
+															value="${ item.productoId }"
+														/>
+														<input name="total" type="hidden" id="total" value="" />
+														<input
+															name="cantidad"
+															type="hidden"
+															value=""
+															id="cantidad_input"
+														/>
+														<input
+															name="imageUrl"
+															type="hidden"
+															value="${ item.imageUrl }"
+														/>
+														<input
+															name="material"
+															type="hidden"
+															value="${ item.material }"
+														/>
+														<input
+															name="descripcion"
+															type="hidden"
+															value="${ item. description }"
+														/>
 														<button
 															class="carrito border border-2 mt-2"
 															style="background-color: #00ff99"
 														>
 															Finalizar
 														</button>
-													</a>
+													</form>
 												</div>
 											</div>
 										</div>
@@ -245,6 +283,7 @@ prefix="c"%>
 								</div>
 								<hr />
 								<p class="fs-6 text-start">Descripción</p>
+								<span name="descripcion" class="fw-bold">${ item.description }</span>
 								<hr />
 								<p class="fs-6 text-start">Testimonios</p>
 							</div>

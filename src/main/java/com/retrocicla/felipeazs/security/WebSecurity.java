@@ -62,7 +62,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				"/password-reset", 
 				"/password-reset-request").permitAll()
 		.antMatchers(HttpMethod.POST, "/carrito/agregar/{productoId}").hasAnyAuthority("WRITE_AUTORIDAD")
-		.antMatchers("/producto/{productoId}").hasAnyAuthority("READ_AUTORIDAD")
+		.antMatchers("/producto/{productoId}", "/informacion-usuario", "/informacion-envio", "/informacion-pago").hasAnyAuthority("READ_AUTORIDAD")
 		.anyRequest()
 		.authenticated()
 		.and()

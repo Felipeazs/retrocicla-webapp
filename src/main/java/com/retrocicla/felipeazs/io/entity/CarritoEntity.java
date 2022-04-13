@@ -2,9 +2,11 @@ package com.retrocicla.felipeazs.io.entity;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -28,22 +30,51 @@ public class CarritoEntity implements Serializable{
 	@Column(name = "created_at")
 	private LocalDate createdAt;
 	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinTable(name = "producto_id")
-	private ProductoEntity producto;
+	@Column(name = "productoId")
+	private String productoId;
 	
-	@Column(name = "quantity")
-	private int quantity;
+	@Column(name = "cantidad")
+	private int cantidad;
 	
-	@Column(name = "price")
-	private int price;
+	@Column(name = "precio")
+	private int precio;
 	
-	@Column(name = "total_price")
-	private String totalPrice;
+	@Column(name = "total")
+	private String total;
 	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cliente_id")
 	private ClienteEntity cliente; 
+	
+	@Column(nullable = false)
+	private String nombre;
+	
+	@Column(nullable = false)
+	private String apellido;
+	
+	@Column
+	private String rut;
+	
+	@Column
+	private String telefono;
+	
+	@Column(nullable = false)
+	private String email;
+	
+	@Column
+	private String calle;
+	
+	@Column
+	private String ciudad;
+	
+	@Column
+	private String region;
+	
+	@Column
+	private String envio;
+	
+	@Column
+	private String pago;
 	
 	public int getId() {
 		return id;
@@ -61,36 +92,36 @@ public class CarritoEntity implements Serializable{
 		this.createdAt = createdAt;
 	}
 
-	public ProductoEntity getProducto() {
-		return producto;
+	public String getProductoId() {
+		return productoId;
 	}
 
-	public void setProducto(ProductoEntity producto) {
-		this.producto = producto;
+	public void setProductoId(String productoId) {
+		this.productoId = productoId;
 	}
 
-	public int getQuantity() {
-		return quantity;
+	public int getCantidad() {
+		return cantidad;
 	}
 
-	public void setQuantity(int quantity) {
-		this.quantity = quantity;
+	public void setCantidad(int cantidad) {
+		this.cantidad = cantidad;
 	}
 
-	public int getPrice() {
-		return price;
+	public int getPrecio() {
+		return precio;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setPrecio(int precio) {
+		this.precio = precio;
 	}
 
-	public String getTotalPrice() {
-		return totalPrice;
+	public String getTotal() {
+		return total;
 	}
 
-	public void setTotalPrice(String totalPrice) {
-		this.totalPrice = totalPrice;
+	public void setTotal(String total) {
+		this.total = total;
 	}
 
 	public ClienteEntity getCliente() {
@@ -101,5 +132,86 @@ public class CarritoEntity implements Serializable{
 		this.cliente = cliente;
 	}
 
+	public String getNombre() {
+		return nombre;
+	}
+
+	public void setNombre(String nombre) {
+		this.nombre = nombre;
+	}
+
+	public String getApellido() {
+		return apellido;
+	}
+
+	public void setApellido(String apellido) {
+		this.apellido = apellido;
+	}
+
+	public String getRut() {
+		return rut;
+	}
+
+	public void setRut(String rut) {
+		this.rut = rut;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getEmail() {
+		return email;
+	}
+
+	public void setEmail(String email) {
+		this.email = email;
+	}
+
+	public String getCalle() {
+		return calle;
+	}
+
+	public void setCalle(String calle) {
+		this.calle = calle;
+	}
+
+	public String getCiudad() {
+		return ciudad;
+	}
+
+	public void setCiudad(String ciudad) {
+		this.ciudad = ciudad;
+	}
+
+	public String getRegion() {
+		return region;
+	}
+
+	public void setRegion(String region) {
+		this.region = region;
+	}
+
+	public String getEnvio() {
+		return envio;
+	}
+
+	public void setEnvio(String envio) {
+		this.envio = envio;
+	}
+
+	public String getPago() {
+		return pago;
+	}
+
+	public void setPago(String pago) {
+		this.pago = pago;
+	}
+	
+	
 	
 }

@@ -107,13 +107,13 @@ public class ClienteServiceImpl implements ClienteService{
 
 	@Override
 	public ClienteDto obtenerClienteByEmail(String email) {
-		
+				
 		ClienteEntity dbCliente = clienteRepo.findByEmail(email);
 		
 		if (dbCliente == null) throw new ClienteServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 	
-		ClienteDto returnValue = new ClienteDto();		
-		BeanUtils.copyProperties(dbCliente, returnValue);
+		ModelMapper modelMapper = new ModelMapper();
+		ClienteDto returnValue = modelMapper.map(dbCliente, ClienteDto.class);
 				
 		return returnValue;
 	}

@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib
+uri="http://www.springframework.org/tags/form" prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -92,7 +91,7 @@
 					</ul>
 				</div>
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
-					<a href="cliente.html"><i class="bi bi-person-circle"></i></a>
+					<a href="cliente"><i class="bi bi-person-circle"></i></a>
 					<i class="bi bi-bag"></i>
 				</div>
 			</div>
@@ -196,7 +195,7 @@
 					<img src="/img/lino.jpg" alt="" />
 					<i class="fa-solid fa-bag-shopping fa-2x"></i>
 					<div class="item">
-					<span class="fs-3">Lino</span>
+						<span class="fs-3">Lino</span>
 					</div>
 				</div>
 				<div class="galeria-cell">
@@ -341,7 +340,7 @@
 					<div class="col-md-8 d-flex justify-content-end">
 						<div>
 							<a href="">Términos y condiciones</a> | <a href="">Política de reembolso</a> |
-							<a href="pages/politicas-privacidad.html">Polí­tica de privacidad</a>
+							<a href="pages/politicas-privacidad">Polí­tica de privacidad</a>
 						</div>
 					</div>
 				</div>

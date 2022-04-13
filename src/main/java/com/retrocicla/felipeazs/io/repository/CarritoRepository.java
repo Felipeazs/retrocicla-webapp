@@ -12,10 +12,10 @@ public interface CarritoRepository extends JpaRepository<CarritoEntity, Integer>
 	
 	CarritoEntity findByClienteId(String cliente_id);
 
-	CarritoEntity findByClienteAndProducto(ClienteEntity clienteEntity, ProductoEntity productoEntity);
-
 	List<CarritoEntity> findAllByClienteClienteId(String clienteId);
 
 	List<CarritoEntity> findAllByClienteEmail(String email);
+
+	CarritoEntity findByClienteAndProductoId(ClienteEntity clienteEntity, String productoId);
 
 }

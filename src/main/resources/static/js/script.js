@@ -132,33 +132,99 @@ $(document).ready(function() {
 	e.preventDefault();
 
 });
-
+function precio_total(){
+	var cantidad = $('#cantidad_input').val();
+	var precio = $('#_precio').val();
+	var total = 0;
+	
+	if (cantidad >= 1){
+		total = cantidad * precio;
+	}
+	
+	$('#cantidad_carrito').html(cantidad);
+	$('[name="precio"]').html(formatter.format(total));
+	$('#total').val(formatter.format(total));
+}
 function restar_cantidad(){
 	var cantidad = $('#cantidad_input').val();
 	var precio = $('#_precio').val();
 	var total = 0;
+
 	if (cantidad >= 1){
-		cantidad--;
+		cantidad--;	
 		total = cantidad * precio;
 		
-		$('#cantidad_input').val(cantidad);
+		$('[name="cantidad"]').val(cantidad);
 		$('#cantidad_carrito').html(cantidad);
-		$('#precio_').html(formatter.format(total));
+		$('[name="precio"]').html(formatter.format(total));
+		$('#total').val(formatter.format(total));
 	}
 }
 function sumar_cantidad(){
 	var cantidad = $('#cantidad_input').val();
 	var precio = $('#_precio').val();
 	var total = 0;
+
 	if (cantidad >= 0){
 		cantidad++;
 		total = cantidad * precio;
 				
-		$('#cantidad_input').val(cantidad);
+		$('[name="cantidad"]').val(cantidad);
 		$('#cantidad_carrito').html(cantidad);
-		$('#precio_').html(formatter.format(total));
-
+		$('[name="precio"]').html(formatter.format(total));
+		$('#total').val(formatter.format(total));
 	}
+}
+
+function direccionCliente(clienteId) {
+	
+	var direcciones = $('#_direcciones').val();
+
+	$.ajax({
+		type: 'GET',
+		url: '/clientes/' + clienteId,
+		data: {
+			cliente: clienteId,
+		},
+		statusCode: {
+			200: function() {
+				console.log("Status code 200: succesful request")
+			},
+			401: function() {
+				console.log("Status code 401: Usuario no autenticado");
+				location.href = "/login";
+			},
+			403: function() {
+				console.log("Status code 403: usuario no autorizado");
+			},
+			404: function() {
+				console.log("Status code 404: page not found");
+			},
+			405: function() {
+				console.log("Status code 405: Bad HTTP request");
+			},
+			500: function() {
+				console.log("Status code 500: server error");
+			}
+		},
+		error: function(data) {
+			console.log(data);
+		},
+		success: function(data) {
+			$('#_region').val('');	
+			data.direcciones.forEach(function(info) {			
+				if (info.tipo === direcciones){							
+					$('#_region').val(info.region);
+					$('#_calle').val(info.calle);
+					$('#_ciudad').val(info.ciudad);
+				}
+			
+			});
+
+			
+		},
+
+	});
 }
 
 

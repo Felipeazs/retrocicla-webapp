@@ -5,10 +5,12 @@ import java.util.List;
 import com.retrocicla.felipeazs.io.entity.CarritoEntity;
 import com.retrocicla.felipeazs.model.CalculoTotalModel;
 import com.retrocicla.felipeazs.model.dto.CarritoDto;
+import com.retrocicla.felipeazs.model.dto.ClienteDto;
+import com.retrocicla.felipeazs.ui.model.request.ProductoRequestModel;
 
 public interface CarritoService {
 
-	CarritoDto agregarProductoAlCarrito(String productId, String clienteEmail);
+
 
 	List<CarritoDto> buscarTodosLosProductos(String clienteId);
 
@@ -17,6 +19,8 @@ public interface CarritoService {
 	List<CarritoDto> obtenerTodosPorCliente(String email);
 
 	CarritoDto actualizarProductoEnCarrito(CarritoEntity producto, String email);
+
+	CarritoDto agregarProductoAlCarrito(ProductoRequestModel detalle_producto, ClienteDto cliente);
 	
 //	List<Cart> list();
 //	void addProduct(Product product, Cliente cliente);

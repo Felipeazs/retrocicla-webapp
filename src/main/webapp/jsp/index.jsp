@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib
+uri="http://www.springframework.org/tags/form" prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+prefix="c"%>
 
 <!DOCTYPE html>
 <html>
@@ -46,9 +45,8 @@
 		<title>Retrocicla</title>
 	</head>
 	<body>
-	
 		<!-- Header -->
-		
+
 		<header class="container-fluid">
 			<div class="row header d-flex justify-content-between">
 				<div
@@ -69,9 +67,9 @@
 				</div>
 			</div>
 		</header>
-		
+
 		<!-- Navegador -->
-		
+
 		<nav class="container-fluid">
 			<div class="row nav">
 				<div class="col-sm-12 col-md-3 logo">
@@ -97,14 +95,14 @@
 					</ul>
 				</div>
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
-					<a href="pages/cliente.html"><i class="bi bi-person-circle"></i></a>
+					<a href="pages/cliente"><i class="bi bi-person-circle"></i></a>
 					<i class="bi bi-bag"></i>
 				</div>
 			</div>
 		</nav>
-		
+
 		<!-- Carousel inicial -->
-		
+
 		<section>
 			<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-indicators">
@@ -147,9 +145,7 @@
 							<p class="fs-2 p-0 m-0">no tires tu ropa, dónala</p>
 							<div class="row">
 								<div class="col-6">
-									<a href="/donaciones"
-										><button class="boton text-center p-2">Donaciones</button></a
-									>
+									<a href="/donaciones"><button class="boton text-center p-2">Donaciones</button></a>
 								</div>
 							</div>
 						</div>
@@ -175,9 +171,9 @@
 				</button>
 			</div>
 		</section>
-		
+
 		<!-- Somos -->
-		
+
 		<article class="container-fluid">
 			<div class="row seccion-secundaria-index">
 				<p class="text-white">
@@ -188,16 +184,14 @@
 				</p>
 				<div class="row d-flex justify-content-center">
 					<div class="col-md-3">
-						<a href="/somos"
-							><button type="button" class="btn btn-success mt-5 boton">Conócenos</button></a
-						>
+						<a href="/somos"><button type="button" class="btn btn-success mt-5 boton">Conócenos</button></a>
 					</div>
 				</div>
 			</div>
 		</article>
-		
+
 		<!-- Donaciones -->
-		
+
 		<div class="container-fluid">
 			<div class="row seccion-terciaria-index">
 				<div class="col-sm-12 col-md-5 d-flex justify-content-center">
@@ -216,34 +210,34 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Catálogo -->
-		
+
 		<div class="seccion-catalogo">
 			<a href="/tienda"><p class="text-center">Tienda / Catálogo</p></a>
 			<div class="container galeria">
 				<div class="row d-flex justify-content-center">
 					<div class="col-md-3 galeria-cell">
-						<img class="img-responsive" src="img/algodon-2.jpg" alt="" />					
+						<img class="img-responsive" src="img/algodon-2.jpg" alt="" />
 						<div class="item">
 							<span class="fs-3">Tipo de prenda</span>
 						</div>
 					</div>
 					<div class="col-md-3 galeria-cell">
 						<img src="img/seda-1.jpg" alt="" />
-					
+
 						<div class="item">
 							<span class="fs-3">Materiales</span>
 						</div>
 					</div>
 					<div class="col-md-3 galeria-cell">
-						<img src="img/tejidos.jpg" alt="" />					
+						<img src="img/tejidos.jpg" alt="" />
 						<div class="item">
 							<span class="fs-3">Accesorios</span>
 						</div>
 					</div>
 					<div class="col-md-3 galeria-cell">
-						<img src="img/jacketDenim2.jpg" alt="" />					
+						<img src="img/jacketDenim2.jpg" alt="" />
 						<div class="item">
 							<span class="fs-3">Servicios</span>
 						</div>
@@ -251,9 +245,9 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Video -->
-		
+
 		<div class="container-fluid seccion-video d-flex align-items-center">
 			<div class="row p-5">
 				<div class="col-sm-12 col-md-5 d-flex justify-content-center">
@@ -280,9 +274,9 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Blog Noticias -->
-		
+
 		<div class="seccion-catalogo">
 			<p class="text-center">Blog / Noticias</p>
 			<div class="galeria js-flickity">
@@ -344,9 +338,9 @@
 				</div>
 			</div>
 		</div>
-		
+
 		<!-- Newsletter -->
-		
+
 		<section class="container-fluid seccion-bajada">
 			<img src="img/reutiliza.png" alt="" />
 			<div class="centro">
@@ -362,9 +356,9 @@
 			</div>
 			<img src="img/recicla.png" alt="" />
 		</section>
-		
+
 		<!-- Apoyos -->
-		
+
 		<section class="container-fluid seccion-apoyo">
 			<div class="row">
 				<p>Proyecto apoyado por:</p>
@@ -381,9 +375,9 @@
 				</div>
 			</div>
 		</section>
-		
+
 		<!-- Footer -->
-		
+
 		<footer class="footer">
 			<div class="container">
 				<div class="row">
@@ -410,9 +404,9 @@
 				</div>
 			</div>
 			<hr />
-			
+
 			<!-- Términos y condiciones -->
-			
+
 			<div class="container-fluid seccion-inferior">
 				<div class="row text-center">
 					<div class="col-md-4">
