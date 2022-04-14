@@ -23,54 +23,54 @@ public class ProductoEntity implements Serializable {
 	
 	private String productoId;
 	
-	@Column(name = "description", nullable=false)
-    private String description;
+	@Column(name = "descripcion", nullable=false)
+    private String descripcion;
 	
-	@Column(name = "wear", nullable=false)
-    private String wear;
+	@Column(name = "prenda", nullable=false)
+    private String prenda;
 
-    @Column(name = "size", nullable=false)
-    private String size;
+    @Column(name = "tamano", nullable=false)
+    private String tamano;
     
-    @Column(name = "style", nullable=false)
-    private String style;
+    @Column(name = "estilo", nullable=false)
+    private String estilo;
     
     @Column(name = "color", nullable=false)
     private String color;  
     
-    @Column(name = "genre", nullable=true)
-    private String genre;
+    @Column(name = "genero", nullable=true)
+    private String genero;
     
-    @Column(name = "unformatted_price")
-    private int price;
+    @Column(name = "precio")
+    private int precio;
     
-    @Column(name="price", nullable=false)
-    private String formatted_price;
+    @Column(name="formato_precio", nullable=false)
+    private String formato_precio;
         
     @Lob
     private String imageUrl;
     
-    @Column(name="madeIn")
-    private String madeIn;
-    
-    private int cotton;
-    
-    private int spandex;
-    
+    @Column(name="hechoEn")
+    private String hechoEn;
+        
     @Column(name="material")
     private String material;
     
-    @Column(name = "season", nullable=false)
-    private String season;
+    @Column(name = "estacion")
+    private String estacion;
     
-    @Column(name = "type", nullable=false)
-    private String type;
+    @Column(name = "tipo")
+    private String tipo;
     
-    @Column(name = "stock", nullable=false)
+    @Column(name = "stock")
     private int stock; 
     
     @Column
     private String fibra;
+    
+    private int algodon;
+    
+    private int spandex;
  
     public int getId() {
 		return id;
@@ -88,36 +88,36 @@ public class ProductoEntity implements Serializable {
 		this.productoId = productoId;
 	}
 
-	public String getWear() {
-		return wear;
+	public String getPrenda() {
+		return prenda;
 	}
 
-	public void setWear(String wear) {
-		this.wear = wear;
+	public void setPrenda(String prenda) {
+		this.prenda = prenda;
 	}
 
-	public String getSize() {
-        return size;
+	public String getTamano() {
+        return tamano;
     }
 
-    public void setSize(String size) {
-        this.size = size;
+    public void setTamano(String tamano) {
+        this.tamano = tamano;
     }
 
-	public int getPrice() {
-		return price;
+	public int getPrecio() {
+		return precio;
 	}
 
-	public void setPrice(int price) {
-		this.price = price;
+	public void setPrecio(int precio) {
+		this.precio = precio;
 	}
 
-	public String getFormatted_price() {
-		return formatted_price;
+	public String getFormato_precio() {
+		return formato_precio;
 	}
 
-	public void setFormatted_price(String formatted_price) {
-		this.formatted_price = formatted_price;
+	public void setFormato_precio(String formato_precio) {
+		this.formato_precio = formato_precio;
 	}
 
 	public String getImageUrl() {
@@ -128,28 +128,28 @@ public class ProductoEntity implements Serializable {
 		this.imageUrl = imageUrl;
 	}
 
-	public String getDescription() {
-		return description;
+	public String getDescripcion() {
+		return descripcion;
 	}
 
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
 
-	public String getMadeIn() {
-		return madeIn;
+	public String getHechoEn() {
+		return hechoEn;
 	}
 
-	public void setMadeIn(String madeIn) {
-		this.madeIn = madeIn;
+	public void setHechoEn(String hechoEn) {
+		this.hechoEn = hechoEn;
 	}
 
-	public int getCotton() {
-		return cotton;
+	public int getAlgodon() {
+		return algodon;
 	}
 
-	public void setCotton(int cotton) {
-		this.cotton = cotton;
+	public void setAlgodon(int algodon) {
+		this.algodon = algodon;
 	}
 
 	public int getSpandex() {
@@ -160,9 +160,12 @@ public class ProductoEntity implements Serializable {
 		this.spandex = spandex;
 	}
 
-	public String getStyle() {
-		return style;
+	public String getEstilo() {
+		return estilo;
 	}	
+	public void setEstilo(String estilo) {
+		this.estilo = estilo;
+	}
 
 	public String getMaterial() {
 		return material;
@@ -170,11 +173,7 @@ public class ProductoEntity implements Serializable {
 
 	public void setMaterial(String material) {
 		this.material = material;
-	}
-
-	public void setStyle(String style) {
-		this.style = style;
-	}
+	}	
 
 	public String getColor() {
 		return color;
@@ -184,28 +183,20 @@ public class ProductoEntity implements Serializable {
 		this.color = color;
 	}
 
-	public String getGenre() {
-		return genre;
+	public String getGenero() {
+		return genero;
 	}
 
-	public void setGenre(String genre) {
-		this.genre = genre;
+	public void setGenero(String genero) {
+		this.genero = genero;
 	}
 
-	public String getSeason() {
-		return season;
+	public String getTipo() {
+		return tipo;
 	}
 
-	public void setSeason(String season) {
-		this.season = season;
-	}	
-
-	public String getType() {
-		return type;
-	}
-
-	public void setType(String type) {
-		this.type = type;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 
 	public int getStock() {
@@ -222,6 +213,15 @@ public class ProductoEntity implements Serializable {
 
 	public void setFibra(String fibra) {
 		this.fibra = fibra;
-	}		
+	}
+
+	public String getEstacion() {
+		return estacion;
+	}
+
+	public void setEstacion(String estacion) {
+		this.estacion = estacion;
+	}	
+	
 	
 }

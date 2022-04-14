@@ -118,9 +118,9 @@ prefix="c"%>
 				</div>
 				<div class="col">
 					<p>
-						<a href="/catalogo/${ item.type }">${ item.type }</a> /
-						<a href="/catalogo/${ item.wear }_${ item.genre }">${ item.wear } ${ item.genre }</a> /
-						<a href="/catalogo/${ item.style }"> ${ item.style } </a> /
+						<a href="/catalogo/${ item.tipo }">${ item.tipo }</a> /
+						<a href="/catalogo/${ item.prenda }_${ item.genero }">${ item.prenda } ${ item.genero }</a> /
+						<a href="/catalogo/${ item.estilo }"> ${ item.estilo } </a> /
 						<a href="/catalogo/${ item.fibra }">fibra ${ item.fibra }</a> /
 						<a href="/catalogo/${ item.material }">${ item.material }</a>
 					</p>
@@ -154,10 +154,10 @@ prefix="c"%>
 
 								<div class="item fs-5 d-flex justify-content-between">
 									<span class="text-start">Marca</span>
-									<strong class="text-end" name="precio"> ${ item.formatted_price } </strong>
+									<strong class="text-end" name="precio"> ${ item.formato_precio } </strong>
 								</div>
 								<div class="item d-flex justify-content-between">
-									<span>Talla: ${ item.size } </span>
+									<span>Talla: ${ item.tamano } </span>
 									<span>${ item.material }</span>
 								</div>
 								<div class="item d-flex justify-content-between m-2">
@@ -213,16 +213,16 @@ prefix="c"%>
 													<div class="container col m-2 p-0">
 														<p class="fs-6 text-start p-0 m-0">Marca</p>
 														<p class="fs-6 text-start p-0 m-0">
-															Precio: ${ item.formatted_price }
+															Precio: ${ item.formato_precio }
 														</p>
-														<p class="fs-6 text-start p-0 m-0">Talla: ${ item.size }</p>
+														<p class="fs-6 text-start p-0 m-0">Talla: ${ item.tamano }</p>
 														<p class="fs-6 text-start p-0 m-0">
 															Material: Fibra ${ item.fibra }
 														</p>
 														<p class="fs-6 text-start p-0 mt-3">
 															Cantidad: <span id="cantidad_carrito">1</span>
 														</p>
-														<input type="hidden" value="${ item.price }" id="_precio" />
+														<input type="hidden" value="${ item.precio }" id="_precio" />
 														<p class="fs-6 text-start p-0 mt-3">
 															total: <span name="precio"></span>
 														</p>
@@ -251,7 +251,7 @@ prefix="c"%>
 														<input
 															name="cantidad"
 															type="hidden"
-															value=""
+															value="1"
 															id="cantidad_input"
 														/>
 														<input
@@ -267,7 +267,7 @@ prefix="c"%>
 														<input
 															name="descripcion"
 															type="hidden"
-															value="${ item. description }"
+															value="${ item. descripcion }"
 														/>
 														<button
 															class="carrito border border-2 mt-2"
@@ -283,7 +283,7 @@ prefix="c"%>
 								</div>
 								<hr />
 								<p class="fs-6 text-start">Descripción</p>
-								<span name="descripcion" class="fw-bold">${ item.description }</span>
+								<span name="descripcion" class="fw-bold">${ item.descripcion }</span>
 								<hr />
 								<p class="fs-6 text-start">Testimonios</p>
 							</div>

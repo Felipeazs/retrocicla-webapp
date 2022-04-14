@@ -19,9 +19,7 @@ public class SuccessLoginHandler implements AuthenticationSuccessHandler{
 
 		System.out.println("success login: " + authentication.getAuthorities());
 		
-		response.getWriter().append("SUCCESSFUL LOGIN");
-        response.sendRedirect("/");
-		
+		response.getWriter().append("SUCCESSFUL LOGIN");		
 	}
 	
 	

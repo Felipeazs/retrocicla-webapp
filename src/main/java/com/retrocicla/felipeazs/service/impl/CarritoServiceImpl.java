@@ -23,8 +23,8 @@ import com.retrocicla.felipeazs.model.CalculoTotalModel;
 import com.retrocicla.felipeazs.model.dto.CarritoDto;
 import com.retrocicla.felipeazs.model.dto.ClienteDto;
 import com.retrocicla.felipeazs.service.CarritoService;
-import com.retrocicla.felipeazs.ui.model.request.ProductoRequestModel;
-import com.retrocicla.felipeazs.ui.model.response.CarritoRest;
+import com.retrocicla.felipeazs.ui.model.request.CarritoRequestModel;
+import com.retrocicla.felipeazs.ui.model.request.ClienteRequestModel;
 import com.retrocicla.felipeazs.ui.model.response.ErrorMessages;
 
 @Service
@@ -40,11 +40,11 @@ public class CarritoServiceImpl implements CarritoService {
 	private ClienteRepository clienteRepo;
 
 	@Override
-	public CarritoDto agregarProductoAlCarrito(ProductoRequestModel producto, ClienteDto cliente) {
+	public CarritoDto agregarProductoAlCarrito(CarritoDto producto, ClienteDto cliente) {
 
 		CarritoDto returnValue = new CarritoDto();
-
-		ClienteEntity clienteEntity = clienteRepo.findByEmail(cliente.getEmail());
+		
+		ClienteEntity clienteEntity = clienteRepo.findByClienteId(cliente.getClienteId());
 		if (clienteEntity == null)
 			throw new ClienteServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
@@ -52,21 +52,36 @@ public class CarritoServiceImpl implements CarritoService {
 		if (productoEntity == null)
 			throw new ProductoServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
 
-		try {
+		try {			
 			CarritoEntity carritoEntity = carritoRepo.findByClienteAndProductoId(clienteEntity, producto.getProductoId());
-			return actualizarProductoEnCarrito(carritoEntity, cliente.getEmail());
+			
+			System.out.println("actualizar: " + carritoEntity.getEmail());
+			
+			BeanUtils.copyProperties(producto, carritoEntity);
+			BeanUtils.copyProperties(cliente, carritoEntity);
+			carritoEntity.setPrecio(productoEntity.getPrecio());
+			carritoEntity.setCreatedAt(LocalDate.now());
+			carritoEntity.setCliente(clienteEntity);
+						
+			CarritoEntity carrito = carritoRepo.save(carritoEntity);
+
+			BeanUtils.copyProperties(carrito, returnValue);
+			
+			return returnValue;
 
 		} catch (NullPointerException ex) {
 
 			CarritoEntity nuevoCarrito = new CarritoEntity();
-			
+
 			BeanUtils.copyProperties(producto, nuevoCarrito);
-			BeanUtils.copyProperties(cliente, nuevoCarrito);
+			BeanUtils.copyProperties(clienteEntity, nuevoCarrito);
+			
+			System.out.println("crear: " + clienteEntity.getEmail());
 
 			nuevoCarrito.setCliente(clienteEntity);
 			nuevoCarrito.setProductoId(productoEntity.getProductoId());
 			nuevoCarrito.setCreatedAt(LocalDate.now());			
-			nuevoCarrito.setPrecio(productoEntity.getPrice());
+			nuevoCarrito.setPrecio(productoEntity.getPrecio());
 
 			CarritoEntity carrito = carritoRepo.save(nuevoCarrito);
 
@@ -78,50 +93,53 @@ public class CarritoServiceImpl implements CarritoService {
 	}
 
 	@Override
-	public List<CarritoDto> obtenerTodosPorCliente(String email) {
+	public List<CarritoDto> obtenerTodosPorCliente(String clienteId) {
 		
 		List<CarritoDto> returnValue = new ArrayList<>();
 		
-		List<CarritoEntity> carritos = carritoRepo.findAllByClienteEmail(email);
+		List<CarritoEntity> carritos = carritoRepo.findAllByClienteClienteId(clienteId);
 		
 		ModelMapper modelMapper = new ModelMapper();
 		for (CarritoEntity carrito : carritos) {
 			returnValue.add(modelMapper.map(carrito, CarritoDto.class));
 		}
-		
+			
 		
 		return returnValue;
 	}
-
+	
 	@Override
-	public CarritoDto actualizarProductoEnCarrito(CarritoEntity carrito, String email) {
-
-		CarritoDto returnValue = new CarritoDto();
+	public void actualizarCarritoDetalleCliente(CarritoRequestModel carrito_detalle, ClienteDto cliente) {
 		
-		if (email == carrito.getCliente().getEmail()) {
-			
-//			if (carrito.getQuantity() < carrito.getProducto().getStock()) {
-//
-//				carrito.setQuantity(carrito.getQuantity() + 1);
-//
-//				int totalPrice = carrito.getQuantity() * carrito.getPrice();
-//				System.out.println("precio: " + totalPrice);
-//
-//				Locale clp = new Locale("es", "CL");
-//				NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
-//				String price = nf.format(totalPrice);
-//				carrito.setTotalPrice(price);
-//
-//				carritoRepo.save(carrito);
-//			}
-
-			BeanUtils.copyProperties(carrito, returnValue);
-
-			
+		List<CarritoEntity> carritosEnt = carritoRepo.findAllByClienteClienteId(cliente.getClienteId());
+		for (CarritoEntity carritoEnt : carritosEnt) {
+			BeanUtils.copyProperties(carrito_detalle, carritoEnt);
+			carritoRepo.save(carritoEnt);
+	
+		}	
+	
+	}
+	
+	@Override
+	public void actualizarCarritoEnvio(String radio, ClienteDto cliente) {
+				
+		List<CarritoEntity> carritosEnt = carritoRepo.findAllByClienteClienteId(cliente.getClienteId());
+		for (CarritoEntity carritoEnt : carritosEnt) {
+			carritoEnt.setEnvio(radio);
+			carritoRepo.save(carritoEnt);
+		
 		}
-		
-		return returnValue;
+				
+	}
+	
+	@Override
+	public void actualizarCarritoPago(String radio1, ClienteDto cliente) {
 
+		List<CarritoEntity> carritosEnt = carritoRepo.findAllByClienteClienteId(cliente.getClienteId());
+		for (CarritoEntity carritoEnt : carritosEnt) {
+			carritoEnt.setPago(radio1);
+			carritoRepo.save(carritoEnt);
+		}
 	}
 
 	@Override
@@ -152,8 +170,8 @@ public class CarritoServiceImpl implements CarritoService {
 		List<CarritoDto> carritosDto = buscarTodosLosProductos(clienteEntity.getClienteId());
 
 		for (CarritoDto carritoDto : carritosDto) {
-			total_quantity = total_quantity + carritoDto.getQuantity();
-			total_price = total_price + (carritoDto.getPrice() * carritoDto.getQuantity());
+			total_quantity = total_quantity + carritoDto.getCantidad();
+			total_price = total_price + (carritoDto.getPrecio() * carritoDto.getCantidad());
 			System.out.println("cantidad: " + total_quantity + " precio total: " + total_price);
 		}
 
@@ -172,6 +190,12 @@ public class CarritoServiceImpl implements CarritoService {
 
 		return formattedPrice;
 	}
+
+	
+
+	
+
+	
 
 	
 

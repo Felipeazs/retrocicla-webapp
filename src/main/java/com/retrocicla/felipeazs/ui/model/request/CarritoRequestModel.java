@@ -1,27 +1,20 @@
 package com.retrocicla.felipeazs.ui.model.request;
 
-import java.util.Set;
-
 public class CarritoRequestModel {
 	
-	private String clienteId;
 	private String nombre;
 	private String apellido;
 	private String rut;
 	private String telefono;
 	private String email;
 	private String calle;
+	private String departamento;
 	private String ciudad;
 	private String region;
-	private Set<String> productoId;
+	private String pais;
+	private String envio;
+	private String pago;
 	
-	
-	public String getClienteId() {
-		return clienteId;
-	}
-	public void setClienteId(String clienteId) {
-		this.clienteId = clienteId;
-	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -70,13 +63,30 @@ public class CarritoRequestModel {
 	public void setRegion(String region) {
 		this.region = region;
 	}
-	public Set<String> getProductoId() {
-		return productoId;
+	public String getEnvio() {
+		return envio;
 	}
-	public void setProductoId(Set<String> productoId) {
-		this.productoId = productoId;
+	public void setEnvio(String envio) {
+		this.envio = envio;
+	}
+	public String getPago() {
+		return pago;
+	}
+	public void setPago(String pago) {
+		this.pago = pago;
+	}
+	public String getPais() {
+		return pais;
+	}
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+	public String getDepartamento() {
+		return departamento;
+	}
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
 	}
 	
 	
-
 }

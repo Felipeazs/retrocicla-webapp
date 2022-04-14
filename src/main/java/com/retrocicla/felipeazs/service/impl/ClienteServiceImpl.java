@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.retrocicla.felipeazs.exceptions.ClienteServiceException;
 import com.retrocicla.felipeazs.io.entity.ClienteEntity;
+import com.retrocicla.felipeazs.io.entity.DireccionEntity;
 import com.retrocicla.felipeazs.io.entity.PasswordResetTokenEntity;
 import com.retrocicla.felipeazs.io.entity.RolEntity;
 import com.retrocicla.felipeazs.io.repository.ClienteRepository;
@@ -111,9 +112,12 @@ public class ClienteServiceImpl implements ClienteService{
 		ClienteEntity dbCliente = clienteRepo.findByEmail(email);
 		
 		if (dbCliente == null) throw new ClienteServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
-	
+			
 		ModelMapper modelMapper = new ModelMapper();
 		ClienteDto returnValue = modelMapper.map(dbCliente, ClienteDto.class);
+//		ClienteDto returnValue = new ClienteDto();
+//		BeanUtils.copyProperties(dbCliente, returnValue);
+		
 				
 		return returnValue;
 	}

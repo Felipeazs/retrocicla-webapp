@@ -111,7 +111,7 @@ prefix="c" %>
 					</div>
 				</div>
 			</div>
-			<form:form method="post" modelAttribute="carrito_model" action="/agregar-carrito">
+			<form method="GET" action="/informacion-envio">
 				<div class="row">
 					<div class="col-md-7">
 						<section class="">
@@ -119,7 +119,7 @@ prefix="c" %>
 							<div class="row pb-2">
 								<div class="col-6 formulario">
 									<label for="">Nombre</label>
-									<form:input
+									<input
 										path="nombre"
 										name="nombre"
 										value="${ cliente.nombre }"
@@ -129,7 +129,7 @@ prefix="c" %>
 								</div>
 								<div class="col-6 formulario">
 									<label for="">Apellido</label>
-									<form:input
+									<input
 										path="apellido"
 										name="apellido"
 										value="${ cliente.apellido }"
@@ -144,6 +144,7 @@ prefix="c" %>
 									<input
 										path="rut"
 										name="rut"
+										value="${ cliente.rut }"
 										type="text"
 										class="input form-control form-control-sm"
 									/>
@@ -153,6 +154,7 @@ prefix="c" %>
 									<input
 										path="telefono"
 										name="telefono"
+										value="${ cliente.telefono }"
 										type="text"
 										class="input form-control form-control-sm"
 									/>
@@ -195,10 +197,10 @@ prefix="c" %>
 								<div class="col-6 formulario">
 									<label for="">País</label>
 									<input
+										name="pais"
 										type="text"
 										value="Chile"
 										class="input form-control form-control-sm"
-										disabled
 									/>
 								</div>
 								<div class="col-6 formulario">
@@ -210,7 +212,6 @@ prefix="c" %>
 										class="input form-control form-control-sm"
 										value="${ cliente.direcciones[0].region }"
 										id="_region"
-										disabled
 									/>
 								</div>
 							</div>
@@ -218,38 +219,38 @@ prefix="c" %>
 								<div class="col-12 formulario">
 									<label for="">Dirección</label>
 									<input
-										path="calle"
 										name="calle"
 										type="text"
 										class="input form-control form-control-sm"
 										value="${ cliente.direcciones[0].calle}"
 										id="_calle"
-										disabled
 									/>
 								</div>
 							</div>
 							<div class="row pb-2">
 								<div class="col-md-6 formulario">
 									<label for="">Departamento, casa, local, etc.</label>
-									<input type="text" class="input form-control form-control-sm" disabled />
+									<input
+										path="direcciones"
+										name="departamento"
+										type="text"
+										class="input form-control form-control-sm"
+									/>
 								</div>
 								<div class="col-md-6 formulario">
 									<label for="">Comuna, Ciudad</label>
 									<input
-										path="ciudad"
 										name="ciudad"
 										type="text"
 										class="input form-control form-control-sm"
 										value="${ cliente.direcciones[0].ciudad}"
 										id="_ciudad"
-										disabled
 									/>
 								</div>
 							</div>
-
 							<div class="row justify-content-center">
 								<div class="col-sm-6 col-md-4">
-									><button type="submit" class="boton fs-6 p-2 mt-3">Continuar</button>
+									<button type="submit" class="boton fs-6 p-2 mt-3">Continuar</button>
 								</div>
 								<div class="col-sm-6 col-md-3">
 									<a href=""
@@ -272,44 +273,47 @@ prefix="c" %>
 							</div>
 						</div>
 						<hr />
-						<div class="row ps-5">
-							<div class="col-4">
-								<div class="col m-0 p-0">
-									<form:input
-										path="productoId"
-										name="productoId"
-										type="hidden"
-										value="${ producto.productoId }"
-									/>
-									<img src="${ producto.imageUrl }" alt="" class="float-start" />
+						<c:forEach items="${ productos }" var="p">
+							<div class="container">
+								<div class="row ps-2">
+									<div class="col-4">
+										<div class="col m-0 p-0">
+											<img src="${ p.imageUrl }" alt="" class="float-start" />
+										</div>
+									</div>
+									<div class="col-4 info-detalle">
+										<div>
+											<p class="col m-0 p-0">${ p.material }</p>
+											<p>${ p.cantidad } unidades</p>
+										</div>
+									</div>
+									<div class="col-4 text-end info-detalle">
+										<div class="col pe-2">
+											<p>${ p.total }</p>
+										</div>
+									</div>
 								</div>
+								<hr />
 							</div>
-							<div class="col-4 info-detalle">
-								<div>
-									<p class="col m-0 p-0">${ producto.material }</p>
-									<p>${ producto.cantidad } unidades</p>
-								</div>
-							</div>
-							<div class="col-4 info-detalle">
-								<div class="col m-0 p-0">
-									<p>${ producto.total }</p>
-								</div>
-							</div>
-						</div>
-						<hr />
+						</c:forEach>
 						<div class="container fw-bold fs-6">
 							<div class="row justify-content-between">
 								<div class="col-4">
 									<p>SubTotal</p>
-									<p class="p-0 m-0">Envío</p>
+									<p>Envío</p>
 								</div>
 								<div class="col-2">
-									<p>$32.970</p>
-									<p></p>
+									<c:set value="${ 0 }" var="total"></c:set>
+									<c:forEach items="${ productos }" var="pt">
+										<c:set value="${ total + (pt.cantidad * pt.precio) }" var="total"></c:set>
+									</c:forEach>
+									<p id="format_precio_total">${ total }</p>
+									<c:set value="${ 3990 }" var="envio"></c:set>
+									<p id="format_precio_envio" class="text-end">${ envio }</p>
 								</div>
 							</div>
 							<div class="col">
-								<p class="p-0 m-0 fs-6">*Calculado en el próximo paso.</p>
+								<p class="fs-6">*Calculado en el próximo paso.</p>
 							</div>
 							<hr />
 							<div class="row justify-content-between">
@@ -317,7 +321,8 @@ prefix="c" %>
 									<p>Total</p>
 								</div>
 								<div class="col-2">
-									<p>$32.970</p>
+									<c:set value="${ total + envio }" var="total_envio"></c:set>
+									<p id="format_total_envio">${ total_envio }</p>
 								</div>
 							</div>
 						</div>
@@ -326,7 +331,7 @@ prefix="c" %>
 						</div>
 					</div>
 				</div>
-			</form:form>
+			</form>
 		</div>
 
 		<footer class="footer">

@@ -6,23 +6,23 @@ public class ProductoRest implements Serializable {
 	
 	private static final long serialVersionUID = -7078670393217265540L;
 	private String productoId;		
-    private String description;	
-    private String wear;
-    private String size;
-    private String style;
+    private String descripcion;	
+    private String prenda;
+    private String tamano;
+    private String estilo;
     private String color; 
-    private String genre;
-    private int price;
-    private String formatted_price;  
+    private String genero;
+    private int precio;
+    private String formato_precio;  
     private String imageUrl;
-    private String madeIn;
-    private int cotton;  
-    private int spandex;
+    private String hechoEn;
     private String material;  
-    private String season;
-    private String type; 
+    private String estacion;
+    private String tipo; 
     private int stock;
     private String fibra;
+    private int algodon;  
+    private int spandex;
     
 	public String getProductoId() {
 		return productoId;
@@ -30,29 +30,29 @@ public class ProductoRest implements Serializable {
 	public void setProductoId(String productoId) {
 		this.productoId = productoId;
 	}
-	public String getDescription() {
-		return description;
+	public String getDescripcion() {
+		return descripcion;
 	}
-	public void setDescription(String description) {
-		this.description = description;
+	public void setDescripcion(String descripcion) {
+		this.descripcion = descripcion;
 	}
-	public String getWear() {
-		return wear;
+	public String getPrenda() {
+		return prenda;
 	}
-	public void setWear(String wear) {
-		this.wear = wear;
+	public void setPrenda(String prenda) {
+		this.prenda = prenda;
 	}
-	public String getSize() {
-		return size;
+	public String getTamano() {
+		return tamano;
 	}
-	public void setSize(String size) {
-		this.size = size;
+	public void setTamano(String tamano) {
+		this.tamano = tamano;
 	}
-	public String getStyle() {
-		return style;
+	public String getEstilo() {
+		return estilo;
 	}
-	public void setStyle(String style) {
-		this.style = style;
+	public void setEstilo(String estilo) {
+		this.estilo = estilo;
 	}
 	public String getColor() {
 		return color;
@@ -60,23 +60,23 @@ public class ProductoRest implements Serializable {
 	public void setColor(String color) {
 		this.color = color;
 	}
-	public String getGenre() {
-		return genre;
+	public String getGenero() {
+		return genero;
 	}
-	public void setGenre(String genre) {
-		this.genre = genre;
+	public void setGenero(String genero) {
+		this.genero = genero;
 	}
-	public int getPrice() {
-		return price;
+	public int getPrecio() {
+		return precio;
 	}
-	public void setPrice(int price) {
-		this.price = price;
+	public void setPrecio(int precio) {
+		this.precio = precio;
 	}
-	public String getFormatted_price() {
-		return formatted_price;
+	public String getFormato_precio() {
+		return formato_precio;
 	}
-	public void setFormatted_price(String formatted_price) {
-		this.formatted_price = formatted_price;
+	public void setFormato_precio(String formato_precio) {
+		this.formato_precio = formato_precio;
 	}
 	public String getImageUrl() {
 		return imageUrl;
@@ -84,23 +84,11 @@ public class ProductoRest implements Serializable {
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
 	}
-	public String getMadeIn() {
-		return madeIn;
+	public String getHechoEn() {
+		return hechoEn;
 	}
-	public void setMadeIn(String madeIn) {
-		this.madeIn = madeIn;
-	}
-	public int getCotton() {
-		return cotton;
-	}
-	public void setCotton(int cotton) {
-		this.cotton = cotton;
-	}
-	public int getSpandex() {
-		return spandex;
-	}
-	public void setSpandex(int spandex) {
-		this.spandex = spandex;
+	public void setHechoEn(String hechoEn) {
+		this.hechoEn = hechoEn;
 	}
 	public String getMaterial() {
 		return material;
@@ -108,17 +96,17 @@ public class ProductoRest implements Serializable {
 	public void setMaterial(String material) {
 		this.material = material;
 	}
-	public String getSeason() {
-		return season;
+	public String getEstacion() {
+		return estacion;
 	}
-	public void setSeason(String season) {
-		this.season = season;
+	public void setEstacion(String estacion) {
+		this.estacion = estacion;
 	}
-	public String getType() {
-		return type;
+	public String getTipo() {
+		return tipo;
 	}
-	public void setType(String type) {
-		this.type = type;
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
 	}
 	public int getStock() {
 		return stock;
@@ -131,7 +119,23 @@ public class ProductoRest implements Serializable {
 	}
 	public void setFibra(String fibra) {
 		this.fibra = fibra;
-	} 
+	}
+	public int getAlgodon() {
+		return algodon;
+	}
+	public void setAlgodon(int algodon) {
+		this.algodon = algodon;
+	}
+	public int getSpandex() {
+		return spandex;
+	}
+	public void setSpandex(int spandex) {
+		this.spandex = spandex;
+	}
+    
+	
+    
+	
     
 
 }

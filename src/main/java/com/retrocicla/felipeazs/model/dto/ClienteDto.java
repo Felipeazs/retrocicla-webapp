@@ -11,6 +11,8 @@ public class ClienteDto implements Serializable {
 	private String nombre;
 	private String apellido;
 	private String email;
+	private String rut;
+	private String telefono;
 	private String password;
 	private String ecryptedPassword;
 	private String emailVerificationToken;
@@ -78,6 +80,18 @@ public class ClienteDto implements Serializable {
 	}
 	public void setRoles(Collection<String> roles) {
 		this.roles = roles;
+	}
+	public String getRut() {
+		return rut;
+	}
+	public void setRut(String rut) {
+		this.rut = rut;
+	}
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 	
 	

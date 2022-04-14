@@ -7,6 +7,7 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -29,8 +30,8 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 	}
 
 	protected void configure(HttpSecurity http) throws Exception {   
-        http 	
-        .csrf().disable()
+        http 	 
+        //.csrf().disable()
 		.authorizeRequests()		
 		.antMatchers(HttpMethod.POST, SecurityConstants.SIGN_UP_URL).permitAll()
 		.antMatchers(HttpMethod.GET, SecurityConstants.VERIFICATION_EMAIL_URL).permitAll()
@@ -62,7 +63,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				"/password-reset", 
 				"/password-reset-request").permitAll()
 		.antMatchers(HttpMethod.POST, "/carrito/agregar/{productoId}").hasAnyAuthority("WRITE_AUTORIDAD")
-		.antMatchers("/producto/{productoId}", "/informacion-usuario", "/informacion-envio", "/informacion-pago").hasAnyAuthority("READ_AUTORIDAD")
+		.antMatchers("/producto/{productoId}", "/informacion-usuario", "/informacion-envio", "/informacion-pago", "/redirigiendo").hasAnyAuthority("READ_AUTORIDAD")
 		.anyRequest()
 		.authenticated()
 		.and()
@@ -72,12 +73,12 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
         .loginPage("/login")
         .usernameParameter("username")
         .passwordParameter("password")
-        .successHandler(successLoginHandler())
+        //.successHandler(successLoginHandler())
         .permitAll()
         .and()
         .logout()
         .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/");
+		.logoutSuccessUrl("/");	
 //		.and().addFilter(getAuthenticationFilter())
 //		.addFilter(new AuthorizationFilter(authenticationManager(), clienteRepo))
 //		.sessionManagement()

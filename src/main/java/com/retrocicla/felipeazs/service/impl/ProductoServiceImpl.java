@@ -32,6 +32,8 @@ public class ProductoServiceImpl implements ProductoService {
 
 	@Override
 	public ProductoDto crearProducto(ProductoDto productDto) {
+		
+		System.out.println(productDto.getEstacion());
 
 		ProductoEntity dbProduct = productoRepo.findByImageUrl(productDto.getImageUrl());
 		if (dbProduct != null)
@@ -41,9 +43,11 @@ public class ProductoServiceImpl implements ProductoService {
 				
 		BeanUtils.copyProperties(productDto, newProduct);
 		
+		System.out.println(newProduct.getTipo());
+		
 		String productoId = utils.generateProductId(10);
 		newProduct.setProductoId(productoId);
-		newProduct.setFormatted_price(formatPrice(productDto.getPrice()));
+		newProduct.setFormato_precio(formatPrice(productDto.getPrecio()));
 		
 		ProductoEntity savedProduct = productoRepo.save(newProduct);
 		
@@ -107,15 +111,15 @@ public class ProductoServiceImpl implements ProductoService {
 			
 		List<ArrayList<String>> selections = new ArrayList<ArrayList<String>>();
 		
-		ArrayList<String> type = productoRepo.getDistinctByType();
+		ArrayList<String> type = productoRepo.getDistinctByTipo();
 		ArrayList<String> material = productoRepo.getDistinctByMaterial();
-		ArrayList<String> wear = productoRepo.getDistinctByWear();
+		ArrayList<String> wear = productoRepo.getDistinctByPrenda();
 		ArrayList<String> color = productoRepo.getDistinctByColor();
-		ArrayList<String> telasize = productoRepo.getDistinctByTelaSize();
-		ArrayList<String> ropasize = productoRepo.getDistinctByRopaSize();
-		ArrayList<String> style = productoRepo.getDistinctByStyle();
-		ArrayList<String> genre = productoRepo.getDistinctByGenre();
-		ArrayList<String> made = productoRepo.getDistinctByMadeIn();
+		ArrayList<String> telasize = productoRepo.getDistinctByTelaTamano();
+		ArrayList<String> ropasize = productoRepo.getDistinctByRopaTamano();
+		ArrayList<String> style = productoRepo.getDistinctByEstilo();
+		ArrayList<String> genre = productoRepo.getDistinctByGenero();
+		ArrayList<String> made = productoRepo.getDistinctByHechoEn();
 		
 		selections.add(type);
 		selections.add(material);
@@ -198,15 +202,15 @@ public class ProductoServiceImpl implements ProductoService {
 		List<ProductoEntity> productos =new ArrayList<>();
 		
 		if (productType.equals("prenda") || productType.equals("material")) {
-			productos = productoRepo.findAllByTypeOrderByWearAsc(productType);
+			productos = productoRepo.findAllByTipoOrderByPrendaAsc(productType);
 		} else if (productType.equals("outdoor") || productType.equals("casual")) {
-			productos = productoRepo.findAllByStyleOrderByWearAsc(productType);
+			productos = productoRepo.findAllByEstiloOrderByPrendaAsc(productType);
 		} else if (productType.equals("sintética") || productType.equals("natural") || productType.equals("artificial") || productType.equals("origen animal")) {
 			productos = productoRepo.findAllByFibra(productType);
 		} else if (productType.equals("algodón") || productType.equals("spandex") || productType.equals("poliester")) {
 			productos = productoRepo.findAllByMaterial(productType);
 		} else if (texto.length > 1) {
-			productos = productoRepo.findAllByWearAndGenreOrderByWearAsc(items.get(0), items.get(1));
+			productos = productoRepo.findAllByPrendaAndGeneroOrderByPrendaAsc(items.get(0), items.get(1));
 		} 
 				
 		ModelMapper modelMap = new ModelMapper();

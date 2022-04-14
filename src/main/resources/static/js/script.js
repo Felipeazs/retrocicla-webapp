@@ -1,4 +1,4 @@
-$(document).ready(function() {
+$(document).ready(function(e) {
 
 	$('#messageerrorprenda').hide();
 	$('#messageerrortela').hide();
@@ -96,8 +96,21 @@ $(document).ready(function() {
 			$('#wear').val('');
 		}
 	});
-
-
+	
+	precio_total();
+	
+	var precios_totales = $('#format_precio_total').html();	
+	var formato_precio = formatter.format(precios_totales)
+	$('#format_precio_total').html(formato_precio);
+	
+	var precios_envio = $('#format_precio_envio').html();	
+	var formato_precio = formatter.format(precios_envio)
+	$('#format_precio_envio').html(formato_precio);
+	
+	var total_envio = $('#format_total_envio').html();
+	var formato_precio = formatter.format(total_envio);
+	$('#format_total_envio').html(formato_precio);
+	
 
 	// Tootltips
 	var tooltipTriggerList = [].slice.call(
@@ -127,9 +140,16 @@ $(document).ready(function() {
 
 	$('.dropdown-submenu a.test').on('click', function(e) {
 		$(this).next('ul').toggle();
-		e.stopPropagation();
 	});
-	e.preventDefault();
+	
+	var pathname = window.location.pathname;
+	console.log(pathname);
+	
+	if(pathname === '/redirigiendo'){
+		setTimeout(function(){
+		 window.location.href = "/";
+		}, 3000);
+	}
 
 });
 function precio_total(){

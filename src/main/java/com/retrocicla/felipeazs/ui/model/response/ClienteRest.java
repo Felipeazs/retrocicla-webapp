@@ -8,6 +8,8 @@ public class ClienteRest {
 	private String nombre;
 	private String apellido;
 	private String email;
+	private String rut;
+	private String telefono;
 	private List<DireccionRest> direcciones;
 	
 	public String getClienteId() {
@@ -39,6 +41,18 @@ public class ClienteRest {
 	}
 	public void setDirecciones(List<DireccionRest> direcciones) {
 		this.direcciones = direcciones;
+	}
+	public String getRut() {
+		return rut;
+	}
+	public void setRut(String rut) {
+		this.rut = rut;
+	}
+	public String getTelefono() {
+		return telefono;
+	}
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
 	}
 	
 

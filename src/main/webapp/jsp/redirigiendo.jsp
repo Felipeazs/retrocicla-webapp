@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib
 uri="http://www.springframework.org/tags/form" prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
-prefix="c"%>
+prefix="c" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,6 @@ prefix="c"%>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
 		<!--JQuery-->
 		<script
 			src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -32,19 +31,11 @@ prefix="c"%>
 		<!--Flickity gallery-->
 		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.css" />
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/flickity/1.0.0/flickity.pkgd.js"></script>
-		<!--FontAwesome-->
-		<link
-			rel="stylesheet"
-			href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css"
-			integrity="sha512-KfkfwYDsLkIlwQp6LFnl8zNdLGxu9YAA1QvwINks4PhcElQSvqcyVLLD9aMhXd13uQjoXtEKNosOWaZqXgel0g=="
-			crossorigin="anonymous"
-			referrerpolicy="no-referrer"
-		/>
 		<!---->
-		<link rel="stylesheet" href="../css/flickity.css" />
-		<link rel="stylesheet" href="../css/style.css" />
-		<script src="../js/script.js"></script>
-		<title>Catálogo</title>
+		<link rel="stylesheet" href="css/flickity.css" />
+		<link rel="stylesheet" href="css/style.css" />
+		<script src="js/script.js"></script>
+		<title>Retrocicla</title>
 	</head>
 	<body>
 		<header class="container-fluid">
@@ -70,10 +61,11 @@ prefix="c"%>
 		<nav class="container-fluid">
 			<div class="row nav">
 				<div class="col-sm-12 col-md-3 logo">
-					<img src="../img/logo-menu.png" alt="logo" />
+					<img src="img/logo-menu.png" alt="logo" />
 				</div>
 				<div class="col-md-6">
-					<ul class="nav align-items-center justify-content-center fs-5">
+					</button>
+					<ul class="nav align-items-center justify-content-center fs-5" id="navbarSupportedContent"">
 						<li class="nav-item">
 							<a class="nav-link text-white" href="/">INICIO</a>
 						</li>
@@ -81,7 +73,7 @@ prefix="c"%>
 							<a class="nav-link text-white" href="/somos">SOMOS</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white active" aria-current="page" href="/tienda">TIENDA</a>
+							<a class="nav-link text-white" href="/tienda">TIENDA</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-white" href="/donaciones">DONACIONES</a>
@@ -93,85 +85,18 @@ prefix="c"%>
 				</div>
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
 					<a href="cliente"><i class="bi bi-person-circle"></i></a>
-					<a href="carrito"><i class="bi bi-bag"></i></a>
+					<a href="carrito"><i class="bi bi-bag active"></i></a>
 				</div>
 			</div>
 		</nav>
-		<section class="container-fluid seccion-materiales bg-light">
-			<div class="row">
-				<div class="col-md-3 sub-columna-1">
-					<h3 class="fw-bold">Teinda Retrocicla</h3>
-					<hr />
-					<dl>
-						<dt class="text-decoration-underline">Materiales</dt>
-						<dd><i class="fa-solid fa-chevron-right active"></i><button>Fibras Naturales</button></dd>
-						<dd><i class="fa-solid fa-chevron-right"></i><button>Fibras Sintéticas</button></dd>
-						<dd><i class="fa-solid fa-chevron-right"></i><button>Fibras Artificiales</button></dd>
-						<dd><i class="fa-solid fa-chevron-right"></i><button>Fibras Origen Animal</button></dd>
-					</dl>
-					<hr />
-					<a href="" class="text-decoration-underline">Accesorios </a>
-					<hr />
-					<a href="" class="text-decoration-underline">Servicios</a>
-					<hr />
-				</div>
-				<div class="col">
-					<div class="sub-columna-2">
-						<h3 class="fw-bold">${ titulo }</h3>
-					</div>
-					<hr />
-					<div class="row">
-						<c:forEach items="${ productos }" var="p">
-							<div class="col-md-4 galeria-materiales">
-								<a href="/item/${ p.productoId }">
-									<div class="galeria-cell">
-										<img class="img-responsive" src="${ p.imageUrl }" alt="" />
-										<i class="fa-solid fa-bag-shopping fa-2x"></i>
-									</div>
-								</a>
-								<div class="row">
-									<div class="col-sm-12 col-md-12 ps-4 item">
-										<div><span>${ p.descripcion }</span></div>
-										<div><span>Material: ${ p.material }</span></div>
-										<div><span class="fs-5">Talla: ${ p.tamano }</span></div>
-										<div><strong class="fs-3">${ p.formato_precio }</strong></div>
-									</div>
-								</div>
-							</div>
-						</c:forEach>
-					</div>
-				</div>
-			</div>
-		</section>
-		<section class="container-fluid seccion-bajada-tienda">
-			<div class="row">
-				<div class="col-sm-12 col-md-6">
-					<div class="row align-items-center">
-						<div class="col-md-3"><img src="../img/clip.png" alt="clip" /></div>
-						<div class="col-md-9 text-white ps-5 pe-5 text-center">
-							<p>No encuentras lo que necesitas? Contáctanos!!</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-12 col-md-6">
-					<div class="row">
-						<div class="col-sm-12 col-md-9">
-							<div class="row">
-								<div class="col-sm-12"><input type="text" placeholder="Nombre" /></div>
-								<div class="col-sm-12"><input type="email" placeholder="Correo electrónico" /></div>
-								<div class="col-sm-12">
-									<textarea rows="4" cols="20" placeholder="Escribe aquí..."></textarea>
-								</div>
-								<div class="col-sm-12 text-center">
-									<button><i class="fa-solid fa-chevron-right"></i></button>
-								</div>
-							</div>
-						</div>
-						<div class="col-sm-12 col-md-3">
-							<img src="../img/retrocicla-round.png" alt="retrocicla-round" />
-						</div>
-					</div>
-				</div>
+		<section class="container-fluid seccion-principal-redirigir">
+			<div class="row text-center bg-light">
+				<div class="loader d-flex justify-content-center"></div>
+				<h1 class="fw-bold">Redirigiendo...</h1>
+				<h4 style="font-family: 'Metropolis'; font-size: 18px">Espera un momento porfavor...</h4>
+				<a href="/informacion-pago" class="text-decoration-none">
+					<h6 style="color: #00ff99; font-size: 18px">Regresar al pago</h6>
+				</a>
 			</div>
 		</section>
 		<footer class="footer">
@@ -180,7 +105,7 @@ prefix="c"%>
 					<div class="col-sm-12 col-md-8 mb-4 seccion-superior">
 						<div class="row">
 							<div class="col-md-6">
-								<img src="../img/logo-footer.png" alt="" class="img-responsive" />
+								<img src="img/logo-footer.png" alt="" class="img-responsive" />
 							</div>
 							<div class="col-sm-12 col-md-6 text-center mt-5">
 								<p>HORARIOS</p>
@@ -207,8 +132,8 @@ prefix="c"%>
 					</div>
 					<div class="col-md-8 d-flex justify-content-end">
 						<div>
-							<a href="">Términos y condiciones</a> | <a href="">Polí­tica de reembolso</a> |
-							<a href="../politicas-privacidad">Polí­tica de privacidad</a>
+							<a href="">Términos y condiciones</a> | <a href="">Poítica de reembolso</a> |
+							<a href="/politicas-privacidad">Política de privacidad</a>
 						</div>
 					</div>
 				</div>
@@ -216,4 +141,3 @@ prefix="c"%>
 		</footer>
 	</body>
 </html>
->

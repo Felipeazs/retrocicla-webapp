@@ -35,6 +35,12 @@ public class ClienteEntity implements Serializable {
 	@Column(nullable = false, length = 50)
 	private String apellido;
 	
+	@Column
+	private String rut;
+	
+	@Column
+	private String telefono;
+	
 	@Column(nullable = false, length = 120, unique = true)
 	private String email;
 	
@@ -143,5 +149,22 @@ public class ClienteEntity implements Serializable {
 	public void setRoles(Collection<RolEntity> roles) {
 		this.roles = roles;
 	}
+
+	public String getRut() {
+		return rut;
+	}
+
+	public void setRut(String rut) {
+		this.rut = rut;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+	
 
 }

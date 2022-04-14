@@ -109,139 +109,211 @@ prefix="c" %>
 				</div>
 			</din>
 			<div class="row">
-				<div class="col-md-7">					
+				<div class="col-md-7">
 					<section class="">
-						<p class="fs-5 mb-4 fw-bold">Envíos</p>						
-						<div class="mb-2 envios">
-							<div class="formulario">
-								<input type="radio" class="form-check-input" id="radio" name="radio" />
-								<label for="radio" class="form-check-label">Retiro en central</label>								
+						<form action="/informacion-pago" method="GET">
+							<p class="fs-5 mb-4 fw-bold">Envíos</p>
+							<div class="mb-2 envios">
+								<div class="formulario">
+									<input
+										type="radio"
+										class="form-check-input"
+										id="radio"
+										name="radio"
+										value="Retiro en tienda"
+									/>
+									<label for="radio" class="form-check-label">Retiro en central</label>
+								</div>
+								<div class="formulario">
+									<label for="" class="form-check-label">Gratis</label>
+								</div>
 							</div>
-							<div class="formulario">								
-								<label for="" class="form-check-label">Gratis</label>								
+							<div class="mb-2 envios d-flex justify-content-between">
+								<div class="formulario">
+									<input
+										type="radio"
+										class="form-check-input"
+										id="radio"
+										name="radio"
+										value="Starken - por pagar"
+									/>
+									<label for="radio" class="form-check-label"
+										>Otras comunas del resto del país. STARKEN POR PAGAR.</label
+									>
+								</div>
+								<div class="formulario">
+									<label for="radio" class="form-check-label">$1</label>
+								</div>
 							</div>
-						</div>						
-						<div class="mb-2 envios d-flex justify-content-between">
-							<div class="formulario">
-								<input type="radio" class="form-check-input"id="radio" name="radio" />
-								<label for="radio" class="form-check-label">Otras comunas del resto del país. STARKEN POR PAGAR.</label>								
+							<div class="mb-2 justify-content-between envios">
+								<div class="formulario">
+									<input
+										type="radio"
+										class="form-check-input"
+										id="radio"
+										name="radio"
+										value="CorreosExpress - por pagar"
+									/>
+									<label for="radio" class="form-check-label"
+										>Otras comunas del resto del país. CORREOSEXPRESS POR PAGAR.</label
+									>
+								</div>
+								<div class="formulario">
+									<label for="radio" class="form-check-label">$1</label>
+								</div>
 							</div>
-							<div class="formulario">								
-								<label for="radio" class="form-check-label">$1</label>								
+							<div class="mb-2 justify-content-between envios">
+								<div class="formulario">
+									<input
+										type="radio"
+										class="form-check-input"
+										id="radio"
+										name="radio"
+										value="Correos de Chile - por pagar"
+									/>
+									<label for="radio" class="form-check-label"
+										>Otras comunas del resto del país. CORREOS DE CHILE POR PAGAR.</label
+									>
+								</div>
+								<div class="formulario">
+									<label for="radio" class="form-check-label">$1</label>
+								</div>
 							</div>
-						</div>
-						<div class="mb-2 justify-content-between envios">
-							<div class="formulario">
-								<input type="radio" class="form-check-input" id="radio" name="radio" />
-								<label for="radio" class="form-check-label">Otras comunas del resto del país. CORREOSEXPRESS POR PAGAR.</label>								
+							<div class="mb-2 envios">
+								<div class="formulario">
+									<input
+										type="radio"
+										class="form-check-input"
+										id="radio"
+										name="radio"
+										value="R. Valapraíso I"
+									/>
+									<label for="radio" class="form-check-label"
+										>R. Valparaíso: Curauma, Valparaíso, Viña del Mar, Reñaca, Concón.</label
+									>
+								</div>
+								<div class="formulario">
+									<label for="radio" class="form-check-label">$3.500</label>
+								</div>
 							</div>
-							<div class="formulario">								
-								<label for="radio" class="form-check-label">$1</label>								
+							<div class="mb-2 justify-content-between envios">
+								<div class="formulario">
+									<input
+										type="radio"
+										class="form-check-input"
+										id="radio"
+										name="radio"
+										value="R. Valapraíso II"
+										checked
+									/>
+									<label for="radio" class="form-check-label"
+										>R. Valparaíso: Quilpué, Villa Alemana, Peña Blanca, Limache, Olmué y
+										Quillota.</label
+									>
+								</div>
+								<div class="formulario">
+									<label for="radio" class="form-check-label">$5.800</label>
+								</div>
 							</div>
-						</div>
-						<div class="mb-2 justify-content-between envios">
-							<div class="formulario">
-								<input type="radio" class="form-check-input" id="radio" name="radio" />
-								<label for="radio" class="form-check-label">Otras comunas del resto del país. CORREOS DE CHILE POR PAGAR.</label>								
+							<div class="mb-2 justify-content-between envios">
+								<div class="formulario">
+									<input
+										type="radio"
+										class="form-check-input"
+										id="radio"
+										name="radio"
+										value="R. Valapraíso III"
+									/>
+									<label for="radio" class="form-check-label"
+										>R. Valparaíso: La Calera, La Cruz, Santo Domingo, Algarrobo y Cartagena.</label
+									>
+								</div>
+								<div class="formulario">
+									<label for="radio" class="form-check-label">$8.600</label>
+								</div>
 							</div>
-							<div class="formulario">								
-								<label for="radio" class="form-check-label">$1</label>								
+							<div class="row justify-content-start">
+								<div class="col-md-3">
+									<a href="/informacion-pago"
+										><button class="boton fs-6 p-2 mt-3">Continuar</button></a
+									>
+								</div>
+								<div class="col-md-2">
+									<a href="/informacion-usuario"
+										><button class="boton fs-6 p-2 mt-3 bg-transparent">Volver</button></a
+									>
+								</div>
 							</div>
-						</div>
-						<div class="mb-2 envios">
-							<div class="formulario">
-								<input type="radio" class="form-check-input" id="radio" name="radio" />
-								<label for="radio" class="form-check-label">R. Valparaíso: Curauma, Valparaíso, Viña del Mar, Reñaca, Concón.</label>								
-							</div>
-							<div class="formulario">								
-								<label for="radio" class="form-check-label">$3.500</label>								
-							</div>
-						</div>
-						<div class="mb-2 justify-content-between envios">
-							<div class="formulario">
-								<input type="radio" class="form-check-input" id="radio" name="radio" checked/>
-								<label for="radio" class="form-check-label">R. Valparaíso: Quilpué, Villa Alemana, Peña Blanca, Limache, Olmué y Quillota.</label>								
-							</div>
-							<div class="formulario">								
-								<label for="radio" class="form-check-label">$5.800</label>								
-							</div>
-						</div>
-						<div class="mb-2 justify-content-between envios">
-							<div class="formulario">
-								<input type="radio" class="form-check-input" id="radio" name="radio" />
-								<label for="radio" class="form-check-label">R. Valparaíso: La Calera, La Cruz, Santo Domingo, Algarrobo y Cartagena.</label>								
-							</div>
-							<div class="formulario">								
-								<label for="radio" class="form-check-label">$8.600</label>								
-							</div>
-						</div>
-						<div class="row justify-content-start">
-							<div class="col-md-3">
-								<a href="informacion-pago"><button class="boton fs-6 p-2 mt-3">Continuar</button></a>
-							</div>
-							<div class="col-md-2">
-								<a href="informacion-usuario"><button class="boton fs-6 p-2 mt-3 bg-transparent">Volver</button></a>
-								
-							</div>
-						</div>
+						</form>
 					</section>
 				</div>
 				<div class="col-md-5 derecha">
-					<div class="container">
-						<div class="row justify-content-start">
-							<div class="col-md-6 formulario">
-								<label for="">Cupón</label>
-								<input type="text" class="input form-control form-control-sm" disabled/>
-							</div>
-							<div class="col-md-6">
-								<button class="boton fs-6 p-2 mt-4">Usar</button>
-							</div>
+					<div class="row pb-2 justify-content-start">
+						<div class="col-sm-6 col-md-6 formulario">
+							<label for="">Cupón</label>
+							<input type="text" class="input form-control form-control-sm" disabled />
+						</div>
+						<div class="col-sm-6 col-md-2">
+							<button class="boton fs-6 p-2 mt-4">Usar</button>
 						</div>
 					</div>
 					<hr />
-					<div class="container-fluid">
+					<c:forEach items="${ productos }" var="p">
 						<div class="container">
-							<div class="row">
+							<div class="row ps-2">
 								<div class="col-4">
-									<img src="img/fibra-natural-1.png" alt="" />
+									<div class="col m-0 p-0">
+										<img src="${ p.imageUrl }" alt="" class="float-start" />
+									</div>
 								</div>
 								<div class="col-4 info-detalle">
-									<p>Algodón</p>
-									<p>3 unidades</span>
+									<div>
+										<p class="col m-0 p-0">${ p.material }</p>
+										<p>${ p.cantidad } unidades</p>
+									</div>
 								</div>
-								<div class="col-4 info-detalle d-flex justify-content-end">
-									<p>$32.970</p>
+								<div class="col-4 text-end info-detalle">
+									<div class="col pe-2">
+										<p>${ p.total }</p>
+									</div>
 								</div>
+							</div>
+							<hr />
+						</div>
+					</c:forEach>
+					<div class="container fw-bold fs-6">
+						<div class="row justify-content-between">
+							<div class="col-4">
+								<p>SubTotal</p>
+								<p>Envío</p>
+							</div>
+							<div class="col-2">
+								<c:set value="${ 0 }" var="total"></c:set>
+								<c:forEach items="${ productos }" var="pt">
+									<c:set value="${ total + (pt.cantidad * pt.precio) }" var="total"></c:set>
+								</c:forEach>
+								<p id="format_precio_total">${ total }</p>
+								<c:set value="${ 3990 }" var="envio"></c:set>
+								<p id="format_precio_envio" class="text-end">${ envio }</p>
+							</div>
+						</div>
+						<div class="col">
+							<p class="fs-6">*Calculado en el próximo paso.</p>
+						</div>
+						<hr />
+						<div class="row justify-content-between">
+							<div class="col-4">
+								<p>Total</p>
+							</div>
+							<div class="col-2">
+								<c:set value="${ total + envio }" var="total_envio"></c:set>
+								<p id="format_total_envio">${ total_envio }</p>
 							</div>
 						</div>
 					</div>
-					<hr>
-					<div class="container-fluid fw-bold fs-6">
-						<div class="container">
-							<div class="row justify-content-between ">
-								<div class="col-4">
-									<p>SubTotal</p>
-									<p class="">Envío</p>
-								</div>
-								<div class="col-2">
-									<p>$32.970</p>
-									<p>$5.800</p>
-								</div>
-							</div>
-						</div>
-						<hr>
-						<div class="container">
-							<div class="row justify-content-between">
-								<div class="col-4">
-									<p>Total</p>
-								</div>
-								<div class="col-2">
-									<p>$38.770</p>
-								</div>
-							</div>
-						</div>
+					<div class="text-center mt-5">
+						<img src="img/retrocicla-round.png" alt="" style="width: 35%" />
 					</div>
-					<div class="text-center mt-5"><img src="img/retrocicla-round.png" alt="" style="width: 35%;"></div>				
 				</div>
 			</div>
 		</div>

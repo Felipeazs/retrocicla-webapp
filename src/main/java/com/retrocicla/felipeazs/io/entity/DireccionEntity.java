@@ -26,10 +26,16 @@ public class DireccionEntity implements Serializable {
 	private String calle;
 	
 	@Column(length = 35, nullable = false)
+	private String departamento;
+	
+	@Column(length = 35, nullable = false)
 	private String ciudad;
 	
 	@Column(length = 35, nullable = false)
 	private String region;
+	
+	@Column(length = 35, nullable = false)
+	private String pais;
 	
 	@Column(length = 25, nullable = false)
 	private String tipo;
@@ -92,6 +98,22 @@ public class DireccionEntity implements Serializable {
 
 	public void setClienteDetails(ClienteEntity clienteDetails) {
 		this.clienteDetails = clienteDetails;
+	}
+
+	public String getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
 	}
 	
 	

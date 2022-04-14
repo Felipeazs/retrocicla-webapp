@@ -8,6 +8,17 @@ public class ProductoRequestModel {
     private String imageUrl;
     private String material;  
     private String descripcion;
+    private String prenda;
+    private String tamano;
+    private String estilo;
+    private String color;
+    private String genero;
+    private int precio;
+    private String estacion;
+    private String tipo;
+    private int stock;
+    private String fibra;
+   
     
 	public String getProductoId() {
 		return productoId;
@@ -45,6 +56,66 @@ public class ProductoRequestModel {
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
 	}
+	public String getPrenda() {
+		return prenda;
+	}
+	public void setPrenda(String prenda) {
+		this.prenda = prenda;
+	}
+	public String getTamano() {
+		return tamano;
+	}
+	public void setTamano(String tamano) {
+		this.tamano = tamano;
+	}
+	public String getEstilo() {
+		return estilo;
+	}
+	public void setEstilo(String estilo) {
+		this.estilo = estilo;
+	}
+	public String getColor() {
+		return color;
+	}
+	public void setColor(String color) {
+		this.color = color;
+	}
+	public String getGenero() {
+		return genero;
+	}
+	public void setGenero(String genero) {
+		this.genero = genero;
+	}
+	public int getPrecio() {
+		return precio;
+	}
+	public void setPrecio(int precio) {
+		this.precio = precio;
+	}
+	public String getEstacion() {
+		return estacion;
+	}
+	public void setEstacion(String estacion) {
+		this.estacion = estacion;
+	}
+	public String getTipo() {
+		return tipo;
+	}
+	public void setTipo(String tipo) {
+		this.tipo = tipo;
+	}
+	public int getStock() {
+		return stock;
+	}
+	public void setStock(int stock) {
+		this.stock = stock;
+	}
+	public String getFibra() {
+		return fibra;
+	}
+	public void setFibra(String fibra) {
+		this.fibra = fibra;
+	}	
 	
 
 }

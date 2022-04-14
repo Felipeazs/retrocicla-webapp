@@ -6,6 +6,8 @@ import com.retrocicla.felipeazs.io.entity.CarritoEntity;
 import com.retrocicla.felipeazs.model.CalculoTotalModel;
 import com.retrocicla.felipeazs.model.dto.CarritoDto;
 import com.retrocicla.felipeazs.model.dto.ClienteDto;
+import com.retrocicla.felipeazs.ui.model.request.CarritoRequestModel;
+import com.retrocicla.felipeazs.ui.model.request.ClienteRequestModel;
 import com.retrocicla.felipeazs.ui.model.request.ProductoRequestModel;
 
 public interface CarritoService {
@@ -16,21 +18,16 @@ public interface CarritoService {
 
 	CalculoTotalModel calcularTotalCliente(String clienteEmail);
 
-	List<CarritoDto> obtenerTodosPorCliente(String email);
+	List<CarritoDto> obtenerTodosPorCliente(String clienteId);
 
-	CarritoDto actualizarProductoEnCarrito(CarritoEntity producto, String email);
+	CarritoDto agregarProductoAlCarrito(CarritoDto producto, ClienteDto cliente);
 
-	CarritoDto agregarProductoAlCarrito(ProductoRequestModel detalle_producto, ClienteDto cliente);
+	void actualizarCarritoEnvio(String radio, ClienteDto cliente);
+
+	void actualizarCarritoDetalleCliente(CarritoRequestModel carrito_detalle, ClienteDto cliente);
+
+	void actualizarCarritoPago(String radio1, ClienteDto cliente);
 	
-//	List<Cart> list();
-//	void addProduct(Product product, Cliente cliente);
-//	void updateProduct(int productId, String email);
-//	void removeProduct(Integer productId, String email);
-//	void deleteProduct(Integer productId, String email);
-//	List<Cart> getProductsByClienteId(String cliente);
-//	List<Cart> listByEmail(String name);
-//	Cart getProductByIdAndEmail(int id, String email);
-//	List<Cart> listByClienteEmail(String email);
 
 	
 }

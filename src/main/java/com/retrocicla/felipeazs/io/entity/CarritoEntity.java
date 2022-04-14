@@ -13,7 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
-
+import javax.persistence.Lob;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
 
@@ -42,6 +42,9 @@ public class CarritoEntity implements Serializable{
 	@Column(name = "total")
 	private String total;
 	
+	@Lob
+    private String imageUrl;
+	
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "cliente_id")
 	private ClienteEntity cliente; 
@@ -65,10 +68,16 @@ public class CarritoEntity implements Serializable{
 	private String calle;
 	
 	@Column
+	private String departamento;
+	
+	@Column
 	private String ciudad;
 	
 	@Column
 	private String region;
+	
+	@Column
+	private String pais;
 	
 	@Column
 	private String envio;
@@ -210,6 +219,30 @@ public class CarritoEntity implements Serializable{
 
 	public void setPago(String pago) {
 		this.pago = pago;
+	}
+
+	public String getImageUrl() {
+		return imageUrl;
+	}
+
+	public void setImageUrl(String imageUrl) {
+		this.imageUrl = imageUrl;
+	}
+
+	public String getPais() {
+		return pais;
+	}
+
+	public void setPais(String pais) {
+		this.pais = pais;
+	}
+
+	public String getDepartamento() {
+		return departamento;
+	}
+
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
 	}
 	
 	

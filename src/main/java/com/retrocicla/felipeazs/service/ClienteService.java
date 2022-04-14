@@ -2,7 +2,6 @@ package com.retrocicla.felipeazs.service;
 
 import java.util.List;
 
-import com.retrocicla.felipeazs.io.entity.ClienteEntity;
 import com.retrocicla.felipeazs.model.dto.ClienteDto;
 
 public interface ClienteService {

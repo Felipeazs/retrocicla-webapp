@@ -10,21 +10,17 @@ import com.retrocicla.felipeazs.io.entity.ProductoEntity;
 
 public interface ProductoRepository extends JpaRepository<ProductoEntity, Integer> {
 	
-	List<ProductoEntity> findAllByTypeOrderByWearAsc(String productType);
-	
-	List<ProductoEntity> findAllByStyleOrderByWearAsc(String productType);
-	
-	@Query(value = "SELECT DISTINCT wear FROM productos WHERE NOT wear = 'indefinido' ORDER BY wear ASC", nativeQuery = true)
-	ArrayList<String> getDistinctByWear();
+	@Query(value = "SELECT DISTINCT prenda FROM productos WHERE NOT prenda = 'indefinido' ORDER BY prenda ASC", nativeQuery = true)
+	ArrayList<String> getDistinctByPrenda();
 
-	@Query(value = "SELECT DISTINCT style FROM productos WHERE NOT style = 'indefinido' ORDER BY style ASC", nativeQuery = true)
-	ArrayList<String> getDistinctByStyle();
+	@Query(value = "SELECT DISTINCT estilo FROM productos WHERE NOT estilo = 'indefinido' ORDER BY estilo ASC", nativeQuery = true)
+	ArrayList<String> getDistinctByEstilo();
 
-	@Query(value = "SELECT DISTINCT genre FROM productos WHERE NOT genre = 'indefinido' ORDER BY genre ASC", nativeQuery = true)
-	ArrayList<String> getDistinctByGenre();
+	@Query(value = "SELECT DISTINCT genero FROM productos WHERE NOT genero = 'indefinido' ORDER BY genero ASC", nativeQuery = true)
+	ArrayList<String> getDistinctByGenero();
 
-	@Query(value = "SELECT DISTINCT type FROM productos WHERE NOT type = 'indefinido' ORDER BY type ASC", nativeQuery = true)
-	ArrayList<String> getDistinctByType();
+	@Query(value = "SELECT DISTINCT tipo FROM productos WHERE NOT tipo = 'indefinido' ORDER BY tipo ASC", nativeQuery = true)
+	ArrayList<String> getDistinctByTipo();
 
 	@Query(value = "SELECT DISTINCT material FROM productos WHERE NOT material = 'indefinido' ORDER BY material ASC", nativeQuery = true)
 	ArrayList<String> getDistinctByMaterial();
@@ -32,14 +28,14 @@ public interface ProductoRepository extends JpaRepository<ProductoEntity, Intege
 	@Query(value = "SELECT DISTINCT color FROM productos WHERE NOT color = 'indefinido' ORDER BY color ASC", nativeQuery = true)
 	ArrayList<String> getDistinctByColor();
 
-	@Query(value = "SELECT DISTINCT size FROM productos WHERE NOT size = 'indefinido' AND NOT size LIKE '%x%' ORDER BY size ASC", nativeQuery = true)
-	ArrayList<String> getDistinctByRopaSize();
+	@Query(value = "SELECT DISTINCT tamano FROM productos WHERE NOT tamano = 'indefinido' AND NOT tamano LIKE '%x%' ORDER BY size ASC", nativeQuery = true)
+	ArrayList<String> getDistinctByRopaTamano();
 
-	@Query(value = "SELECT DISTINCT size FROM productos WHERE NOT size = 'indefinido' AND size LIKE '%x%' ORDER BY size ASC", nativeQuery = true)
-	ArrayList<String> getDistinctByTelaSize();
+	@Query(value = "SELECT DISTINCT tamano FROM productos WHERE NOT tamano = 'indefinido' AND tamano LIKE '%x%' ORDER BY size ASC", nativeQuery = true)
+	ArrayList<String> getDistinctByTelaTamano();
 
-	@Query(value = "SELECT DISTINCT madeIn FROM productos WHERE NOT madeIn = 'indefinido' ORDER BY madeIn ASC", nativeQuery = true)
-	ArrayList<String> getDistinctByMadeIn();
+	@Query(value = "SELECT DISTINCT hechoEn FROM productos WHERE NOT hechoEn = 'indefinido' ORDER BY hechoEn ASC", nativeQuery = true)
+	ArrayList<String> getDistinctByHechoEn();
 
 //	List<ProductEntity> findByTypeAndMaterialAndWearAndColorAndSizeAndStyleAndGenreAndSeasonAndMade(String type, String material, String wear, String color, String 
 //			size, String style, String genre, String season, String madeIn);
@@ -49,8 +45,13 @@ public interface ProductoRepository extends JpaRepository<ProductoEntity, Intege
 	ProductoEntity findByImageUrl(String imageUrl);
 
 	ProductoEntity findByProductoId(String productoId);
+	
 
-	List<ProductoEntity> findAllByWearAndGenreOrderByWearAsc(String wear, String genre);
+	List<ProductoEntity> findAllByTipoOrderByPrendaAsc(String productType);
+	
+	List<ProductoEntity> findAllByEstiloOrderByPrendaAsc(String productType);
+
+	List<ProductoEntity> findAllByPrendaAndGeneroOrderByPrendaAsc(String wear, String genre);
 
 	List<ProductoEntity> findAllByFibra(String productType);
 

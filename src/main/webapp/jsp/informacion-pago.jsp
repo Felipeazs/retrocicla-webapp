@@ -109,60 +109,92 @@ prefix="c" %>
 				</div>
 			</div>
 			<div class="row">
-				<div class="col-md-7">					
+				<div class="col-md-7">
 					<section class="mt-3">
 						<p class="fs-5 mb-4 fw-bold">Información contacto</p>
-						<div class="mb-2 pago">Contacto: Felipe Zapata S.</div>
-						<div class="mb-2 pago">email: felipeazs@gmail.com</div>
-						<div class="mb-2 pago">Enviar a: Marte 2183, Quilpué, Valparaíso</div>
-						<div class="mb-2 pago">Envío: Retiro en tienda.</div>
+						<div class="mb-2 pago">Contacto: ${ cliente.nombre } ${ cliente.apellido }</div>
+						<div class="mb-2 pago">email: ${ cliente.email }</div>
+						<div class="mb-2 pago">
+							Enviar a: ${ cliente.calle }, ${ cliente.ciudad }, ${ cliente.region }, ${ cliente.pais }
+						</div>
+						<div class="mb-2 pago">Envío: ${ cliente.envio }</div>
 						<div class="">
 							<p class="fs-4 fw-bold mt-4">Método de pago</p>
 						</div>
-						<div class="col-md-6 mb-2 envios">
-							<div class="formulario">
-								<input type="radio" class="form-check-input" id="radio" name="radio1" checked />
-								<label for="" class="form-check-label">Web pay</label>
-							</div>							
-						</div>
-						<span class="fw-bold pago-span"
-							>Luego de hacer un clic en “Finalizar”, serás redirigido a Pago Fácil - WebpayPlus para
-							completar tu compra de forma segura.</span>
-						
-						<div class="col-md-6 mb-2 envios">
-							<div class="formulario">
-								<input type="radio" class="form-check-input" id="radio" name="radio1" />
-								<label for="" class="form-check-label">Transferencia bancario</label>
+						<form action="/redirigiendo" method="GET">
+							<div class="col-md-6 mb-2 envios">
+								<div class="formulario">
+									<input
+										type="radio"
+										class="form-check-input"
+										id="radio"
+										name="radio1"
+										value="Web pay"
+										checked
+									/>
+									<label for="" class="form-check-label">Web pay</label>
+								</div>
 							</div>
-						</div>
-						<span class="fw-bold pago-span"
-							>Pago a través de transfarencia. No olvides sacarle un pantallazo o anotar los datos de
-							transferencia que a parecen a continuación
-						</span>
-						<p class="fs-4 fw-bold mt-3">Dirección de facturación</p>
-						<div class="col-md-6 mb-2 envios">
-							<div class="formulario">
-								<input type="radio" class="form-check-input" id="radio" name="radio2" checked />
-								<label for="" class="form-check-label">Misma direccion de envío</label>
+							<span class="fw-bold pago-span"
+								>Luego de hacer un clic en “Finalizar”, serás redirigido a Pago Fácil - WebpayPlus para
+								completar tu compra de forma segura.</span
+							>
+
+							<div class="col-md-6 mb-2 envios">
+								<div class="formulario">
+									<input
+										type="radio"
+										class="form-check-input"
+										id="radio"
+										name="radio1"
+										value="Transferencia"
+									/>
+									<label for="" class="form-check-label">Transferencia bancario</label>
+								</div>
 							</div>
-						</div>
-						<div class="col-md-6 mb-2 envios">
-							<div class="formulario">
-								<input type="radio" class="form-check-input" id="radio" name="radio2" />
-								<label for="" class="form-check-label"
-									>Usar una direccion de facturación distinta</label
-								>
+							<span class="fw-bold pago-span"
+								>Pago a través de transfarencia. No olvides sacarle un pantallazo o anotar los datos de
+								transferencia que a parecen a continuación
+							</span>
+							<p class="fs-4 fw-bold mt-3">Dirección de facturación</p>
+							<div class="col-md-6 mb-2 envios">
+								<div class="formulario">
+									<input
+										type="radio"
+										class="form-check-input"
+										id="radio"
+										name="radio2"
+										value="misma direccion"
+										checked
+									/>
+									<label for="" class="form-check-label">Misma direccion de envío</label>
+								</div>
 							</div>
-						</div>
-						<div class="row justify-content-start">
-							<div class="col-md-3">
-								<a href="redirigiendo"><button class="boton fs-6 p-2 mt-3">Continuar</button></a>
+							<div class="col-md-6 mb-2 envios">
+								<div class="formulario">
+									<input
+										type="radio"
+										class="form-check-input"
+										id="radio"
+										name="radio2"
+										value="otra direccion"
+									/>
+									<label for="" class="form-check-label"
+										>Usar una direccion de facturación distinta</label
+									>
+								</div>
 							</div>
-							<div class="col-md-2">
-								<a href="informacion-envio"><button class="boton fs-6 p-2 mt-3 bg-transparent">Volver</button></a>
-								
+							<div class="row justify-content-start">
+								<div class="col-md-3">
+									<button type="submit" class="boton fs-6 p-2 mt-3">Continuar</button>
+								</div>
+								<div class="col-md-2">
+									<a href="/informacion-envio"
+										><button class="boton fs-6 p-2 mt-3 bg-transparent">Volver</button></a
+									>
+								</div>
 							</div>
-						</div>
+						</form>
 					</section>
 				</div>
 				<div class="col-md-5 derecha">
@@ -186,7 +218,7 @@ prefix="c" %>
 								</div>
 								<div class="col-4 info-detalle">
 									<p>Algodón</p>
-									<p>3 unidades</span>
+									<p>3 unidades</p>
 								</div>
 								<div class="col-4 info-detalle d-flex justify-content-end">
 									<p>$32.970</p>
@@ -194,10 +226,10 @@ prefix="c" %>
 							</div>
 						</div>
 					</div>
-					<hr>
+					<hr />
 					<div class="container-fluid fw-bold fs-6">
 						<div class="container">
-							<div class="row justify-content-between ">
+							<div class="row justify-content-between">
 								<div class="col-4">
 									<p>SubTotal</p>
 									<p class="">Envío</p>
@@ -208,7 +240,7 @@ prefix="c" %>
 								</div>
 							</div>
 						</div>
-						<hr>
+						<hr />
 						<div class="container">
 							<div class="row justify-content-between">
 								<div class="col-4">
@@ -220,7 +252,7 @@ prefix="c" %>
 							</div>
 						</div>
 					</div>
-					<div class="text-center mt-5"><img src="img/retrocicla-round.png" alt="" style="width: 35%;"></div>				
+					<div class="text-center mt-5"><img src="img/retrocicla-round.png" alt="" style="width: 35%" /></div>
 				</div>
 			</div>
 		</div>
