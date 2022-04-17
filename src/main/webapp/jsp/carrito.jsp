@@ -8,6 +8,8 @@ prefix="c"%>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="_csrf" content="${_csrf.token}" />
+		<meta name="_csrf_header" content="${_csrf.headerName}" />
 		<!--JQuery-->
 		<script
 			src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -69,7 +71,7 @@ prefix="c"%>
 		<nav class="container-fluid">
 			<div class="row nav">
 				<div class="col-sm-12 col-md-3 logo">
-					<img src="/img/logo-menu.png" alt="logo" />
+					<img src="img/logo-menu.png" alt="logo" />
 				</div>
 				<div class="col-md-6">
 					<ul class="nav align-items-center justify-content-center fs-5">
@@ -80,7 +82,7 @@ prefix="c"%>
 							<a class="nav-link text-white" href="/somos">SOMOS</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white active" aria-current="page" href="/tienda">TIENDA</a>
+							<a class="nav-link text-white" href="/tienda">TIENDA</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-white" href="/donaciones">DONACIONES</a>
@@ -93,8 +95,8 @@ prefix="c"%>
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
 					<div class="row">
 						<div class="bag">
-							<a href="/carrito"><i class="bi bi-bag"></i></a>
-							<div class="span text-center">${ tamano_carrito }</div>
+							<a href="/carrito"><i class="bi bi-bag active"></i></a>
+							<div id="_carrito" class="span text-center">${ tamano_carrito }</div>
 						</div>
 						<div class="person">
 							<a href="/login"><i class="bi bi-person-circle"></i></a>
@@ -114,158 +116,91 @@ prefix="c"%>
 				</div>
 			</div>
 		</nav>
-		<div class="container-fluid seccion-tienda">
-			<div class="row d-flex justify-content-center">
-				<div class="col-md-3 text-center">
-					<a href="/catalogo/mostrar_todo" class=""><button class="button fs-3">Búsqueda avanzada</button></a>
-				</div>
-			</div>
-		</div>
-		<div class="seccion-catalogo">
-			<a href="/catalogo/mostrar_todo">
-				<p>Tipo de prenda</p>
-			</a>
-			<div class="galeria js-flickity">
-				<a href="/catalogo/polera">
-					<div class="galeria-cell">
-						<img class="img-responsive" src="/img/polera.jpg" alt="" />
-						<div class="item">
-							<span class="fs-3">Poleras</span>
-						</div>
-					</div>
-				</a>
-				<a href="/catalogo/chaqueta">
-					<div class="galeria-cell">
-						<img src="/img/chaqueta.jpg" alt="" />
-						<div class="item">
-							<span class="fs-3">Chaquetas</span>
-						</div>
-					</div>
-				</a>
-				<a href="/catalogo/pantalón">
-					<div class="galeria-cell">
-						<img src="/img/pantalon.jpg" alt="" />
-						<div class="item">
-							<span class="fs-3">Pantalones</span>
-						</div>
-					</div>
-				</a>
-				<a href="/catalogo/falda">
-					<div class="galeria-cell">
-						<img src="/img/falda.jpg" alt="" />
-						<div class="item">
-							<span class="fs-3">Faldas</span>
-						</div>
-					</div>
-				</a>
-				<a href="/catalogo/polerón">
-					<div class="galeria-cell">
-						<img src="/img/poleron.jpg" alt="" />
-						<div class="item">
-							<span class="fs-3">Polerones</span>
-						</div>
-					</div>
-				</a>
-				<a href="/catalogo/chaleco">
-					<div class="galeria-cell">
-						<img src="/img/lana-2.jpg" alt="" />
-						<div class="item">
-							<span class="fs-3">Chalecos</span>
-						</div>
-					</div>
-				</a>
-				<a href="/catalogo/camisa">
-					<div class="galeria-cell">
-						<img src="/img/camisa.jpg" alt="" />
-						<div class="item">
-							<span class="fs-3">Camisas</span>
-						</div>
-					</div>
-				</a>
-			</div>
-		</div>
-		<div class="seccion-catalogo">
-			<p>Materiales</p>
-			<div class="galeria js-flickity">
-				<a href="/catalogo/algodón">
-					<div class="galeria-cell">
-						<img class="img-responsive" src="/img/algodon.jpg" alt="" />
-						<div class="item">
-							<span class="fs-3">Algodón</span>
-						</div>
-					</div>
-				</a>
-				<a href="/catalogo/seda">
-					<div class="galeria-cell">
-						<img src="/img/seda.jpg" alt="" />
-						<div class="item">
-							<span class="fs-3">Seda</span>
-						</div>
-					</div>
-				</a>
-				<a href="/catalogo/tejido">
-					<div class="galeria-cell">
-						<img src="/img/tejido.jpg" alt="" />
-						<div class="item">
-							<span class="fs-3">Tejidos</span>
-						</div>
-					</div>
-				</a>
-				<a href="/catalogo/denim">
-					<div class="galeria-cell">
-						<img src="/img/denim.jpg" alt="" />
-						<div class="item">
-							<span class="fs-3">Denim</span>
-						</div>
-					</div>
-				</a>
-				<a href="/catalogo/lino">
-					<div class="galeria-cell">
-						<img src="/img/lino.jpg" alt="" />
-						<div class="item">
-							<span class="fs-3">Lino</span>
-						</div>
-					</div>
-				</a>
-				<a href="/catalogo/poliester">
-					<div class="galeria-cell">
-						<img src="/img/Poliester.jpg" alt="" />
-						<div class="item">
-							<span class="fs-3">Poliester</span>
-						</div>
-					</div>
-				</a>
-			</div>
-		</div>
-
-		<section class="container-fluid seccion-bajada-tienda">
+		<section class="container-flex text-center seccion-carrito bg-light">
 			<div class="row">
-				<div class="col-sm-12 col-md-6">
-					<div class="row align-items-center">
-						<div class="col-md-3"><img src="/img/clip.png" alt="clip" /></div>
-						<div class="col-md-9 text-white ps-5 pe-5 text-center">
-							<p>No encuentras lo que necesitas? Contáctanos!!</p>
-						</div>
-					</div>
-				</div>
-				<div class="col-sm-12 col-md-6">
-					<div class="row">
-						<div class="col-sm-12 col-md-9">
-							<div class="row">
-								<div class="col-sm-12"><input type="text" placeholder="Nombre" /></div>
-								<div class="col-sm-12"><input type="email" placeholder="Correo electrÃ³nico" /></div>
-								<div class="col-sm-12">
-									<textarea rows="4" cols="20" placeholder="Escribe aquí..."></textarea>
-								</div>
-								<div class="col-sm-12 text-center">
-									<button class="btn"><i class="button fa-solid fa-chevron-right"></i></button>
-								</div>
+				<p class="fs-4 fw-bold mt-5 mb-5">Carrito de compras</p>
+				<div class="col-md-12 mb-5">
+					<c:choose>
+					<c:when test="${ not empty productos }">
+					<table class="table text-center">
+						<thead>
+							<tr>
+								<th>Producto</th>
+								<th>Precio</th>
+								<th>Cantidad</th>
+								<th>SubTotal</th>
+								<th>Eliminar</th>
+							</tr>
+						</thead>
+						<tbody>
+							<c:set value="${ 0 }" var="total"></c:set>
+							<c:set value="${ 0 }" var="cantidad"></c:set>
+							<c:forEach items="${ productos }" var="p">
+								<c:set value="${ total + (p.precio * p.cantidad) }" var="total"></c:set>	
+								<c:set value="${ cantidad + p.cantidad }" var="cantidad"></c:set>	
+								<input 
+									type="hidden"
+									value="${ p.productoId }"
+									id="productoId">
+								<tr>
+									<td>
+										<img src="${ p.imageUrl }" alt="" height="100" width="100" />
+										Descripcion
+									</td>
+									<td id="format_precio_carrito_${ p.productoId }">${ p.precio }</td>
+									<td>${ p.cantidad }</td>
+									<td>${ p.total }</td>
+									<td>
+										<i class="fa-regular fa-trash-can" onclick="eliminarDelCarrito(${ p.productoId })"></i>
+									</td>
+								</tr>								
+								<script>
+									var precio_carrito = $('#format_precio_carrito_${ p.productoId }').html();
+									console.log(precio_carrito);
+									var formato_precio = formatter.format(precio_carrito)
+									$('#format_precio_carrito_${ p.productoId }').html(formato_precio);
+								</script>
+							</c:forEach>
+							<tr>							
+								<td></td>								
+								<td class="fw-bold text-center">Subtotal</td>															
+								<td>${ cantidad }</td>
+								<td class="fw-bold" id="format_precio_total">${ total }</td>
+							</tr>
+							
+						</tbody>
+					</table>
+					<p class="fs-4 fw-bold mt-5 mb-3">Agregar comentarios a la compra</p>
+					<div class="textarea">
+						<textarea></textarea>
+						<p>
+							Al hacer clic en “Finalizar compra”, aceptas los términos y condiciones, política de
+							reembolso y privacidad de Retrocicla.
+						</p>
+					</div>				
+					<div class="container">
+						<div class="row d-flex justify-content-center">
+							<div class="col-md-3">									
+								<a href="/informacion-usuario"><button class="boton fs-6 p-2">Finalizar compra</button>	</a>							
 							</div>
 						</div>
-						<div class="col-sm-12 col-md-3">
-							<img src="/img/retrocicla-round.png" alt="retrocicla-round" />
-						</div>
 					</div>
+					</c:when>
+					<c:otherwise>
+						<section class="container-fluid seccion-principal-redirigir">
+							<div class="row text-center bg-light">
+								<div class="loader d-flex justify-content-center"></div>
+								<h1 class="fw-bold">Usted no tienen elementos en su carrito...</h1>
+								<h4 id="redirigir" style="font-family: 'Metropolis'; font-size: 18px">
+									Espera un momento mientras te redireccionamos al inicio...
+								</h4>
+								<a href="/" class="text-decoration-none">
+									<h6 style="color: #00ff99; font-size: 18px">Regresar al inicio</h6>
+								</a>
+							</div>
+						</section>
+					</c:otherwise>
+					</c:choose>				
 				</div>
 			</div>
 		</section>
@@ -302,8 +237,8 @@ prefix="c"%>
 					</div>
 					<div class="col-md-8 d-flex justify-content-end">
 						<div>
-							<a href="">Términos y condiciones</a> | <a href="">Política de reembolso</a> |
-							<a href="pages/politicas-privacidad">Polí­tica de privacidad</a>
+							<a href="">Términos y condiciones</a> | <a href="">Poítica de reembolso</a> |
+							<a href="/politicas-privacidad">Política de privacidad</a>
 						</div>
 					</div>
 				</div>

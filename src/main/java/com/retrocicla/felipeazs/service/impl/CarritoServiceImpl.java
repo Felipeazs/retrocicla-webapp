@@ -24,7 +24,6 @@ import com.retrocicla.felipeazs.model.dto.CarritoDto;
 import com.retrocicla.felipeazs.model.dto.ClienteDto;
 import com.retrocicla.felipeazs.service.CarritoService;
 import com.retrocicla.felipeazs.ui.model.request.CarritoRequestModel;
-import com.retrocicla.felipeazs.ui.model.request.ClienteRequestModel;
 import com.retrocicla.felipeazs.ui.model.response.ErrorMessages;
 
 @Service
@@ -156,6 +155,28 @@ public class CarritoServiceImpl implements CarritoService {
 
 		return returnValue;
 	}
+	
+	@Override
+	public void eliminarProductoDelCarrito(String productoId, String clienteId) {
+		
+		CarritoEntity producto = carritoRepo.findByClienteClienteIdAndProductoId(clienteId, productoId);
+		
+		carritoRepo.delete(producto);
+		
+	}
+	
+
+	@Override
+	public void eliminarProductos(String clienteId) {
+		
+		List<CarritoEntity> carritos = carritoRepo.findAllByClienteClienteId(clienteId);
+	
+		for (CarritoEntity carrito : carritos) {
+			carritoRepo.deleteById(carrito.getId());
+		}
+		
+		
+	}
 
 	@Override
 	public CalculoTotalModel calcularTotalCliente(String clienteEmail) {
@@ -193,71 +214,5 @@ public class CarritoServiceImpl implements CarritoService {
 
 	
 
-	
-
-	
-
-	
-
 }
-////
-////	@Override
-////	public void removeProduct(Integer productId, String email) {
-////		
-////		try {
-////			Cart findProd = repo.findByProductIdAndClienteEmail(productId, email);
-////			
-////			if (findProd.getQuantity() > 1) {
-////				findProd.setQuantity(findProd.getQuantity() - 1);		
-////				
-////				int totalPrice = findProd.getQuantity() * findProd.getPrice();
-////				Locale clp = new Locale("es", "CL");
-////				NumberFormat nf = NumberFormat.getCurrencyInstance(clp);
-////				String price = nf.format(totalPrice);		
-////				findProd.setTotalPrice(price);
-////				
-////				repo.save(findProd);
-////			} else {
-////				deleteProduct(productId, email);
-////			}
-////						
-////		} catch (NullPointerException ex) {
-////			System.out.println(ex.getMessage());
-////		}		
-////	}
-////
-////	@Override
-////	public void deleteProduct(Integer productId, String email) {
-////		
-////		try {
-////			Cart product = repo.findByProductIdAndClienteEmail(productId, email);
-////			repo.delete(product);
-////		} catch (StaleStateException ex) {
-////			ex.getMessage();
-////		}
-////		
-////		
-////	}
-////
-////
-////	@Override
-////	public List<Cart> getProductsByClienteId(String cliente) {
-////		
-////		return repo.findAllByClienteEmail(cliente);
-////	}
-////
-////
-////	@Override
-////	public Cart getProductByIdAndEmail(int id, String email) {
-////		
-////		return repo.findByProductIdAndClienteEmail(id, email);
-////	}
-////
-////
-////	@Override
-////	public List<Cart> listByClienteEmail(String email) {
-////		
-////		return repo.findAllByClienteEmail(email);
-////	}
-//
-//}
+

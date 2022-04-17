@@ -17,6 +17,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity(name = "clientes")
 public class ClienteEntity implements Serializable {
 
@@ -53,6 +55,7 @@ public class ClienteEntity implements Serializable {
 	@Column(nullable = false)
 	private Boolean emailVerificationStatus = false;
 	
+	@JsonIgnore
 	@OneToMany(mappedBy = "clienteDetails", cascade = CascadeType.ALL)
 	private List<DireccionEntity> direcciones; 
 	

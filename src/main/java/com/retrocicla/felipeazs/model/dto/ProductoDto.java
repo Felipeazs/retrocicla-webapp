@@ -8,14 +8,15 @@ public class ProductoDto implements Serializable {
 	private String productoId;		
     private String descripcion;	
     private String prenda;
-    private String tamano;
+    private String talla;
     private String estilo;
     private String color; 
     private String genero;
+    private String patron;
     private int precio;
     private String formato_precio;  
     private String imageUrl;
-    private String hechoEn;
+    private String origen;
     private String material;  
     private String estacion;
     private String tipo; 
@@ -41,12 +42,6 @@ public class ProductoDto implements Serializable {
 	}
 	public void setPrenda(String prenda) {
 		this.prenda = prenda;
-	}
-	public String getTamano() {
-		return tamano;
-	}
-	public void setTamano(String tamano) {
-		this.tamano = tamano;
 	}
 	public String getEstilo() {
 		return estilo;
@@ -83,12 +78,6 @@ public class ProductoDto implements Serializable {
 	}
 	public void setImageUrl(String imageUrl) {
 		this.imageUrl = imageUrl;
-	}
-	public String getHechoEn() {
-		return hechoEn;
-	}
-	public void setHechoEn(String hechoEn) {
-		this.hechoEn = hechoEn;
 	}
 	public int getAlgodon() {
 		return algodon;
@@ -132,8 +121,29 @@ public class ProductoDto implements Serializable {
 	public void setFibra(String fibra) {
 		this.fibra = fibra;
 	}
+	public String getTalla() {
+		return talla;
+	}
+	public void setTalla(String talla) {
+		this.talla = talla;
+	}
+	public String getPatron() {
+		return patron;
+	}
+	public void setPatron(String patron) {
+		this.patron = patron;
+	}
+	public String getOrigen() {
+		return origen;
+	}
+	public void setOrigen(String origen) {
+		this.origen = origen;
+	}
 	
-    
+	@Override
+	public String toString() {
+		return "genero: " + genero + " material: " + material + " talla: " + talla + " color: " + color + " patron: " + patron + " origen: " + origen + " tipo: " + tipo + " prenda: " + prenda;
+	}
     
 
 }

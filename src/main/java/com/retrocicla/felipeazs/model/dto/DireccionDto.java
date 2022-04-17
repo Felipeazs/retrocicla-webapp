@@ -5,6 +5,7 @@ public class DireccionDto {
 	private long id;
 	private String direccionId;
 	private String calle;
+	private String departamento;
 	private String ciudad;
 	private String region;
 	private String tipo;
@@ -51,6 +52,12 @@ public class DireccionDto {
 	}
 	public void setClienteDetails(ClienteDto clienteDetails) {
 		this.clienteDetails = clienteDetails;
+	}
+	public String getDepartamento() {
+		return departamento;
+	}
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
 	}
 
 }

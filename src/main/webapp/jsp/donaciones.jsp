@@ -1,7 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8"
-	pageEncoding="UTF-8"%>
-<%@ taglib uri="http://www.springframework.org/tags/form" prefix="form"%>
-<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib
+uri="http://www.springframework.org/tags/form" prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+prefix="c"%>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -81,7 +80,7 @@
 							<a class="nav-link text-white" href="/somos">SOMOS</a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link text-white"  href="/tienda">TIENDA</a>
+							<a class="nav-link text-white" href="/tienda">TIENDA</a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link text-white active" aria-current="page" href="/donaciones">DONACIONES</a>
@@ -92,8 +91,26 @@
 					</ul>
 				</div>
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
-					<a href="cliente"><i class="bi bi-person-circle"></i></a>
-					<i class="bi bi-bag"></i>
+					<div class="row">
+						<div class="bag">
+							<a href="/carrito"><i class="bi bi-bag"></i></a>
+							<div class="span text-center">${ tamano_carrito }</div>
+						</div>
+						<div class="person">
+							<a href="/login"><i class="bi bi-person-circle"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="col d-flex align-items-center justify-content-center">
+					<c:if test="${ not empty cliente }">
+						<a href="/logout"
+							><div class="row">
+								<div class="col-md-6 salir">
+									<span class="text-white d-flex justify-content-start">Salir</span>
+								</div>
+							</div>
+						</a>
+					</c:if>
 				</div>
 			</div>
 		</nav>
@@ -130,8 +147,8 @@
 					</div>
 				</div>
 			</div>
-			<div class="container-fluid ps-0 pe-0 cuaternaria">	
-					<img src="img/donaciones-2.png" alt="" />
+			<div class="container-fluid ps-0 pe-0 cuaternaria">
+				<img src="img/donaciones-2.png" alt="" />
 			</div>
 			<div class="container-fluid">
 				<div class="row quinta text-end ps-5 pe-5">
@@ -139,9 +156,9 @@
 						<div class="row mapa">
 							<h1>No sabes donde donar?</h1>
 							<h5 class="fw-bold text-decoration-underline">Institución</h5>
-							<h6 class="">Escuela Lord Chchrane</h6>						
+							<h6 class="">Escuela Lord Chchrane</h6>
 							<h5 class="fw-bold text-decoration-underline">Dirección</h5>
-							<h6>Madre de Dios 1440, Viña del Mar, Valparaí­so</h6>						
+							<h6>Madre de Dios 1440, Viña del Mar, Valparaí­so</h6>
 							<h5 class="fw-bold text-decoration-underline">Teléfono</h5>
 							<h6>(32) 239 3512</h6>
 						</div>
@@ -161,7 +178,7 @@
 					personalizados, invitaciones a eventos y más.
 				</span>
 				<div class="input">
-					<input type="email" placeholder="CORREO ELECTRÃNICO" />
+					<input type="email" placeholder="CORREO ELECTRÓNICO" />
 					<button class="button"><i class="fa-solid fa-chevron-right"></i></button>
 				</div>
 			</div>
@@ -182,7 +199,7 @@
 						</div>
 					</div>
 					<div class="col-sm-12 col-md-4 d-flex justify-content-center align-items-center seccion-final">
-						<p>CONTÁCTANOS</p>
+						<p>CONTÁCTANOS</p>
 						<div class="iconos">
 							<i class="bi bi-envelope ps-3 pe-3"></i>
 							<i class="bi bi-whatsapp pe-3"></i>

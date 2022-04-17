@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib
+uri="http://www.springframework.org/tags/form" prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -87,8 +91,26 @@
 					</ul>
 				</div>
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
-					<a href="cliente"><i class="bi bi-person-circle"></i></a>
-					<i class="bi bi-bag"></i>
+					<div class="row">
+						<div class="bag">
+							<a href="/carrito"><i class="bi bi-bag"></i></a>
+							<div class="span text-center">${ tamano_carrito }</div>
+						</div>
+						<div class="person">
+							<a href="/login"><i class="bi bi-person-circle"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="col d-flex align-items-center justify-content-center">
+					<c:if test="${ not empty cliente }">
+						<a href="/logout"
+							><div class="row">
+								<div class="col-md-6 salir">
+									<span class="text-white d-flex justify-content-start">Salir</span>
+								</div>
+							</div>
+						</a>
+					</c:if>
 				</div>
 			</div>
 		</nav>
@@ -96,28 +118,28 @@
 			<div class="row">
 				<div class="col-md-3 links">
 					<div class="sub-columna-1">
-						<h3 class="fw-bold">PolÌticas Retrocicla</h3>
+						<h3 class="fw-bold">Pol√≠ticas Retrocicla</h3>
 						<div class="container">
 							<dl>
 								<hr />
 								<dd>
 									<i class="fa-solid fa-chevron-right"></i
-									><a href="/politicas-privacidad" class="fs-6">PolÌticas de privacidad</a>
+									><a href="/politicas-privacidad" class="fs-6">Pol√≠ticas de privacidad</a>
 								</dd>
 								<hr />
 								<dd>
 									<i class="fa-solid fa-chevron-right"></i
-									><a href="/politicas-contacto" class="fs-6">PolÌticas de contacto</a>
+									><a href="/politicas-contacto" class="fs-6">Pol√≠ticas de contacto</a>
 								</dd>
 								<hr />
 								<dd>
 									<i class="fa-solid fa-chevron-right"></i
-									><a href="/politicas-pago" class="fs-6">PolÌticas medios de pago</a>
+									><a href="/politicas-pago" class="fs-6">Pol√≠ticas medios de pago</a>
 								</dd>
 								<hr />
 								<dd>
 									<i class="fa-solid fa-chevron-right active"></i
-									><a href="/politicas-despacho" class="fs-6">PolÌticas de despacho</a>
+									><a href="/politicas-despacho" class="fs-6">Pol√≠ticas de despacho</a>
 								</dd>
 								<hr />
 							</dl>
@@ -125,13 +147,13 @@
 					</div>
 				</div>
 				<div class="col-md-9 contenido">
-					<h3 class="fw-bold">PolÌticas de Despacho</h3>
+					<h3 class="fw-bold">Pol√≠ticas de Despacho</h3>
 					<p class="mb-3 mt-3 fw-bold">I. De los medios de despacho.</p>
 					<p>
 						Habiendo cumplido el usuario con notificar su domicilio postal, y a fin de cumplir con la parte
-						final de nuestra obligaciÛn, RetroCicla podr· emplear uno o m·s de los siguientes servicios de
-						envÌos, cuyos costos ser·n publicados y actualizados en la plataforma tecnolÛgica digital y
-						estar·n contenidos en los servicios ofrecidos o bien ser·n con cargo del usuario seg˙n se haya
+						final de nuestra obligaci√≥n, RetroCicla podr√° emplear uno o m√°s de los siguientes servicios de
+						env√≠os, cuyos costos ser√°n publicados y actualizados en la plataforma tecnol√≥gica digital y
+						estar√°n contenidos en los servicios ofrecidos o bien ser√°n con cargo del usuario seg√∫n se haya
 						estipulado en el contrato que con la empresa se haya celebrado:
 					</p>
 					<ul class="ms-4">
@@ -143,41 +165,41 @@
 						</li>
 					</ul>
 					<p>
-						RetroCicla les asegura que tanto el pago efectuado como los datos del usuario estar·n protegidos
-						mediante el uso de certificados SSL, asunto que fuera tratado en el punto V. de la PolÌtica de
+						RetroCicla les asegura que tanto el pago efectuado como los datos del usuario estar√°n protegidos
+						mediante el uso de certificados SSL, asunto que fuera tratado en el punto V. de la Pol√≠tica de
 						privacidad.
 					</p>
 					<p class="mb-3 mt-3">A. Caso especial de los contratos de tracto sucesivo.</p>
 					<p>
 						En el caso de los contratos que celebre la RetroCicla con una empresa o persona natural,
-						mediante los cuales se pacten el uso de servicios periÛdicos, reiterativos, mes a mes o
-						cualquiera otra acepciÛn que indique que las obligaciones se generar·n en diversas oportunidades
+						mediante los cuales se pacten el uso de servicios peri√≥dicos, reiterativos, mes a mes o
+						cualquiera otra acepci√≥n que indique que las obligaciones se generar√°n en diversas oportunidades
 						tanto para la empresa como para el usuario, tales como las suscripciones especiales,
 						aprovisionamientos mensuales u otros servicios que se deban repetir posteriormente, el usuario
-						deber· optar por asociar la tarjeta de crÈdito que vaya a soportar el pago los dÌas en que este
+						deber√° optar por asociar la tarjeta de cr√©dito que vaya a soportar el pago los d√≠as en que este
 						se devengue.
 					</p>
 					<p class="mb-3 mt-3 fw-bold">II. De los plazos de entrega</p>
 					<p>
 						Considerando que, mientras persista la actual emergencia sanitaria producida por la pandemia de
-						Covid19, los plazos podr·n variar sutilmente, como RetroCicla informamos a nuestros usuarios que
-						una vez celebrado el contrato y despachada la orden de envÌo al medio m·s idÛneo a su ubicaciÛn
-						o al sitio designado en el acuerdo, usted como usuario deberÌa recibir su producto como m·ximo
-						dentro de la tercera semana desde que se celebrÛ el contrato, desde que se devengÛ el pago en su
-						tarjeta de crÈdito, o bien desde la fecha que hayan acordado las partes en el contrato. Sin
-						perjuicio de lo anterior y en la medida que las polÌticas de despacho de los medios empleados
-						asÌ lo permitan, RetroCicla contratar· el servicio con seguimiento del envÌo, enviando el cÛdigo
-						de seguimiento al usuario una vez este haya sido proveÌdo por la empresa de despacho.
+						Covid19, los plazos podr√°n variar sutilmente, como RetroCicla informamos a nuestros usuarios que
+						una vez celebrado el contrato y despachada la orden de env√≠o al medio m√°s id√≥neo a su ubicaci√≥n
+						o al sitio designado en el acuerdo, usted como usuario deber√≠a recibir su producto como m√°ximo
+						dentro de la tercera semana desde que se celebr√≥ el contrato, desde que se deveng√≥ el pago en su
+						tarjeta de cr√©dito, o bien desde la fecha que hayan acordado las partes en el contrato. Sin
+						perjuicio de lo anterior y en la medida que las pol√≠ticas de despacho de los medios empleados
+						as√≠ lo permitan, RetroCicla contratar√° el servicio con seguimiento del env√≠o, enviando el c√≥digo
+						de seguimiento al usuario una vez este haya sido prove√≠do por la empresa de despacho.
 					</p>
-					<p class="mb-3 mt-3 fw-bold">III. De los seguros en el envÌo.</p>
+					<p class="mb-3 mt-3 fw-bold">III. De los seguros en el env√≠o.</p>
 					<p>
 						Si el servicio contratado fuera de un valor importante o que la calidad y cantidad de los
-						productos ofrecidos por la empresa asÌ lo exigieran, RetroCicla podr· contratar un servicio de
-						seguro que velen por la carga enviada. Sin perjuicio de lo anterior, si el usuario asÌ lo estima
-						conveniente, podr· aquel con cargo personal contratar un seguro que recaiga sobre la carga
+						productos ofrecidos por la empresa as√≠ lo exigieran, RetroCicla podr√° contratar un servicio de
+						seguro que velen por la carga enviada. Sin perjuicio de lo anterior, si el usuario as√≠ lo estima
+						conveniente, podr√° aquel con cargo personal contratar un seguro que recaiga sobre la carga
 						objeto del servicio ofrecido.
 					</p>
-					<p class="mb-3 mt-3 fw-bold">IV. De la responsabilidad en el envÌo.</p>
+					<p class="mb-3 mt-3 fw-bold">IV. De la responsabilidad en el env√≠o.</p>
 					<p>
 						No obstante se deben respetar y cumplir los derechos y obligaciones que emanan directamente del
 						contrato celebrado tanto respecto de la empresa como respecto del usuario, es menester
@@ -186,11 +208,11 @@
 					<ul class="ms-4">
 						<li>
 							<p>
-								Contrato de ejecuciÛn instant·nea: visto y escogido el servicio deseado en nuestra
-								plataforma tecnolÛgica digital, dentro de los tres dÌas h·biles siguientes a haberse
-								celebrado el contrato, le enviaremos un correo electrÛnico a la direcciÛn virtual
-								seÒalada en sus datos personales, informando los datos relativos al servicio contratado
-								tales como el medio empleado para despachar el producto adquirido, el cÛdigo de
+								Contrato de ejecuci√≥n instant√°nea: visto y escogido el servicio deseado en nuestra
+								plataforma tecnol√≥gica digital, dentro de los tres d√≠as h√°biles siguientes a haberse
+								celebrado el contrato, le enviaremos un correo electr√≥nico a la direcci√≥n virtual
+								se√±alada en sus datos personales, informando los datos relativos al servicio contratado
+								tales como el medio empleado para despachar el producto adquirido, el c√≥digo de
 								seguimiento en caso de tenerlo, entre otros.
 							</p>
 						</li>
@@ -198,110 +220,110 @@
 							<p>
 								Servicio contratado durante un evento digital: si usted como usuario se beneficia de
 								contratar nuestros servicios a un valor inferior debido a un evento digital como lo es
-								el Cyberday o similares, deber· tener en cuenta que se respetar· el proceso anterior
-								salvo en lo que respecta al plazo de confirmaciÛn del servicio contratado, pasando de
-								ser tres dÌas h·biles desde la celebraciÛn del contrato a ocho dÌas h·biles contados
-								desde la celebraciÛn del mismo, lo anterior en consideraciÛn al aumento de la demanda y
+								el Cyberday o similares, deber√° tener en cuenta que se respetar√° el proceso anterior
+								salvo en lo que respecta al plazo de confirmaci√≥n del servicio contratado, pasando de
+								ser tres d√≠as h√°biles desde la celebraci√≥n del contrato a ocho d√≠as h√°biles contados
+								desde la celebraci√≥n del mismo, lo anterior en consideraci√≥n al aumento de la demanda y
 								de los servicios contratados durante el periodo que comprenda el evento digital.
-								Adicionalmente deber· tener presente que en atenciÛn a lo anterior, RetroCicla podr·
-								enviarle un correo a su casilla electrÛnica informando una alteraciÛn en la fecha de
-								envÌo dado los inconvenientes de la empresa de despacho a la cual se le habÌa
-								encomendado el envÌo del producto adquirido con la contrataciÛn del servicio producto de
-								las eventuales cuarentenas decretadas u otras modificaciones producto del actuar p˙blico
-								ante la presente situaciÛn de pandemia.
+								Adicionalmente deber√° tener presente que en atenci√≥n a lo anterior, RetroCicla podr√°
+								enviarle un correo a su casilla electr√≥nica informando una alteraci√≥n en la fecha de
+								env√≠o dado los inconvenientes de la empresa de despacho a la cual se le hab√≠a
+								encomendado el env√≠o del producto adquirido con la contrataci√≥n del servicio producto de
+								las eventuales cuarentenas decretadas u otras modificaciones producto del actuar p√∫blico
+								ante la presente situaci√≥n de pandemia.
 							</p>
 						</li>
 						<li>
 							<p>
 								En caso de tener dudas respecto a la aplicabilidad de los puntos anteriores a su
-								situaciÛn personal, como empresa le sugerimos cordialmente que se ponga en contacto con
-								nosotros mediante cualquiera de los medios seÒalados en el punto I. de las PolÌticas de
+								situaci√≥n personal, como empresa le sugerimos cordialmente que se ponga en contacto con
+								nosotros mediante cualquiera de los medios se√±alados en el punto I. de las Pol√≠ticas de
 								contacto.
 							</p>
 						</li>
 					</ul>
 					<p>
-						Finalmente, es necesario seÒalar que es de exclusiva responsabilidad de los usuarios seÒalar y
-						actualizar su direcciÛn postal dado que ser· esta la direcciÛn que se considerar· como v·lida al
-						momento de encargar a la empresa de transporte envÌe el producto objeto de nuestros servicios
-						ofrecidos a sus hogares, en tal sentido RetroCicla no se har· responsable en el evento que
-						ocurra una o m·s de las siguientes situaciones, debiendo ser el usuario quien pague por el
-						reenvÌo del objeto materia del servicio ofrecido:
+						Finalmente, es necesario se√±alar que es de exclusiva responsabilidad de los usuarios se√±alar y
+						actualizar su direcci√≥n postal dado que ser√° esta la direcci√≥n que se considerar√° como v√°lida al
+						momento de encargar a la empresa de transporte env√≠e el producto objeto de nuestros servicios
+						ofrecidos a sus hogares, en tal sentido RetroCicla no se har√° responsable en el evento que
+						ocurra una o m√°s de las siguientes situaciones, debiendo ser el usuario quien pague por el
+						reenv√≠o del objeto materia del servicio ofrecido:
 					</p>
 					<ul class="ms-4">
 						<li>
 							<p>Ausencia del cliente al momento de la entrega.</p>
 						</li>
 						<li>
-							<p>DirecciÛn postal incorrecta.</p>
+							<p>Direcci√≥n postal incorrecta.</p>
 						</li>
 						<li>
 							<p>
-								Negativa del usuario, familiar o conocido de aquel de aceptar el envÌo una vez que este
+								Negativa del usuario, familiar o conocido de aquel de aceptar el env√≠o una vez que este
 								haya llegado a su hogar.
 							</p>
 						</li>
 						<li>
 							<p>
-								Cambio de domicilio que no haya sido notificado vÌa actualizaciÛn de datos personales a
+								Cambio de domicilio que no haya sido notificado v√≠a actualizaci√≥n de datos personales a
 								la empresa.
 							</p>
 						</li>
 					</ul>
 					<p class="mb-3 mt-3 fw-bold">V. De los reembolsos.</p>
 					<p>
-						De forma similar a lo expresado en el punto II. de las PolÌticas de medios de pago, el usuario
-						conservar· siempre la facultad para dejar sin efecto el contrato celebrado, en la medida que
+						De forma similar a lo expresado en el punto II. de las Pol√≠ticas de medios de pago, el usuario
+						conservar√° siempre la facultad para dejar sin efecto el contrato celebrado, en la medida que
 						cumpla ciertos requisitos.
 					</p>
-					<p class="mb-3 mt-3">A. Caso de los contratos de ejecuciÛn instant·nea:</p>
+					<p class="mb-3 mt-3">A. Caso de los contratos de ejecuci√≥n instant√°nea:</p>
 					<p>
 						En el caso en comento, para dejar sin efecto el contrato tanto el usuario como la empresa no
-						deber·n haber cumplido o haber dado principio al cumplimiento de su respectiva obligaciÛn
+						deber√°n haber cumplido o haber dado principio al cumplimiento de su respectiva obligaci√≥n
 						contractual:
 					</p>
 					<ul class="ms-4">
 						<li>
 							<p>
 								Si el usuario ha pagado el valor del servicio y RetroCicla no lo ha prestado al tiempo
-								de la comunicaciÛn del cese de servicio, la empresa tendr· la obligaciÛn de enterar el
+								de la comunicaci√≥n del cese de servicio, la empresa tendr√° la obligaci√≥n de enterar el
 								total del valor pagado a la cuenta que haya designado el usuario.
 							</p>
 						</li>
 						<li>
 							<p>
-								Si el usuario nada ha pagado y la empresa no ha dado comienzo a la ejecuciÛn del
-								contrato, entonces aquel se dejar· sin efecto de pleno derecho, extinguiendo las
+								Si el usuario nada ha pagado y la empresa no ha dado comienzo a la ejecuci√≥n del
+								contrato, entonces aquel se dejar√° sin efecto de pleno derecho, extinguiendo las
 								obligaciones y responsabilidades para ambas partes.
 							</p>
 						</li>
 						<li>
 							<p>
-								Si RetroCicla ha principiado la ejecuciÛn de lo convenido y el usuario manifiesta su
-								intenciÛn de cesar el acuerdo, este ˙ltimo sÛlo podr· recuperar hasta entre un 80% y un
-								50% de lo pagado seg˙n sea el estado del servicio prestado.
+								Si RetroCicla ha principiado la ejecuci√≥n de lo convenido y el usuario manifiesta su
+								intenci√≥n de cesar el acuerdo, este √∫ltimo s√≥lo podr√° recuperar hasta entre un 80% y un
+								50% de lo pagado seg√∫n sea el estado del servicio prestado.
 							</p>
 						</li>
 						<li>
 							<p>
-								Si el servicio ofrecido por la empresa est· pronto a concluir, el usuario no podr· dejar
+								Si el servicio ofrecido por la empresa est√° pronto a concluir, el usuario no podr√° dejar
 								sin efecto el presente contrato.
 							</p>
 						</li>
 					</ul>
 					<p class="mb-3 mt-3">B. Caso de los contratos de tracto sucesivo:</p>
 					<p>
-						Dado que en estos contratos su obligaciÛn como usuario se devenga y paga autom·ticamente en el
+						Dado que en estos contratos su obligaci√≥n como usuario se devenga y paga autom√°ticamente en el
 						plazo acordado por las partes, entonces:
 					</p>
 					<ul class="ms-4">
 						<li>
 							<p>
 								Si se ha materializado el pago del mes correspondiente, no se ha solicitado servicios
-								concretos a la empresa, y usted como usuario ha manifestado su intenciÛn de no persistir
-								conforme a lo seÒalado en el punto relativo a la Facultad de retracto, entonces el
-								contrato ser· dejado convencionalmente sin efecto, sin perjuicio que se sigan las reglas
-								de reembolso seÒalados en el punto a. de estas polÌticas de acuerdo al estado de los
+								concretos a la empresa, y usted como usuario ha manifestado su intenci√≥n de no persistir
+								conforme a lo se√±alado en el punto relativo a la Facultad de retracto, entonces el
+								contrato ser√° dejado convencionalmente sin efecto, sin perjuicio que se sigan las reglas
+								de reembolso se√±alados en el punto a. de estas pol√≠ticas de acuerdo al estado de los
 								servicios prestados.
 							</p>
 						</li>
@@ -309,8 +331,8 @@
 							<p>
 								Si ha manifestado su deseo de no perseverar en el contrato con RetroCicla pero ha
 								enviado el correo fuera de plazo, o bien ha solicitado nuevos servicios a la empresa
-								dentro del plazo posterior tras haberse devengado el pago, el contrato subsistir· y
-								producir· todos sus efectos, no dando lugar al reembolso y obligando al usuario a pagar
+								dentro del plazo posterior tras haberse devengado el pago, el contrato subsistir√° y
+								producir√° todos sus efectos, no dando lugar al reembolso y obligando al usuario a pagar
 								los servicios adeudados.
 							</p>
 						</li>
@@ -333,7 +355,7 @@
 						</div>
 					</div>
 					<div class="col-sm-12 col-md-4 d-flex justify-content-center align-items-center seccion-final">
-						<p>CONT¡CTANOS</p>
+						<p>CONT√ÅCTANOS</p>
 						<div class="iconos">
 							<i class="bi bi-envelope ps-3 pe-3"></i>
 							<i class="bi bi-whatsapp pe-3"></i>
@@ -351,12 +373,13 @@
 					</div>
 					<div class="col-md-8 d-flex justify-content-end">
 						<div>
-							<a href="">TÈrminos y condiciones</a> | <a href="">PoÌtica de reembolso</a> |
-							<a href="pages/politicas-privacidad">PolÌtica de privacidad</a>
+							<a href="">T√©rminos y condiciones</a> | <a href="">Pol√≠tica de reembolso</a> |
+							<a href="pages/politicas-privacidad">Pol√≠tica de privacidad</a>
 						</div>
 					</div>
 				</div>
 			</div>
 		</footer>
 	</body>
-</html>>
+</html>
+>

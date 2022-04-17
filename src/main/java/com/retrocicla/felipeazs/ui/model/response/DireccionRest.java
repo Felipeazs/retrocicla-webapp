@@ -6,6 +6,7 @@ public class DireccionRest extends RepresentationModel<DireccionRest>{
 
 	private String direccionId;
 	private String calle;
+	private String departamento;
 	private String ciudad;
 	private String region;
 	private String tipo;
@@ -39,6 +40,12 @@ public class DireccionRest extends RepresentationModel<DireccionRest>{
 	}
 	public void setTipo(String tipo) {
 		this.tipo = tipo;
+	}
+	public String getDepartamento() {
+		return departamento;
+	}
+	public void setDepartamento(String departamento) {
+		this.departamento = departamento;
 	}
 	
 	

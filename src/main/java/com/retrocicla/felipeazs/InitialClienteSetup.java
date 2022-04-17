@@ -1,5 +1,6 @@
 package com.retrocicla.felipeazs;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
 
@@ -13,6 +14,7 @@ import org.springframework.stereotype.Component;
 
 import com.retrocicla.felipeazs.io.entity.AutoridadEntity;
 import com.retrocicla.felipeazs.io.entity.ClienteEntity;
+import com.retrocicla.felipeazs.io.entity.DireccionEntity;
 import com.retrocicla.felipeazs.io.entity.RolEntity;
 import com.retrocicla.felipeazs.io.repository.AutoridadRepository;
 import com.retrocicla.felipeazs.io.repository.ClienteRepository;
@@ -54,9 +56,34 @@ public class InitialClienteSetup {
 		if (rolAdmin == null) return;
 		
 		ClienteEntity admin = new ClienteEntity();
+		DireccionEntity casa = new DireccionEntity();
+		casa.setCalle("Calle 123");
+		casa.setDepartamento("123B");
+		casa.setCiudad("Valapraíso");
+		casa.setRegion("Valapraíso");
+		casa.setPais("Chile");
+		casa.setTipo("casa");
+		casa.setDireccionId(utils.generateDireccionId(30));
+		casa.setClienteDetails(admin);
+		
+		DireccionEntity trabajo = new DireccionEntity();
+		trabajo.setCalle("Calle 321");
+		trabajo.setDepartamento("321A");
+		trabajo.setCiudad("Viña del mar");
+		trabajo.setRegion("Valparaíso");
+		trabajo.setPais("Chile");
+		trabajo.setTipo("trabajo");
+		trabajo.setDireccionId(utils.generateDireccionId(30));
+		trabajo.setClienteDetails(admin);
+		
+		ArrayList<DireccionEntity> direcciones = new ArrayList<>();
+		direcciones.add(casa);
+		direcciones.add(trabajo);
+		
 		admin.setNombre("Felipe");
 		admin.setApellido("Zapata");
 		admin.setEmail("felipeazs@gmail.com");
+		admin.setDirecciones(direcciones);
 		admin.setEmailVerificationStatus(true);
 		admin.setClienteId(utils.generateClienteId(30));
 		admin.setEcryptedPassword(bcryptPasswordEncoder.encode("1234"));

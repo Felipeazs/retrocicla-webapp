@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib
 uri="http://www.springframework.org/tags/form" prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
-prefix="c"%>
+prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,7 +8,8 @@ prefix="c"%>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-
+		<meta name="_csrf" content="${_csrf.token}" />
+		<meta name="_csrf_header" content="${_csrf.headerName}" />
 		<!--JQuery-->
 		<script
 			src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -92,8 +93,26 @@ prefix="c"%>
 					</ul>
 				</div>
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
-					<a href="cliente"><i class="bi bi-person-circle"></i></a>
-					<a href="carrito"><i class="bi bi-bag"></i></a>
+					<div class="row">
+						<div class="bag">
+							<a href="/carrito"><i class="bi bi-bag"></i></a>
+							<div class="span text-center">${ tamano_carrito }</div>
+						</div>
+						<div class="person">
+							<a href="/login"><i class="bi bi-person-circle"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="col d-flex align-items-center justify-content-center">
+					<c:if test="${ not empty cliente }">
+						<a href="/logout"
+							><div class="row">
+								<div class="col-md-6 salir">
+									<span class="text-white d-flex justify-content-start">Salir</span>
+								</div>
+							</div>
+						</a>
+					</c:if>
 				</div>
 			</div>
 		</nav>
@@ -103,43 +122,282 @@ prefix="c"%>
 					<h3 class="fw-bold">Teinda Retrocicla</h3>
 					<hr />
 					<dl>
-						<dt class="text-decoration-underline">Materiales</dt>
-						<dd><i class="fa-solid fa-chevron-right active"></i><button>Fibras Naturales</button></dd>
-						<dd><i class="fa-solid fa-chevron-right"></i><button>Fibras Sintéticas</button></dd>
-						<dd><i class="fa-solid fa-chevron-right"></i><button>Fibras Artificiales</button></dd>
-						<dd><i class="fa-solid fa-chevron-right"></i><button>Fibras Origen Animal</button></dd>
+						<dt class="text-decoration-underline">Búsqueda avanzada</dt>
+						<dd>
+							<p>
+								<a
+									class="btn btn-transparent"
+									data-bs-toggle="collapse"
+									href="#tipo"
+									role="button"
+									aria-expanded="false"
+									aria-controls="collapseExample"
+								>
+									<i class="fa-solid fa-chevron-right"></i>
+									Tipo
+								</a>
+							</p>
+							<div class="collapse" id="tipo">
+								<div class="card card-body">
+									<label for="_prenda"
+										><input type="radio" value="prenda" id="_prenda" name="_tipo" /> Prenda
+									</label>
+									<label for="_material"
+										><input type="radio" value="material" id="_material" name="_tipo" />
+										Material
+									</label>
+								</div>
+							</div>
+						</dd>
+						<dd>
+							<p>
+								<a
+									class="btn btn-transparent"
+									data-bs-toggle="collapse"
+									href="#prenda"
+									role="button"
+									aria-expanded="false"
+									aria-controls="collapseExample"
+								>
+									<i class="fa-solid fa-chevron-right"></i>
+									Prenda
+								</a>
+							</p>
+							<div class="collapse" id="prenda">
+								<div class="card card-body">
+									<label for="_pantalon"
+										><input type="radio" value="pantalón" id="_pantalon" name="_prenda" />
+										Pantalón
+									</label>
+									<label for="_polera"
+										><input type="radio" value="polera" id="_polera" name="_prenda" />
+										Polera
+									</label>
+								</div>
+							</div>
+						</dd>
+
+						<dd>
+							<p>
+								<a
+									class="btn btn-transparent"
+									data-bs-toggle="collapse"
+									href="#genero"
+									role="button"
+									aria-expanded="false"
+									aria-controls="collapseExample"
+								>
+									<i class="fa-solid fa-chevron-right"></i>
+									Género
+								</a>
+							</p>
+							<div class="collapse" id="genero">
+								<div class="card card-body">
+									<label for="_femenino"
+										><input type="radio" value="femenino" id="_femenino" name="_genero" />
+										Femenino</label
+									>
+									<label for="_masculino"
+										><input type="radio" value="masculino" id="_masculino" name="_genero" />
+										Masculino</label
+									>
+									<label for="_unisex"
+										><input type="radio" value="unisex" id="_unisex" name="_genero" /> Unisex</label
+									>
+								</div>
+							</div>
+						</dd>
+						<dd>
+							<p>
+								<a
+									class="btn btn-transparent"
+									data-bs-toggle="collapse"
+									href="#talla"
+									role="button"
+									aria-expanded="false"
+									aria-controls="collapseExample"
+								>
+									<i class="fa-solid fa-chevron-right"></i>
+									Talla
+								</a>
+							</p>
+							<div class="collapse" id="talla">
+								<div class="card card-body">
+									<label for="_s"><input type="radio" value="s" id="_s" name="_talla" /> s </label>
+									<label for="_m"><input type="radio" value="m" id="_m" name="_talla" /> m </label>
+									<label for="_36"
+										><input type="radio" value="36" id="_36" name="_talla" /> 36
+									</label>
+								</div>
+							</div>
+						</dd>
+						<dd>
+							<p>
+								<a
+									class="btn btn-transparent"
+									data-bs-toggle="collapse"
+									href="#color"
+									role="button"
+									aria-expanded="false"
+									aria-controls="collapseExample"
+								>
+									<i class="fa-solid fa-chevron-right"></i>
+									Color
+								</a>
+							</p>
+							<div class="collapse" id="color">
+								<div class="card card-body">
+									<label for="_azul"
+										><input type="radio" value="azul" id="_azul" name="_color" /> Azul</label
+									>
+									<label for="_blanco"
+										><input type="radio" value="blanco" id="_blanco" name="_color" /> Blanco</label
+									>
+									<label for="_negro"
+										><input type="radio" value="negro" id="_negro" name="_color" /> Negro</label
+									>
+									<label for="_cafe"
+										><input type="radio" value="café" id="_cafe" name="_color" /> Café</label
+									>
+								</div>
+							</div>
+						</dd>
+						<dd>
+							<p>
+								<a
+									class="btn btn-transparent"
+									data-bs-toggle="collapse"
+									href="#material"
+									role="button"
+									aria-expanded="false"
+									aria-controls="collapseExample"
+								>
+									<i class="fa-solid fa-chevron-right"></i>
+									Material
+								</a>
+							</p>
+							<div class="collapse" id="material">
+								<div class="card card-body">
+									<label for="_algodón"
+										><input type="radio" value="algodón" id="_algodón" name="_material" />
+										Algodón</label
+									>
+									<label for="_poliester"
+										><input type="radio" value="poliester" id="_poliester" name="_material" />
+										Poliester</label
+									>
+									<label for="_spandex"
+										><input type="radio" value="spandex" id="_spandex" name="_material" />
+										spandex</label
+									>
+								</div>
+							</div>
+						</dd>
+						<dd>
+							<p>
+								<a
+									class="btn btn-transparent"
+									data-bs-toggle="collapse"
+									href="#patron"
+									role="button"
+									aria-expanded="false"
+									aria-controls="collapseExample"
+								>
+									<i class="fa-solid fa-chevron-right"></i>
+									Patrón
+								</a>
+							</p>
+							<div class="collapse" id="patron">
+								<div class="card card-body">
+									<label for="_patron"
+										><input type="radio" value="true" id="_patron" name="_patron" /> patrón
+									</label>
+									<label for="_liso"
+										><input type="radio" value="false" id="_liso" name="_patron" /> liso
+									</label>
+								</div>
+							</div>
+						</dd>
+						<dd>
+							<p>
+								<a
+									class="btn btn-transparent"
+									data-bs-toggle="collapse"
+									href="#origen"
+									role="button"
+									aria-expanded="false"
+									aria-controls="collapseExample"
+								>
+									<i class="fa-solid fa-chevron-right"></i>
+									Origen
+								</a>
+							</p>
+							<div class="collapse" id="origen">
+								<div class="card card-body">
+									<label for="_china"
+										><input type="radio" value="china" id="_china" name="_origen" /> China
+									</label>
+									<label for="_chile"
+										><input type="radio" value="chile" id="_chile" name="_origen" /> Chile
+									</label>
+								</div>
+							</div>
+						</dd>
 					</dl>
 					<hr />
 					<a href="" class="text-decoration-underline">Accesorios </a>
 					<hr />
 					<a href="" class="text-decoration-underline">Servicios</a>
 					<hr />
+					<!-- <security:csrf disabled="false" /> -->
+					<button class="btn btn-outline-primary text-align-center" onclick="buscarProductos()">
+						Buscar
+					</button>
 				</div>
 				<div class="col">
 					<div class="sub-columna-2">
 						<h3 class="fw-bold">${ titulo }</h3>
 					</div>
 					<hr />
-					<div class="row">
-						<c:forEach items="${ productos }" var="p">
-							<div class="col-md-4 galeria-materiales">
-								<a href="/item/${ p.productoId }">
-									<div class="galeria-cell">
-										<img class="img-responsive" src="${ p.imageUrl }" alt="" />
-										<i class="fa-solid fa-bag-shopping fa-2x"></i>
+					<c:choose>
+						<c:when test="${ not empty productos }">
+							<div id="productos_encontrados" class="row">
+								<c:forEach items="${ productos }" var="p">
+									<div class="col-md-4 galeria-materiales">
+										<a href="/item/${ p.productoId }">
+											<div class="galeria-cell">
+												<img
+													id="p_imageUrl"
+													class="img-responsive"
+													src="${ p.imageUrl }"
+													alt=""
+												/>
+												<i class="fa-solid fa-bag-shopping fa-2x"></i>
+											</div>
+										</a>
+										<div class="row">
+											<div class="col-sm-12 col-md-12 ps-4 item">
+												<div><span>${ p.descripcion }</span></div>
+												<div>
+													<span class="fs-5">Material: </span><span>${ p.material }</span>
+												</div>
+												<div>
+													<span class="fs-5">Talla: </span>
+													<span class="fs-5">${ p.talla }</span>
+												</div>
+												<div>
+													<strong class="fs-3">${ p.formato_precio }</strong>
+												</div>
+											</div>
+										</div>
 									</div>
-								</a>
-								<div class="row">
-									<div class="col-sm-12 col-md-12 ps-4 item">
-										<div><span>${ p.descripcion }</span></div>
-										<div><span>Material: ${ p.material }</span></div>
-										<div><span class="fs-5">Talla: ${ p.tamano }</span></div>
-										<div><strong class="fs-3">${ p.formato_precio }</strong></div>
-									</div>
-								</div>
+								</c:forEach>
 							</div>
-						</c:forEach>
-					</div>
+						</c:when>
+						<c:otherwise>
+							<p>No se encontró ningún artículo</p>
+						</c:otherwise>
+					</c:choose>
 				</div>
 			</div>
 		</section>
@@ -216,4 +474,3 @@ prefix="c"%>
 		</footer>
 	</body>
 </html>
->

@@ -29,14 +29,17 @@ public class ProductoEntity implements Serializable {
 	@Column(name = "prenda", nullable=false)
     private String prenda;
 
-    @Column(name = "tamano", nullable=false)
-    private String tamano;
+    @Column(name = "talla", nullable=false)
+    private String talla;
     
     @Column(name = "estilo", nullable=false)
     private String estilo;
     
     @Column(name = "color", nullable=false)
     private String color;  
+    
+    @Column(name = "patron", nullable=false)
+    private boolean patron;  
     
     @Column(name = "genero", nullable=true)
     private String genero;
@@ -50,8 +53,8 @@ public class ProductoEntity implements Serializable {
     @Lob
     private String imageUrl;
     
-    @Column(name="hechoEn")
-    private String hechoEn;
+    @Column(name="origen")
+    private String origen;
         
     @Column(name="material")
     private String material;
@@ -71,6 +74,8 @@ public class ProductoEntity implements Serializable {
     private int algodon;
     
     private int spandex;
+    
+    private String codigo;
  
     public int getId() {
 		return id;
@@ -95,14 +100,6 @@ public class ProductoEntity implements Serializable {
 	public void setPrenda(String prenda) {
 		this.prenda = prenda;
 	}
-
-	public String getTamano() {
-        return tamano;
-    }
-
-    public void setTamano(String tamano) {
-        this.tamano = tamano;
-    }
 
 	public int getPrecio() {
 		return precio;
@@ -134,14 +131,6 @@ public class ProductoEntity implements Serializable {
 
 	public void setDescripcion(String descripcion) {
 		this.descripcion = descripcion;
-	}
-
-	public String getHechoEn() {
-		return hechoEn;
-	}
-
-	public void setHechoEn(String hechoEn) {
-		this.hechoEn = hechoEn;
 	}
 
 	public int getAlgodon() {
@@ -221,7 +210,40 @@ public class ProductoEntity implements Serializable {
 
 	public void setEstacion(String estacion) {
 		this.estacion = estacion;
+	}
+
+	public String getTalla() {
+		return talla;
+	}
+
+	public void setTalla(String talla) {
+		this.talla = talla;
+	}
+
+	public boolean getPatron() {
+		return patron;
+	}
+
+	public void setPatron(boolean patron) {
+		this.patron = patron;
+	}
+
+	public String getOrigen() {
+		return origen;
+	}
+
+	public void setOrigen(String origen) {
+		this.origen = origen;
+	}
+
+	public String getCodigo() {
+		return codigo;
+	}
+
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
 	}	
+	
 	
 	
 }

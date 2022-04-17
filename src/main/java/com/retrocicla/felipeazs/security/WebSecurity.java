@@ -7,7 +7,6 @@ import org.springframework.security.config.annotation.method.configuration.Enabl
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
-import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -38,7 +37,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		.antMatchers(HttpMethod.GET, SecurityConstants.GET_PRODUCTS_URL).permitAll()
 		.antMatchers(HttpMethod.POST, SecurityConstants.PASSWORD_RESET_REQUEST_URL).permitAll()
 		.antMatchers(HttpMethod.POST, SecurityConstants.PASSWORD_RESET_URL).permitAll()
-		.antMatchers(HttpMethod.POST, "/productos").permitAll()
+		.antMatchers(HttpMethod.GET, "/productos/**").permitAll()
 		//.antMatchers(HttpMethod.DELETE, "/clientes/**").hasRole("ADMIN")
 		.antMatchers("/swagger-ui/**", "/api-docs")
 		.permitAll()
@@ -58,27 +57,30 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				"/politicas-contacto",
 				"/politicas-pago",
 				"/politicas-despacho",
-				"/productos/ropa",
 				"/email-verification", 
 				"/password-reset", 
 				"/password-reset-request").permitAll()
-		.antMatchers(HttpMethod.POST, "/carrito/agregar/{productoId}").hasAnyAuthority("WRITE_AUTORIDAD")
-		.antMatchers("/producto/{productoId}", "/informacion-usuario", "/informacion-envio", "/informacion-pago", "/redirigiendo").hasAnyAuthority("READ_AUTORIDAD")
+		.antMatchers(
+				"/producto/{productoId}", 
+				"/informacion-usuario", 
+				"/informacion-envio", 
+				"/informacion-pago", 
+				"/redirigiendo", 
+				"/carrito/**").hasAnyAuthority("READ_AUTORIDAD")
+		.antMatchers(HttpMethod.POST, "/carritos/**").hasAnyAuthority("READ_AUTORIDAD")
+		.antMatchers(HttpMethod.DELETE, "/carritos/${productoId}").hasAnyAuthority("WRITE_AUTORIDAD")
 		.anyRequest()
 		.authenticated()
 		.and()
 		.httpBasic()
 		.and()
-        .formLogin()
-        .loginPage("/login")
-        .usernameParameter("username")
-        .passwordParameter("password")
+        .formLogin().loginPage("/login")
         //.successHandler(successLoginHandler())
         .permitAll()
         .and()
         .logout()
-        .logoutRequestMatcher(new AntPathRequestMatcher("/logout"))
-		.logoutSuccessUrl("/");	
+        .logoutRequestMatcher(new AntPathRequestMatcher("/logout")).logoutSuccessUrl("/login");
+//		.and()
 //		.and().addFilter(getAuthenticationFilter())
 //		.addFilter(new AuthorizationFilter(authenticationManager(), clienteRepo))
 //		.sessionManagement()

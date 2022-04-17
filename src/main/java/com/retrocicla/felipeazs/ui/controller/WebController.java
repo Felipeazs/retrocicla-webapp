@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 import com.retrocicla.felipeazs.io.entity.CarritoEntity;
 import com.retrocicla.felipeazs.io.entity.ClienteEntity;
+import com.retrocicla.felipeazs.io.entity.OrdenesEntity;
 import com.retrocicla.felipeazs.io.entity.ProductoEntity;
 import com.retrocicla.felipeazs.model.CalculoTotalModel;
 import com.retrocicla.felipeazs.model.dto.CarritoDto;
@@ -28,6 +29,7 @@ import com.retrocicla.felipeazs.model.dto.DireccionDto;
 import com.retrocicla.felipeazs.model.dto.ProductoDto;
 import com.retrocicla.felipeazs.service.CarritoService;
 import com.retrocicla.felipeazs.service.ClienteService;
+import com.retrocicla.felipeazs.service.OrdenesService;
 import com.retrocicla.felipeazs.service.ProductoService;
 import com.retrocicla.felipeazs.ui.model.request.CarritoRequestModel;
 import com.retrocicla.felipeazs.ui.model.request.ClienteRequestModel;
@@ -45,6 +47,9 @@ public class WebController {
 	
 	@Autowired
 	private ClienteService clienteService;
+	
+	@Autowired
+	private OrdenesService ordenesService;
 	
 	@ModelAttribute("producto")
 	private ProductoEntity setProduct() {
@@ -84,10 +89,7 @@ public class WebController {
 	@GetMapping("/")
 	public String getIndex(Model model, Authentication auth) {
 		
-//		List<ArrayList<String>> multipleSelect = productoService.getMultipleSelection();
-//		model.addAttribute("multipleSelect", multipleSelect);
-//		
-//		calculoTotalDelCliente(model, auth);
+		autenticacion(model, auth);
 				
 		return "index";
 	}
@@ -95,11 +97,15 @@ public class WebController {
 	@GetMapping("/tienda")
 	public String getTienda(Model model, Authentication auth) {
 		
+		autenticacion(model, auth);
+		
 		return "tienda";
 	}
 	
 	@GetMapping("/catalogo/{tipo_de_producto}")
 	public String getCatalogo(@PathVariable String tipo_de_producto, Model model, Authentication auth) {
+		
+		autenticacion(model, auth);
 		
 		List<ProductoRest> returnValue = new ArrayList<>();
 		
@@ -109,8 +115,8 @@ public class WebController {
 			productos = productoService.listarProducts(1, 25);
 			model.addAttribute("titulo", "Catálogo");
 		} else {
-			productos = productoService.buscarPorPrenda(tipo_de_producto);
-			model.addAttribute("titulo", productos.get(0).getTipo());
+			productos = productoService.buscarPorPrenda(tipo_de_producto);			
+			model.addAttribute("titulo", tipo_de_producto);			
 		}
 		
 		ModelMapper modelMapper = new ModelMapper();
@@ -124,7 +130,9 @@ public class WebController {
 	}
 	
 	@GetMapping("/item/{productoId}")
-	public String getDetalleItem(@PathVariable String productoId, Model model) {
+	public String getDetalleItem(@PathVariable String productoId, Model model, Authentication auth) {
+		
+		autenticacion(model, auth);
 		
 		ProductoRest returnValue = new ProductoRest();
 		
@@ -138,14 +146,11 @@ public class WebController {
 	}
 	
 	@GetMapping("/informacion-usuario")
-	public String getInformacionUsuario(@ModelAttribute ProductoRequestModel producto_detalles, Model model, Authentication auth) {
+	public String getInformacionUsuario(Model model, Authentication auth) {
 				
-		System.out.println(producto_detalles.getProductoId());
+		autenticacion(model, auth);
 		
 		ClienteDto cliente = clienteService.obtenerClienteByEmail(auth.getName());
-		CarritoDto producto = new CarritoDto();		
-		BeanUtils.copyProperties(producto_detalles, producto);		
-		carritoService.agregarProductoAlCarrito(producto, cliente);
 			
 		ModelMapper modelMapper = new ModelMapper();
 		ClienteRest returnCliente = modelMapper.map(cliente, ClienteRest.class);
@@ -165,6 +170,8 @@ public class WebController {
 	@GetMapping("/informacion-envio")
 	public String getInformacionEnvio(@ModelAttribute CarritoRequestModel carrito_detalle, Model model, Authentication auth) {
 		
+		autenticacion(model, auth);
+		
 		ClienteDto cliente = clienteService.obtenerClienteByEmail(auth.getName());
 		carritoService.actualizarCarritoDetalleCliente(carrito_detalle, cliente);
 		
@@ -183,9 +190,89 @@ public class WebController {
 	@GetMapping("/informacion-pago")
 	public String getInformacionPago(@RequestParam String radio, Model model, Authentication auth) {
 		
-		ClienteDto cliente = clienteService.obtenerClienteByEmail(auth.getName());
+		autenticacion(model, auth);
 		
+		ClienteDto cliente = clienteService.obtenerClienteByEmail(auth.getName());		
 		carritoService.actualizarCarritoEnvio(radio, cliente);	
+		
+		ModelMapper modelMapper = new ModelMapper();
+		List<CarritoRest> returnProductos = new ArrayList<>();
+		
+		try {
+			List<CarritoDto> productos = carritoService.obtenerTodosPorCliente(cliente.getClienteId());
+			
+			for (CarritoDto prod : productos) {
+				returnProductos.add(modelMapper.map(prod, CarritoRest.class));
+			}
+			
+			model.addAttribute("cliente", returnProductos.get(0));
+			model.addAttribute("productos", returnProductos);
+		} catch (IndexOutOfBoundsException ex) {
+			return "informacion-pago";
+		}
+		
+		
+		return "informacion-pago";
+	}
+	
+	@GetMapping("/redirigiendo")
+	public String getRedireccion(@RequestParam String radio1, String radio2, ClienteEntity detalle_cliente,  Model model, Authentication auth) {
+			
+		ClienteDto cliente = clienteService.obtenerClienteByEmail(auth.getName());		
+		carritoService.actualizarCarritoPago(radio1, cliente);
+		
+		List<CarritoDto> carrito_cliente = carritoService.obtenerTodosPorCliente(cliente.getClienteId());
+		List<OrdenesEntity> ordenes = new ArrayList<>();
+		ModelMapper modelMapper = new ModelMapper();
+		for (CarritoDto producto : carrito_cliente) {
+			ordenes.add(modelMapper.map(producto, OrdenesEntity.class));			
+		}
+				
+		ordenesService.agregarOrden(ordenes, cliente);	
+			
+		carritoService.eliminarProductos(cliente.getClienteId());
+		
+		return "/redirigiendo";
+	}
+	
+	@GetMapping("/somos")
+	public String getSomos(Model model, Authentication auth) {
+		
+		autenticacion(model, auth);
+		
+		return "somos";
+	}
+		
+	@GetMapping("/donaciones")
+	public String getDonaciones(Model model, Authentication auth) {
+		
+		autenticacion(model, auth);
+		
+		return "donaciones";
+	}
+	
+	@GetMapping("/blog")
+	public String getBlog(Model model, Authentication auth) {
+		
+		autenticacion(model, auth);
+		
+		return "blog";
+	}
+	
+	@GetMapping("/noticias")
+	public String getNoticias(Model model, Authentication auth) {
+		
+		autenticacion(model, auth);
+		
+		return "noticias";
+	}
+	
+	@GetMapping("/carrito")
+	public String getCarrito(Model model, Authentication auth) {
+		
+		autenticacion(model, auth);
+		
+		ClienteDto cliente = clienteService.obtenerClienteByEmail(auth.getName());
 		
 		ModelMapper modelMapper = new ModelMapper();
 		List<CarritoRest> returnProductos = new ArrayList<>();
@@ -195,46 +282,16 @@ public class WebController {
 			returnProductos.add(modelMapper.map(prod, CarritoRest.class));
 		}
 		
-		model.addAttribute("cliente", returnProductos.get(0));
-		
-		return "informacion-pago";
-	}
-	
-	@GetMapping("/redirigiendo")
-	public String getRedireccion(@RequestParam String radio1, String radio2, ClienteEntity detalle_cliente,  Model model, Authentication auth) {
+		model.addAttribute("productos", returnProductos);
 			
-		System.out.println(radio1);
-		ClienteDto cliente = clienteService.obtenerClienteByEmail(auth.getName());
-		
-		carritoService.actualizarCarritoPago(radio1, cliente);
-		
-		return "/redirigiendo";
+		return "carrito";
 	}
 	
-	@GetMapping("/somos")
-	public String getSomos(Model model, Authentication auth) {
-		
-		return "somos";
-	}
 	
-	@GetMapping("/donaciones")
-	public String getDonaciones(Model model, Authentication auth) {
-		
-		return "donaciones";
-	}
-	
-	@GetMapping("/blog")
-	public String getBlog(Model model, Authentication auth) {
-		
-		return "blog";
-	}
-	@GetMapping("/noticias")
-	public String getNoticias(Model model, Authentication auth) {
-		
-		return "noticias";
-	}
 	@GetMapping("/politicas-privacidad")
 	public String getPoliticasPrivacidad(Model model, Authentication auth) {
+		
+		autenticacion(model, auth);
 		
 		return "politicas-privacidad";
 	}
@@ -242,11 +299,15 @@ public class WebController {
 	@GetMapping("/politicas-contacto")
 	public String getPoliticasContacto(Model model, Authentication auth) {
 		
+		autenticacion(model, auth);
+		
 		return "politicas-contacto";
 	}
 	
 	@GetMapping("/politicas-pago")
 	public String getPoliticasPago(Model model, Authentication auth) {
+		
+		autenticacion(model, auth);
 		
 		return "politicas-pago";
 	}
@@ -254,82 +315,49 @@ public class WebController {
 	@GetMapping("/politicas-despacho")
 	public String getPoliticasDespacho(Model model, Authentication auth) {
 		
+		autenticacion(model, auth);
+		
 		return "politicas-despacho";
-	}
-	
-	@GetMapping("/productos/ropa")
-	public String getRopasPage(Model model, Authentication auth) {
+	}	
+
+	@GetMapping("/login")
+	public String postLogin(Model model, Authentication auth) {	
 		
-		calculoTotalDelCliente(model, auth);
-		
-		List<ProductoRest> returnValue = new ArrayList<>();
+		autenticacion(model, auth);
 				
-		List<ProductoDto> productos = productoService.buscarPorPrenda("prenda");
-		
-		ModelMapper modelMap = new ModelMapper();
-		for (ProductoDto producto : productos) {
-			returnValue.add(modelMap.map(producto, ProductoRest.class));
-		}	
-				
-		System.out.println(productos.size());
-		
-		model.addAttribute("productos", returnValue);	
-
-		return "listado-productos";
+		return "login";
 	}
 	
-	@GetMapping("/producto/{productoId}")
-	public String irAlDetalleDeProducto(@RequestParam String productoId,
-			Model model) {
-		
-		ProductoRest returnValue = new ProductoRest();
-
-		ProductoDto productoDto = productoService.obtenerProductoPorId(productoId);
-		BeanUtils.copyProperties(productoDto, returnValue);
-		
-		model.addAttribute("product", returnValue);
-
-		return "detalle-producto";
+	@GetMapping("/email-verification")
+	public String getEmailVerification() {
+		return "email-verification";
 	}
 	
-
-	@GetMapping("/carrito")
-	public String getProductDetails(Model model, Authentication auth) {
-		
-		String email = auth.getName();
-
-		List<CarritoRest> returnValue = new ArrayList<>();
-		
-		List<CarritoDto> carritos = carritoService.obtenerTodosPorCliente(email);
-		ModelMapper modelMapper = new ModelMapper();
-		for (CarritoDto carrito : carritos) {
-			returnValue.add(modelMapper.map(carrito, CarritoRest.class));
-		}
-		
-		System.out.println(returnValue.get(0).getCantidad());
-
-		model.addAttribute("carrito", returnValue);
-		
-		calculoTotalDelCliente(model, auth);
-
-		return "detalle-carrito"; 
+	@GetMapping("/password-reset-request")
+	public String getPasswordResetRequest() {
+		return "/password-reset";
 	}
 	
-	private void calculoTotalDelCliente(Model model, Authentication auth) {
-		CalculoTotalModel calculo = new CalculoTotalModel();
+//	FUNCIONES
+		
+	private void autenticacion(Model model, Authentication auth) {
+		
 		try {
-			 calculo = carritoService.calcularTotalCliente(auth.getName());
-		} catch(NullPointerException ex) {
+			ClienteDto cliente = clienteService.obtenerClienteByEmail(auth.getName());
+			ModelMapper modelMapper = new ModelMapper();
+			ClienteRest returnCliente = modelMapper.map(cliente, ClienteRest.class);
 			
-			System.out.println(ex.getMessage());
-			calculo.setQuantity(0);
-			calculo.setTotalprice("$0");
-		}		
-	
-		model.addAttribute("totalquantity", calculo.getQuantity());
-		model.addAttribute("totalamount", calculo.getTotalprice());
+			List<CarritoDto> carrito = carritoService.obtenerTodosPorCliente(cliente.getClienteId());
+			
+			model.addAttribute("tamano_carrito", carrito.size());
+			model.addAttribute("cliente", returnCliente);
+		} catch (NullPointerException ex){
+			model.addAttribute("cliente", "");
+			model.addAttribute("tamano_carrito", "0");
+		}
 	}
 	
+}
 //	
 //	@PostMapping("/registrarcliente")
 //	public String getRegistroCliente(@Valid @ModelAttribute("cliente") Cliente cliente, BindingResult br, Model model) {
@@ -481,19 +509,4 @@ public class WebController {
 //			model.addAttribute("totalamount", 0);
 //		}
 //	}
-	
-	@GetMapping("/login")
-	public String postLogin() {				
-		return "login";
-	}
-	
-	@GetMapping("/email-verification")
-	public String getEmailVerification() {
-		return "email-verification";
-	}
-	
-	@GetMapping("/password-reset-request")
-	public String getPasswordResetRequest() {
-		return "/password-reset";
-	}
-}
+

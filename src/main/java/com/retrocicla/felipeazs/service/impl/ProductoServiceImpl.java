@@ -2,8 +2,14 @@ package com.retrocicla.felipeazs.service.impl;
 
 import java.text.NumberFormat;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.HashSet;
+import java.util.Iterator;
+import java.util.LinkedHashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.BeanUtils;
@@ -46,8 +52,11 @@ public class ProductoServiceImpl implements ProductoService {
 		System.out.println(newProduct.getTipo());
 		
 		String productoId = utils.generateProductId(10);
+		String codigo = utils.generateProductoCodigo(productDto);
 		newProduct.setProductoId(productoId);
+		newProduct.setCodigo(codigo);
 		newProduct.setFormato_precio(formatPrice(productDto.getPrecio()));
+		
 		
 		ProductoEntity savedProduct = productoRepo.save(newProduct);
 		
@@ -192,26 +201,29 @@ public class ProductoServiceImpl implements ProductoService {
 		String[] texto = productType.split("_");
 		
 		for (String txt : texto) {
-			System.out.println(txt);
 			items.add(txt);
 		}
-		
-		System.out.println("nombre: "+ productType + " tamaño: " + texto.length);
-		
+				
 		List<ProductoDto> returnValue = new ArrayList<>();
 		List<ProductoEntity> productos =new ArrayList<>();
 		
-		if (productType.equals("prenda") || productType.equals("material")) {
-			productos = productoRepo.findAllByTipoOrderByPrendaAsc(productType);
-		} else if (productType.equals("outdoor") || productType.equals("casual")) {
-			productos = productoRepo.findAllByEstiloOrderByPrendaAsc(productType);
-		} else if (productType.equals("sintética") || productType.equals("natural") || productType.equals("artificial") || productType.equals("origen animal")) {
-			productos = productoRepo.findAllByFibra(productType);
-		} else if (productType.equals("algodón") || productType.equals("spandex") || productType.equals("poliester")) {
-			productos = productoRepo.findAllByMaterial(productType);
-		} else if (texto.length > 1) {
-			productos = productoRepo.findAllByPrendaAndGeneroOrderByPrendaAsc(items.get(0), items.get(1));
-		} 
+		try {
+			if (productType.equals("prenda") || productType.equals("material")) {
+				productos = productoRepo.findAllByTipoOrderByPrendaAsc(productType);
+			} else if (productType.equals("outdoor") || productType.equals("casual")) {
+				productos = productoRepo.findAllByEstiloOrderByPrendaAsc(productType);
+			} else if (productType.equals("sintética") || productType.equals("natural") || productType.equals("artificial") || productType.equals("origen animal")) {
+				productos = productoRepo.findAllByFibra(productType);
+			} else if (productType.equals("algodón") || productType.equals("spandex") || productType.equals("poliester")) {
+				productos = productoRepo.findAllByMaterial(productType);
+			} else if (texto.length > 1) {
+				productos = productoRepo.findAllByPrendaAndGeneroOrderByPrendaAsc(items.get(0), items.get(1));
+			} else {
+				productos = productoRepo.findAllByPrendaOrderByPrendaAsc(productType);
+			}
+		} catch (NullPointerException ex) {
+			return returnValue;
+		}
 				
 		ModelMapper modelMap = new ModelMapper();
 		for (ProductoEntity producto : productos) {
@@ -221,52 +233,32 @@ public class ProductoServiceImpl implements ProductoService {
 		
 		return returnValue;
 	}
+
+	@Override
+	public List<ProductoDto> buscarProductos(ProductoDto producto, int page, int limit) {
+		
+		String codigo = utils.generateProductoCodigo(producto);
+		
+		if (page > 0)
+			page = page - 1;
+
+		List<ProductoDto> returnValue = new ArrayList<>();
+
+		Pageable pageableReq = PageRequest.of(page, limit);
+		
+		ModelMapper modelMapper = new ModelMapper();
+
+		Page<ProductoEntity> pageProducts  = productoRepo.findByCodigoLike(codigo, pageableReq);
+				
+		if (pageProducts == null) throw new ProductoServiceException(ErrorMessages.NO_RECORD_FOUND.getErrorMessage());
+				
+		List<ProductoEntity> products = pageProducts.getContent();	
+				
+		for (ProductoEntity prod : products) {
+			returnValue.add(modelMapper.map(prod, ProductoDto.class));
+		}	
+	
+		
+		return returnValue;
+	}
 }
-//
-//	
-//
-//	@Override
-//	public List<ProductEntity> searchProducts(ProductEntity product) {		
-//				
-//		int sizeIndex = product.getSize().indexOf(',');		
-//				
-//		if (product.getType().equals("tela")) {					
-//			product.setGenre("indefinido");
-//			product.setStyle("indefinido");
-//		    product.setSeason("indefinido");
-//			product.setWear("indefinido");
-//			product.setSize(product.getSize().substring(sizeIndex + 1));
-//		} else if (product.getType().equals("prenda") && sizeIndex > 0) {			
-//			product.setSize(product.getSize().substring(0, sizeIndex));
-//		} else {
-//			product.setSize(product.getSize());
-//		}
-//						
-//		String type = product.getType();
-//		String material = product.getMaterial();		
-//		String wear = product.getWear();
-//		String color = product.getColor();
-//		String size = product.getSize();
-//		String style = product.getStyle();
-//		String genre = product.getGenre();
-//		String season = product.getSeason();
-//		String madeIn = product.getMade();
-//				
-//		return repo.findByTypeAndMaterialAndWearAndColorAndSizeAndStyleAndGenreAndSeasonAndMade(type, material, wear, color, size, style, genre, season, madeIn);
-//	}
-//
-//	@Override
-//	public ProductEntity getProductById(int id) {
-//		
-//		return repo.findById(id);
-//	}
-//
-//	@Override
-//	public List<ProductEntity> listById(ArrayList<Integer> pps) {
-//		
-//		List<ProductEntity> products = repo.findAllById(pps);
-//		
-//		
-//		
-//		return products;
-//	}

@@ -27,7 +27,12 @@ public interface CarritoService {
 	void actualizarCarritoDetalleCliente(CarritoRequestModel carrito_detalle, ClienteDto cliente);
 
 	void actualizarCarritoPago(String radio1, ClienteDto cliente);
+
+	void eliminarProductos(String clienteId);
+
+	void eliminarProductoDelCarrito(String productoId, String clienteId);
+
+}
 	
 
 	
-}

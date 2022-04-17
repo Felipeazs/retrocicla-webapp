@@ -3,6 +3,8 @@ package com.retrocicla.felipeazs.io.repository;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -44,8 +46,7 @@ public interface ProductoRepository extends JpaRepository<ProductoEntity, Intege
 
 	ProductoEntity findByImageUrl(String imageUrl);
 
-	ProductoEntity findByProductoId(String productoId);
-	
+	ProductoEntity findByProductoId(String productoId);	
 
 	List<ProductoEntity> findAllByTipoOrderByPrendaAsc(String productType);
 	
@@ -57,6 +58,8 @@ public interface ProductoRepository extends JpaRepository<ProductoEntity, Intege
 
 	List<ProductoEntity> findAllByMaterial(String productType);
 
-	
+	List<ProductoEntity> findAllByPrendaOrderByPrendaAsc(String productType);
+
+	Page<ProductoEntity> findByCodigoLike(String codigo, Pageable pageableReq);	
 	
 }

@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib
 uri="http://www.springframework.org/tags/form" prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
-prefix="c"%>
+prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <!DOCTYPE html>
 <html lang="en">
@@ -8,6 +8,8 @@ prefix="c"%>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="_csrf" content="${_csrf.token}" />
+		<meta name="_csrf_header" content="${_csrf.headerName}" />
 		<!--JQuery-->
 		<script
 			src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -91,8 +93,26 @@ prefix="c"%>
 					</ul>
 				</div>
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
-					<a href="cliente"><i class="bi bi-person-circle"></i></a>
-					<a href="carrito"><i class="bi bi-bag"></i></a>
+					<div class="row">
+						<div class="bag">
+							<a href="/carrito"><i class="bi bi-bag"></i></a>
+							<div id="tamano_carrito" class="span text-center">${ tamano_carrito }</div>
+						</div>
+						<div class="person">
+							<a href="/login"><i class="bi bi-person-circle"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="col d-flex align-items-center justify-content-center">
+					<c:if test="${ not empty cliente }">
+						<a href="/logout"
+							><div class="row">
+								<div class="col-md-6 salir">
+									<span class="text-white d-flex justify-content-start">Salir</span>
+								</div>
+							</div>
+						</a>
+					</c:if>
 				</div>
 			</div>
 		</nav>
@@ -157,7 +177,7 @@ prefix="c"%>
 									<strong class="text-end" name="precio"> ${ item.formato_precio } </strong>
 								</div>
 								<div class="item d-flex justify-content-between">
-									<span>Talla: ${ item.tamano } </span>
+									<span>Talla: ${ item.talla } </span>
 									<span>${ item.material }</span>
 								</div>
 								<div class="item d-flex justify-content-between m-2">
@@ -172,11 +192,14 @@ prefix="c"%>
 										/>
 										<button type="button" class="der" onclick="sumar_cantidad()">+</button>
 									</div>
-									<button class="carrito">Carrito</button>
+									<button class="carrito" onclick="agregarProductoDirecto()">
+										Agregar al carrito
+									</button>
 								</div>
-								<div class="item text-center m-1 boton">
+								<p id="producto_agregado"></p>
+								<div class="item text-center m-1">
 									<button
-										class="fs-6 p-3"
+										class="button fs-5"
 										type="button"
 										data-bs-toggle="offcanvas"
 										data-bs-target="#offcanvasRight"
@@ -215,7 +238,7 @@ prefix="c"%>
 														<p class="fs-6 text-start p-0 m-0">
 															Precio: ${ item.formato_precio }
 														</p>
-														<p class="fs-6 text-start p-0 m-0">Talla: ${ item.tamano }</p>
+														<p class="fs-6 text-start p-0 m-0">Talla: ${ item.talla }</p>
 														<p class="fs-6 text-start p-0 m-0">
 															Material: Fibra ${ item.fibra }
 														</p>
@@ -231,7 +254,7 @@ prefix="c"%>
 											</div>
 											<div class="row ms-5 pt-2 align-center">
 												<div class="col-3">
-													<a href="carrito">
+													<a href="/carrito">
 														<button class="carrito border border-2 mt-2">
 															<i
 																class="fa-solid fa-cart-shopping pt-1"
@@ -241,41 +264,24 @@ prefix="c"%>
 													</a>
 												</div>
 												<div class="col-5">
-													<form action="/informacion-usuario" method="get">
-														<input
-															name="productoId"
-															type="hidden"
-															value="${ item.productoId }"
-														/>
-														<input name="total" type="hidden" id="total" value="" />
-														<input
-															name="cantidad"
-															type="hidden"
-															value="1"
-															id="cantidad_input"
-														/>
-														<input
-															name="imageUrl"
-															type="hidden"
-															value="${ item.imageUrl }"
-														/>
-														<input
-															name="material"
-															type="hidden"
-															value="${ item.material }"
-														/>
-														<input
-															name="descripcion"
-															type="hidden"
-															value="${ item. descripcion }"
-														/>
-														<button
-															class="carrito border border-2 mt-2"
-															style="background-color: #00ff99"
-														>
-															Finalizar
-														</button>
-													</form>
+													<security:csrf disabled="false" />
+													<input id="productoId" type="hidden" value="${ item.productoId }" />
+													<input name="total" type="hidden" id="total" value="" />
+													<input type="hidden" value="1" id="cantidad_input" />
+													<input id="imageUrl" type="hidden" value="${ item.imageUrl }" />
+													<input id="material" type="hidden" value="${ item.material }" />
+													<input
+														id="descripcion"
+														type="hidden"
+														value="${ item. descripcion }"
+													/>
+													<button
+														type="button"
+														class="button mt-2"
+														onclick="agregarProductoAlCarrito()"
+													>
+														Finalizar
+													</button>
 												</div>
 											</div>
 										</div>

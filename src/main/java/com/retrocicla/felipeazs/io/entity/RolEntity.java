@@ -15,6 +15,8 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 @Entity
 @Table(name = "roles")
 public class RolEntity implements Serializable {
@@ -28,9 +30,11 @@ public class RolEntity implements Serializable {
 	@Column(nullable = false, length = 20)
 	private String nombre;
 	
+	@JsonIgnore
 	@ManyToMany(mappedBy = "roles")
 	private Collection<ClienteEntity> clientes;
 	
+	@JsonIgnore
 	@ManyToMany(
 			cascade = { CascadeType.PERSIST }, 
 			fetch = FetchType.EAGER)

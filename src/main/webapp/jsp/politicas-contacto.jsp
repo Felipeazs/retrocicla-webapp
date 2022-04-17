@@ -1,3 +1,7 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%> <%@ taglib
+uri="http://www.springframework.org/tags/form" prefix="form"%> <%@ taglib uri="http://java.sun.com/jsp/jstl/core"
+prefix="c"%>
+
 <!DOCTYPE html>
 <html lang="en">
 	<head>
@@ -87,8 +91,26 @@
 					</ul>
 				</div>
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
-					<a href="cliente"><i class="bi bi-person-circle"></i></a>
-					<a href="carrito"><i class="bi bi-bag"></i></a>
+					<div class="row">
+						<div class="bag">
+							<a href="/carrito"><i class="bi bi-bag"></i></a>
+							<div class="span text-center">${ tamano_carrito }</div>
+						</div>
+						<div class="person">
+							<a href="/login"><i class="bi bi-person-circle"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="col d-flex align-items-center justify-content-center">
+					<c:if test="${ not empty cliente }">
+						<a href="/logout"
+							><div class="row">
+								<div class="col-md-6 salir">
+									<span class="text-white d-flex justify-content-start">Salir</span>
+								</div>
+							</div>
+						</a>
+					</c:if>
 				</div>
 			</div>
 		</nav>
@@ -96,28 +118,28 @@
 			<div class="row">
 				<div class="col-md-3 links">
 					<div class="sub-columna-1">
-						<h3 class="fw-bold">PolÌticas Retrocicla</h3>
+						<h3 class="fw-bold">Pol√≠ticas Retrocicla</h3>
 						<div class="container">
 							<dl>
 								<hr />
 								<dd>
 									<i class="fa-solid fa-chevron-right"></i
-									><a href="/politicas-privacidad" class="fs-6">PolÌticas de privacidad</a>
+									><a href="/politicas-privacidad" class="fs-6">Pol√≠ticas de privacidad</a>
 								</dd>
 								<hr />
 								<dd>
 									<i class="fa-solid fa-chevron-right active"></i
-									><a href="/politicas-contacto" class="fs-6">PolÌticas de contacto</a>
+									><a href="/politicas-contacto" class="fs-6">Pol√≠ticas de contacto</a>
 								</dd>
 								<hr />
 								<dd>
 									<i class="fa-solid fa-chevron-right"></i
-									><a href="/politicas-pago" class="fs-6">PolÌticas medios de pago</a>
+									><a href="/politicas-pago" class="fs-6">Pol√≠ticas medios de pago</a>
 								</dd>
 								<hr />
 								<dd>
 									<i class="fa-solid fa-chevron-right"></i
-									><a href="/politicas-despacho" class="fs-6">PolÌticas de despacho</a>
+									><a href="/politicas-despacho" class="fs-6">Pol√≠ticas de despacho</a>
 								</dd>
 								<hr />
 							</dl>
@@ -125,35 +147,36 @@
 					</div>
 				</div>
 				<div class="col-md-9 contenido">
-					<h3 class="fw-bold">PolÌticas de Contacto</h3>
+					<h3 class="fw-bold">Pol√≠ticas de Contacto</h3>
 					<p class="mb-3 mt-3 fw-bold">I. De los canales de contacto.</p>
 					<p>
-						En el evento que usted como usuario presente alguna duda sobre la presente polÌtica de privacidad y
-						otras polÌticas, las pr·cticas que efect˙e la plataforma tecnolÛgica digital o las relaciones
-						Usuario / RetroCicla, podr· contactarse con la empresa haciendo uso de cualquiera de los siguientes
-						medios:
+						En el evento que usted como usuario presente alguna duda sobre la presente pol√≠tica de
+						privacidad y otras pol√≠ticas, las pr√°cticas que efect√∫e la plataforma tecnol√≥gica digital o las
+						relaciones Usuario ‚Äì RetroCicla, podr√° contactarse con la empresa haciendo uso de cualquiera de
+						los siguientes medios:
 					</p>
 					<ul class="ms-4">
 						<li><p>Facebook: @Retrocicla</p></li>
 						<li><p>Instagram: @RetroCicla</p></li>
-						<li><p>P·gina web: https://www.retrocicla.cl</p></li>
+						<li><p>P√°gina web: https://www.retrocicla.cl</p></li>
 						<li>
 							<p>WhatsApp: +56 9 ____________.</p>
 						</li>
 						<li>
-							<p>Correo electrÛnico: retrocila@gmail.com</p>
+							<p>Correo electr√≥nico: retrocila@gmail.com</p>
 						</li>
 					</ul>
 					<p class="mb-3 fw-bold">II. De los mensajes y respuestas.</p>
 					<p>
-						Como RetroCicla siempre estaremos dispuestos a recibir comentarios, sugerencias y dudas, las cuales
-						responderemos dentro de un tiempo prudente. No obstante lo anterior, ser·n consideradas como no
-						efectuados todos los comentarios que sean denigrantes para la empresa, sus miembros o sus aliados,
-						aquellos que sean calificables como comentarios de odio, o cualquier forma de discurso de odio,
-						entre otros, todos los cuales podr·n ser borrados por cualquiera de los miembros de la empresa sin
-						expresiÛn de causa. En caso de reiteraciÛn de conducta, los miembros poseen la facultad inamovible
-						de vetar permanentemente de los servicios al emisor de dichos comentarios asÌ como aplicar todas las
-						medidas que la plataforma y la ley le confieran a la empresa.
+						Como RetroCicla siempre estaremos dispuestos a recibir comentarios, sugerencias y dudas, las
+						cuales responderemos dentro de un tiempo prudente. No obstante lo anterior, ser√°n consideradas
+						como no efectuados todos los comentarios que sean denigrantes para la empresa, sus miembros o
+						sus aliados, aquellos que sean calificables como comentarios de odio, o cualquier forma de
+						discurso de odio, entre otros, todos los cuales podr√°n ser borrados por cualquiera de los
+						miembros de la empresa sin expresi√≥n de causa. En caso de reiteraci√≥n de conducta, los miembros
+						poseen la facultad inamovible de vetar permanentemente de los servicios al emisor de dichos
+						comentarios as√≠ como aplicar todas las medidas que la plataforma y la ley le confieran a la
+						empresa.
 					</p>
 				</div>
 			</div>
@@ -173,7 +196,7 @@
 						</div>
 					</div>
 					<div class="col-sm-12 col-md-4 d-flex justify-content-center align-items-center seccion-final">
-						<p>CONT¡CTANOS</p>
+						<p>CONT√ÅCTANOS</p>
 						<div class="iconos">
 							<i class="bi bi-envelope ps-3 pe-3"></i>
 							<i class="bi bi-whatsapp pe-3"></i>
@@ -191,8 +214,8 @@
 					</div>
 					<div class="col-md-8 d-flex justify-content-end">
 						<div>
-							<a href="">TÈrminos y condiciones</a> | <a href="">PoÌtica de reembolso</a> |
-							<a href="pages/politicas-privacidad">PolÌtica de privacidad</a>
+							<a href="">T√©rminos y condiciones</a> | <a href="">Po√≠tica de reembolso</a> |
+							<a href="pages/politicas-privacidad">Pol√≠tica de privacidad</a>
 						</div>
 					</div>
 				</div>

@@ -8,6 +8,8 @@ prefix="c" %>
 		<meta charset="UTF-8" />
 		<meta http-equiv="X-UA-Compatible" content="IE=edge" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<meta name="_csrf" content="${_csrf.token}" />
+		<meta name="_csrf_header" content="${_csrf.headerName}" />
 		<!--JQuery-->
 		<script
 			src="https://code.jquery.com/jquery-3.6.0.min.js"
@@ -91,8 +93,26 @@ prefix="c" %>
 					</ul>
 				</div>
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
-					<a href="cliente"><i class="bi bi-person-circle"></i></a>
-					<a href="carrito"><i class="bi bi-bag active"></i></a>
+					<div class="row">
+						<div class="bag">
+							<a href="/carrito"><i class="bi bi-bag active"></i></a>
+							<div id="_carrito" class="span text-center">${ tamano_carrito }</div>
+						</div>
+						<div class="person">
+							<a href="/login"><i class="bi bi-person-circle"></i></a>
+						</div>
+					</div>
+				</div>
+				<div class="col d-flex align-items-center justify-content-center">
+					<c:if test="${ not empty cliente }">
+						<a href="/logout"
+							><div class="row">
+								<div class="col-md-6 salir">
+									<span class="text-white d-flex justify-content-start">Salir</span>
+								</div>
+							</div>
+						</a>
+					</c:if>
 				</div>
 			</div>
 		</nav>
@@ -108,153 +128,238 @@ prefix="c" %>
 					</div>
 				</div>
 			</div>
-			<div class="row">
-				<div class="col-md-7">
-					<section class="mt-3">
-						<p class="fs-5 mb-4 fw-bold">Información contacto</p>
-						<div class="mb-2 pago">Contacto: ${ cliente.nombre } ${ cliente.apellido }</div>
-						<div class="mb-2 pago">email: ${ cliente.email }</div>
-						<div class="mb-2 pago">
-							Enviar a: ${ cliente.calle }, ${ cliente.ciudad }, ${ cliente.region }, ${ cliente.pais }
-						</div>
-						<div class="mb-2 pago">Envío: ${ cliente.envio }</div>
-						<div class="">
-							<p class="fs-4 fw-bold mt-4">Método de pago</p>
-						</div>
-						<form action="/redirigiendo" method="GET">
-							<div class="col-md-6 mb-2 envios">
-								<div class="formulario">
-									<input
-										type="radio"
-										class="form-check-input"
-										id="radio"
-										name="radio1"
-										value="Web pay"
-										checked
-									/>
-									<label for="" class="form-check-label">Web pay</label>
+			<c:choose>
+				<c:when test="${ tamano_carrito != '0' }">
+					<div class="row">
+						<div class="col-md-7">
+							<section class="mt-3">
+								<p class="fs-5 mb-4 fw-bold">Información contacto</p>
+								<div class="mb-2 pago">Contacto: ${ cliente.nombre } ${ cliente.apellido }</div>
+								<div class="mb-2 pago">email: ${ cliente.email }</div>
+								<div class="mb-2 pago">
+									Enviar a: ${ cliente.calle }, ${ cliente.ciudad }, ${ cliente.region }, ${
+									cliente.pais }
 								</div>
-							</div>
-							<span class="fw-bold pago-span"
-								>Luego de hacer un clic en “Finalizar”, serás redirigido a Pago Fácil - WebpayPlus para
-								completar tu compra de forma segura.</span
-							>
+								<div class="mb-2 pago">Envío: ${ cliente.envio }</div>
+								<div class="">
+									<p class="fs-4 fw-bold mt-4">Método de pago</p>
+								</div>
+								<form action="/redirigiendo" method="GET">
+									<div class="col-md-6 mb-2 envios">
+										<div class="formulario">
+											<input
+												type="radio"
+												class="form-check-input"
+												id="radio"
+												name="radio1"
+												value="Web pay"
+												checked
+											/>
+											<label for="" class="form-check-label">Web pay</label>
+										</div>
+									</div>
+									<span class="fw-bold pago-span"
+										>Luego de hacer un clic en “Finalizar”, serás redirigido a Pago Fácil -
+										WebpayPlus para completar tu compra de forma segura.</span
+									>
 
-							<div class="col-md-6 mb-2 envios">
-								<div class="formulario">
-									<input
-										type="radio"
-										class="form-check-input"
-										id="radio"
-										name="radio1"
-										value="Transferencia"
-									/>
-									<label for="" class="form-check-label">Transferencia bancario</label>
+									<div class="col-md-6 mb-2 envios">
+										<div class="formulario">
+											<input
+												type="radio"
+												class="form-check-input"
+												id="radio"
+												name="radio1"
+												value="Transferencia"
+											/>
+											<label for="" class="form-check-label">Transferencia bancario</label>
+										</div>
+									</div>
+									<span class="fw-bold pago-span"
+										>Pago a través de transfarencia. No olvides sacarle un pantallazo o anotar los
+										datos de transferencia que a parecen a continuación
+									</span>
+									<p class="fs-4 fw-bold mt-3">Dirección de facturación</p>
+									<div class="col-md-6 mb-2 envios">
+										<div class="formulario">
+											<input
+												type="radio"
+												class="form-check-input"
+												id="radio"
+												name="radio2"
+												value="misma direccion"
+												checked
+											/>
+											<label for="" class="form-check-label">Misma direccion de envío</label>
+										</div>
+									</div>
+									<div class="col-md-6 mb-2 envios">
+										<div class="formulario">
+											<input
+												type="radio"
+												class="form-check-input"
+												id="radio"
+												name="radio2"
+												value="otra direccion"
+											/>
+											<label for="" class="form-check-label"
+												>Usar una direccion de facturación distinta</label
+											>
+										</div>
+									</div>
+									<div class="row justify-content-start">
+										<div class="col-md-3">
+											<button type="submit" class="button fs-5 p-2 mt-3">Continuar</button>
+										</div>
+										<div class="col-md-2">
+											<a href="/informacion-envio"
+												><button class="button2 fs-5 p-2 mt-3">Volver</button></a
+											>
+										</div>
+									</div>
+								</form>
+							</section>
+						</div>
+						<div class="col-md-5 derecha">
+							<div class="row pb-2 justify-content-start">
+								<div class="col-sm-6 col-md-6 formulario">
+									<label for="">Cupón</label>
+									<input type="text" class="input form-control form-control-sm" disabled />
+								</div>
+								<div class="col-sm-6 col-md-2">
+									<button class="button fs-6 p-2 mt-4">Usar</button>
 								</div>
 							</div>
-							<span class="fw-bold pago-span"
-								>Pago a través de transfarencia. No olvides sacarle un pantallazo o anotar los datos de
-								transferencia que a parecen a continuación
-							</span>
-							<p class="fs-4 fw-bold mt-3">Dirección de facturación</p>
-							<div class="col-md-6 mb-2 envios">
-								<div class="formulario">
-									<input
-										type="radio"
-										class="form-check-input"
-										id="radio"
-										name="radio2"
-										value="misma direccion"
-										checked
-									/>
-									<label for="" class="form-check-label">Misma direccion de envío</label>
+							<hr />
+							<c:forEach items="${ productos }" var="p">
+								<div class="container">
+									<div class="row ps-2">
+										<div class="col-4">
+											<div class="col m-0 p-0">
+												<img src="${ p.imageUrl }" alt="" class="float-start" />
+											</div>
+										</div>
+										<div class="col-4 info-detalle">
+											<div>
+												<p class="col m-0 p-0">${ p.material }</p>
+												<p>${ p.cantidad } unidades</p>
+											</div>
+										</div>
+										<div class="col-4 text-end info-detalle">
+											<div class="col pe-2">
+												<p>${ p.total }</p>
+												<i
+													class="fa-regular fa-trash-can mt-3"
+													data-bs-toggle="modal"
+													data-bs-target="#exampleModal"
+												></i>
+												<!-- Modal -->
+												<div
+													class="modal fade"
+													id="exampleModal"
+													tabindex="-1"
+													aria-labelledby="exampleModalLabel"
+													aria-hidden="true"
+												>
+													<div class="modal-dialog">
+														<div class="modal-content">
+															<div class="modal-header">
+																<h5 class="modal-title" id="exampleModalLabel">
+																	Mensaje
+																</h5>
+																<button
+																	type="button"
+																	class="btn-close"
+																	data-bs-dismiss="modal"
+																	aria-label="Close"
+																></button>
+															</div>
+															<div class="modal-body">
+																Está seguro que desea eliminar el producto de su
+																carrito?
+															</div>
+															<div class="row">
+																<div class="modal-footer">
+																	<div class="col-3">
+																		<button
+																			type="button"
+																			class="button2"
+																			data-bs-dismiss="modal"
+																		>
+																			No
+																		</button>
+																	</div>
+																	<div class="col-3">
+																		<button
+																			type="button"
+																			class="button"
+																			onclick="eliminarDelCarrito('${ p.productoId }')"
+																		>
+																			Si
+																		</button>
+																	</div>
+																</div>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+									<hr />
+								</div>
+							</c:forEach>
+							<div class="container fw-bold fs-6">
+								<div class="row justify-content-between">
+									<div class="col-4">
+										<p>SubTotal</p>
+										<p>Envío</p>
+									</div>
+									<div class="col-2">
+										<c:set value="${ 0 }" var="total"></c:set>
+										<c:forEach items="${ productos }" var="pt">
+											<c:set value="${ total + (pt.cantidad * pt.precio) }" var="total"></c:set>
+										</c:forEach>
+										<p id="format_precio_total">${ total }</p>
+										<c:set value="${ 3990 }" var="envio"></c:set>
+										<p id="format_precio_envio" class="text-center">${ envio }</p>
+									</div>
+								</div>
+								<div class="col">
+									<p class="fs-6">*Calculado en el próximo paso.</p>
+								</div>
+								<hr />
+								<div class="row justify-content-between">
+									<div class="col-4">
+										<p>Total</p>
+									</div>
+									<div class="col-2">
+										<c:set value="${ total + envio }" var="total_envio"></c:set>
+										<p id="format_total_envio">${ total_envio }</p>
+									</div>
 								</div>
 							</div>
-							<div class="col-md-6 mb-2 envios">
-								<div class="formulario">
-									<input
-										type="radio"
-										class="form-check-input"
-										id="radio"
-										name="radio2"
-										value="otra direccion"
-									/>
-									<label for="" class="form-check-label"
-										>Usar una direccion de facturación distinta</label
-									>
-								</div>
+							<div class="text-center mt-5">
+								<img src="img/retrocicla-round.png" alt="" style="width: 35%" />
 							</div>
-							<div class="row justify-content-start">
-								<div class="col-md-3">
-									<button type="submit" class="boton fs-6 p-2 mt-3">Continuar</button>
-								</div>
-								<div class="col-md-2">
-									<a href="/informacion-envio"
-										><button class="boton fs-6 p-2 mt-3 bg-transparent">Volver</button></a
-									>
-								</div>
-							</div>
-						</form>
+						</div>
+					</div>
+				</c:when>
+				<c:otherwise>
+					<section class="container-fluid seccion-principal-redirigir">
+						<div class="row text-center bg-light">
+							<div class="loader d-flex justify-content-center"></div>
+							<h1 class="fw-bold">Usted no tienen elementos en su carrito...</h1>
+							<h4 id="redirigir" style="font-family: 'Metropolis'; font-size: 18px">
+								Espera un momento mientras te redireccionamos al inicio...
+							</h4>
+							<a href="/" class="text-decoration-none">
+								<h6 style="color: #00ff99; font-size: 18px">Regresar al inicio</h6>
+							</a>
+						</div>
 					</section>
-				</div>
-				<div class="col-md-5 derecha">
-					<div class="container">
-						<div class="row justify-content-start">
-							<div class="col-md-6 formulario">
-								<label for="">Cupón</label>
-								<input type="text" class="input form-control form-control-sm" />
-							</div>
-							<div class="col-md-6">
-								<button class="boton fs-6 p-2 mt-4">Usar</button>
-							</div>
-						</div>
-					</div>
-					<hr />
-					<div class="container-fluid">
-						<div class="container">
-							<div class="row">
-								<div class="col-4">
-									<img src="img/fibra-natural-1.png" alt="" />
-								</div>
-								<div class="col-4 info-detalle">
-									<p>Algodón</p>
-									<p>3 unidades</p>
-								</div>
-								<div class="col-4 info-detalle d-flex justify-content-end">
-									<p>$32.970</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<hr />
-					<div class="container-fluid fw-bold fs-6">
-						<div class="container">
-							<div class="row justify-content-between">
-								<div class="col-4">
-									<p>SubTotal</p>
-									<p class="">Envío</p>
-								</div>
-								<div class="col-2">
-									<p>$32.970</p>
-									<p>$5.800</p>
-								</div>
-							</div>
-						</div>
-						<hr />
-						<div class="container">
-							<div class="row justify-content-between">
-								<div class="col-4">
-									<p>Total</p>
-								</div>
-								<div class="col-2">
-									<p>$38.770</p>
-								</div>
-							</div>
-						</div>
-					</div>
-					<div class="text-center mt-5"><img src="img/retrocicla-round.png" alt="" style="width: 35%" /></div>
-				</div>
-			</div>
+				</c:otherwise>
+			</c:choose>
 		</div>
 		<footer class="footer">
 			<div class="container">

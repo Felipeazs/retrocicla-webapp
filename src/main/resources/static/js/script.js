@@ -1,4 +1,4 @@
-$(document).ready(function(e) {
+$(document).ready(function() {
 
 	$('#messageerrorprenda').hide();
 	$('#messageerrortela').hide();
@@ -96,39 +96,22 @@ $(document).ready(function(e) {
 			$('#wear').val('');
 		}
 	});
-	
+
 	precio_total();
-	
-	var precios_totales = $('#format_precio_total').html();	
+
+	var precios_totales = $('#format_precio_total').html();
 	var formato_precio = formatter.format(precios_totales)
 	$('#format_precio_total').html(formato_precio);
-	
-	var precios_envio = $('#format_precio_envio').html();	
+
+	var precios_envio = $('#format_precio_envio').html();
 	var formato_precio = formatter.format(precios_envio)
 	$('#format_precio_envio').html(formato_precio);
-	
+
 	var total_envio = $('#format_total_envio').html();
 	var formato_precio = formatter.format(total_envio);
 	$('#format_total_envio').html(formato_precio);
+
 	
-
-	// Tootltips
-	var tooltipTriggerList = [].slice.call(
-		document.querySelectorAll('[data-bs-toggle="tooltip"]')
-	);
-	var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
-		return new bootstrap.Tooltip(tooltipTriggerEl);
-	});
-
-	var location = window.location.pathname;
-	var direcciones = $('#misdirecciones').val();
-
-	if (location === '/checkout') {
-		if (direcciones == 0) {
-			selectCity(1);
-			selectCity(2);
-		}
-	}
 
 	$('.galeria-cell').mouseover(function() {
 		$(this).find('i').css('display', 'inline');
@@ -141,63 +124,408 @@ $(document).ready(function(e) {
 	$('.dropdown-submenu a.test').on('click', function(e) {
 		$(this).next('ul').toggle();
 	});
-	
+
 	var pathname = window.location.pathname;
 	console.log(pathname);
-	
-	if(pathname === '/redirigiendo'){
-		setTimeout(function(){
-		 window.location.href = "/";
+
+	if (pathname === '/redirigiendo') {
+		setTimeout(function() {
+			window.location.href = "/";
 		}, 3000);
 	}
 
+	var redirigir = $('#_carrito').html();
+	console.log("tamaño carrito: " + redirigir);
+
+	if (pathname === '/informacion-usuario' && redirigir == 0 ||
+		pathname === '/carrito' && redirigir == 0 ||
+		pathname === '/informacion-envio' && redirigir == 0 ||
+		pathname === '/informacion-pago' && redirigir == 0) {
+		setTimeout(function() {
+			window.location.href = "/";
+		}, 3000);
+	}
+	
+	// Tootltips
+	var tooltipTriggerList = [].slice.call(
+		document.querySelectorAll('[data-bs-toggle="tooltip"]')
+	);
+	var tooltipList = tooltipTriggerList.map(function(tooltipTriggerEl) {
+		return new bootstrap.Tooltip(tooltipTriggerEl);
+	});
+
+	//Modal
+	var myModal = document.getElementById('myModal')
+	var myInput = document.getElementById('myInput')
+	
+	if(myModal){
+		myModal.addEventListener('shown.bs.modal', function() {
+		myInput.focus()
+		})
+	}
+
+	
+
+	var location = window.location.pathname;
+	var direcciones = $('#misdirecciones').val();
+
+	if (location === '/checkout') {
+		if (direcciones == 0) {
+			selectCity(1);
+			selectCity(2);
+		}
+	}
+
 });
-function precio_total(){
+function precio_total() {
 	var cantidad = $('#cantidad_input').val();
 	var precio = $('#_precio').val();
 	var total = 0;
-	
-	if (cantidad >= 1){
+
+	if (cantidad >= 1) {
 		total = cantidad * precio;
 	}
-	
+
 	$('#cantidad_carrito').html(cantidad);
 	$('[name="precio"]').html(formatter.format(total));
 	$('#total').val(formatter.format(total));
 }
-function restar_cantidad(){
+function restar_cantidad() {
 	var cantidad = $('#cantidad_input').val();
 	var precio = $('#_precio').val();
 	var total = 0;
 
-	if (cantidad >= 1){
-		cantidad--;	
+	if (cantidad >= 1) {
+		cantidad--;
 		total = cantidad * precio;
-		
+
 		$('[name="cantidad"]').val(cantidad);
 		$('#cantidad_carrito').html(cantidad);
 		$('[name="precio"]').html(formatter.format(total));
 		$('#total').val(formatter.format(total));
 	}
 }
-function sumar_cantidad(){
+function sumar_cantidad() {
 	var cantidad = $('#cantidad_input').val();
 	var precio = $('#_precio').val();
 	var total = 0;
 
-	if (cantidad >= 0){
+	if (cantidad >= 0) {
 		cantidad++;
 		total = cantidad * precio;
-				
+
 		$('[name="cantidad"]').val(cantidad);
 		$('#cantidad_carrito').html(cantidad);
 		$('[name="precio"]').html(formatter.format(total));
 		$('#total').val(formatter.format(total));
 	}
 }
+function buscarProductos() {
+
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+
+	var tipo = $('[name="_tipo"]:checked').val();
+	if (typeof tipo === 'undefined') {
+		tipo = 'vacio';
+	}
+
+	var prenda = $('[name="_prenda"]:checked').val();
+	if (typeof prenda === 'undefined') {
+		prenda = 'vacio';
+	}
+	var genero = $('[name="_genero"]:checked').val();
+	if (typeof genero === 'undefined') {
+		genero = 'vacio';
+	}
+
+	var material = $('[name="_material"]:checked').val();
+	if (typeof material === 'undefined') {
+		material = 'vacio';
+	}
+
+	var talla = $('[name="_talla"]:checked').val();
+	if (typeof talla === 'undefined') {
+		talla = 'vacio';
+	}
+
+	var color = $('[name="_color"]:checked').val();
+	if (typeof color === 'undefined') {
+		color = 'vacio';
+	}
+
+	var patron = $('[name="_patron"]:checked').val();
+	if (typeof patron === 'undefined') {
+		patron = 'vacio';
+	}
+
+	var origen = $('[name="_origen"]:checked').val();
+	if (typeof origen === 'undefined') {
+		origen = 'vacio';
+	}
+
+	$.ajax({
+		type: 'GET',
+		url: '/productos/buscar',
+		data: {
+			"genero": genero,
+			"material": material,
+			"talla": talla,
+			"color": color,
+			"patron": patron,
+			"origen": origen,
+			"tipo": tipo,
+			"prenda": prenda
+		},
+		dataType: 'json',
+		contentType: "application/json; charset=utf-8",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		statusCode: {
+			200: function() {
+				console.log("Status code 200: succesful request");
+			},
+			401: function() {
+				console.log("Status code 401: Usuario no autenticado");
+				location.href = "/login";
+			},
+			403: function() {
+				console.log("Status code 403: usuario no autorizado");
+			},
+			404: function() {
+				console.log("Status code 404: page not found");
+			},
+			405: function() {
+				console.log("Status code 405: Bad HTTP request");
+			},
+			500: function() {
+				console.log("Status code 500: server error");
+			}
+		},
+		error: function(data) {
+			console.log(data);
+			//location.href = data.status			
+		},
+		success: function(data) {
+			console.log(data);
+
+			$('#productos_encontrados').empty();
+			$('.sub-columna-2').empty();
+
+			$('.sub-columna-2').append(
+				'<h3 class="fw-bold">Todos</h3>');
+
+			data.forEach(function(info) {
+				$('#productos_encontrados').append(
+					'<div class="col-md-4 galeria-materiales">' +
+					'<a href="/item/' + info.productoId + '">' +
+					'<div class="galeria-cell">' +
+					'<img class="img-responsive"src="' + info.imageUrl + '"alt=""/>' +
+					'<i class="fa-solid fa-bag-shopping fa-2x"></i>' +
+					'</div></a>' +
+					'<div class="row">' +
+					'<div class="col-sm-12 col-md-12 ps-4 item">' +
+					'<div><span>' + info.descripcion + '</span></div>' +
+					'<div>' +
+					'<span class="fs-5">Material: </span><span>' + info.material + '</span>' +
+					'</div><div>' +
+					'<span class="fs-5">Talla: </span>' +
+					'<span class="fs-5">' + info.talla + '</span>' +
+					'</div><div>' +
+					'<strong class="fs-3">' + info.formato_precio + '</strong>' +
+					'</div></div></div>'
+
+				);
+			});
+		}
+
+	});
+
+}
+
+function agregarProductoDirecto() {
+
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+
+	var productoId = $('#productoId').val();
+	var total = $('#total').val();
+	var cantidad = $('#cantidad_input').val();
+	var imageUrl = $('#imageUrl').val();
+	var material = $('#material').val();
+	var descripcion = $('#descripcion').val();
+
+	var data = {
+		"productoId": productoId,
+		"total": total,
+		"cantidad": cantidad,
+		"imageUrl": imageUrl,
+		"material": material,
+		"descripcion": descripcion,
+	};
+
+	$.ajax({
+		type: 'POST',
+		url: '/carritos',
+		data: JSON.stringify(data),
+		dataType: 'json',
+		contentType: "application/json; charset=utf-8",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		statusCode: {
+			200: function() {
+				console.log("Status code 200: succesful request");
+			},
+			401: function() {
+				console.log("Status code 401: Usuario no autenticado");
+				location.href = "/login";
+			},
+			403: function() {
+				console.log("Status code 403: usuario no autorizado");
+			},
+			404: function() {
+				console.log("Status code 404: page not found");
+			},
+			405: function() {
+				console.log("Status code 405: Bad HTTP request");
+			},
+			500: function() {
+				console.log("Status code 500: server error");
+			}
+		},
+		error: function(data) {
+			console.log(data);
+			//location.href = data.status			
+		},
+		success: function(data) {
+
+			console.log(data.length);
+			$('#producto_agregado').html("Producto agregado al carrito");
+			$('#tamano_carrito').html(data.length);
+
+
+		},
+
+	});
+}
+
+function agregarProductoAlCarrito() {
+
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+
+	var productoId = $('#productoId').val();
+	var total = $('#total').val();
+	var cantidad = $('#cantidad_input').val();
+	var imageUrl = $('#imageUrl').val();
+	var material = $('#material').val();
+	var descripcion = $('#descripcion').val();
+
+	var data = {
+		"productoId": productoId,
+		"total": total,
+		"cantidad": cantidad,
+		"imageUrl": imageUrl,
+		"material": material,
+		"descripcion": descripcion,
+	};
+
+	$.ajax({
+		type: 'POST',
+		url: '/carritos',
+		data: JSON.stringify(data),
+		dataType: 'json',
+		contentType: "application/json; charset=utf-8",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		statusCode: {
+			200: function() {
+				console.log("Status code 200: succesful request");
+			},
+			401: function() {
+				console.log("Status code 401: Usuario no autenticado");
+				location.href = "/login";
+			},
+			403: function() {
+				console.log("Status code 403: usuario no autorizado");
+			},
+			404: function() {
+				console.log("Status code 404: page not found");
+			},
+			405: function() {
+				console.log("Status code 405: Bad HTTP request");
+			},
+			500: function() {
+				console.log("Status code 500: server error");
+			}
+		},
+		error: function(data) {
+			console.log(data);
+			//location.href = data.status			
+		},
+		success: function() {
+			window.location.href = "/informacion-usuario";
+
+		},
+
+	});
+
+}
+
+function eliminarDelCarrito(productoId) {
+
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+
+	$.ajax({
+		type: 'DELETE',
+		url: '/carritos/' + productoId,
+		data: {
+			"productoId": productoId
+		},
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+
+		},
+		statusCode: {
+			200: function() {
+				console.log("Status code 200: succesful request");
+			},
+			401: function() {
+				console.log("Status code 401: Usuario no autenticado");
+			},
+			403: function() {
+				console.log("Status code 403: usuario no autorizado");
+			},
+			404: function() {
+				console.log("Status code 404: page not found");
+			},
+			405: function() {
+				console.log("Status code 405: Bad HTTP request");
+			},
+			500: function() {
+				console.log("Status code 500: server error");
+			}
+		},
+		error: function() {
+			//location.href = data.status
+			console.log(data);
+		},
+		success: function() {
+			location.reload();
+		}
+	});
+
+
+
+}
+
 
 function direccionCliente(clienteId) {
-	
+
 	var direcciones = $('#_direcciones').val();
 
 	$.ajax({
@@ -231,17 +559,18 @@ function direccionCliente(clienteId) {
 			console.log(data);
 		},
 		success: function(data) {
-			$('#_region').val('');	
-			data.direcciones.forEach(function(info) {			
-				if (info.tipo === direcciones){							
+			$('#_region').val('');
+			data.direcciones.forEach(function(info) {
+				if (info.tipo === direcciones) {
 					$('#_region').val(info.region);
 					$('#_calle').val(info.calle);
 					$('#_ciudad').val(info.ciudad);
+					$('#_departamento').val(info.departamento);
 				}
-			
+
 			});
 
-			
+
 		},
 
 	});
@@ -396,52 +725,7 @@ function actualizarProductoEnCarrito(id) {
 
 
 
-function agregarProductoAlCarrito(id) {
 
-	console.log(id);
-
-	$.ajax({
-		type: 'POST',
-		url: '/carrito/' + id,
-		data: {
-			producto_id: id,
-		},
-		statusCode: {
-			200: function() {
-				console.log("Status code 200: succesful request")
-			},
-			401: function() {
-				console.log("Status code 401: Usuario no autenticado");
-				location.href = "/login";
-			},
-			403: function() {
-				console.log("Status code 403: usuario no autorizado");
-			},
-			404: function() {
-				console.log("Status code 404: page not found");
-			},
-			405: function() {
-				console.log("Status code 405: Bad HTTP request");
-			},
-			500: function() {
-				console.log("Status code 500: server error");
-			}
-		},
-		error: function(data) {
-			console.log(data);
-			//location.href = data.status			
-		},
-		success: function(data) {
-
-			console.log(data);
-
-			obtenerCantidadYPrecioTotal(data.cliente.clienteId);
-
-		},
-
-	});
-
-}
 
 function obtenerCantidadYPrecioTotal(clienteId) {
 
@@ -561,46 +845,6 @@ function removecartproductitem(id) {
 
 }
 
-function deletecartproduct(id) {
-
-	$.ajax({
-		type: 'DELETE',
-		url: '/api/product/' + id,
-		data: {
-			id: id
-		},
-		statusCode: {
-			200: function() {
-				console.log("Status code 200: succesful request")
-			},
-			401: function() {
-				console.log("Status code 401: Usuario no autenticado");
-			},
-			403: function() {
-				console.log("Status code 403: usuario no autorizado");
-			},
-			404: function() {
-				console.log("Status code 404: page not found");
-			},
-			405: function() {
-				console.log("Status code 405: Bad HTTP request");
-			},
-			500: function() {
-				console.log("Status code 500: server error");
-			}
-		},
-		error: function(data) {
-			location.href = data.status
-		},
-		success: function() {
-			if (window.confirm("Está seguro que desea eliminar este producto de su carrito?")) {
-				location.reload();
-			}
-
-		},
-
-	});
-}
 
 function selectCity(n) {
 
