@@ -92,30 +92,36 @@ prefix="c" %><%@ taglib prefix="sec" uri="http://www.springframework.org/securit
 						</li>
 					</ul>
 				</div>
+
+				<!--Usuario y Carrito-->
+
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
 					<div class="row">
-						<div class="bag">
-							<a href="/carrito"><i class="bi bi-bag active"></i></a>
-							<div id="_carrito" class="span text-center">${ tamano_carrito }</div>
+						<div class="col bag">
+							<a href="/carrito"><i class="bi bi-bag"></i></a>
+							<div class="span text-center">${ tamano_carrito }</div>
 						</div>
-						<div class="person">
+						<div class="col person">
 							<a href="/login"><i class="bi bi-person-circle"></i></a>
+						</div>
+						<div class="col d-flex align-items-center justify-content-center">
+							<c:if test="${ not empty cliente }">
+								<a href="/logout"
+									><div class="row">
+										<div class="col-md-6 salir">
+											<span class="text-white d-flex justify-content-start">Salir</span>
+										</div>
+									</div>
+								</a>
+							</c:if>
 						</div>
 					</div>
 				</div>
-				<div class="col d-flex align-items-center justify-content-center">
-					<c:if test="${ not empty cliente }">
-						<a href="/logout"
-							><div class="row">
-								<div class="col-md-6 salir">
-									<span class="text-white d-flex justify-content-start">Salir</span>
-								</div>
-							</div>
-						</a>
-					</c:if>
-				</div>
 			</div>
 		</nav>
+
+		<!--Input información usuario-->
+
 		<div class="container-flex seccion-informacion bg-light pb-5">
 			<div class="seccion-informacion">
 				<div class="row primera">
@@ -306,7 +312,7 @@ prefix="c" %><%@ taglib prefix="sec" uri="http://www.springframework.org/securit
 												<div class="col pe-2">
 													<p>${ p.total }</p>
 													<i
-														class="fa-regular fa-trash-can mt-3"
+														class="trash fa-regular fa-trash-can mt-3"
 														data-bs-toggle="modal"
 														data-bs-target="#exampleModal"
 													></i>

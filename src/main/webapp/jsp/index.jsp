@@ -94,6 +94,9 @@ prefix="c" %>
 						</li>
 					</ul>
 				</div>
+
+				<!--Usuario y Carrito-->
+
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
 					<div class="row">
 						<div class="col bag">
@@ -434,7 +437,10 @@ prefix="c" %>
 					</div>
 					<div class="col-md-8 d-flex justify-content-end">
 						<div>
-							<a href="">Términos y condiciones</a> | <a href="">Política de reembolso</a> |
+							<a href="/registrar-productos">Registrar productos</a> |<a href=""
+								>Términos y condiciones</a
+							>
+							| <a href="">Política de reembolso</a> |
 							<a href="/politicas-privacidad">Política de privacidad</a>
 						</div>
 					</div>

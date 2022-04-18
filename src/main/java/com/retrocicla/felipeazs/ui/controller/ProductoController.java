@@ -39,19 +39,20 @@ public class ProductoController {
 		
 		System.out.println(productDetails.getEstacion());
 		
-		if (productDetails.getDescripcion().isEmpty() ||
-			productDetails.getPrenda().isEmpty() ||
-			productDetails.getTamano().isEmpty() ||
-			productDetails.getEstilo().isEmpty() ||
-			productDetails.getColor().isEmpty() ||
-			productDetails.getGenero().isEmpty() ||
-			productDetails.getPrecio() == 0 ||
-			productDetails.getImageUrl().isEmpty() ||
-			productDetails.getMaterial().isEmpty() ||
-			productDetails.getEstacion().isEmpty() ||
-			productDetails.getTipo().isEmpty() ||
-			productDetails.getStock() == 0) 
-		throw new ProductoServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());		
+//		if (productDetails.getDescripcion().isEmpty() ||
+//			productDetails.getPrenda().isEmpty() ||
+//			productDetails.getTalla().isEmpty() ||
+//			productDetails.getEstilo().isEmpty() ||
+//			productDetails.getColor().isEmpty() ||
+//			productDetails.getGenero().isEmpty() ||
+//			productDetails.getPrecio() == 0 ||
+//			productDetails.getImageUrl().isEmpty() ||
+//			productDetails.getMaterial().isEmpty() ||
+//			productDetails.getEstacion().isEmpty() ||
+//			productDetails.getTipo().isEmpty() ||
+//			productDetails.getStock() == 0 ||
+//			productDetails.getPatron().isEmpty()) 
+//		throw new ProductoServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());		
 		
 		ProductoDto productDto = new ProductoDto(); 
 		BeanUtils.copyProperties(productDetails, productDto);

@@ -24,6 +24,8 @@ public class ProductoRest implements Serializable {
     private String fibra;
     private int algodon;  
     private int spandex;
+    private int poliester;
+    private String codigo;
     
 	public String getProductoId() {
 		return productoId;
@@ -141,11 +143,17 @@ public class ProductoRest implements Serializable {
 	public void setOrigen(String origen) {
 		this.origen = origen;
 	}
+	public int getPoliester() {
+		return poliester;
+	}
+	public void setPoliester(int poliester) {
+		this.poliester = poliester;
+	}
+	public String getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
 	
-    
-	
-    
-	
-    
-
 }

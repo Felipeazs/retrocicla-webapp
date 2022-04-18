@@ -171,8 +171,6 @@ body {
 	font-family: 'Metropolis';
 	font-weight: bold;
 }
-
-
 /* Somos */
 .seccion-principal-somos .upper-figure .image-2 {
   position: relative;
@@ -316,7 +314,7 @@ body {
   width: 100%;
   background-color: #00ff99;
   padding: 10px 20px;
-  color: #ffff;
+  color: #2f355b;
   font-weight: bold;
 }
 .button:hover {
@@ -337,7 +335,9 @@ body {
   background-color: #00ff99;
   color: #ffff;
   border: none;
-	
+}
+.trash {
+  cursor: pointer;
 }
 .seccion-tienda .button i {
   color: #ffff;
@@ -555,7 +555,6 @@ span {
   font-weight: bold;
 }
 .seccion-materiales .sub-columna-1 .card {
-  margin-top: 3px;
   width: 80%;
 }
 .seccion-materiales .sub-columna-1 button {
@@ -563,8 +562,6 @@ span {
   background-color: transparent;
   font-size: 18px;
   font-weight: 600;
-  position:relative;
-  left: 70%;
   border-color:#2f355b;
 }
 .seccion-materiales .sub-columna-1 i {
@@ -892,6 +889,12 @@ span {
 .seccion-apoyo .marca img {
   width: 200px;
   margin: 20px 20px;
+}
+/* Registro Productos */
+.seccion-registro-producto {
+	padding: 5% 25%;
+	margin:auto;
+	font-family:"Metropolis";
 }
 @media (max-width: 767.98px) {
   /* Index */

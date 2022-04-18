@@ -24,6 +24,8 @@ public class ProductoDto implements Serializable {
     private String fibra;
     private int algodon;  
     private int spandex;
+    private int poliester;
+    private String codigo;
     
 	public String getProductoId() {
 		return productoId;
@@ -140,6 +142,19 @@ public class ProductoDto implements Serializable {
 		this.origen = origen;
 	}
 	
+	
+	public int getPoliester() {
+		return poliester;
+	}
+	public void setPoliester(int poliester) {
+		this.poliester = poliester;
+	}
+	public String getCodigo() {
+		return codigo;
+	}
+	public void setCodigo(String codigo) {
+		this.codigo = codigo;
+	}
 	@Override
 	public String toString() {
 		return "genero: " + genero + " material: " + material + " talla: " + talla + " color: " + color + " patron: " + patron + " origen: " + origen + " tipo: " + tipo + " prenda: " + prenda;

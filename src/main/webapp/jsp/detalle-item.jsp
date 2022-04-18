@@ -92,27 +92,30 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 						</li>
 					</ul>
 				</div>
+
+				<!--Usuario y Carrito-->
+
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
 					<div class="row">
-						<div class="bag">
+						<div class="col bag">
 							<a href="/carrito"><i class="bi bi-bag"></i></a>
-							<div id="tamano_carrito" class="span text-center">${ tamano_carrito }</div>
+							<div class="span text-center">${ tamano_carrito }</div>
 						</div>
-						<div class="person">
+						<div class="col person">
 							<a href="/login"><i class="bi bi-person-circle"></i></a>
 						</div>
+						<div class="col d-flex align-items-center justify-content-center">
+							<c:if test="${ not empty cliente }">
+								<a href="/logout"
+									><div class="row">
+										<div class="col-md-6 salir">
+											<span class="text-white d-flex justify-content-start">Salir</span>
+										</div>
+									</div>
+								</a>
+							</c:if>
+						</div>
 					</div>
-				</div>
-				<div class="col d-flex align-items-center justify-content-center">
-					<c:if test="${ not empty cliente }">
-						<a href="/logout"
-							><div class="row">
-								<div class="col-md-6 salir">
-									<span class="text-white d-flex justify-content-start">Salir</span>
-								</div>
-							</div>
-						</a>
-					</c:if>
 				</div>
 			</div>
 		</nav>
@@ -123,17 +126,18 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 					<hr />
 
 					<dl>
-						<dt>Materiales</dt>
-						<dd><i class="fa-solid fa-chevron-right active"></i><button>Fibras Naturales</button></dd>
-						<dd><i class="fa-solid fa-chevron-right"></i><button>Fibras Sintéticas</button></dd>
-						<dd><i class="fa-solid fa-chevron-right"></i><button>Fibras Artificiales</button></dd>
-						<dd><i class="fa-solid fa-chevron-right"></i><button>Fibras Origen Animal</button></dd>
+						<dt>Material</dt>
+						<dd>
+							<i class="fa-solid fa-chevron-right"></i>
+							<a class="fs-6" href="/catalogo/${ item.material }"> ${ item.material} </a>
+						</dd>
+						<dt>Fibra</dt>
+						<dd>
+							<i class="fa-solid fa-chevron-right"></i>
+							<a class="fs-6" href="/catalogo/${ item.fibra }"> ${ item.fibra} </a>
+						</dd>
 					</dl>
 
-					<hr />
-					<a href="">Accesorios </a>
-					<hr />
-					<a href="">Servicios</a>
 					<hr />
 				</div>
 				<div class="col">

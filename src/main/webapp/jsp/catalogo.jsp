@@ -92,52 +92,65 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 						</li>
 					</ul>
 				</div>
+
+				<!--Usuario y Carrito-->
+
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
 					<div class="row">
-						<div class="bag">
+						<div class="col bag">
 							<a href="/carrito"><i class="bi bi-bag"></i></a>
 							<div class="span text-center">${ tamano_carrito }</div>
 						</div>
-						<div class="person">
+						<div class="col person">
 							<a href="/login"><i class="bi bi-person-circle"></i></a>
 						</div>
+						<div class="col d-flex align-items-center justify-content-center">
+							<c:if test="${ not empty cliente }">
+								<a href="/logout"
+									><div class="row">
+										<div class="col-md-6 salir">
+											<span class="text-white d-flex justify-content-start">Salir</span>
+										</div>
+									</div>
+								</a>
+							</c:if>
+						</div>
 					</div>
-				</div>
-				<div class="col d-flex align-items-center justify-content-center">
-					<c:if test="${ not empty cliente }">
-						<a href="/logout"
-							><div class="row">
-								<div class="col-md-6 salir">
-									<span class="text-white d-flex justify-content-start">Salir</span>
-								</div>
-							</div>
-						</a>
-					</c:if>
 				</div>
 			</div>
 		</nav>
 		<section class="container-fluid seccion-materiales bg-light">
 			<div class="row">
+				<!--Buscador Avanzado-->
 				<div class="col-md-3 sub-columna-1">
 					<h3 class="fw-bold">Teinda Retrocicla</h3>
 					<hr />
+					<button
+						class="btn btn-primary"
+						type="button"
+						data-bs-toggle="collapse"
+						data-bs-target=".multi-collapse"
+						aria-expanded="false"
+						aria-controls="tipo prenda genero talla color material patron origen "
+					>
+						Búsqueda avanzada
+					</button>
 					<dl>
-						<dt class="text-decoration-underline">Búsqueda avanzada</dt>
 						<dd>
 							<p>
 								<a
-									class="btn btn-transparent"
+									class="btn btn-transparent fs-6"
 									data-bs-toggle="collapse"
 									href="#tipo"
 									role="button"
 									aria-expanded="false"
-									aria-controls="collapseExample"
+									aria-controls="tipo"
 								>
 									<i class="fa-solid fa-chevron-right"></i>
 									Tipo
 								</a>
 							</p>
-							<div class="collapse" id="tipo">
+							<div class="collapse multi-collapse" id="tipo">
 								<div class="card card-body">
 									<label for="_prenda"
 										><input type="radio" value="prenda" id="_prenda" name="_tipo" /> Prenda
@@ -152,18 +165,18 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 						<dd>
 							<p>
 								<a
-									class="btn btn-transparent"
+									class="btn btn-transparent fs-6"
 									data-bs-toggle="collapse"
 									href="#prenda"
 									role="button"
 									aria-expanded="false"
-									aria-controls="collapseExample"
+									aria-controls="prenda"
 								>
 									<i class="fa-solid fa-chevron-right"></i>
 									Prenda
 								</a>
 							</p>
-							<div class="collapse" id="prenda">
+							<div class="collapse multi-collapse" id="prenda">
 								<div class="card card-body">
 									<label for="_pantalon"
 										><input type="radio" value="pantalón" id="_pantalon" name="_prenda" />
@@ -173,6 +186,22 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 										><input type="radio" value="polera" id="_polera" name="_prenda" />
 										Polera
 									</label>
+									<label for="_camisa"
+										><input type="radio" value="camisa" id="_camisa" name="_prenda" />
+										Camisa
+									</label>
+									<label for="_chaleco"
+										><input type="radio" value="chaleco" id="_chaleco" name="_prenda" />
+										Chaleco
+									</label>
+									<label for="_blusa"
+										><input type="radio" value="blusa" id="_blusa" name="_prenda" />
+										Blusa
+									</label>
+									<label for="_falda"
+										><input type="radio" value="falda" id="_falda" name="_prenda" />
+										Falda
+									</label>
 								</div>
 							</div>
 						</dd>
@@ -180,18 +209,18 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 						<dd>
 							<p>
 								<a
-									class="btn btn-transparent"
+									class="btn btn-transparent fs-6"
 									data-bs-toggle="collapse"
 									href="#genero"
 									role="button"
 									aria-expanded="false"
-									aria-controls="collapseExample"
+									aria-controls="genero"
 								>
 									<i class="fa-solid fa-chevron-right"></i>
 									Género
 								</a>
 							</p>
-							<div class="collapse" id="genero">
+							<div class="collapse multi-collapse" id="genero">
 								<div class="card card-body">
 									<label for="_femenino"
 										><input type="radio" value="femenino" id="_femenino" name="_genero" />
@@ -201,32 +230,51 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 										><input type="radio" value="masculino" id="_masculino" name="_genero" />
 										Masculino</label
 									>
-									<label for="_unisex"
+									<!-- <label for="_unisex"
 										><input type="radio" value="unisex" id="_unisex" name="_genero" /> Unisex</label
-									>
+									> -->
 								</div>
 							</div>
 						</dd>
 						<dd>
 							<p>
 								<a
-									class="btn btn-transparent"
+									class="btn btn-transparent fs-6"
 									data-bs-toggle="collapse"
 									href="#talla"
 									role="button"
 									aria-expanded="false"
-									aria-controls="collapseExample"
+									aria-controls="talla"
 								>
 									<i class="fa-solid fa-chevron-right"></i>
 									Talla
 								</a>
 							</p>
-							<div class="collapse" id="talla">
+							<div class="collapse multi-collapse" id="talla">
 								<div class="card card-body">
 									<label for="_s"><input type="radio" value="s" id="_s" name="_talla" /> s </label>
 									<label for="_m"><input type="radio" value="m" id="_m" name="_talla" /> m </label>
-									<label for="_36"
-										><input type="radio" value="36" id="_36" name="_talla" /> 36
+									<label for="_l"><input type="radio" value="l" id="_m" name="_talla" /> l </label>
+									<label for="_12"
+										><input type="radio" value="12" id="_12" name="_talla" /> 12
+									</label>
+									<label for="_16"
+										><input type="radio" value="16" id="_16" name="_talla" /> 16
+									</label>
+									<label for="_38"
+										><input type="radio" value="38" id="_38" name="_talla" /> 38
+									</label>
+									<label for="_40"
+										><input type="radio" value="40" id="_40" name="_talla" /> 40
+									</label>
+									<label for="_42"
+										><input type="radio" value="42" id="_342" name="_talla" /> 42
+									</label>
+									<label for="_48"
+										><input type="radio" value="48" id="_48" name="_talla" /> 48
+									</label>
+									<label for="_52"
+										><input type="radio" value="52" id="_52" name="_talla" /> 52
 									</label>
 								</div>
 							</div>
@@ -234,49 +282,68 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 						<dd>
 							<p>
 								<a
-									class="btn btn-transparent"
+									class="btn btn-transparent fs-6"
 									data-bs-toggle="collapse"
 									href="#color"
 									role="button"
 									aria-expanded="false"
-									aria-controls="collapseExample"
+									aria-controls="color"
 								>
 									<i class="fa-solid fa-chevron-right"></i>
 									Color
 								</a>
 							</p>
-							<div class="collapse" id="color">
+							<div class="collapse multi-collapse" id="color">
 								<div class="card card-body">
-									<label for="_azul"
-										><input type="radio" value="azul" id="_azul" name="_color" /> Azul</label
-									>
-									<label for="_blanco"
-										><input type="radio" value="blanco" id="_blanco" name="_color" /> Blanco</label
+									<label for="_multicolor"
+										><input type="radio" value="multicolor" id="_multicolor" name="_color" />
+										Multicolor</label
 									>
 									<label for="_negro"
 										><input type="radio" value="negro" id="_negro" name="_color" /> Negro</label
 									>
-									<label for="_cafe"
-										><input type="radio" value="café" id="_cafe" name="_color" /> Café</label
+									<label for="_blanco"
+										><input type="radio" value="blanco" id="_blanco" name="_color" /> Blanco</label
 									>
+									<label for="_azul"
+										><input type="radio" value="azul" id="_azul" name="_color" /> Azul</label
+									>
+									<label for="_rosado"
+										><input type="radio" value="rosado" id="_rosado" name="_color" /> Rosado</label
+									>
+									<label for="_burdeo"
+										><input type="radio" value="burdeo" id="_burdeo" name="_color" /> Burdeo</label
+									>
+									<label for="_calipso"
+										><input type="radio" value="calipso" id="_calipso" name="_color" />
+										Calipso</label
+									>
+									<label for="_plateado"
+										><input type="radio" value="plateado" id="_plateado" name="_color" />
+										Plateado</label
+									>
+
+									<!-- <label for="_cafe"
+										><input type="radio" value="café" id="_cafe" name="_color" /> Café</label
+									> -->
 								</div>
 							</div>
 						</dd>
 						<dd>
 							<p>
 								<a
-									class="btn btn-transparent"
+									class="btn btn-transparent fs-6"
 									data-bs-toggle="collapse"
 									href="#material"
 									role="button"
 									aria-expanded="false"
-									aria-controls="collapseExample"
+									aria-controls="material"
 								>
 									<i class="fa-solid fa-chevron-right"></i>
 									Material
 								</a>
 							</p>
-							<div class="collapse" id="material">
+							<div class="collapse multi-collapse" id="material">
 								<div class="card card-body">
 									<label for="_algodón"
 										><input type="radio" value="algodón" id="_algodón" name="_material" />
@@ -288,7 +355,7 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 									>
 									<label for="_spandex"
 										><input type="radio" value="spandex" id="_spandex" name="_material" />
-										spandex</label
+										Spandex</label
 									>
 								</div>
 							</div>
@@ -296,24 +363,24 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 						<dd>
 							<p>
 								<a
-									class="btn btn-transparent"
+									class="btn btn-transparent fs-6"
 									data-bs-toggle="collapse"
 									href="#patron"
 									role="button"
 									aria-expanded="false"
-									aria-controls="collapseExample"
+									aria-controls="patron"
 								>
 									<i class="fa-solid fa-chevron-right"></i>
 									Patrón
 								</a>
 							</p>
-							<div class="collapse" id="patron">
+							<div class="collapse multi-collapse" id="patron">
 								<div class="card card-body">
 									<label for="_patron"
-										><input type="radio" value="true" id="_patron" name="_patron" /> patrón
+										><input type="radio" value="patrón" id="_patron" name="_patron" /> Patrón
 									</label>
 									<label for="_liso"
-										><input type="radio" value="false" id="_liso" name="_patron" /> liso
+										><input type="radio" value="liso" id="_liso" name="_patron" /> Liso
 									</label>
 								</div>
 							</div>
@@ -321,18 +388,18 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 						<dd>
 							<p>
 								<a
-									class="btn btn-transparent"
+									class="btn btn-transparent fs-6"
 									data-bs-toggle="collapse"
 									href="#origen"
 									role="button"
 									aria-expanded="false"
-									aria-controls="collapseExample"
+									aria-controls="origen"
 								>
 									<i class="fa-solid fa-chevron-right"></i>
 									Origen
 								</a>
 							</p>
-							<div class="collapse" id="origen">
+							<div class="collapse multi-collapse" id="origen">
 								<div class="card card-body">
 									<label for="_china"
 										><input type="radio" value="china" id="_china" name="_origen" /> China
@@ -345,15 +412,18 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 						</dd>
 					</dl>
 					<hr />
-					<a href="" class="text-decoration-underline">Accesorios </a>
+					<!-- <a href="" class="text-decoration-underline">Accesorios </a>
 					<hr />
 					<a href="" class="text-decoration-underline">Servicios</a>
-					<hr />
-					<!-- <security:csrf disabled="false" /> -->
+					<hr /> -->
 					<button class="btn btn-outline-primary text-align-center" onclick="buscarProductos()">
 						Buscar
 					</button>
+					<hr />
 				</div>
+
+				<!--Catálogo -->
+
 				<div class="col">
 					<div class="sub-columna-2">
 						<h3 class="fw-bold">${ titulo }</h3>
@@ -363,7 +433,7 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 						<c:when test="${ not empty productos }">
 							<div id="productos_encontrados" class="row">
 								<c:forEach items="${ productos }" var="p">
-									<div class="col-md-4 galeria-materiales">
+									<div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 galeria-materiales">
 										<a href="/item/${ p.productoId }">
 											<div class="galeria-cell">
 												<img
@@ -379,7 +449,7 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 											<div class="col-sm-12 col-md-12 ps-4 item">
 												<div><span>${ p.descripcion }</span></div>
 												<div>
-													<span class="fs-5">Material: </span><span>${ p.material }</span>
+													<span class="fs-6">Material: </span><span>${ p.material }</span>
 												</div>
 												<div>
 													<span class="fs-5">Talla: </span>

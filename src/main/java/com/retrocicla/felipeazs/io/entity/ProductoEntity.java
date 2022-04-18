@@ -39,7 +39,7 @@ public class ProductoEntity implements Serializable {
     private String color;  
     
     @Column(name = "patron", nullable=false)
-    private boolean patron;  
+    private String patron;  
     
     @Column(name = "genero", nullable=true)
     private String genero;
@@ -72,6 +72,8 @@ public class ProductoEntity implements Serializable {
     private String fibra;
     
     private int algodon;
+    
+    private int poliester;
     
     private int spandex;
     
@@ -220,11 +222,11 @@ public class ProductoEntity implements Serializable {
 		this.talla = talla;
 	}
 
-	public boolean getPatron() {
+	public String getPatron() {
 		return patron;
 	}
 
-	public void setPatron(boolean patron) {
+	public void setPatron(String patron) {
 		this.patron = patron;
 	}
 
@@ -242,6 +244,14 @@ public class ProductoEntity implements Serializable {
 
 	public void setCodigo(String codigo) {
 		this.codigo = codigo;
+	}
+
+	public int getPoliester() {
+		return poliester;
+	}
+
+	public void setPoliester(int poliester) {
+		this.poliester = poliester;
 	}	
 	
 	

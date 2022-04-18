@@ -9,7 +9,7 @@ public class ProductoRequestModel {
     private String material;  
     private String descripcion;
     private String prenda;
-    private String tamano;
+    private String talla;
     private String estilo;
     private String color;
     private String genero;
@@ -18,6 +18,8 @@ public class ProductoRequestModel {
     private String tipo;
     private int stock;
     private String fibra;
+    private boolean patron;
+    private String origen;
    
     
 	public String getProductoId() {
@@ -62,11 +64,11 @@ public class ProductoRequestModel {
 	public void setPrenda(String prenda) {
 		this.prenda = prenda;
 	}
-	public String getTamano() {
-		return tamano;
+	public String getTalla() {
+		return talla;
 	}
-	public void setTamano(String tamano) {
-		this.tamano = tamano;
+	public void setTalla(String talla) {
+		this.talla = talla;
 	}
 	public String getEstilo() {
 		return estilo;
@@ -115,6 +117,18 @@ public class ProductoRequestModel {
 	}
 	public void setFibra(String fibra) {
 		this.fibra = fibra;
+	}
+	public boolean getPatron() {
+		return patron;
+	}
+	public void setPatron(boolean patron) {
+		this.patron = patron;
+	}
+	public String getOrigen() {
+		return origen;
+	}
+	public void setOrigen(String origen) {
+		this.origen = origen;
 	}	
 	
 

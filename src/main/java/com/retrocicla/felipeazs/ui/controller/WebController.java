@@ -338,6 +338,14 @@ public class WebController {
 		return "/password-reset";
 	}
 	
+	@GetMapping("/registrar-productos")
+	public String getRegistrarProductos(Model model, Authentication auth) {
+		
+		autenticacion(model, auth);
+		
+		return "/registrar-producto";
+	}
+	
 //	FUNCIONES
 		
 	private void autenticacion(Model model, Authentication auth) {

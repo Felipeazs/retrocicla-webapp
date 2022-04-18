@@ -263,6 +263,19 @@ function buscarProductos() {
 	if (typeof origen === 'undefined') {
 		origen = 'vacio';
 	}
+	
+	var data = {
+		"genero": genero,
+			"material": material,
+			"talla": talla,
+			"color": color,
+			"patron": patron,
+			"origen": origen,
+			"tipo": tipo,
+			"prenda": prenda
+	};
+	
+	console.log(data);
 
 	$.ajax({
 		type: 'GET',
@@ -570,6 +583,89 @@ function direccionCliente(clienteId) {
 
 			});
 
+
+		},
+
+	});
+}
+
+function registrarProducto(){
+	var token = $("meta[name='_csrf']").attr("content");
+	var header = $("meta[name='_csrf_header']").attr("content");
+
+	var descripcion = $('input[name="descripcion"]').val();
+	var prenda = $('[name="prenda"] option:selected').val();
+	var talla = $('[name="talla"] option:selected').val();
+	var estilo = $('[name="estilo"] option:selected').val();
+	var color = $('[name="color"] option:selected').val();
+	var genero = $('[name="genero"] option:selected').val();
+	var precio = $('input[name="precio"]').val();
+	var imagen = $('input[name="imagen"]').val();
+	var material = $('[name="material"] option:selected').val();
+	var fibra = $('[name="fibra"] option:selected').val();
+	var estacion = $('[name="estacion"] option:selected').val();
+	var tipo = $('[name="tipo"] option:selected').val();
+	var stock = $('input[name="stock"]').val();
+	var patron = $('[name="patron"] option:selected').val();
+	var origen = $('[name="origen"] option:selected').val();
+
+	var data = {
+		"descripcion": descripcion,
+		"prenda": prenda,
+		"talla": talla,
+		"estilo": estilo,
+		"color": color,
+		"genero": genero,
+		"precio": precio,
+		"imageUrl": imagen,
+		"material": material,
+		"fibra": fibra,
+		"estacion": estacion,
+		"tipo": tipo,
+		"stock": stock,
+		"patron": patron,
+		"origen": origen
+	};
+	
+	console.log(data);
+	
+	$.ajax({
+		type: 'POST',
+		url: '/productos',
+		data: JSON.stringify(data),
+		dataType: 'json',
+		contentType: "application/json; charset=utf-8",
+		beforeSend: function(xhr) {
+			xhr.setRequestHeader(header, token);
+		},
+		statusCode: {
+			200: function() {
+				console.log("Status code 200: succesful request");
+			},
+			401: function() {
+				console.log("Status code 401: Usuario no autenticado");
+				location.href = "/login";
+			},
+			403: function() {
+				console.log("Status code 403: usuario no autorizado");
+			},
+			404: function() {
+				console.log("Status code 404: page not found");
+			},
+			405: function() {
+				console.log("Status code 405: Bad HTTP request");
+			},
+			500: function() {
+				console.log("Status code 500: server error");
+			}
+		},
+		error: function(data) {
+			console.log(data);
+			//location.href = data.status			
+		},
+		success: function(data) {
+			console.log(data);
+			location.reload();
 
 		},
 

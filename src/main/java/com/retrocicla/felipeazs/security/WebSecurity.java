@@ -67,6 +67,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				"/informacion-pago", 
 				"/redirigiendo", 
 				"/carrito/**").hasAnyAuthority("READ_AUTORIDAD")
+		.antMatchers("/registrar-producto").hasAnyAuthority("WRITE_AUTORIDAD")
 		.antMatchers(HttpMethod.POST, "/carritos/**").hasAnyAuthority("READ_AUTORIDAD")
 		.antMatchers(HttpMethod.DELETE, "/carritos/${productoId}").hasAnyAuthority("WRITE_AUTORIDAD")
 		.anyRequest()

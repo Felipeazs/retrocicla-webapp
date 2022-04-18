@@ -92,27 +92,30 @@ prefix="c"%>
 						</li>
 					</ul>
 				</div>
+				
+				<!--Usuario y Carrito-->
+
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
 					<div class="row">
-						<div class="bag">
-							<a href="/carrito"><i class="bi bi-bag active"></i></a>
-							<div id="_carrito" class="span text-center">${ tamano_carrito }</div>
+						<div class="col bag">
+							<a href="/carrito"><i class="bi bi-bag"></i></a>
+							<div class="span text-center">${ tamano_carrito }</div>
 						</div>
-						<div class="person">
+						<div class="col person">
 							<a href="/login"><i class="bi bi-person-circle"></i></a>
 						</div>
+						<div class="col d-flex align-items-center justify-content-center">
+							<c:if test="${ not empty cliente }">
+								<a href="/logout"
+									><div class="row">
+										<div class="col-md-6 salir">
+											<span class="text-white d-flex justify-content-start">Salir</span>
+										</div>
+									</div>
+								</a>
+							</c:if>
+						</div>
 					</div>
-				</div>
-				<div class="col d-flex align-items-center justify-content-center">
-					<c:if test="${ not empty cliente }">
-						<a href="/logout"
-							><div class="row">
-								<div class="col-md-6 salir">
-									<span class="text-white d-flex justify-content-start">Salir</span>
-								</div>
-							</div>
-						</a>
-					</c:if>
 				</div>
 			</div>
 		</nav>
@@ -151,7 +154,59 @@ prefix="c"%>
 									<td>${ p.cantidad }</td>
 									<td>${ p.total }</td>
 									<td>
-										<i class="fa-regular fa-trash-can" onclick="eliminarDelCarrito(${ p.productoId })"></i>
+										<i class="trash fa-regular fa-trash-can" 
+											data-bs-toggle="modal"
+											data-bs-target="#exampleModal"></i>
+											<!-- Modal -->
+											<div
+											class="modal fade"
+											id="exampleModal"
+											tabindex="-1"
+											aria-labelledby="exampleModalLabel"
+											aria-hidden="true"
+										>
+											<div class="modal-dialog">
+												<div class="modal-content">
+													<div class="modal-header">
+														<h5 class="modal-title" id="exampleModalLabel">
+															Mensaje
+														</h5>
+														<button
+															type="button"
+															class="btn-close"
+															data-bs-dismiss="modal"
+															aria-label="Close"
+														></button>
+													</div>
+													<div class="modal-body">
+														Está seguro que desea eliminar el producto de su
+														carrito?
+													</div>
+													<div class="row">
+														<div class="modal-footer">
+															<div class="col-3">
+																<button
+																	type="button"
+																	class="button2"
+																	data-bs-dismiss="modal"
+																>
+																	No
+																</button>
+															</div>
+															<div class="col-3">
+																<button
+																	type="button"
+																	class="button"
+																	onclick="eliminarDelCarrito('${ p.productoId }')"
+																>
+																	Si
+																</button>
+															</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
 									</td>
 								</tr>								
 								<script>

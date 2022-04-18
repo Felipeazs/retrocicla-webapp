@@ -57,6 +57,7 @@ public class ProductoServiceImpl implements ProductoService {
 		newProduct.setCodigo(codigo);
 		newProduct.setFormato_precio(formatPrice(productDto.getPrecio()));
 		
+		System.out.println("check 4");
 		
 		ProductoEntity savedProduct = productoRepo.save(newProduct);
 		
@@ -212,9 +213,11 @@ public class ProductoServiceImpl implements ProductoService {
 				productos = productoRepo.findAllByTipoOrderByPrendaAsc(productType);
 			} else if (productType.equals("outdoor") || productType.equals("casual")) {
 				productos = productoRepo.findAllByEstiloOrderByPrendaAsc(productType);
-			} else if (productType.equals("sintética") || productType.equals("natural") || productType.equals("artificial") || productType.equals("origen animal")) {
+			} else if (productType.equals("sintética") || productType.equals("natural") || 
+					productType.equals("artificial") || productType.equals("origen animal")) {
 				productos = productoRepo.findAllByFibra(productType);
-			} else if (productType.equals("algodón") || productType.equals("spandex") || productType.equals("poliester")) {
+			} else if (productType.equals("algodón") || productType.equals("spandex") || 
+					productType.equals("poliester") || productType.equals("lino") || productType.equals("viscosa")) {
 				productos = productoRepo.findAllByMaterial(productType);
 			} else if (texto.length > 1) {
 				productos = productoRepo.findAllByPrendaAndGeneroOrderByPrendaAsc(items.get(0), items.get(1));

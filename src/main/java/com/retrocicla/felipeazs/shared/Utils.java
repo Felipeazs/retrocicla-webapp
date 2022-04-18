@@ -94,6 +94,16 @@ public class Utils {
 	public String generateProductoCodigo(ProductoDto producto) {
 
 		String codigo = "";
+		
+		System.out.println("check 5: " + 
+				producto.getTipo() + 
+				producto.getPrenda() +
+				producto.getGenero() +
+				producto.getMaterial() +
+				producto.getTalla() +
+				producto.getColor() +
+				producto.getPatron() +
+				producto.getOrigen());
 
 		String tipo = producto.getTipo();
 		String prenda = producto.getPrenda();
@@ -103,16 +113,16 @@ public class Utils {
 		String color = producto.getColor();
 		String patron = producto.getPatron();
 		String origen = producto.getOrigen();
-		
+					
 		switch (tipo) {
 		case "vacio":
 			codigo = "%";
 			break;
 		case "prenda":
-			codigo = "PR";
+			codigo = "$PR";
 			break;
 		case "material":
-			codigo = "MA";
+			codigo = "$MA";
 			break;
 		}
 		
@@ -121,10 +131,22 @@ public class Utils {
 			codigo = codigo.concat("%");
 			break;
 		case "pantalón":
-			codigo = codigo.concat("PT");
+			codigo = codigo.concat("$PT");
 			break;
 		case "polera":
-			codigo = codigo.concat("PL");
+			codigo = codigo.concat("$PL");
+			break;
+		case "camisa":
+			codigo = codigo.concat("$CM");
+			break;
+		case "chaleco":
+			codigo = codigo.concat("$CH");
+			break;
+		case "blusa":
+			codigo = codigo.concat("$BU");
+			break;
+		case "falda":
+			codigo = codigo.concat("$FD");
 			break;
 		}
 		
@@ -133,10 +155,13 @@ public class Utils {
 			codigo = codigo.concat("%");
 			break;
 		case "femenino":
-			codigo = codigo.concat("FM");
+			codigo = codigo.concat("$FM");
 			break;
 		case "masculino":
-			codigo = codigo.concat("MC");
+			codigo = codigo.concat("$MC");
+			break;
+		case "unisex":
+			codigo = codigo.concat("$UN");
 			break;
 		}
 		
@@ -145,28 +170,28 @@ public class Utils {
 			codigo = codigo.concat("%");
 			break;
 		case "algodón":
-			codigo = codigo.concat("AL");
+			codigo = codigo.concat("$AL");
+			break;
+		case "lino":
+			codigo = codigo.concat("$LN");
 			break;
 		case "poliester":
-			codigo = codigo.concat("PO");
+			codigo = codigo.concat("$PO");
 			break;
 		case "spandex":
-			codigo = codigo.concat("SP");
+			codigo = codigo.concat("$SP");
+			break;
+		case "viscosa":
+			codigo = codigo.concat("$VC");
 			break;
 		}
 		
 		switch (talla) {
 		case "vacio":
 			codigo = codigo.concat("%");
-			break;
-		case "s":
-			codigo = codigo.concat("S");
-			break;
-		case "m":
-			codigo = codigo.concat("M");
-			break;
-		case "36":
-			codigo = codigo.concat("36");
+			break;		
+		default:
+			codigo = codigo.concat("&" + talla.toUpperCase());
 			break;
 		}
 		
@@ -174,26 +199,54 @@ public class Utils {
 		case "vacio":
 			codigo = codigo.concat("%");
 			break;
-		case "azul":
-			codigo = codigo.concat("AZ");
+		case "multicolor":
+			codigo = codigo.concat("$ML");
 			break;
 		case "blanco":
-			codigo = codigo.concat("BL");
+			codigo = codigo.concat("$BL");
 			break;
+		case "negro":
+			codigo = codigo.concat("$NG");
+			break;
+		case "gris":
+			codigo = codigo.concat("$GR");
+			break;
+		case "azul":
+			codigo = codigo.concat("$AZ");
+			break;
+		case "rojo":
+			codigo = codigo.concat("$RJ");
+			break;		
+		case "rosado":
+			codigo = codigo.concat("$RD");
+			break;		
 		case "café":
-			codigo = codigo.concat("CF");
+			codigo = codigo.concat("$CF");
 			break;
+		case "amarillo":
+			codigo = codigo.concat("$AM");
+			break;
+		case "burdeo":
+			codigo = codigo.concat("$BR");
+			break;
+		case "calipso":
+			codigo = codigo.concat("$CP");
+			break;
+		case "plateado":
+			codigo = codigo.concat("$PD");
+			break;
+		
 		}
 		
 		switch (patron) {
-		case "vacio":
+		case "vacio":			
 			codigo = codigo.concat("%");
 			break;
-		case "true":
-			codigo = codigo.concat("P");
+		case "patrón":
+			codigo = codigo.concat("$PN");
 			break;
-		case "false":
-			codigo = codigo.concat("L");
+		case "liso":
+			codigo = codigo.concat("$LI");
 			break;
 		}
 		
@@ -202,10 +255,10 @@ public class Utils {
 			codigo = codigo.concat("%");
 			break;
 		case "china":
-			codigo = codigo.concat("CN");
+			codigo = codigo.concat("$CN");
 			break;
 		case "chile":
-			codigo = codigo.concat("CL");
+			codigo = codigo.concat("$CL");
 			break;
 		}
 		

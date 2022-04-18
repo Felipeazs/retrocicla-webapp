@@ -90,25 +90,30 @@ prefix="c"%>
 						</li>
 					</ul>
 				</div>
+
+				<!--Usuario y Carrito-->
+
 				<div class="col-sm-12 col-md-2 d-flex align-items-center justify-content-end user">
 					<div class="row">
-						<div class="bag">
+						<div class="col bag">
 							<a href="/carrito"><i class="bi bi-bag"></i></a>
 							<div class="span text-center">${ tamano_carrito }</div>
 						</div>
-						<div class="person">
+						<div class="col person">
 							<a href="/login"><i class="bi bi-person-circle"></i></a>
 						</div>
-					</div>
-				</div>
-				<div class="col d-flex align-items-center justify-content-center">
-					<c:if test="${ not empty cliente }">
-						<div class="row">
-							<div class="col-md-6 salir">
-								<a href="/logout"><span class="text-white d-flex justify-content-start">Salir</span></a>
-							</div>
+						<div class="col d-flex align-items-center justify-content-center">
+							<c:if test="${ not empty cliente }">
+								<a href="/logout"
+									><div class="row">
+										<div class="col-md-6 salir">
+											<span class="text-white d-flex justify-content-start">Salir</span>
+										</div>
+									</div>
+								</a>
+							</c:if>
 						</div>
-					</c:if>
+					</div>
 				</div>
 			</div>
 		</nav>
