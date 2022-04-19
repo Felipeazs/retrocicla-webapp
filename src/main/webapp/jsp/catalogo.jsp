@@ -135,6 +135,7 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 					>
 						Búsqueda avanzada
 					</button>
+					<button class="btn btn-primary" type="button" onclick="reset_radios()">Reset</button>
 					<dl>
 						<dd>
 							<p>
@@ -182,10 +183,10 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 										><input type="radio" value="pantalón" id="_pantalon" name="_prenda" />
 										Pantalón
 									</label>
-									<label for="_polera"
+									<!-- <label for="_polera"
 										><input type="radio" value="polera" id="_polera" name="_prenda" />
 										Polera
-									</label>
+									</label> -->
 									<label for="_camisa"
 										><input type="radio" value="camisa" id="_camisa" name="_prenda" />
 										Camisa
@@ -402,10 +403,10 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 							<div class="collapse multi-collapse" id="origen">
 								<div class="card card-body">
 									<label for="_china"
-										><input type="radio" value="china" id="_china" name="_origen" /> China
+										><input type="radio" value="China" id="_china" name="_origen" /> China
 									</label>
 									<label for="_chile"
-										><input type="radio" value="chile" id="_chile" name="_origen" /> Chile
+										><input type="radio" value="Chile" id="_chile" name="_origen" /> Chile
 									</label>
 								</div>
 							</div>
@@ -449,7 +450,8 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 											<div class="col-sm-12 col-md-12 ps-4 item">
 												<div><span>${ p.descripcion }</span></div>
 												<div>
-													<span class="fs-6">Material: </span><span>${ p.material }</span>
+													<span class="fs-6">Material: </span>
+													<span>${ p.material }</span>
 												</div>
 												<div>
 													<span class="fs-5">Talla: </span>

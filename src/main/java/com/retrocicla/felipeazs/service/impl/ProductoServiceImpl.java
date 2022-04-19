@@ -55,8 +55,7 @@ public class ProductoServiceImpl implements ProductoService {
 		String codigo = utils.generateProductoCodigo(productDto);
 		newProduct.setProductoId(productoId);
 		newProduct.setCodigo(codigo);
-		newProduct.setFormato_precio(formatPrice(productDto.getPrecio()));
-		
+		newProduct.setFormato_precio(formatPrice(productDto.getPrecio()));	
 		System.out.println("check 4");
 		
 		ProductoEntity savedProduct = productoRepo.save(newProduct);
@@ -219,6 +218,8 @@ public class ProductoServiceImpl implements ProductoService {
 			} else if (productType.equals("algodón") || productType.equals("spandex") || 
 					productType.equals("poliester") || productType.equals("lino") || productType.equals("viscosa")) {
 				productos = productoRepo.findAllByMaterial(productType);
+			} else if (productType.equals("China") || productType.equals("Chile")) {
+				productos = productoRepo.findAllByOrigen(productType);
 			} else if (texto.length > 1) {
 				productos = productoRepo.findAllByPrendaAndGeneroOrderByPrendaAsc(items.get(0), items.get(1));
 			} else {

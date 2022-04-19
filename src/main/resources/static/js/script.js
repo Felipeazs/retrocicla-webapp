@@ -177,6 +177,9 @@ $(document).ready(function() {
 	}
 
 });
+function reset_radios(){
+	$('input[type=radio]').prop('checked', false);
+}
 function precio_total() {
 	var cantidad = $('#cantidad_input').val();
 	var precio = $('#_precio').val();

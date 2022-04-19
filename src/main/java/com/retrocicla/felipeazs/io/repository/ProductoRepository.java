@@ -60,6 +60,8 @@ public interface ProductoRepository extends JpaRepository<ProductoEntity, Intege
 
 	List<ProductoEntity> findAllByPrendaOrderByPrendaAsc(String productType);
 
-	Page<ProductoEntity> findByCodigoLike(String codigo, Pageable pageableReq);	
+	Page<ProductoEntity> findByCodigoLike(String codigo, Pageable pageableReq);
+
+	List<ProductoEntity> findAllByOrigen(String productType);	
 	
 }

@@ -136,6 +136,11 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 							<i class="fa-solid fa-chevron-right"></i>
 							<a class="fs-6" href="/catalogo/${ item.fibra }"> ${ item.fibra} </a>
 						</dd>
+						<dt>Origen</dt>
+						<dd>
+							<i class="fa-solid fa-chevron-right"></i>
+							<a class="fs-6" href="/catalogo/${ item.origen }"> ${ item.origen} </a>
+						</dd>
 					</dl>
 
 					<hr />
