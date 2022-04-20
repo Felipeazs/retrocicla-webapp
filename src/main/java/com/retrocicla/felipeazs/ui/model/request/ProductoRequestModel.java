@@ -1,11 +1,13 @@
 package com.retrocicla.felipeazs.ui.model.request;
 
+import java.util.List;
+
 public class ProductoRequestModel {
 	
 	private String productoId;	
 	private int cantidad;
     private String total; 
-    private String imageUrl;
+    private List<String> imageUrl;
     private String material;  
     private String descripcion;
     private String prenda;
@@ -18,7 +20,7 @@ public class ProductoRequestModel {
     private String tipo;
     private int stock;
     private String fibra;
-    private boolean patron;
+    private String patron;
     private String origen;
    
     
@@ -40,10 +42,10 @@ public class ProductoRequestModel {
 	public void setTotal(String total) {
 		this.total = total;
 	}
-	public String getImageUrl() {
+	public List<String> getImageUrl() {
 		return imageUrl;
 	}
-	public void setImageUrl(String imageUrl) {
+	public void setImageUrl(List<String> imageUrl) {
 		this.imageUrl = imageUrl;
 	}
 	public String getMaterial() {
@@ -118,10 +120,10 @@ public class ProductoRequestModel {
 	public void setFibra(String fibra) {
 		this.fibra = fibra;
 	}
-	public boolean getPatron() {
+	public String getPatron() {
 		return patron;
 	}
-	public void setPatron(boolean patron) {
+	public void setPatron(String patron) {
 		this.patron = patron;
 	}
 	public String getOrigen() {

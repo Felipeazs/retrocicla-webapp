@@ -41,9 +41,11 @@ public class ProductoServiceImpl implements ProductoService {
 		
 		System.out.println(productDto.getEstacion());
 
-		ProductoEntity dbProduct = productoRepo.findByImageUrl(productDto.getImageUrl());
-		if (dbProduct != null)
-			throw new ProductoServiceException(ErrorMessages.RECORDS_ALREADY_EXIST.getErrorMessage());
+		for (String image : productDto.getImageUrl()) {
+			ProductoEntity dbProduct = productoRepo.findByImageUrl(image);
+			if (dbProduct != null)
+				throw new ProductoServiceException(ErrorMessages.RECORDS_ALREADY_EXIST.getErrorMessage());
+		}		
 
 		ProductoEntity newProduct = new ProductoEntity();
 				

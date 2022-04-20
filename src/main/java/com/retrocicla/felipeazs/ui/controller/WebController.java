@@ -235,6 +235,12 @@ public class WebController {
 		return "/redirigiendo";
 	}
 	
+	@GetMapping("/busqueda-avanzada")
+	public String getBusquedaAvanzada() {
+		
+		return "busqueda-avanzada";
+	}
+	
 	@GetMapping("/somos")
 	public String getSomos(Model model, Authentication auth) {
 		

@@ -109,6 +109,7 @@ body {
 }
 .bag {
   position: absolute;
+  width:10%;
 }
 .person {
 	position: relative;
@@ -400,6 +401,25 @@ body {
   text-decoration: none;
   color: #2f355b;
 }
+/* Busqueda */
+.busqueda-avanzada {
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background-color: #ffff;
+  height: 700px;
+}
+.drop-image {
+  display:flex;
+  text-align: center;
+  align-items:center;
+  border: 2px dotted;
+  height: 90%;
+  width: 90%;
+}
+#image_drop_area img{
+  object-fit: cover;
+}
 
 /* Donaciones */
 .seccion-donaciones img {
@@ -586,7 +606,16 @@ span {
 }
 .seccion-materiales .sub-columna-2 img {
   border-radius: 50px;
-  width: 100%;
+  width: 90%;
+}
+.seccion-materiales .img-2 img {
+  position: relative;
+  left:30%;
+  top:80%;
+  border-radius: 50px;
+  width: 20%;
+  height: auto;
+  object-fit: cover;
 }
 .seccion-materiales .sub-columna-3 {
   display: flex;
@@ -914,7 +943,7 @@ span {
     padding: 30px 0;
     justify-content: center !important;
   }
-  .carousel {
+  .index-carousel .carousel {
     display: none;
   }
   .seccion-bajada img {

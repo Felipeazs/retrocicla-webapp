@@ -36,9 +36,7 @@ public class ProductoController {
 			consumes = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE }, //La data entregada puede ir en XML o JSON
 			produces = { MediaType.APPLICATION_XML_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public ProductoRest AgregarProductoAlCarrito(@RequestBody ProductoRequestModel productDetails) {
-		
-		System.out.println(productDetails.getEstacion());
-		
+			
 //		if (productDetails.getDescripcion().isEmpty() ||
 //			productDetails.getPrenda().isEmpty() ||
 //			productDetails.getTalla().isEmpty() ||
@@ -52,7 +50,9 @@ public class ProductoController {
 //			productDetails.getTipo().isEmpty() ||
 //			productDetails.getStock() == 0 ||
 //			productDetails.getPatron().isEmpty()) 
-//		throw new ProductoServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());		
+//		throw new ProductoServiceException(ErrorMessages.MISSING_REQUIRED_FIELD.getErrorMessage());
+		
+		System.out.println(productDetails.getPatron());
 		
 		ProductoDto productDto = new ProductoDto(); 
 		BeanUtils.copyProperties(productDetails, productDto);

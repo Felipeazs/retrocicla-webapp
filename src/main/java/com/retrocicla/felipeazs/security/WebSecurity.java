@@ -48,6 +48,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 				"/somos",
 				"/tienda",	
 				"/catalogo/**",
+				"/busqueda-avanzada",
 				"/item/**",
 				"/detalle-item",
 				"/donaciones",

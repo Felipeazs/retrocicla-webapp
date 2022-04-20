@@ -111,7 +111,7 @@ $(document).ready(function() {
 	var formato_precio = formatter.format(total_envio);
 	$('#format_total_envio').html(formato_precio);
 
-	
+
 
 	$('.galeria-cell').mouseover(function() {
 		$(this).find('i').css('display', 'inline');
@@ -121,7 +121,7 @@ $(document).ready(function() {
 		$(this).find('i').css('display', 'none');
 	});
 
-	$('.dropdown-submenu a.test').on('click', function(e) {
+	$('.dropdown-submenu a.test').on('click', function() {
 		$(this).next('ul').toggle();
 	});
 
@@ -145,7 +145,7 @@ $(document).ready(function() {
 			window.location.href = "/";
 		}, 3000);
 	}
-	
+
 	// Tootltips
 	var tooltipTriggerList = [].slice.call(
 		document.querySelectorAll('[data-bs-toggle="tooltip"]')
@@ -157,14 +157,12 @@ $(document).ready(function() {
 	//Modal
 	var myModal = document.getElementById('myModal')
 	var myInput = document.getElementById('myInput')
-	
-	if(myModal){
+
+	if (myModal) {
 		myModal.addEventListener('shown.bs.modal', function() {
-		myInput.focus()
+			myInput.focus()
 		})
 	}
-
-	
 
 	var location = window.location.pathname;
 	var direcciones = $('#misdirecciones').val();
@@ -176,8 +174,34 @@ $(document).ready(function() {
 		}
 	}
 
+	const image_drop_area = document.querySelector("#image_drop_area");
+	var uploaded_image;
+
+	image_drop_area.addEventListener('dragover', (event) => {
+		event.stopPropagation();
+		event.preventDefault();
+		event.dataTransfer.dropEffect = 'copy';
+	});
+
+	image_drop_area.addEventListener('drop', (event) => {
+		event.stopPropagation();
+		event.preventDefault();
+		const fileList = event.dataTransfer.files;		
+		readImage(fileList[0]);
+	});
+
+	readImage = (file) => {
+		const reader = new FileReader();
+		reader.addEventListener('load', (event) => {
+			uploaded_image = event.target.result; 
+			document.querySelector("#image_drop_area").style.backgroundImage = `url(${uploaded_image})`;
+		});
+		reader.readAsDataURL(file);
+	}
+
+
 });
-function reset_radios(){
+function reset_radios() {
 	$('input[type=radio]').prop('checked', false);
 }
 function precio_total() {
@@ -266,18 +290,18 @@ function buscarProductos() {
 	if (typeof origen === 'undefined') {
 		origen = 'vacio';
 	}
-	
+
 	var data = {
 		"genero": genero,
-			"material": material,
-			"talla": talla,
-			"color": color,
-			"patron": patron,
-			"origen": origen,
-			"tipo": tipo,
-			"prenda": prenda
+		"material": material,
+		"talla": talla,
+		"color": color,
+		"patron": patron,
+		"origen": origen,
+		"tipo": tipo,
+		"prenda": prenda
 	};
-	
+
 	console.log(data);
 
 	$.ajax({
@@ -337,7 +361,7 @@ function buscarProductos() {
 					'<div class="col-md-4 galeria-materiales">' +
 					'<a href="/item/' + info.productoId + '">' +
 					'<div class="galeria-cell">' +
-					'<img class="img-responsive"src="' + info.imageUrl + '"alt=""/>' +
+					'<img class="img-responsive"src="/img/catalogo/' + info.imageUrl[0] + '"alt=""/>' +
 					'<i class="fa-solid fa-bag-shopping fa-2x"></i>' +
 					'</div></a>' +
 					'<div class="row">' +
@@ -592,7 +616,7 @@ function direccionCliente(clienteId) {
 	});
 }
 
-function registrarProducto(){
+function registrarProducto() {
 	var token = $("meta[name='_csrf']").attr("content");
 	var header = $("meta[name='_csrf_header']").attr("content");
 
@@ -603,7 +627,6 @@ function registrarProducto(){
 	var color = $('[name="color"] option:selected').val();
 	var genero = $('[name="genero"] option:selected').val();
 	var precio = $('input[name="precio"]').val();
-	var imagen = $('input[name="imagen"]').val();
 	var material = $('[name="material"] option:selected').val();
 	var fibra = $('[name="fibra"] option:selected').val();
 	var estacion = $('[name="estacion"] option:selected').val();
@@ -611,6 +634,13 @@ function registrarProducto(){
 	var stock = $('input[name="stock"]').val();
 	var patron = $('[name="patron"] option:selected').val();
 	var origen = $('[name="origen"] option:selected').val();
+
+	var imagen = [];
+	$('input[name="imagen"]').each(function() {
+		if ($.trim(this.value).length) {
+			imagen.push($(this).val());
+		}
+	});
 
 	var data = {
 		"descripcion": descripcion,
@@ -629,9 +659,9 @@ function registrarProducto(){
 		"patron": patron,
 		"origen": origen
 	};
-	
+
 	console.log(data);
-	
+
 	$.ajax({
 		type: 'POST',
 		url: '/productos',

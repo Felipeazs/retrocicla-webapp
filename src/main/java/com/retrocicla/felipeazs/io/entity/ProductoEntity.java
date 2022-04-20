@@ -1,8 +1,10 @@
 package com.retrocicla.felipeazs.io.entity;
 
 import java.io.Serializable;
+import java.util.List;
 
 import javax.persistence.Column;
+import javax.persistence.ElementCollection;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -50,8 +52,8 @@ public class ProductoEntity implements Serializable {
     @Column(name="formato_precio", nullable=false)
     private String formato_precio;
         
-    @Lob
-    private String imageUrl;
+    @ElementCollection(targetClass=String.class)
+    private List<String> imageUrl;
     
     @Column(name="origen")
     private String origen;
@@ -119,11 +121,11 @@ public class ProductoEntity implements Serializable {
 		this.formato_precio = formato_precio;
 	}
 
-	public String getImageUrl() {
+	public List<String> getImageUrl() {
 		return imageUrl;
 	}
 
-	public void setImageUrl(String imageUrl) {
+	public void setImageUrl(List<String> imageUrl) {
 		this.imageUrl = imageUrl;
 	}
 

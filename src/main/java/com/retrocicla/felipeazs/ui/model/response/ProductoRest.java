@@ -1,6 +1,7 @@
 package com.retrocicla.felipeazs.ui.model.response;
 
 import java.io.Serializable;
+import java.util.List;
 
 public class ProductoRest implements Serializable {
 	
@@ -15,7 +16,7 @@ public class ProductoRest implements Serializable {
     private String patron;
     private int precio;
     private String formato_precio;  
-    private String imageUrl;
+    private List<String> imageUrl;
     private String origen;
     private String material;  
     private String estacion;
@@ -76,10 +77,10 @@ public class ProductoRest implements Serializable {
 	public void setFormato_precio(String formato_precio) {
 		this.formato_precio = formato_precio;
 	}
-	public String getImageUrl() {
+	public List<String> getImageUrl() {
 		return imageUrl;
 	}
-	public void setImageUrl(String imageUrl) {
+	public void setImageUrl(List<String> imageUrl) {
 		this.imageUrl = imageUrl;
 	}
 	

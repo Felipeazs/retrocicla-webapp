@@ -215,8 +215,8 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 									<div class="col-3 formulario">
 										<label for="">Patrón</label>
 										<select class="form-select form-select-sm" name="patron" id="">
-											<option value="true">patrón</option>
-											<option value="false">liso</option>
+											<option value="patrón">patrón</option>
+											<option value="liso">liso</option>
 										</select>
 									</div>
 								</div>
@@ -258,14 +258,38 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 									<div class="col-3 formulario">
 										<label for="">Origen</label>
 										<select class="form-select form-select-sm" name="origen" id="">
-											<option value="chile">Chile</option>
-											<option value="china">China</option>
+											<option value="Chile">Chile</option>
+											<option value="China">China</option>
 										</select>
 									</div>
 								</div>
 								<div class="row pb-2">
 									<div class="col-12 formulario">
-										<label for="">Imagen</label>
+										<label for="">Imagen 1</label>
+										<input name="imagen" type="text" class="input form-control form-control-sm" />
+									</div>
+								</div>
+								<div class="row pb-2">
+									<div class="col-12 formulario">
+										<label for="">Imagen 2</label>
+										<input name="imagen" type="text" class="input form-control form-control-sm" />
+									</div>
+								</div>
+								<div class="row pb-2">
+									<div class="col-12 formulario">
+										<label for="">Imagen 3</label>
+										<input name="imagen" type="text" class="input form-control form-control-sm" />
+									</div>
+								</div>
+								<div class="row pb-2">
+									<div class="col-12 formulario">
+										<label for="">Imagen 4</label>
+										<input name="imagen" type="text" class="input form-control form-control-sm" />
+									</div>
+								</div>
+								<div class="row pb-2">
+									<div class="col-12 formulario">
+										<label for="">Imagen 5</label>
 										<input name="imagen" type="text" class="input form-control form-control-sm" />
 									</div>
 								</div>

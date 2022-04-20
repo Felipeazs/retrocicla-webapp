@@ -133,7 +133,7 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 						aria-expanded="false"
 						aria-controls="tipo prenda genero talla color material patron origen "
 					>
-						Búsqueda avanzada
+						Desplegar opciones
 					</button>
 					<button class="btn btn-primary" type="button" onclick="reset_radios()">Reset</button>
 					<dl>
@@ -350,6 +350,9 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 										><input type="radio" value="algodón" id="_algodón" name="_material" />
 										Algodón</label
 									>
+									<label for="_lino"
+										><input type="radio" value="lino" id="_lino" name="_material" /> Lino</label
+									>
 									<label for="_poliester"
 										><input type="radio" value="poliester" id="_poliester" name="_material" />
 										Poliester</label
@@ -412,14 +415,13 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 							</div>
 						</dd>
 					</dl>
-					<hr />
-					<!-- <a href="" class="text-decoration-underline">Accesorios </a>
-					<hr />
-					<a href="" class="text-decoration-underline">Servicios</a>
-					<hr /> -->
 					<button class="btn btn-outline-primary text-align-center" onclick="buscarProductos()">
 						Buscar
 					</button>
+					<hr />
+					<a href="/busqueda-avanzada"
+						><button class="btn btn-primary" type="button">Búsqueda Avanzada</button></a
+					>
 					<hr />
 				</div>
 
@@ -432,21 +434,21 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 					<hr />
 					<c:choose>
 						<c:when test="${ not empty productos }">
-							<div id="productos_encontrados" class="row">
+							<div id="productos_encontrados" class="row pb-5">
 								<c:forEach items="${ productos }" var="p">
-									<div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 galeria-materiales">
+									<div class="col-sm-12 col-md-6 col-lg-6 col-xl-4 pb-5 galeria-materiales">
 										<a href="/item/${ p.productoId }">
 											<div class="galeria-cell">
 												<img
 													id="p_imageUrl"
 													class="img-responsive"
-													src="${ p.imageUrl }"
+													src="/img/catalogo/${ p.imageUrl[0] }"
 													alt=""
 												/>
 												<i class="fa-solid fa-bag-shopping fa-2x"></i>
 											</div>
 										</a>
-										<div class="row">
+										<div class="row text-center">
 											<div class="col-sm-12 col-md-12 ps-4 item">
 												<div><span>${ p.descripcion }</span></div>
 												<div>
@@ -458,7 +460,7 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 													<span class="fs-5">${ p.talla }</span>
 												</div>
 												<div>
-													<strong class="fs-3">${ p.formato_precio }</strong>
+													<strong class="fs-4">${ p.formato_precio }</strong>
 												</div>
 											</div>
 										</div>

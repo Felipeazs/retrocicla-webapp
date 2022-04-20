@@ -157,11 +157,79 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 					<div class="row">
 						<div class="col-md-6 sub-columna-2">
 							<div>
-								<img src="${ item.imageUrl }" alt="" />
+								<div
+									id="carouselExampleIndicators"
+									class="carousel carousel-dark slide"
+									data-bs-ride="carousel"
+								>
+									<div class="carousel-indicators">
+										<button
+											type="button"
+											data-bs-target="#carouselExampleIndicators"
+											data-bs-slide-to="0"
+											class="active"
+											aria-current="true"
+											aria-label="Slide 1"
+										></button>
+										<button
+											type="button"
+											data-bs-target="#carouselExampleIndicators"
+											data-bs-slide-to="1"
+											aria-label="Slide 2"
+										></button>
+										<button
+											type="button"
+											data-bs-target="#carouselExampleIndicators"
+											data-bs-slide-to="2"
+											aria-label="Slide 3"
+										></button>
+									</div>
+									<div class="carousel-inner">
+										<div class="carousel-item active">
+											<img
+												src="/img/catalogo/${ item.imageUrl[0] }"
+												class="d-block w-100"
+												alt="imagen-carousel-1"
+											/>
+										</div>
+										<div class="carousel-item">
+											<img
+												src="/img/catalogo/${ item.imageUrl[1] }"
+												class="d-block w-100"
+												alt="imagen-carousel-2"
+											/>
+										</div>
+										<div class="carousel-item">
+											<img
+												src="/img/catalogo/${ item.imageUrl[2] }"
+												class="d-block w-100"
+												alt="imagen-carousel-3"
+											/>
+										</div>
+									</div>
+									<button
+										class="carousel-control-prev"
+										type="button"
+										data-bs-target="#carouselExampleIndicators"
+										data-bs-slide="prev"
+									>
+										<span class="carousel-control-prev-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Previous</span>
+									</button>
+									<button
+										class="carousel-control-next"
+										type="button"
+										data-bs-target="#carouselExampleIndicators"
+										data-bs-slide="next"
+									>
+										<span class="carousel-control-next-icon" aria-hidden="true"></span>
+										<span class="visually-hidden">Next</span>
+									</button>
+								</div>
 							</div>
 						</div>
 
-						<div class="col-6-md-6 sub-columna-3">
+						<div class="col-md-6 sub-columna-3">
 							<div class="row">
 								<div class="evaluacion d-flex">
 									<div>
@@ -183,7 +251,7 @@ prefix="c"%><%@ taglib prefix="sec" uri="http://www.springframework.org/security
 
 								<div class="item fs-5 d-flex justify-content-between">
 									<span class="text-start">Marca</span>
-									<strong class="text-end" name="precio"> ${ item.formato_precio } </strong>
+									<strong class="text-end fs-4" name="precio"> ${ item.formato_precio } </strong>
 								</div>
 								<div class="item d-flex justify-content-between">
 									<span>Talla: ${ item.talla } </span>

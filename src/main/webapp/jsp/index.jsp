@@ -124,7 +124,7 @@ prefix="c" %>
 
 		<!-- Carousel inicial -->
 
-		<section>
+		<section class="index-carousel">
 			<div id="carouselExampleIndicators" class="carousel slide" data-bs-ride="carousel">
 				<div class="carousel-indicators">
 					<button

@@ -254,10 +254,10 @@ public class Utils {
 		case "vacio":
 			codigo = codigo.concat("%");
 			break;
-		case "china":
+		case "China":
 			codigo = codigo.concat("$CN");
 			break;
-		case "chile":
+		case "Chile":
 			codigo = codigo.concat("$CL");
 			break;
 		}
