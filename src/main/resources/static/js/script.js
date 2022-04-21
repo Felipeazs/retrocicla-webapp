@@ -214,26 +214,33 @@ $(document).ready(function() {
 		});
 	reader.readAsDataURL(file);
 	}
-
-	mobilenet.load().then((m) => {
-		// Save model
-		model = m;
-
-	});
 	
-	function classifyImage() {
-		model.classify(image).then(function(predictions) {
-			
-			
-			console.log("Predictions: ");
-			console.log(predictions);
-			displayDescription(predictions);
-		});
+	async function classifyImage() {
+		const modelURL = URL + "model.json";
+        const metadataURL = URL + "metadata.json";
+        
+        model = await tmImage.load(modelURL, metadataURL);
+        maxPredictions = model.getTotalClasses();
+        
+        await predict();
+		
 	}
+	
+	async function predict() {
+        // predict can take in an image, video or canvas html element
+       const predictions = await model.predict(image);
+       console.log(predictions);
+       for (let i = 0; i < maxPredictions; i++) {
+            const classPrediction = predictions[i].className + ": " + predictions[i].probability.toFixed(2);
+            console.log(classPrediction);
+       }     
+        displayDescription(predictions);
+    }
+	
 	function displayDescription(predictions) {
 	  // Sort by probability
-	  const result = predictions.sort((a, b) => a > b)[0];
-	
+	  const result = predictions.sort((a, b) => a.probability - b.probability)[2];
+	  console.log(result);
 	  if (result.probability > 0.2) {
 	    const probability = Math.round(result.probability * 100);
 	    console.log("probabilidad: " + probability);
