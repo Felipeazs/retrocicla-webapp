@@ -39,13 +39,17 @@ prefix="c"%>
 			crossorigin="anonymous"
 			referrerpolicy="no-referrer"
 		/>
+		<!-- TensorFlow-->
+		<script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@1.3.1/dist/tf.min.js"></script>
+		<!-- TensorFlow TeachableModel-->
+		<script src="https://cdn.jsdelivr.net/npm/@teachablemachine/image@0.8/dist/teachablemachine-image.min.js"></script>
 		<!---->
 		<link rel="stylesheet" href="css/flickity.css" />
 		<link rel="stylesheet" href="css/style.css" />
 		<script src="js/script.js"></script>
 		<title>Retrocicla</title>
 	</head>
-	<body>
+	<body class="loading">
 		<header class="container-fluid">
 			<div class="row header d-flex justify-content-between">
 				<div
@@ -121,6 +125,8 @@ prefix="c"%>
 			<div class="row drop-image" id="image_drop_area">
 				<div>
 					<h1 class="fw-bold">Arrastra la imagen a esta área</h1>
+					<img src="" id="image" alt="" />
+					<div><p id="prediction"></p></div>
 				</div>
 			</div>
 		</section>

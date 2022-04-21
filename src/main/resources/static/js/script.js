@@ -157,6 +157,7 @@ $(document).ready(function() {
 	//Modal
 	var myModal = document.getElementById('myModal')
 	var myInput = document.getElementById('myInput')
+	
 
 	if (myModal) {
 		myModal.addEventListener('shown.bs.modal', function() {
@@ -174,8 +175,14 @@ $(document).ready(function() {
 		}
 	}
 
+	//TENSOR-FLOW
 	const image_drop_area = document.querySelector("#image_drop_area");
-	var uploaded_image;
+	const image = document.querySelector("#image");
+	const description = document.getElementById("prediction");
+	
+	const URL = "https://teachablemachine.withgoogle.com/models/Wkxz3KIZ8/";
+
+    let model, labelContainer, maxPredictions;
 
 	image_drop_area.addEventListener('dragover', (event) => {
 		event.stopPropagation();
@@ -186,21 +193,64 @@ $(document).ready(function() {
 	image_drop_area.addEventListener('drop', (event) => {
 		event.stopPropagation();
 		event.preventDefault();
-		const fileList = event.dataTransfer.files;		
+		const fileList = event.dataTransfer.files;
 		readImage(fileList[0]);
 	});
 
 	readImage = (file) => {
 		const reader = new FileReader();
 		reader.addEventListener('load', (event) => {
-			uploaded_image = event.target.result; 
-			document.querySelector("#image_drop_area").style.backgroundImage = `url(${uploaded_image})`;
+			const dataUrl = event.target.result;
+			const imageElement = new Image();
+			imageElement.src = dataUrl;
+			imageElement.onload = function() {
+				image.setAttribute("src", this.src);
+				image.setAttribute("height", "300px");
+				image.setAttribute("width", "300px");
+
+				classifyImage();
+			};
+			/*document.querySelector("#image_drop_area").style.backgroundImage = `url(${uploaded_image})`;*/
 		});
-		reader.readAsDataURL(file);
+	reader.readAsDataURL(file);
 	}
 
+	mobilenet.load().then((m) => {
+		// Save model
+		model = m;
 
+	});
+	
+	function classifyImage() {
+		model.classify(image).then(function(predictions) {
+			
+			
+			console.log("Predictions: ");
+			console.log(predictions);
+			displayDescription(predictions);
+		});
+	}
+	function displayDescription(predictions) {
+	  // Sort by probability
+	  const result = predictions.sort((a, b) => a > b)[0];
+	
+	  if (result.probability > 0.2) {
+	    const probability = Math.round(result.probability * 100);
+	    console.log("probabilidad: " + probability);
+	
+	    // Display result
+	    description.innerText = `${probability}% shure this is a ${result.className.replace(
+	      ",",
+	      " or"
+	    )} 🐶`;
+	  } else description.innerText = "I am not shure what I should recognize 😢";
+	}
+	
+	//FIN TENSOR-FLOW
 });
+
+
+
 function reset_radios() {
 	$('input[type=radio]').prop('checked', false);
 }
