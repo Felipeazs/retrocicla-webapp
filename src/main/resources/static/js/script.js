@@ -111,8 +111,6 @@ $(document).ready(function() {
 	var formato_precio = formatter.format(total_envio);
 	$('#format_total_envio').html(formato_precio);
 
-
-
 	$('.galeria-cell').mouseover(function() {
 		$(this).find('i').css('display', 'inline');
 	});
@@ -156,8 +154,7 @@ $(document).ready(function() {
 
 	//Modal
 	var myModal = document.getElementById('myModal')
-	var myInput = document.getElementById('myInput')
-	
+	var myInput = document.getElementById('myInput')	
 
 	if (myModal) {
 		myModal.addEventListener('shown.bs.modal', function() {
@@ -180,23 +177,24 @@ $(document).ready(function() {
 	const image = document.querySelector("#image");
 	const description = document.getElementById("prediction");
 	
-	const URL = "https://teachablemachine.withgoogle.com/models/Wkxz3KIZ8/";
+	//const URL = "https://teachablemachine.withgoogle.com/models/Wkxz3KIZ8/";
+	const URL = "/model/"
 
     let model, labelContainer, maxPredictions;
 
-	image_drop_area.addEventListener('dragover', (event) => {
+	if (image_drop_area){
+		image_drop_area.addEventListener('dragover', (event) => {
 		event.stopPropagation();
 		event.preventDefault();
 		event.dataTransfer.dropEffect = 'copy';
 	});
-
-	image_drop_area.addEventListener('drop', (event) => {
-		event.stopPropagation();
-		event.preventDefault();
-		const fileList = event.dataTransfer.files;
-		readImage(fileList[0]);
-	});
-
+		image_drop_area.addEventListener('drop', (event) => {
+			event.stopPropagation();
+			event.preventDefault();
+			const fileList = event.dataTransfer.files;
+			readImage(fileList[0]);
+		});
+	}
 	readImage = (file) => {
 		const reader = new FileReader();
 		reader.addEventListener('load', (event) => {

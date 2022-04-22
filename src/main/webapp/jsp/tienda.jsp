@@ -119,8 +119,10 @@ prefix="c"%>
 		</nav>
 		<div class="container-fluid seccion-tienda">
 			<div class="row d-flex justify-content-center">
-				<div class="col-md-3 text-center">
-					<a href="/catalogo/mostrar_todo" class=""><button class="button fs-3">Búsqueda avanzada</button></a>
+				<div class="col-sm-12 col-md-3 text-center">
+					<a href="/catalogo/mostrar_todo" class="">
+						<button class="button busqueda fs-3">Búsqueda avanzada</button>
+					</a>
 				</div>
 			</div>
 		</div>

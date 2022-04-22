@@ -238,26 +238,26 @@ prefix="c" %>
 			<a href="/tienda"><p class="text-center">Tienda / Catálogo</p></a>
 			<div class="container galeria">
 				<div class="row d-flex justify-content-center">
-					<div class="col-md-3 galeria-cell">
+					<div class="col-md-3 galeria-cell index">
 						<img class="img-responsive" src="img/algodon-2.jpg" alt="" />
 						<div class="item">
 							<span class="fs-3">Tipo de prenda</span>
 						</div>
 					</div>
-					<div class="col-md-3 galeria-cell">
+					<div class="col-md-3 galeria-cell index">
 						<img src="img/seda-1.jpg" alt="" />
 
 						<div class="item">
 							<span class="fs-3">Materiales</span>
 						</div>
 					</div>
-					<div class="col-md-3 galeria-cell">
+					<div class="col-md-3 galeria-cell index">
 						<img src="img/tejidos.jpg" alt="" />
 						<div class="item">
 							<span class="fs-3">Accesorios</span>
 						</div>
 					</div>
-					<div class="col-md-3 galeria-cell">
+					<div class="col-md-3 galeria-cell index">
 						<img src="img/jacketDenim2.jpg" alt="" />
 						<div class="item">
 							<span class="fs-3">Servicios</span>
@@ -273,8 +273,6 @@ prefix="c" %>
 			<div class="row p-5">
 				<div class="col-sm-12 col-md-5 d-flex justify-content-center">
 					<iframe
-						width="560"
-						height="315"
 						src="https://www.youtube.com/embed/8m5d1pVFZNA"
 						title="YouTube video player"
 						frameborder="0"

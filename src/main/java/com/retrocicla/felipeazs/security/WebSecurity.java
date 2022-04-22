@@ -41,7 +41,7 @@ public class WebSecurity extends WebSecurityConfigurerAdapter {
 		//.antMatchers(HttpMethod.DELETE, "/clientes/**").hasRole("ADMIN")
 		.antMatchers("/swagger-ui/**", "/api-docs")
 		.permitAll()
-		.antMatchers("/css/**", "/js/**", "/img/**")
+		.antMatchers("/css/**", "/js/**", "/img/**", "/model/**")
 		.permitAll()
 		.antMatchers(
 				"/",
